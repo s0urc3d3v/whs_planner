@@ -1,11 +1,14 @@
 package WHS_planner.Core;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.*;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * Created by matthewelbing on 16.09.16.
@@ -71,5 +74,21 @@ public class JSON {
             return readArray(key);
         }
         return readObject(key);
+    }
+
+    public HashMap<Object, Object> dropJsonDb(){
+        HashMap<Object, Object> JsonData = new HashMap<Object, Object>();
+        try {
+            Object parseObject = parser.parse(new FileReader(filePath));
+            JSONObject jsonObject = (JSONObject) parseObject;
+            Object keySet = jsonObject.keySet();
+            Object dataSet = jsonObject.entrySet();
+            JsonData.put(keySet, dataSet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return JsonData;
     }
 }
