@@ -16,6 +16,8 @@ public class JSON {
 
     public JSON (String filepath) throws IOException {
         fileWriter = new FileWriter(filepath);
+        object = new JSONObject();
+        parser = new JSONParser();
     }
     public void writePair(String key, String data){
         JSONObject jsonObject = new JSONObject();
