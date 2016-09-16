@@ -7,7 +7,7 @@ public class a {
     public static void main(String[] args) {
         int calendar[][] = new int[5][7];
         int startDay;
-        int DayInMonth;
+        int dayInMonth;
 
         for (int r = 0; r < 5 ; r++) {
             for (int c = 0; c < 7; c++) {
@@ -15,12 +15,32 @@ public class a {
                     c = startDay;
 
                 }
-                System.out.println(""+DayInMonth);
-                DayInMonth ++;
+                System.out.println(""+dayInMonth);
+                dayInMonth ++;
             }
 
         }
 
         }
+        public static int[][] fillCalendarDates(int startDay1) {
+            int calendar[][] = new int[5][7];
+            int startDay = startDay1;
+
+            int dayInMonth = 1;
+
+            for (int r = 0; r < 5 ; r++) {
+                for (int c = 0; c < 7; c++) {
+                    if (r == 1) {
+                        c = startDay;
+
+                    }
+                    calendar[r][c] = dayInMonth
+                    dayInMonth ++;
+                }
+
+            }
+
+        }
+
     }
 }
