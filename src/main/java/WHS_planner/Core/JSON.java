@@ -18,7 +18,7 @@ public class JSON {
     private FileWriter fileWriter;
     private JSONObject object;
     private JSONParser parser;
-    private String filePath = "add_path";
+    private String filePath = "whs_planner\\src\\test\\java\\WHS_planner\\testDatabase\\test.json";
 
     public JSON () throws IOException {
         fileWriter = new FileWriter(filePath);
@@ -91,4 +91,5 @@ public class JSON {
         }
         return JsonData;
     }
+
 }
