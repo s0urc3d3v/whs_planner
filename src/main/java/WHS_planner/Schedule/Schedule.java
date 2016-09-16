@@ -1,7 +1,5 @@
 package WHS_planner.Schedule;
 
-import javafx.*;
-import javafx.scene.*;
 import javafx.scene.canvas.*;
 
 
