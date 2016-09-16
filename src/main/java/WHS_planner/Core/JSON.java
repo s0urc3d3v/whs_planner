@@ -12,9 +12,9 @@ import java.io.IOException;
  */
 public class JSON {
 
-    FileWriter fileWriter;
-    JSONObject object;
-    JSONParser parser;
+    private FileWriter fileWriter;
+    private JSONObject object;
+    private JSONParser parser;
 
     public JSON (String filepath) throws IOException {
         fileWriter = new FileWriter(filepath);
