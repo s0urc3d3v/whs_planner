@@ -27,6 +27,7 @@ public class JSON {
         updateFile();
     }
     public void writeArray(String key, Object data[]){
+        key = "@" + key;
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < data.length; i++) {
             jsonArray.add(data[i]);
