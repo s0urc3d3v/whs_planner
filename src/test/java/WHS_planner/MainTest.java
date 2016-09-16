@@ -5,16 +5,16 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for simple App.
+ * Unit test for simple Main.
  */
-public class AppTest
+public class MainTest
         extends TestCase {
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public AppTest(String testName) {
+    public MainTest(String testName) {
         super(testName);
     }
 
@@ -22,7 +22,7 @@ public class AppTest
      * @return the suite of tests being tested
      */
     public static Test suite() {
-        return new TestSuite(AppTest.class);
+        return new TestSuite(MainTest.class);
     }
 
     /**
