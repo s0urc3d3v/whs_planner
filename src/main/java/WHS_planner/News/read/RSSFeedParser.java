@@ -51,14 +51,18 @@ public class RSSFeedParser {
             String guid = "";
 
             // First create a new XMLInputFactory
+            //noinspection Since15,Since15
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
             // Setup a new eventReader
             InputStream in = read();
+            //noinspection Since15,Since15
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
             // read the XML document
             while (eventReader.hasNext()) {
+                //noinspection Since15,Since15
                 XMLEvent event = eventReader.nextEvent();
                 if (event.isStartElement()) {
+                    //noinspection Since15
                     String localPart = event.asStartElement().getName()
                             .getLocalPart();
                     switch (localPart) {
