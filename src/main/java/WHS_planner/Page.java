@@ -1,4 +1,4 @@
-package main.java.WHS_planner;
+package WHS_planner;
 import javafx.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

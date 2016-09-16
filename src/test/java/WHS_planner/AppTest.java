@@ -1,4 +1,4 @@
-package test.java.WHS_planner;
+package WHS_planner;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
