@@ -1,7 +1,7 @@
-package WHS_planner.Core;
+package WHS_planner;
 
 /**
  * Created by matthewelbing on 16.09.16.
  */
-public class a {
+public class JsonTest {
 }
