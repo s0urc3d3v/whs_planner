@@ -24,13 +24,14 @@ public class JSON {
     public void writePair(String key, String data){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(key, data);
+        updateFile();
     }
-    public void writeJsonArray(String key, Object data[]){
+    public void writeArray(String key, Object data[]){
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < data.length; i++) {
             jsonArray.add(data[i]);
         }
-
+        updateFile();
     }
     public void updateFile(){
         try {
