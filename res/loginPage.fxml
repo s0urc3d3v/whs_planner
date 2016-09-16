@@ -8,9 +8,10 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WHS_planner.CoreUI.SimpleController">
    <children>
-      <JFXButton layoutX="220.0" layoutY="235.0" prefHeight="50.0" prefWidth="160.0" text="Login">
+      <JFXButton fx:id="buttonTest" layoutX="220.0" layoutY="235.0" prefHeight="50.0" prefWidth="160.0" text="Login">
          <font>
             <Font size="19.0" />
          </font>
