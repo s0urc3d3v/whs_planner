@@ -1,4 +1,5 @@
 package WHS_planner.Core;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
@@ -23,7 +24,20 @@ public class JSON {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(key, data);
     }
-    public void writeJsonArray(String key, String data){
-
+    public void writeArray(String key, Object data[]){
+        key = "@" + key;
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < data.length; i++) {
+            jsonArray.add(data[i]);
+        }
+        updateFile();
+    }
+    public void updateFile(){
+        try {
+            fileWriter.write(object.toJSONString());
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
