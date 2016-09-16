@@ -15,11 +15,12 @@ public class JSON {
     private FileWriter fileWriter;
     private JSONObject object;
     private JSONParser parser;
+    private String filePath = "add_path";
 
-    public JSON (String filepath) throws IOException {
-        fileWriter = new FileWriter(filepath);
+    public JSON () throws IOException {
+        fileWriter = new FileWriter(filePath);
         try {
-            object =  (JSONObject) parser.parse(new FileReader(filepath));
+            object =  (JSONObject) parser.parse(new FileReader(filePath));
         } catch (ParseException e) {
             e.printStackTrace();
         }
