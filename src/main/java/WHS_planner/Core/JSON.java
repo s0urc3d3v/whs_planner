@@ -39,7 +39,6 @@ public class JSON {
         for (int i = 0; i < data.length; i++) {
             jsonArray.add(data[i]);
         }
-        updateFile();
     }
 
     public void updateFile(){
