@@ -1,14 +1,14 @@
 package WHS_planner;
 import javafx.*;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.*;
+import javafx.stage.*;
 
 /**
  * Created by tyler_brient on 9/15/16.
  */
 public abstract class Page {
     private int WIDTH, HEIGHT;
-    private Scene PageScene = new Scene(null, WIDTH, HEIGHT); //null needs to be the parent. Not really sure what this means yet...
+    private Scene PageScene = new Scene(null, WIDTH, HEIGHT); //null needs to be the root.
 
     public Page(int width, int height) {
         WIDTH = width;
