@@ -13,5 +13,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: com.jfoenix:jfoenix:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.rometools:rome:1.0RC2" level="project" />
   </component>
 </module>
