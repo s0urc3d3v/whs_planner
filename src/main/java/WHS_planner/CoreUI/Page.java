@@ -1,10 +1,14 @@
-package WHS_planner;
+package WHS_planner.CoreUI;
 import javafx.*;
 import javafx.scene.*;
 import javafx.stage.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXHamburger;
 
 /**
- * Created by tyler_brient on 9/15/16.
+ * shut up git theres nothing wrong with the default file template
  */
 public abstract class Page {
     private int WIDTH, HEIGHT;
@@ -19,6 +23,7 @@ public abstract class Page {
 
     public void refresh(){
         //Refresh the page
+        //tyler has a small dick
     }
 
 }
