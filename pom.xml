@@ -32,9 +32,14 @@
       <version>1.0.0</version>
     </dependency>
     <dependency>
-      <groupId>com.rometools</groupId>
+      <groupId>rome</groupId>
       <artifactId>rome</artifactId>
       <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom</artifactId>
+      <version>1.1</version>
     </dependency>
   </dependencies>
 </project>
