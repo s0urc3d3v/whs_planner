@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.net.URL;
 
 /**
@@ -45,24 +44,11 @@ public class Login extends Application{
         stage.show();
     }
 
-    private static void getAllFiles(File curDir) {
 
-        File[] filesList = curDir.listFiles();
-        for(File f : filesList){
-            if(f.isDirectory())
-                System.out.println(f.getName());
-            if(f.isFile()){
-                System.out.println(f.getName());
-            }
-        }
-
-    }
 
 
 
     public static void main(String[] args) {
         launch(args);
-//        File curDir = new File(".");
-//        getAllFiles(curDir);
     }
 }
