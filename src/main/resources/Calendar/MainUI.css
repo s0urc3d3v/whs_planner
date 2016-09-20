@@ -1,4 +1,8 @@
-.icon-container Label {
+.date {
+    -fx-font-size: 18px;
+}
+
+.icons Label {
      -fx-font-family: 'FontAwesome Regular';
-     -fx-font-size: 50px;
+     -fx-font-size: 36px;
 }
