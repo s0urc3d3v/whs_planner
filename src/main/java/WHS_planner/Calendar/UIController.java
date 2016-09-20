@@ -20,7 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.layout.HBox;
 
-public class TestController implements Initializable {
+public class UIController implements Initializable {
 
     @FXML
     private Label icon;

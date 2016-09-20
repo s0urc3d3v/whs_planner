@@ -20,7 +20,7 @@ public class CalendarUtility {
                     col = startDay;
                 }
                 FXMLLoader loader = new FXMLLoader();
-                loader.setController(new TestController());
+                loader.setController(new UIController());
                 loader.setResources(ResourceBundle.getBundle("fa.fontawesome"));
                 loader.setLocation(getClass().getResource("/calendarBox.fxml"));
 
