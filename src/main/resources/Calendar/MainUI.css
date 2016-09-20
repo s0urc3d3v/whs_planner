@@ -1,5 +1,5 @@
 .date-label {
-    -fx-font-size: 18px;
+    -fx-font-size: 14px;
     -fx-padding:8;
 }
 
@@ -26,4 +26,9 @@
 .box-button {
 	-fx-background-color: #62C3E3;
 	-fx-button-type: RAISED
+}
+
+#week-day {
+    -fx-font-weight: BOLD;
+    -fx-underline: true;
 }
