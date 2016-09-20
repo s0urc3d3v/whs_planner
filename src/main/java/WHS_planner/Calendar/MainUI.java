@@ -31,7 +31,7 @@ public class MainUI extends Application{
         //Generate the Calendar
         Pane[][] calendar = null;
         try {
-            calendar = util.generateCalendar(3, 30);
+            calendar = util.generateCalendar(3, 31);
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -18,7 +18,7 @@ public class UIController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources)
     {
-        icon.setText(resources.getString("FontAwesome.file_text_o"));
+        icon.setText(resources.getString("FontAwesome.file_text_o")); //Set the icon text to a file icon
     }
 }
 
