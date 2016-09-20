@@ -16,7 +16,7 @@ import java.io.InputStream;
 public class MainUI extends Application{
     @Override
     public void start(Stage stage) throws Exception {
-        InputStream font = MainUI.class.getResourceAsStream("/fa/fontawesome.ttf");
+        InputStream font = MainUI.class.getResourceAsStream("/FontAwesome/fontawesome.ttf");
         Font.loadFont(font, 10);
 
         GridPane gridPane = new GridPane();
@@ -42,7 +42,7 @@ public class MainUI extends Application{
         }
 
         Scene scene = new Scene(gridPane);
-        scene.getStylesheets().add("/fa/fontawesome.css");
+        scene.getStylesheets().add("/Calendar/MainUI.css");
 
         stage.setTitle("Calendar");
         stage.setScene(scene);

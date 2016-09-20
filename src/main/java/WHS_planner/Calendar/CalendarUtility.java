@@ -21,8 +21,8 @@ public class CalendarUtility {
                 }
                 FXMLLoader loader = new FXMLLoader();
                 loader.setController(new UIController());
-                loader.setResources(ResourceBundle.getBundle("fa.fontawesome"));
-                loader.setLocation(getClass().getResource("/calendarBox.fxml"));
+                loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
+                loader.setLocation(getClass().getResource("/Calendar/calendarBox.fxml"));
 
                 Pane calendarBoxPane = loader.load();
                 calendar[row][col] = calendarBoxPane;
