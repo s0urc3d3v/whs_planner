@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class CalendarUtility {
 
@@ -18,10 +19,15 @@ public class CalendarUtility {
                 if (row == 0&&dayInMonth == 1) {
                     col = startDay;
                 }
-                Pane calendarBoxPane = (Pane)(FXMLLoader.load(getClass().getResource("/calendarBox.fxml")));
+                FXMLLoader loader = new FXMLLoader();
+                loader.setController(new TestController());
+                loader.setResources(ResourceBundle.getBundle("fa.fontawesome"));
+                loader.setLocation(getClass().getResource("/calendarBox.fxml"));
+
+                Pane calendarBoxPane = loader.load();
                 calendar[row][col] = calendarBoxPane;
                 calendar[row][col].setId(dayInMonth+"");
-                Label label = (Label)calendar[row][col].getChildren().get(1);
+                Label label = (Label)calendar[row][col].getChildren().get(0);
                 label.setText(calendar[row][col].getId());
                 dayInMonth ++;
                 if(dayInMonth > numberOfDays){
