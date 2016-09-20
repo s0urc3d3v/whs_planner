@@ -32,7 +32,9 @@ public class CalendarUtility {
                 loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
                 loader.setLocation(getClass().getResource("/Calendar/calendarBox.fxml"));
 
+                //Load in a calendarBox
                 Pane calendarBoxPane = loader.load();
+
                 calendar[row][col] = calendarBoxPane;
                 calendar[row][col].setId(dayInMonth+"");
                 Label label = (Label)calendar[row][col].getChildren().get(0);
