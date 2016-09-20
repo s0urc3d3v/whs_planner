@@ -6,8 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.*;
 import javafx.stage.Stage;
 
-import static javafx.application.Application.launch;
-
 
 public class Schedule extends Application
 {
@@ -16,7 +14,8 @@ public class Schedule extends Application
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch(args);
     }
 
@@ -26,7 +25,7 @@ public class Schedule extends Application
     {
         primaryStage.setTitle("Drawing Operations Test");
         Group root = new Group();
-        Canvas canvas = drawSchedule(800, 800);
+        Canvas canvas = drawSchedule(801, 800);
         root.getChildren().add(canvas);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
@@ -38,7 +37,7 @@ public class Schedule extends Application
         Canvas canvas = new Canvas(w, h);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        //gc.setLineWidth(2);
+
 
         //makes horizontal lines
         for (int i = 0; i < 9; i++)
