@@ -1,54 +1,40 @@
 package WHS_planner.CoreUI;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
-import java.net.URL;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
+
 
 /**
  * Created by andrew_eggleston on 9/16/16.
  */
-public class ErrorPage extends Application{
+public class ErrorPage{
 
-    public void start(Stage stage) throws Exception{
+    private static void infoBox(String infoMessage, String titleBar)
+    {
+        /* By specifying a null headerMessage String, we cause the dialog to
+           not have a header */
+        infoBox(infoMessage, titleBar, null);
+    }
 
+    private static void infoBox(String infoMessage, String titleBar, String headerMessage)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titleBar);
+        alert.setHeaderText(headerMessage);
+        alert.setContentText(infoMessage);
+        alert.showAndWait();
+    }
 
-        String sceneFile = "/res/errorPage.fxml";
-        Parent root = null;
-        URL    url  = null;
-
-        try
-        {
-            url  = getClass().getResource("/errorPage.fxml");
-            root = FXMLLoader.load(url);
-            System.out.println( "  fxmlResource = " + sceneFile );
-        }
-        catch ( Exception ex )
-        {
-            System.out.println( "Exception on FXMLLoader.load()" );
-            System.out.println( "  * url: " + url );
-            System.out.println( "  * " + ex );
-            System.out.println( "    ----------------------------------------\n" );
-            throw ex;
-        }
-
-//        Parent root = FXMLLoader.load(getClass().getResource("/loginPage.fxml")); //root is the fxml "loginPage" in the src dir
-
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
+    public static void displayErrorWithMsg(String infoMessage){
+        infoBox(infoMessage, "Unhandled Exception");
     }
 
 
 
 
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+
+
 }
