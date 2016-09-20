@@ -16,34 +16,42 @@ import java.io.InputStream;
 public class MainUI extends Application{
     @Override
     public void start(Stage stage) throws Exception {
+        CalendarUtility util = new CalendarUtility();
+
+        //Loads the ttf font file into the program
         InputStream font = MainUI.class.getResourceAsStream("/FontAwesome/fontawesome.ttf");
         Font.loadFont(font, 10);
 
+        //Set up the grid container
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10,10,10,10));
 
-        CalendarUtility util = new CalendarUtility();
-
-        Pane[][] panes = null;
+        //Generate the Calendar
+        Pane[][] calendar = null;
         try {
-            panes = util.generateCalendar(3, 30);
+            calendar = util.generateCalendar(3, 30);
         }catch (Exception e){
             e.printStackTrace();
         }
 
+        //Add the generated Calendar to the grid container
         for (int r = 0; r < 5 ; r++) {
             for (int c = 0; c < 7; c++) {
-                if (panes[r][c] != null) {
-                    gridPane.add(panes[r][c], c, r);
+                if (calendar[r][c] != null) {
+                    gridPane.add(calendar[r][c], c, r);
                 }
             }
         }
 
+        //Set the scene to the grid container
         Scene scene = new Scene(gridPane);
+
+        //Set the stylesheet
         scene.getStylesheets().add("/Calendar/MainUI.css");
 
+        //Final Stage initiation
         stage.setTitle("Calendar");
         stage.setScene(scene);
         stage.show();
