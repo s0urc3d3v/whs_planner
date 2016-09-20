@@ -1,5 +1,5 @@
 package WHS_planner.CoreUI;
-import javafx.*;
+//import javafx.*;
 import javafx.scene.*;
 import javafx.stage.*;
 import com.jfoenix.controls.JFXButton;
@@ -22,7 +22,7 @@ public abstract class Page {
 
     public void refresh(){
         //Refresh the page
-        //tyler has a small dick
+
     }
 
 }
