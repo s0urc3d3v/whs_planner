@@ -7,7 +7,6 @@ import com.sun.syndication.io.XmlReader;
 import java.io.IOException;
 import java.net.URL;
 
-
 /**
  * Created by matthewelbing on 17.09.16.
  */
