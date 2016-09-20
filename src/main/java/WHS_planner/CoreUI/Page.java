@@ -1,9 +1,9 @@
-package WHS_planner.CoreUI;
+package WHS_planner;
 import javafx.scene.*;
 import javafx.stage.*;
 
 /**
- * shut up git theres nothing wrong with the default file template
+ * Created by tyler_brient on 9/15/16.
  */
 public abstract class Page {
     private int WIDTH, HEIGHT;
