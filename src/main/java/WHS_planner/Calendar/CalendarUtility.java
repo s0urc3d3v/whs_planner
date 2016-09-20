@@ -2,6 +2,7 @@ package WHS_planner.Calendar;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -30,14 +31,15 @@ public class CalendarUtility {
                 loader = new FXMLLoader();
                 loader.setController(new UIController());
                 loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
-                loader.setLocation(getClass().getResource("/Calendar/calendarBox.fxml"));
+                loader.setLocation(getClass().getResource("/Calendar/calendarBoxV2.fxml"));
 
                 //Load in a calendarBox
                 Pane calendarBoxPane = loader.load();
 
                 calendar[row][col] = calendarBoxPane;
                 calendar[row][col].setId(dayInMonth+"");
-                Label label = (Label)calendar[row][col].getChildren().get(1);
+//                Label label = (Label)calendar[row][col].getChildren().get(1);
+                Label label = (Label)calendar[row][col].lookup("#date");
                 label.setText(calendar[row][col].getId());
                 dayInMonth ++;
                 if(dayInMonth > numberOfDays){

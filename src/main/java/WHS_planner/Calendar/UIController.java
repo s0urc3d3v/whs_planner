@@ -14,11 +14,12 @@ import javafx.scene.control.Label;
 public class UIController implements Initializable {
 
     @FXML
-    private Label icon;
+    private Label icon,icon2;
 
     public void initialize(URL location, ResourceBundle resources)
     {
         icon.setText(resources.getString("FontAwesome.file_text_o")); //Set the icon text to a file icon
+        icon2.setText(resources.getString("FontAwesome.check")); //Set the icon text to a file icon
     }
 }
 
