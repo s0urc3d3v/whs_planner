@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXBadge?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #62C3E3;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="date" layoutX="9.0" layoutY="6.0" styleClass="date" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="8.0" />
-      <HBox fx:id="iconContainer" alignment="CENTER" styleClass="icons" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label fx:id="icon" alignment="CENTER" contentDisplay="CENTER">
-               <padding>
-                  <Insets right="10.0" left="10.0" top="10.0" bottom="10.0" />
-               </padding></Label>
-         </children>
-      </HBox>
+       <JFXButton styleClass="box-button" fx:id="button"  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+       <Label fx:id="date" layoutX="9.0" layoutY="6.0" styleClass="date-label" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="8.0" />
+
+       <HBox fx:id="iconContainer" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+           <children>
+               <JFXBadge fx:id="badge" position="TOP_RIGHT" styleClass="icon-badge" text="13">
+                   <Label fx:id="icon" alignment="CENTER" contentDisplay="CENTER" styleClass="icon">
+                       <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                       </padding>
+                   </Label>
+               </JFXBadge>
+           </children>
+       </HBox>
    </children>
-   <effect>
-      <DropShadow />
-   </effect>
 </AnchorPane>

@@ -37,7 +37,7 @@ public class CalendarUtility {
 
                 calendar[row][col] = calendarBoxPane;
                 calendar[row][col].setId(dayInMonth+"");
-                Label label = (Label)calendar[row][col].getChildren().get(0);
+                Label label = (Label)calendar[row][col].getChildren().get(1);
                 label.setText(calendar[row][col].getId());
                 dayInMonth ++;
                 if(dayInMonth > numberOfDays){

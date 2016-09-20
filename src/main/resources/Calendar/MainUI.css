@@ -1,8 +1,28 @@
-.date {
+.date-label {
     -fx-font-size: 18px;
 }
 
-.icons Label {
+.icon {
      -fx-font-family: 'FontAwesome Regular';
      -fx-font-size: 36px;
+     -fx-padding: 10;
+}
+
+.icon-badge .badge-pane {
+	-fx-background-color:#E38262;
+	-fx-background-radius: 23;
+	-fx-pref-width: 23;
+	-fx-pref-height: 23;
+	-fx-alignment: center;
+}
+
+.icons-badge Label{
+	-fx-font-weight: BOLD;
+	-fx-font-size: 14.0px;
+	-fx-text-fill: WHITE;
+}
+
+.box-button {
+	-fx-background-color: #62C3E3;
+	-fx-button-type: RAISED
 }
