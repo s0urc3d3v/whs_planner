@@ -19,7 +19,7 @@ public class JSON {
     private FileWriter fileWriter;
     private JSONObject object;
     private JSONParser parser;
-    private String filePath = "";
+    private String filePath;
 
     public JSON () throws IOException {
        parser = new JSONParser();
@@ -49,18 +49,6 @@ public class JSON {
         return true;
     }
 
-    public void writePair(String key, String data){
-        object.put(key, data);
-    }
-
-    public void writeArray(String key, Object data[]){
-        key = "@" + key;
-        JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < data.length; i++) {
-            jsonArray.add(data[i]);
-        }
-    }
-
     /**
      * Once the file is unloaded it cannot be read from or written from until a new file is loaded with loadFile.
      */
@@ -73,6 +61,10 @@ public class JSON {
             ErrorHandler.HandleIOError(e);
         }
     }
+
+    /*
+    READING METHODS
+     */
 
     public Object readObject(String key) {
         return object.get(key);
@@ -111,6 +103,22 @@ public class JSON {
             e.printStackTrace();
         }
         return JsonData;
+    }
+
+    /*
+    WRITE METHODS
+     */
+
+    public void writePair(String key, String data){
+        object.put(key, data);
+    }
+
+    public void writeArray(String key, Object data[]){
+        key = "@" + key;
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < data.length; i++) {
+            jsonArray.add(data[i]);
+        }
     }
 
 }
