@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,18 +18,17 @@ public class JSON {
 
     private FileWriter fileWriter;
     private JSONObject object;
-    private JSONParser parser;
-    private String filePath = ;
+    private JSONParser parser = new JSONParser();
+    private String filePath = "/Users/john_bachman/IdeaProjects/whs_planner/src/test/java/WHS_planner/testDatabase/test.json";
 
     public JSON () throws IOException {
-        this.filePath = filePath;
-        fileWriter = new FileWriter(filePath);
         try {
-            object = (JSONObject) parser.parse(new FileReader(filePath));
+            Object raw = parser.parse(new FileReader(filePath));
+            object = (JSONObject) raw;
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        object = new JSONObject();
+        fileWriter = new FileWriter(filePath);
         parser = new JSONParser();
     }
 

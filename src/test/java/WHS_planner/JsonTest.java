@@ -11,7 +11,7 @@ import java.io.IOException;
 public class JsonTest extends TestCase {
     public void testWritePair(){
         try {
-            JSON JsonApi = new JSON("/Users/john_bachman/IdeaProjects/whs_planner/src/test/java/WHS_planner/testDatabase/test.json");
+            JSON JsonApi = new JSON();
             JsonApi.writePair("test", "test data");
             JsonApi.updateFile();
         } catch (IOException e) {
