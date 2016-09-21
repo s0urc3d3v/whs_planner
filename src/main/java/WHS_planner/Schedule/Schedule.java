@@ -5,23 +5,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import java.awt.*;
-import java.awt.Label;
-
 
 public class Schedule extends Application
 {
     javafx.scene.control.Label[][] classes = new javafx.scene.control.Label[6][9];
-
     Pane rootLayout;
 
     public static void main(String[] args)
     {
-
-
         launch(args);
     }
 
