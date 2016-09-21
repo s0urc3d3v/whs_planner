@@ -8,6 +8,6 @@ import junit.framework.TestCase;
 public class ErrorHandlerTest extends TestCase{
 
     public void testCreateErrorLog() throws Exception {
-
+        System.out.println("test");
     }
 }

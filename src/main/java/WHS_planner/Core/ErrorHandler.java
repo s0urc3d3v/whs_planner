@@ -8,6 +8,11 @@ public class ErrorHandler {
 
     }
 
+    /**
+     * Generates a formatted ascii output of an error writes it to the console and returns it.
+     * @param e Exception to be logged
+     * @return Log Text
+     */
     private static String CreateErrorLog(Exception e){
         Logger genericErrorLogger = LoggerFactory.getLogger(ErrorHandler.class);
         StackTraceElement[] stackTrace = e.getStackTrace();
