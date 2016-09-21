@@ -16,13 +16,13 @@ public class Login extends Application{
     public void start(Stage stage) throws Exception{
 
 
-        String sceneFile = "/res/loginPage.fxml";
+        String sceneFile = "/CoreUI/loginPage.fxml";
         Parent root = null;
         URL    url  = null;
 
         try
         {
-            url  = getClass().getResource("/loginPage.fxml");
+            url  = getClass().getResource("/CoreUI/loginPage.fxml");
             root = FXMLLoader.load(url);
             System.out.println( "  fxmlResource = " + sceneFile );
         }
@@ -35,7 +35,6 @@ public class Login extends Application{
             throw ex;
         }
 
-//        Parent root = FXMLLoader.load(getClass().getResource("/loginPage.fxml")); //root is the fxml "loginPage" in the src dir
 
 
         Scene scene = new Scene(root);
