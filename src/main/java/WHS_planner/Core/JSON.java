@@ -26,6 +26,7 @@ public class JSON {
     }
 
     /**
+     * Loads JSON file into memory
      @Param filePath
      @return If the file was successfully loaded
      */
@@ -50,7 +51,8 @@ public class JSON {
     }
 
     /**
-     * Once the file is unloaded it cannot be read from or written from until a new file is loaded with loadFile.
+     * Unload a file from memory
+     * Note: Once the file is unloaded it cannot be read from or written from until a new file is loaded with loadFile.
      */
     public void unloadFile(){
         try {
