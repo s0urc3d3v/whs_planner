@@ -1,7 +1,11 @@
 package WHS_planner.Calendar;
 
+import com.jfoenix.controls.JFXBadge;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -37,6 +41,8 @@ public class CalendarBox {
         calendarBoxPane.setId(dateString);
         Label label = (Label)calendarBoxPane.lookup("#date");
         label.setText(dateString);
+        homework.add(null);//TODO remove these
+        tests.add(null);//TODO remove these
         update();
     }
 
@@ -54,6 +60,32 @@ public class CalendarBox {
     }
 
     public void update(){
+        HBox iconContainer = (HBox)calendarBoxPane.lookup("#iconContainer");
 
+        ArrayList<Node> icons = new ArrayList<Node>();
+
+        if(getHomeworkCount() != 0){
+            Label icon = new Label();
+            icon.getStyleClass().add("icon");
+            icon.setId("homework-icon");
+
+            JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
+            badge.getStyleClass().add("icon-badge");
+            badge.setText(""+getHomeworkCount());
+            icons.add(badge);
+        }
+
+        if(getTestsCount() != 0){
+            Label icon = new Label();
+            icon.getStyleClass().add("icon");
+            icon.setId("test-icon");
+            icon.setText("A");
+
+            JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
+            badge.getStyleClass().add("icon-badge");
+            badge.setText(""+getTestsCount());
+            icons.add(badge);
+        }
+        iconContainer.getChildren().setAll(icons);
     }
 }
