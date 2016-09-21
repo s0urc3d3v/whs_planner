@@ -22,6 +22,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <!-- jsoup HTML parser library @ http://jsoup.org/ -->
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.9.2</version>
+    </dependency>
+    <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
       <version>1.1.1</version>
@@ -31,6 +37,7 @@
       <artifactId>jfoenix</artifactId>
       <version>1.0.0</version>
     </dependency>
+
   </dependencies>
 
   <build>
