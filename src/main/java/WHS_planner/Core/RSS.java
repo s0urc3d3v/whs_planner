@@ -22,7 +22,7 @@ public class RSS {
 
         } catch (Exception e) {
             e.printStackTrace();
-            ErrorHandler.handleGenericError(); //TODO Create error message and screen
+           // ErrorHandler.handleGenericError("Fill this in", new Exception()); //TODO Create error message and screen
         }
     }
     public SyndFeed getRssFeed(){

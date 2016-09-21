@@ -1,24 +1,27 @@
 package WHS_planner.Schedule;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.*;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.awt.*;
+import java.awt.Label;
 
 
 public class Schedule extends Application
 {
-    Label[][] classes = new Label[6][9];
+    javafx.scene.control.Label[][] classes = new javafx.scene.control.Label[6][9];
 
-    Pane rootlayout;
+    Pane rootLayout;
 
     public static void main(String[] args)
     {
+
+
         launch(args);
     }
 
@@ -27,18 +30,31 @@ public class Schedule extends Application
     {
         PrimaryStage.setTitle("Schedule");
 
+        classes[0][0] = new javafx.scene.control.Label();
+        classes[0][0].setText("memes");
         try
         {
             FXMLLoader loader = new FXMLLoader();
 
-            loader.setLocation(Schedule.class.getResource("schedule.fxml"));
 
+            loader.setLocation(getClass().getResource("/Schedule/scheduletest.fxml"));
 
-            //error location not set fix it
-            rootlayout = loader.load();
+            rootLayout = loader.load();
 
-            Scene scene = new Scene(rootlayout);
+            Scene scene = new Scene(rootLayout);
 
+            scene.widthProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+
+                }
+            });
+            scene.heightProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+
+                }
+            });
+
+            PrimaryStage.setResizable(true);
             PrimaryStage.setScene(scene);
             PrimaryStage.show();
         }
