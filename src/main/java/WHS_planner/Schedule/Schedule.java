@@ -55,6 +55,8 @@ public class Schedule extends Application
             });
 
             PrimaryStage.setResizable(true);
+            PrimaryStage.setMinHeight(520);
+            PrimaryStage.setMinWidth(573);
             PrimaryStage.setScene(scene);
             PrimaryStage.show();
         }
