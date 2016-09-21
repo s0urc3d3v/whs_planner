@@ -14,9 +14,6 @@ public class SimpleController implements Initializable {
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         buttonTest.setText("Login Better!");
-
-        // initialize your logic here: all @FXML variables will have been injected
-
     }
 
 
