@@ -1,5 +1,6 @@
 package WHS_planner;
 
+import WHS_planner.Core.ErrorHandler;
 import junit.framework.TestCase;
 
 /**
@@ -7,7 +8,8 @@ import junit.framework.TestCase;
  */
 public class ErrorHandlerTest extends TestCase{
 
-    public void testCreateErrorLog() throws Exception {
-        System.out.println("test");
+    public void testHandleGenericError() throws Exception {
+
+        ErrorHandler.handleGenericError("test_txt", new Exception());
     }
 }
