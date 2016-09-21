@@ -30,7 +30,7 @@
   <build>
     <resources>
       <resource>
-        <directory>res</directory>
+        <directory>/src/main/resources</directory>
       </resource>
     </resources>
   </build>
