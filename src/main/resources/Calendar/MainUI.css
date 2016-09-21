@@ -28,7 +28,11 @@
 	-fx-button-type: RAISED
 }
 
-#week-day {
+.week-day {
     -fx-font-weight: BOLD;
     -fx-underline: true;
+}
+
+.box {
+    -fx-padding:0;
 }

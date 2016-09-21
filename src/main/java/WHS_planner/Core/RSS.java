@@ -19,6 +19,7 @@ public class RSS {
             SyndFeedInput feedInput = new SyndFeedInput();
             feedUrl = (URL) json.readObject("feedurl");
             feed = feedInput.build(new XmlReader(feedUrl));
+
         } catch (Exception e) {
             e.printStackTrace();
             ErrorHandler.handleGenericError(); //TODO Create error message and screen

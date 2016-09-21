@@ -35,24 +35,35 @@ public class CalendarBox extends Pane{
         this.tests = new ArrayList<Task>();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setController(new UIController());
         loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
-        loader.setLocation(getClass().getResource("/Calendar/calendarBoxV2.fxml"));
 
-        try {//TODO Replace this with errorhandler
-            calendarBoxPane = loader.load();
-        }catch(Exception e){
-            e.printStackTrace();
+        if(date != 0) {
+            loader.setController(new UIController());
+            loader.setLocation(getClass().getResource("/Calendar/calendarBoxV2.fxml"));
+
+            try {//TODO Replace this with errorhandler
+                calendarBoxPane = loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String dateString = date + "";
+            this.setId("calendar-box");
+            Label label = (Label) calendarBoxPane.lookup("#date");
+            label.setText(dateString);
+            tests.add(null);//TODO remove these
+            tests.add(null);//TODO remove these
+            update();
+        }else{
+            loader.setLocation(getClass().getResource("/Calendar/calendarBoxV2-empty.fxml"));
+            try {//TODO Replace this with errorhandler
+                calendarBoxPane = loader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            this.getChildren().setAll(calendarBoxPane);
         }
-        String dateString = date+"";
-        calendarBoxPane.setId(dateString);
-        this.setId("calendar-box");//TODO replace this
-        Label label = (Label)calendarBoxPane.lookup("#date");
-        label.setText(dateString);
-        homework.add(null);//TODO remove these
-        tests.add(null);//TODO remove these
-        tests.add(null);
-        update();
+
+        this.getStyleClass().add("box");
     }
 
     public int getHomeworkCount(){
