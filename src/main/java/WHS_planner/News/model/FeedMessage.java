@@ -1,5 +1,9 @@
 package WHS_planner.News.model;
 
+import WHS_planner.News.read.HTMLParser;
+
+import javax.swing.text.html.HTML;
+
 public class FeedMessage {
 
     String title;
@@ -48,8 +52,18 @@ public class FeedMessage {
         this.guid = guid;
     }
 
+
+    public void commencePurge()
+    {
+        HTMLParser parser = new HTMLParser();
+        title = parser.Escape(title);
+        description = parser.Escape(description);
+
+    }
+
     @Override
     public String toString() {
+        commencePurge();
         return "FeedMessage [title=" + title + ", description=" + description
                 + ", link=" + link + ", author=" + author + ", guid=" + guid
                 + "]";

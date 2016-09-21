@@ -116,6 +116,7 @@ public class RSSFeedParser {
         } catch (XMLStreamException e) {
             throw new RuntimeException(e);
         }
+
         return feed;
     }
 

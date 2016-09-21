@@ -11,13 +11,13 @@ import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
 
 public class HTMLParser {
-    String y = new String();
+    String y;
 
     public HTMLParser()
     {
 
     }
-    private String Escape(String x)
+    public String Escape(String x)
     {
         y = Jsoup.parse(x).text();
         return y;
