@@ -24,17 +24,21 @@ public class UIController implements Initializable {
     private HBox iconContainer;
 
     public void initialize(URL location, ResourceBundle resources) {
+        updateIcons(resources);
         button.setOnMouseClicked((event -> {
-            if(iconContainer.lookup("#homework-icon") != null){
-                Label icon = (Label)(iconContainer.lookup("#homework-icon"));
-                icon.setText(resources.getString("FontAwesome.file_text_o")); //Set the icon text to a file icon
-            }
-            if(iconContainer.lookup("#test-icon") != null){
-                Label icon = (Label)(iconContainer.lookup("#test-icon"));
-                icon.setText(resources.getString("FontAwesome.check")); //Set the icon text to a file icon
-            }
+            updateIcons(resources);
         }));
-//        icon.setText(resources.getString("FontAwesome.file_text_o")); //Set the icon text to a file icon
+    }
+
+    public void updateIcons(ResourceBundle resources){
+        if(iconContainer.lookup("#homework-icon") != null){
+            Label icon = (Label)(iconContainer.lookup("#homework-icon"));
+            icon.setText(resources.getString("FontAwesome.file_text_o")); //Set the icon text to a file icon
+        }
+        if(iconContainer.lookup("#test-icon") != null){
+            Label icon = (Label)(iconContainer.lookup("#test-icon"));
+            icon.setText(resources.getString("FontAwesome.check")); //Set the icon text to a file icon
+        }
     }
 }
 

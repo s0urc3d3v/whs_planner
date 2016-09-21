@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -43,6 +44,7 @@ public class CalendarBox {
         label.setText(dateString);
         homework.add(null);//TODO remove these
         tests.add(null);//TODO remove these
+        tests.add(null);
         update();
     }
 
@@ -68,6 +70,7 @@ public class CalendarBox {
             Label icon = new Label();
             icon.getStyleClass().add("icon");
             icon.setId("homework-icon");
+            icon.setText("\uf00c"); //File Icon
 
             JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
             badge.getStyleClass().add("icon-badge");
@@ -79,7 +82,7 @@ public class CalendarBox {
             Label icon = new Label();
             icon.getStyleClass().add("icon");
             icon.setId("test-icon");
-            icon.setText("A");
+            icon.setText("\uf0f6"); //Check Icon
 
             JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
             badge.getStyleClass().add("icon-badge");
@@ -87,5 +90,13 @@ public class CalendarBox {
             icons.add(badge);
         }
         iconContainer.getChildren().setAll(icons);
+    }
+
+    public void addHomework(Task task){
+        homework.add(task);
+    }
+
+    public void addTest(Task task){
+        tests.add(task);
     }
 }
