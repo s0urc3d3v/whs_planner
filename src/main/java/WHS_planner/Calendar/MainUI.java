@@ -5,9 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -40,55 +38,82 @@ public class MainUI extends Application{
         }
 
 //-------------------------------VBOX Implementation-----------------------------------------
-//        VBox vbox = new VBox();
-//        vbox.setPadding(new Insets(14,0,0,14));//TODO Fix without hardcoding
-//        ArrayList<GridPane> rows = new ArrayList<GridPane>();
-//
-//        for (int r = 0; r < calendar.length ; r++) {
-//            GridPane row = new GridPane();
-//            row.setAlignment(Pos.CENTER);
-//            for (int c = 0; c < calendar[r].length; c++) {
-//                if (calendar[r][c] != null) {
-//                    row.add(calendar[r][c], c, 0);
-//                }else{
-//                    row.add(new CalendarBox(0,0,null),c,0);//TODO Fix without hardcoding
-//                }
-//            }
-//            rows.add(row);
-//        }
-//
-//        vbox.getChildren().setAll(rows);
-//
-//        //Set the scene to the grid container
-//        Scene scene = new Scene(vbox);
-//-------------------------------------------------------------------------------------------
+        VBox vbox = new VBox();
+        vbox.setPadding(new Insets(5,5,5,5));
+        ArrayList<GridPane> rows = new ArrayList<GridPane>();
 
-//--------------------------Grid Implementation----------------------------------------------
+        //Add the week days and first row to the calendar
+        GridPane firstRow = new GridPane();
+        firstRow.setAlignment(Pos.CENTER);
+        firstRow.setHgap(10);
+        firstRow.setVgap(10);
+        firstRow.setPadding(new Insets(5,5,5,5));
 
-        //Set up the grid container
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(10,10,10,10));
-
-        //Add the week day to the calendar
         for (int dayIndex = 0; dayIndex < daysOfTheWeek.length; dayIndex++) {
             Label dayLabel = new Label(daysOfTheWeek[dayIndex]);
             dayLabel.getStyleClass().add("week-day");
-            gridPane.add(new Label(daysOfTheWeek[dayIndex]),dayIndex,0);
+            firstRow.add(new Label(daysOfTheWeek[dayIndex]),dayIndex,0);
         }
-
-        //Add the generated Calendar to the grid container
-        for (int r = 0; r < 5 ; r++) {
-            for (int c = 0; c < 7; c++) {
-                if (calendar[r][c] != null) {
-                    gridPane.add(calendar[r][c], c, r+1);
-                }
+        for (int c = 0; c < calendar[0].length; c++) {
+            if (calendar[0][c] != null) {
+                firstRow.add(calendar[0][c], c, 1);
+            }else{
+                firstRow.add(new CalendarBox(0,0,null),c,1);
             }
         }
+        rows.add(firstRow);
+
+
+        //Fill in rest of the calendar
+        for (int r = 1; r < calendar.length ; r++) {
+            GridPane row = new GridPane();
+            row.setAlignment(Pos.CENTER);
+            row.setHgap(10);
+            row.setPadding(new Insets(5,5,5,5));
+            for (int c = 0; c < calendar[r].length; c++) {
+                if (calendar[r][c] != null) {
+                    row.add(calendar[r][c], c, 0);
+                }else{
+                    row.add(new CalendarBox(0,0,null),c,0);
+                }
+            }
+            rows.add(row);
+        }
+
+        vbox.getChildren().setAll(rows);
 
         //Set the scene to the grid container
-        Scene scene = new Scene(gridPane);
+        Scene scene = new Scene(vbox);
+//-------------------------------------------------------------------------------------------
+
+        String useless = "THIS IS JUST A PLACEHOLDER TO SEPARATE COMMENTS!";//TODO REMOVE!!
+
+//--------------------------Grid Implementation----------------------------------------------
+//
+//        //Set up the grid container
+//        GridPane gridPane = new GridPane();
+//        gridPane.setHgap(10);
+//        gridPane.setVgap(10);
+//        gridPane.setPadding(new Insets(10,10,10,10));
+//
+//        //Add the week day to the calendar
+//        for (int dayIndex = 0; dayIndex < daysOfTheWeek.length; dayIndex++) {
+//            Label dayLabel = new Label(daysOfTheWeek[dayIndex]);
+//            dayLabel.getStyleClass().add("week-day");
+//            gridPane.add(new Label(daysOfTheWeek[dayIndex]),dayIndex,0);
+//        }
+//
+//        //Add the generated Calendar to the grid container
+//        for (int r = 0; r < 5 ; r++) {
+//            for (int c = 0; c < 7; c++) {
+//                if (calendar[r][c] != null) {
+//                    gridPane.add(calendar[r][c], c, r+1);
+//                }
+//            }
+//        }
+//
+//        //Set the scene to the grid container
+//        Scene scene = new Scene(gridPane);
 //-------------------------------------------------------------------------------------------
 
 

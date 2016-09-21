@@ -28,9 +28,10 @@
 	-fx-button-type: RAISED
 }
 
-.week-day {
+.weekday:Label {
     -fx-font-weight: BOLD;
     -fx-underline: true;
+    -fx-background-color:#E38262;
 }
 
 .box {
