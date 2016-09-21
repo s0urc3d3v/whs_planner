@@ -50,7 +50,8 @@ public class JSON {
     }
 
     /**
-     * Once the file is unloaded it cannot be read from or written from until a new file is loaded with loadFile.
+     * Unloads a JSON file from memory
+     * @Note: Once the file is unloaded it cannot be read from or written from until a new file is loaded with loadFile.
      */
     public void unloadFile(){
         try {
@@ -66,11 +67,21 @@ public class JSON {
     READING METHODS
      */
 
-    public Object readObject(String key) {
+    /**
+     * Loads and returns a single object from a JSON file.
+     * @Param key of object to load
+     * @Return Object from JSON File
+     */
+    private Object readObject(String key) {
         return object.get(key);
     }
 
-    public Object[] readArray(String key) {
+    /**
+     * Loads an array of objects from a JSON file.
+     * @Param Key of object to load
+     * @Return Object array from JSON File
+     */
+    private Object[] readArray(String key) {
         JSONArray array = (JSONArray) object.get(key);
         //Turn the JSONArray into an object array
         int length = array.size();
@@ -81,6 +92,11 @@ public class JSON {
         return objArray;
     }
 
+    /**
+     * Loads the key value from a JSON file. Only public interface for this functionality.
+     * @Param String key of the JSON value
+     * @Return returns either an object array or a single object that can be cast to a JSONObject.
+     */
     public Object readPair(String key) {
         if(key.length() >= 1 && key.substring(0, 1).equals("@")) {
             //It is an array and needs to be parsed as one.
@@ -89,6 +105,10 @@ public class JSON {
         return readObject(key);
     }
 
+    /**
+     * 'Drops' the JSON Table, giving you the entire table
+     * @Return returns an entire hashmap of Objects that can be casted into JSONObjects and accessed
+     */
     public HashMap<Object, Object> dropJsonDb(){
         HashMap<Object, Object> JsonData = new HashMap<Object, Object>();
         try {
@@ -109,10 +129,21 @@ public class JSON {
     WRITE METHODS
      */
 
+    /**
+     * Writes a value to the JSON File in memory
+     * @Param Key is the identifier of the JSON Object
+     * @Param Data is the value of the JSON Object
+     */
     public void writePair(String key, String data){
         object.put(key, data);
     }
 
+    /**
+     * Writes an array to the JSON File in memory
+     * @Param Key is the identifier of the JSON Object
+     * @Param Data is the value of the JSON Object
+     * TODO: This method never actually writes to the JSON file.
+     */
     public void writeArray(String key, Object data[]){
         key = "@" + key;
         JSONArray jsonArray = new JSONArray();
