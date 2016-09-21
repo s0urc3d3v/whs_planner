@@ -70,7 +70,7 @@ public class CalendarBox {
             Label icon = new Label();
             icon.getStyleClass().add("icon");
             icon.setId("homework-icon");
-            icon.setText("\uf00c"); //File Icon
+            icon.setText("\uf0f6"); //File Icon
 
             JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
             badge.getStyleClass().add("icon-badge");
@@ -82,7 +82,7 @@ public class CalendarBox {
             Label icon = new Label();
             icon.getStyleClass().add("icon");
             icon.setId("test-icon");
-            icon.setText("\uf0f6"); //Check Icon
+            icon.setText("\uf00c"); //Check Icon
 
             JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
             badge.getStyleClass().add("icon-badge");
