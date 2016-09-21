@@ -18,12 +18,13 @@ public class JSON {
     private FileWriter fileWriter;
     private JSONObject object;
     private JSONParser parser;
-    private String filePath = "whs_planner\\src\\test\\java\\WHS_planner\\testDatabase\\test.json";
+    private String filePath = ;
 
     public JSON () throws IOException {
+        this.filePath = filePath;
         fileWriter = new FileWriter(filePath);
         try {
-            object =  (JSONObject) parser.parse(new FileReader(filePath));
+            object = (JSONObject) parser.parse(new FileReader(filePath));
         } catch (ParseException e) {
             e.printStackTrace();
         }
