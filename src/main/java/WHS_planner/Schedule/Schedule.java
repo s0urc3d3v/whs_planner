@@ -1,18 +1,21 @@
 package WHS_planner.Schedule;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.*;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.awt.*;
 
 
 public class Schedule extends Application
 {
-    public Schedule()
-    {
+    Label[][] classes = new Label[6][9];
 
-    }
+    Pane rootlayout;
 
     public static void main(String[] args)
     {
@@ -20,39 +23,34 @@ public class Schedule extends Application
     }
 
 
-
-    public void start(Stage primaryStage)
+    public void start(Stage PrimaryStage)
     {
-        primaryStage.setTitle("Drawing Operations Test");
-        Group root = new Group();
-        Canvas canvas = drawSchedule(801, 800);
-        root.getChildren().add(canvas);
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-    }
+        PrimaryStage.setTitle("Schedule");
 
-
-    public Canvas drawSchedule(int w, int h)
-    {
-        Canvas canvas = new Canvas(w, h);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-
-
-
-        //makes horizontal lines
-        for (int i = 0; i < 9; i++)
+        try
         {
-            gc.strokeLine(0, (i*(h/8)), w, (i*(h/8)));
+            FXMLLoader loader = new FXMLLoader();
+
+            loader.setLocation(Schedule.class.getResource("schedule.fxml"));
+
+
+            //error location not set fix it
+            rootlayout = loader.load();
+
+            Scene scene = new Scene(rootlayout);
+
+            PrimaryStage.setScene(scene);
+            PrimaryStage.show();
         }
-
-        //vertical lines
-        for (int j = 0; j < 10; j++)
+        catch(Exception e)
         {
-            gc.strokeLine((j*(w/9)), 0, (j*(w/9)), h);
+            e.printStackTrace();
         }
 
 
-        return canvas;
     }
+
+
+
 
 }
