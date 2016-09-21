@@ -1,11 +1,12 @@
 package WHS_planner;
 
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for simple Main.
+ * Unit test for simple MainUI.
  */
 public class MainTest
         extends TestCase {
