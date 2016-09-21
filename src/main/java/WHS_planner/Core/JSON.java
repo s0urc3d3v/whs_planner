@@ -18,23 +18,39 @@ public class JSON {
 
     private FileWriter fileWriter;
     private JSONObject object;
-    private JSONParser parser = new JSONParser();
-    private String filePath = "/Users/john_bachman/IdeaProjects/whs_planner/src/test/java/WHS_planner/testDatabase/test.json";
+    private JSONParser parser;
+    private String filePath = "";
 
     public JSON () throws IOException {
+       parser = new JSONParser();
+    }
+
+    /**
+     @Param filePath
+     @return If the file was successfully loaded
+     */
+    public boolean loadFile(String filePath) {
+        this.filePath = filePath;
         try {
-            Object raw = parser.parse(new FileReader(filePath));
+            Object raw = null;
+            try {
+                raw = parser.parse(new FileReader(filePath));
+                fileWriter = new FileWriter(filePath);
+            } catch (IOException e) {
+                ErrorHandler.HandleIOError(e);
+                return false;
+            }
             object = (JSONObject) raw;
         } catch (ParseException e) {
-            e.printStackTrace();
+            ErrorHandler.handleGenericError("Parser Error with JSON File loading", e);
+            return false;
         }
-        fileWriter = new FileWriter(filePath);
         parser = new JSONParser();
+        return true;
     }
 
     public void writePair(String key, String data){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(key, data);
+        object.put(key, data);
     }
 
     public void writeArray(String key, Object data[]){
@@ -45,12 +61,16 @@ public class JSON {
         }
     }
 
-    public void updateFile(){
+    /**
+     * Once the file is unloaded it cannot be read from or written from until a new file is loaded with loadFile.
+     */
+    public void unloadFile(){
         try {
             fileWriter.write(object.toJSONString());
             fileWriter.flush();
+            fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            ErrorHandler.HandleIOError(e);
         }
     }
 
