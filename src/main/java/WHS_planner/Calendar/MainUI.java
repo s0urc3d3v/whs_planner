@@ -52,7 +52,7 @@ public class MainUI extends Application{
         for (int r = 0; r < 5 ; r++) {
             for (int c = 0; c < 7; c++) {
                 if (calendar[r][c] != null) {
-                    gridPane.add(calendar[r][c].getPane(), c, r+1);
+                    gridPane.add(calendar[r][c], c, r+1);
                 }
             }
         }

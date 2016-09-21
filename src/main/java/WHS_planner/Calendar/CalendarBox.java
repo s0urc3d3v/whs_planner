@@ -1,21 +1,27 @@
 package WHS_planner.Calendar;
 
 import com.jfoenix.controls.JFXBadge;
+import com.sun.javafx.geom.BaseBounds;
+import com.sun.javafx.geom.transform.BaseTransform;
+import com.sun.javafx.jmx.MXNodeAlgorithm;
+import com.sun.javafx.jmx.MXNodeAlgorithmContext;
+import com.sun.javafx.sg.prism.NGNode;
+import javafx.beans.InvalidationListener;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Created by geoffrey_wang on 9/20/16.
  */
-public class CalendarBox {
+public class CalendarBox extends Pane{
     private int date;
     private int dayOfTheWeek;
     private ArrayList<Task> homework;
@@ -40,6 +46,7 @@ public class CalendarBox {
         }
         String dateString = date+"";
         calendarBoxPane.setId(dateString);
+        this.setId("calendar-box");//TODO replace this
         Label label = (Label)calendarBoxPane.lookup("#date");
         label.setText(dateString);
         homework.add(null);//TODO remove these
@@ -90,6 +97,7 @@ public class CalendarBox {
             icons.add(badge);
         }
         iconContainer.getChildren().setAll(icons);
+        this.getChildren().setAll(calendarBoxPane);
     }
 
     public void addHomework(Task task){
@@ -98,5 +106,19 @@ public class CalendarBox {
 
     public void addTest(Task task){
         tests.add(task);
+    }
+
+    //TODO Remove this testing method
+    public void removeHomework(){
+        if(getHomeworkCount() != 0) {
+            homework.remove(0);
+        }
+    }
+
+    //TODO Remove this testing method
+    public void removeTest(){
+        if(getTestsCount() != 0) {
+            tests.remove(0);
+        }
     }
 }
