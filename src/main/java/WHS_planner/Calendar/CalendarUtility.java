@@ -2,6 +2,7 @@ package WHS_planner.Calendar;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -9,13 +10,14 @@ import java.util.ResourceBundle;
 
 public class CalendarUtility {
 
+    public static final int SUNDAY = 0, MONDAY = 1,TUESDAY = 2, WEDNESDAY = 3, THURSDAY = 4, FRIDAY = 5, SATURDAY = 6;
     FXMLLoader loader;
 
     //Generates a calendar array with the correct amount of days and starting on the start day
-    public Pane[][] generateCalendar(int startDay, int numberOfDays) throws IOException {
+    public CalendarBox[][] generateCalendar(int startDay, int numberOfDays) throws IOException {
 
         //Intitialize a general calendar array size
-        Pane[][] calendar = new Pane[5][7];
+        CalendarBox[][] calendar = new CalendarBox[5][7];
 
         int dayInMonth = 1;
 
@@ -26,20 +28,26 @@ public class CalendarUtility {
                     col = startDay;
                 }
 
-                //Initialize flame dragon
-                loader = new FXMLLoader();
-                loader.setController(new UIController());
-                loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
-                loader.setLocation(getClass().getResource("/Calendar/calendarBox.fxml"));
+//                //Initialize flame dragon
+//                loader = new FXMLLoader();
+//                loader.setController(new UIController());
+//                loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
+//                loader.setLocation(getClass().getResource("/Calendar/calendarBoxV2.fxml"));
+//
+//                //Load in a calendarBox
+//                Pane calendarBoxPane = loader.load();
+//
+//                calendar[row][col] = calendarBoxPane;
+//                calendar[row][col].setId(dayInMonth+"");
+////                Label label = (Label)calendar[row][col].getChildren().get(1);
+//                Label label = (Label)calendar[row][col].lookup("#date");
+//                label.setText(calendar[row][col].getId());
+//                dayInMonth ++;
 
-                //Load in a calendarBox
-                Pane calendarBoxPane = loader.load();
+                CalendarBox box = new CalendarBox(dayInMonth,col,null);
+                calendar[row][col] = box;
+                dayInMonth++;
 
-                calendar[row][col] = calendarBoxPane;
-                calendar[row][col].setId(dayInMonth+"");
-                Label label = (Label)calendar[row][col].getChildren().get(0);
-                label.setText(calendar[row][col].getId());
-                dayInMonth ++;
                 if(dayInMonth > numberOfDays){
                     break;
                 }
