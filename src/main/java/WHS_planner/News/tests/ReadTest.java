@@ -6,17 +6,15 @@ import WHS_planner.News.read.RSSFeedParser;
 
 public class ReadTest {
     public static void main(String[] args) {
-        RSSFeedParser parser = new RSSFeedParser(
-                "http://waylandstudentpress.com/feed/");
+        RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
         Feed feed = parser.readFeed();
 //        System.out.println(feed);
 
 
         for (FeedMessage message : feed.getMessages()) {
-
             System.out.println(message);
         }
-
-
+        //TODO actually figure out how to get the strings for title, description and link individually.
+        System.out.println(feed.getDescription());
     }
 }

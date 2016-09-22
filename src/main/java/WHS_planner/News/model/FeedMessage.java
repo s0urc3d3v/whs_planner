@@ -50,13 +50,9 @@ public class FeedMessage {
         this.guid = guid;
     }
 
-
-    public void commencePurge()
-    {
-
+    public void commencePurge() {
         title = Jsoup.parse(title).text();
         description = Jsoup.parse(description).text();
-
     }
 
     @Override

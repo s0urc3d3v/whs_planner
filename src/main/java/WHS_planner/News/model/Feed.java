@@ -1,10 +1,7 @@
 package WHS_planner.News.model;
 
-import WHS_planner.News.model.FeedMessage;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 /*
  * Stores an RSS read
@@ -64,5 +61,4 @@ public class Feed {
                 + ", language=" + language + ", link=" + link + ", pubDate="
                 + pubDate + ", title=" + title + "]";
     }
-
 }
