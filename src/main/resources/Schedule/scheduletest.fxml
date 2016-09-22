@@ -12,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WHS_planner.Schedule.ScheduleController">
    <center>
-      <GridPane prefHeight="286.0" prefWidth="448.0" style="-fx-border-color: Black; -fx-grid-lines-visible: True;" BorderPane.alignment="CENTER">
+      <GridPane fx:id="grid" prefHeight="286.0" prefWidth="448.0" style="-fx-border-color: Black; -fx-grid-lines-visible: True;" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
