@@ -21,7 +21,7 @@ public class RSS {
 
         } catch (Exception e) {
             e.printStackTrace();
-            ErrorHandler.handleGenericError("error", new Exception()); //TODO Create error message and screen
+            ErrorHandler.handleGenericError("Error with getting RSS Feed", new Exception()); //TODO Create error message and screen
         }
     }
     public SyndFeed getRssFeed(){
