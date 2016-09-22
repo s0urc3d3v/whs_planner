@@ -4,6 +4,8 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
+before_install:
+  npm install -g gh
 script: mvn clean validate
 after_success:
   ./on_success.sh
