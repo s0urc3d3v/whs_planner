@@ -1,69 +1,51 @@
 package WHS_planner.Calendar;
 
 import com.jfoenix.controls.JFXBadge;
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.jmx.MXNodeAlgorithm;
-import com.sun.javafx.jmx.MXNodeAlgorithmContext;
-import com.sun.javafx.sg.prism.NGNode;
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * Created by geoffrey_wang on 9/20/16.
  */
-public class CalendarBox extends Pane{
+public class CalendarBox {
     private int date;
-    private int row;
+    private int dayOfTheWeek;
     private ArrayList<Task> homework;
     private ArrayList<Task> tests;
     private Pane calendarBoxPane;
 
-    public CalendarBox(int date, int row, UIController controller){
+    public CalendarBox(int date, int dayOfTheWeek, UIController controller){
         this.date = date;
-        this.row = row;
+        this.dayOfTheWeek = dayOfTheWeek;
         this.homework = new ArrayList<Task>();
         this.tests = new ArrayList<Task>();
 
         FXMLLoader loader = new FXMLLoader();
+        loader.setController(new UIController());
         loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
+        loader.setLocation(getClass().getResource("/Calendar/calendarBoxV2.fxml"));
 
-        if(date != 0) {
-            loader.setController(new UIController());
-            loader.setLocation(getClass().getResource("/Calendar/calendarBoxV2.fxml"));
-
-            try {//TODO Replace this with errorhandler
-                calendarBoxPane = loader.load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            String dateString = date + "";
-            this.setId("calendar-box");
-            Label label = (Label) calendarBoxPane.lookup("#date");
-            label.setText(dateString);
-            tests.add(null);//TODO remove these
-            tests.add(null);//TODO remove these
-            update();
-        }else{
-            loader.setLocation(getClass().getResource("/Calendar/calendarBoxV2-empty.fxml"));
-            try {//TODO Replace this with errorhandler
-                calendarBoxPane = loader.load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            this.getChildren().setAll(calendarBoxPane);
+        try {//TODO Replace this with errorhandler
+            calendarBoxPane = loader.load();
+        }catch(Exception e){
+            e.printStackTrace();
         }
-
-        this.getStyleClass().add("box");
+        String dateString = date+"";
+        calendarBoxPane.setId(dateString);
+        Label label = (Label)calendarBoxPane.lookup("#date");
+        label.setText(dateString);
+        homework.add(null);//TODO remove these
+        tests.add(null);//TODO remove these
+        tests.add(null);
+        update();
     }
 
     public int getHomeworkCount(){
@@ -88,7 +70,7 @@ public class CalendarBox extends Pane{
             Label icon = new Label();
             icon.getStyleClass().add("icon");
             icon.setId("homework-icon");
-            icon.setText("\uf0f6"); //File Icon
+            icon.setText("\uf00c"); //File Icon
 
             JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
             badge.getStyleClass().add("icon-badge");
@@ -100,7 +82,7 @@ public class CalendarBox extends Pane{
             Label icon = new Label();
             icon.getStyleClass().add("icon");
             icon.setId("test-icon");
-            icon.setText("\uf00c"); //Check Icon
+            icon.setText("\uf0f6"); //Check Icon
 
             JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
             badge.getStyleClass().add("icon-badge");
@@ -108,7 +90,6 @@ public class CalendarBox extends Pane{
             icons.add(badge);
         }
         iconContainer.getChildren().setAll(icons);
-        this.getChildren().setAll(calendarBoxPane);
     }
 
     public void addHomework(Task task){
@@ -117,27 +98,5 @@ public class CalendarBox extends Pane{
 
     public void addTest(Task task){
         tests.add(task);
-    }
-
-    //TODO Remove this testing method
-    public void removeHomework(){
-        if(getHomeworkCount() != 0) {
-            homework.remove(0);
-        }
-    }
-
-    //TODO Remove this testing method
-    public void removeTest(){
-        if(getTestsCount() != 0) {
-            tests.remove(0);
-        }
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getDate() {
-        return date;
     }
 }
