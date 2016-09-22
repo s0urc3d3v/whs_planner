@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <GridPane prefHeight="286.0" prefWidth="448.0" style="-fx-border-color: Black; -fx-grid-lines-visible: True;" BorderPane.alignment="CENTER">
          <columnConstraints>
@@ -50,241 +50,385 @@
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <GridPane.margin>
@@ -293,6 +437,9 @@
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <GridPane.margin>
@@ -301,6 +448,9 @@
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <GridPane.margin>
@@ -309,6 +459,9 @@
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <GridPane.margin>
@@ -317,6 +470,9 @@
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <GridPane.margin>
@@ -325,6 +481,9 @@
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
             <Label text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <GridPane.margin>
@@ -333,16 +492,13 @@
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Label>
          </children>
       </GridPane>
    </center>
-   <left>
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="See today" BorderPane.alignment="CENTER" />
-   </left>
-   <bottom>
-      <ProgressBar prefHeight="20.0" prefWidth="429.0" progress="0.0" BorderPane.alignment="CENTER" />
-   </bottom>
    <top>
       <Label alignment="CENTER" prefHeight="17.0" prefWidth="405.0" text="Label" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
@@ -351,6 +507,24 @@
       </Label>
    </top>
    <right>
-      <Pane prefHeight="419.0" prefWidth="73.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="388.0" prefWidth="102.0" BorderPane.alignment="CENTER" />
    </right>
+   <left>
+      <BorderPane prefHeight="426.0" prefWidth="104.0" BorderPane.alignment="CENTER">
+         <top>
+            <Button mnemonicParsing="false" text="See Today" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+         </top>
+      </BorderPane>
+   </left>
+   <bottom>
+      <BorderPane prefHeight="58.0" prefWidth="573.0" BorderPane.alignment="CENTER">
+         <center>
+            <ProgressBar prefHeight="20.0" prefWidth="369.0" progress="0.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </bottom>
 </BorderPane>
