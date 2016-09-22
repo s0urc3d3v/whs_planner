@@ -41,33 +41,8 @@ public class UIController implements Initializable {
                 CalendarBox box = (CalendarBox) (button.getParent().getParent().getParent().lookup("#calendar-box"));
                 box.addHomework(null);
                 box.update();
-                VBox vbox = (VBox)button.getParent().getParent().getParent().getParent().getParent();
-
-                if(currentTextBoxRow == box.getRow()+1) {//It is in the same row
-                    if(currentDate == box.getDate()) {
-                        vbox.getChildren().remove(currentTextBoxRow);
-                        currentTextBoxRow = -1;
-                        currentDate = -1;
-                    }
-                }else{//It is not in the same row
-                    if(currentTextBoxRow != -1) {//There is a box
-                        vbox.getChildren().remove(currentTextBoxRow);
-                    }
-                    currentTextBoxRow = box.getRow()+1;
-                    currentDate = box.getDate();
-                }
-
-                FXMLLoader loader = new FXMLLoader();
-                loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
-                loader.setLocation(getClass().getResource("/Calendar/taskBox.fxml"));
-
-                try {//TODO Replace with errorhandler
-                    if(currentTextBoxRow != -1) {
-                        vbox.getChildren().add(currentTextBoxRow, loader.load());
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Calendar calendar = (Calendar)button.getParent().getParent().getParent().getParent().getParent().getParent();
+                calendar.update(box.getRow(),box.getDate());
             }else if (event.getButton() == MouseButton.SECONDARY) {
                 CalendarBox box = (CalendarBox) (button.getParent().getParent().getParent().lookup("#calendar-box"));
                 box.removeTest();

@@ -1,5 +1,6 @@
 package WHS_planner.Calendar;
 
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -9,8 +10,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * Created by geoffrey_wang on 9/21/16.
@@ -25,6 +28,9 @@ public class Calendar extends Pane {
     private int numberOfDays;
 
     private VBox mainPane;
+
+    private int currentTextBoxRow = -1;
+    private int currentDate = -1;
 
     public Calendar(int startDay, int numberOfDays){
 
@@ -89,6 +95,38 @@ public class Calendar extends Pane {
         mainPane.getChildren().setAll(rows);
 
         this.getChildren().setAll(mainPane);
+    }
+
+    public void update(int row, int date){
+        if(currentDate == date) {
+            mainPane.getChildren().remove(currentTextBoxRow);
+            currentTextBoxRow = -1;
+            currentDate = -1;
+        }else if(currentTextBoxRow == row+1) {//It is in the same row
+            currentDate = date;
+        }else{//It is not in the same row
+            if(currentTextBoxRow != -1) {//There is a box
+                mainPane.getChildren().remove(currentTextBoxRow);
+            }
+            currentTextBoxRow = row+1;
+            currentDate = date;
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
+            loader.setLocation(getClass().getResource("/Calendar/taskBox.fxml"));
+
+            try {//TODO Replace with errorhandler
+                if(currentTextBoxRow != -1) {
+                    mainPane.getChildren().add(currentTextBoxRow, loader.load());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void makeTextBox(int row, int date){
+
     }
 
 }
