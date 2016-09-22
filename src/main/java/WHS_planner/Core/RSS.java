@@ -4,6 +4,7 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -21,7 +22,7 @@ public class RSS {
 
         } catch (Exception e) {
             e.printStackTrace();
-            ErrorHandler.handleGenericError("Error with getting RSS Feed", new Exception()); //TODO Create error message and screen
+           // ErrorHandler.handleGenericError("Fill this in", new Exception()); //TODO Create error message and screen
         }
     }
     public SyndFeed getRssFeed(){
