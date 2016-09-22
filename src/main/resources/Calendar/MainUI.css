@@ -10,7 +10,7 @@
 }
 
 .icon-badge .badge-pane {
-	-fx-background-color:#E38262;
+	-fx-background-color:#FFC107; /*Light Orange*/
 	-fx-background-radius: 23;
 	-fx-pref-width: 23;
 	-fx-pref-height: 23;
@@ -24,7 +24,7 @@
 }
 
 .box-button {
-	-fx-background-color: #62C3E3;
+	-fx-background-color: #FFFFFF; /*Light Gray*/
 	-fx-button-type: RAISED
 }
 

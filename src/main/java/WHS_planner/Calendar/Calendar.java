@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -25,6 +26,7 @@ public class Calendar extends Pane {
 
     //Days of the week
     private String[] daysOfTheWeek = new String[]{"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
+    private Background background;
 
     private CalendarBox[][] calendar;
     private int startDay;
@@ -141,7 +143,7 @@ public class Calendar extends Pane {
         }
 
 //        if(currentDate != -1){
-//            System.out.println(mainPane.lookup(""+currentDate));
+//            calendar.
 //        }
     }
 

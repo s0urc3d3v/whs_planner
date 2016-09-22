@@ -30,6 +30,7 @@ public class MainUI extends Application{
         Scene scene = new Scene(cal);
 //-------------------------------------------------------------------------------------------
 
+        cal.setStyle("-fx-background-color:#FFECB3;");
         //Set the stylesheet
         scene.getStylesheets().add("/Calendar/MainUI.css");
 
