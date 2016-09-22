@@ -523,7 +523,7 @@
    <bottom>
       <BorderPane prefHeight="58.0" prefWidth="573.0" BorderPane.alignment="CENTER">
          <center>
-            <ProgressBar prefHeight="20.0" prefWidth="369.0" progress="0.0" BorderPane.alignment="CENTER" />
+            <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="369.0" progress="0.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </bottom>
