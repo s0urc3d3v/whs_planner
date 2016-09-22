@@ -32,12 +32,14 @@ public class mainDocumentController implements Initializable {
 
 
     public void initialize(URL location, ResourceBundle resources) {
-        String[] tabs = new String[]{"Calendar", "Schedule", "Homework", "Tests", "Rip A Fat Vape"}; //Need to find a way to get this from another class,
+        navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");
+        navHamburger.getStyleClass().add("jfx-hamburger-icon");
+        String[] tabs = new String[]{"Calendar", "Schedule", "Homework", "Tests", "Rip A Fat Vape", "George"}; //Need to find a way to get this from another class,
         //Create the VBox                                                                            //May need to be an array of classes that extend tab, so you can get an fxml file related to them and their name.
         JFXButton[] buttonArray = new JFXButton[tabs.length];
         for (int i = 0; i < tabs.length; i++) {
             JFXButton tempButton = new JFXButton(tabs[i].toUpperCase());
-            tempButton.setPrefSize(navDrawer.getPrefWidth(),anchorPane.getPrefHeight()/tabs.length);
+            tempButton.setPrefSize(navDrawer.getPrefWidth(),navDrawer.getPrefHeight()/tabs.length);
             tempButton.getStylesheets().add("/CoreUI/ButtonUI.css");
             tempButton.getStyleClass().add("button-raised");
             buttonArray[i] = tempButton;
