@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,46 +19,69 @@ public class JSON {
     private FileWriter fileWriter;
     private JSONObject object;
     private JSONParser parser;
-    private String filePath = "whs_planner\\src\\test\\java\\WHS_planner\\testDatabase\\test.json";
+    private String filePath;
 
     public JSON () throws IOException {
-        fileWriter = new FileWriter(filePath);
+       parser = new JSONParser();
+    }
+
+    /**
+     @Param filePath
+     @return If the file was successfully loaded
+     */
+    public boolean loadFile(String filePath) {
+        this.filePath = filePath;
         try {
-            object =  (JSONObject) parser.parse(new FileReader(filePath));
+            Object raw = null;
+            try {
+                raw = parser.parse(new FileReader(filePath));
+                fileWriter = new FileWriter(filePath);
+            } catch (IOException e) {
+                ErrorHandler.HandleIOError(e);
+                return false;
+            }
+            object = (JSONObject) raw;
         } catch (ParseException e) {
-            e.printStackTrace();
+            ErrorHandler.handleGenericError("Parser Error with JSON File loading", e);
+            return false;
         }
-        object = new JSONObject();
         parser = new JSONParser();
+        return true;
     }
 
-    public void writePair(String key, String data){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(key, data);
-    }
-
-    public void writeArray(String key, Object data[]){
-        key = "@" + key;
-        JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < data.length; i++) {
-            jsonArray.add(data[i]);
-        }
-    }
-
-    public void updateFile(){
+    /**
+     * Unloads a JSON file from memory
+     * @Note: Once the file is unloaded it cannot be read from or written from until a new file is loaded with loadFile.
+     */
+    public void unloadFile(){
         try {
             fileWriter.write(object.toJSONString());
             fileWriter.flush();
+            fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            ErrorHandler.HandleIOError(e);
         }
     }
 
-    public Object readObject(String key) {
+    /*
+    READING METHODS
+     */
+
+    /**
+     * Loads and returns a single object from a JSON file.
+     * @Param key of object to load
+     * @Return Object from JSON File
+     */
+    private Object readObject(String key) {
         return object.get(key);
     }
 
-    public Object[] readArray(String key) {
+    /**
+     * Loads an array of objects from a JSON file.
+     * @Param Key of object to load
+     * @Return Object array from JSON File
+     */
+    private Object[] readArray(String key) {
         JSONArray array = (JSONArray) object.get(key);
         //Turn the JSONArray into an object array
         int length = array.size();
@@ -68,6 +92,11 @@ public class JSON {
         return objArray;
     }
 
+    /**
+     * Loads the key value from a JSON file. Only public interface for this functionality.
+     * @Param String key of the JSON value
+     * @Return returns either an object array or a single object that can be cast to a JSONObject.
+     */
     public Object readPair(String key) {
         if(key.length() >= 1 && key.substring(0, 1).equals("@")) {
             //It is an array and needs to be parsed as one.
@@ -76,6 +105,10 @@ public class JSON {
         return readObject(key);
     }
 
+    /**
+     * 'Drops' the JSON Table, giving you the entire table
+     * @Return returns an entire hashmap of Objects that can be casted into JSONObjects and accessed
+     */
     public HashMap<Object, Object> dropJsonDb(){
         HashMap<Object, Object> JsonData = new HashMap<Object, Object>();
         try {
@@ -90,6 +123,33 @@ public class JSON {
             e.printStackTrace();
         }
         return JsonData;
+    }
+
+    /*
+    WRITE METHODS
+     */
+
+    /**
+     * Writes a value to the JSON File in memory
+     * @Param Key is the identifier of the JSON Object
+     * @Param Data is the value of the JSON Object
+     */
+    public void writePair(String key, String data){
+        object.put(key, data);
+    }
+
+    /**
+     * Writes an array to the JSON File in memory
+     * @Param Key is the identifier of the JSON Object
+     * @Param Data is the value of the JSON Object
+     * TODO: This method never actually writes to the JSON file.
+     */
+    public void writeArray(String key, Object data[]){
+        key = "@" + key;
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < data.length; i++) {
+            jsonArray.add(data[i]);
+        }
     }
 
 }
