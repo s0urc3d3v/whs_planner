@@ -21,7 +21,7 @@ public class Schedule extends Application
 
     public void start(Stage PrimaryStage)
     {
-        PrimaryStage.setTitle("Schedule");
+        PrimaryStage.setTitle("src/main/resources/Schedule");
 
         classes[0][0] = new javafx.scene.control.Label();
         classes[0][0].setText("memes");
@@ -30,7 +30,7 @@ public class Schedule extends Application
             FXMLLoader loader = new FXMLLoader();
 
 
-            loader.setLocation(getClass().getResource("/Schedule/scheduletest.fxml"));
+            loader.setLocation(getClass().getResource("/src/main/resources/Schedule/scheduletest.fxml"));
 
             rootLayout = loader.load();
 
