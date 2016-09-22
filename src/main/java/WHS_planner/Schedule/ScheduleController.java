@@ -1,9 +1,10 @@
 package WHS_planner.Schedule;
 
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -45,7 +46,11 @@ public class ScheduleController implements Initializable
     @FXML
     private Label Time1, Time2, Time3, Time4, Time5, Time6;
 
+    @FXML
+    private Button ChangeButton;
 
+    @FXML
+    private ProgressBar progressBar;
 
     String classes[][] = new String[9][6];
 
