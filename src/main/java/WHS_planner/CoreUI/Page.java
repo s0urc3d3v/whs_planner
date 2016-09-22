@@ -1,6 +1,4 @@
 package WHS_planner.CoreUI;
-import javafx.*;
-package WHS_planner.CoreUI;
 import javafx.scene.*;
 import javafx.stage.*;
 
