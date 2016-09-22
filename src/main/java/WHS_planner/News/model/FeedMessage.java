@@ -1,8 +1,6 @@
 package WHS_planner.News.model;
 
-import WHS_planner.News.read.HTMLParser;
-
-import javax.swing.text.html.HTML;
+import org.jsoup.Jsoup;
 
 public class FeedMessage {
 
@@ -55,9 +53,9 @@ public class FeedMessage {
 
     public void commencePurge()
     {
-        HTMLParser parser = new HTMLParser();
-        title = parser.Escape(title);
-        description = parser.Escape(description);
+
+        title = Jsoup.parse(title).text();
+        description = Jsoup.parse(description).text();
 
     }
 

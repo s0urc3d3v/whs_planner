@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-//test
 /*
  * Stores an RSS read
  */
