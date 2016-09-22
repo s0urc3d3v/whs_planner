@@ -105,17 +105,27 @@ public class Calendar extends Pane {
     }
 
     public void update(int row, int date){
-        if(currentDate == date) {
-            mainPane.getChildren().remove(currentTextBoxRow);
-            currentTextBoxRow = -1;
-            currentDate = -1;
-        }else if(currentTextBoxRow == row+1) {//It is in the same row
-            currentDate = date;
-        }else{//It is not in the same row
-            if(currentTextBoxRow != -1) {//There is a box
+
+        int[] rowIDs = new int[]{1,2,3,4,4};
+
+        if(currentDate != -1){
+            if(date == currentDate) {
+                changeButtonColor(getCalendarBox(currentDate).getButton(), false);
                 mainPane.getChildren().remove(currentTextBoxRow);
+                currentTextBoxRow = -1;
+                currentDate = -1;
+            }else if(currentTextBoxRow == rowIDs[row]){
+                changeButtonColor(getCalendarBox(currentDate).getButton(), false);
+                changeButtonColor(getCalendarBox(date).getButton(),true);
+                currentDate = date;
+            }else{
+                changeButtonColor(getCalendarBox(currentDate).getButton(), false);
+                mainPane.getChildren().remove(currentTextBoxRow);
+                currentTextBoxRow = -1;
+                currentDate = -1;
             }
-            currentTextBoxRow = row+1;
+        }else{
+            currentTextBoxRow = rowIDs[row];
             currentDate = date;
 
             FXMLLoader loader = new FXMLLoader();
@@ -123,53 +133,49 @@ public class Calendar extends Pane {
             loader.setLocation(getClass().getResource("/Calendar/taskBox.fxml"));
 
             try {//TODO Replace with errorhandler
-                if(currentTextBoxRow != -1) {
-                    Node node = loader.load();
-                    mainPane.getChildren().add(currentTextBoxRow, node);
+                Node node = loader.load();
+                mainPane.getChildren().add(currentTextBoxRow, node);
 
-                    FadeTransition fadeIn = new FadeTransition(Duration.millis(1750));
-                    fadeIn.setNode(node);
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(1750));
+                fadeIn.setNode(node);
 
-                    fadeIn.setFromValue(0.0);
-                    fadeIn.setToValue(1.0);
-                    fadeIn.setCycleCount(1);
-                    fadeIn.setAutoReverse(false);
-                    fadeIn.playFromStart();
-                }
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.setCycleCount(1);
+                fadeIn.setAutoReverse(false);
+                fadeIn.playFromStart();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        if(currentDate != -1){
-            CalendarBox currentBox = null;
-
-            for (int rowIndex = 0; rowIndex < calendar.length; rowIndex++) {
-                for (int colIndex = 0; colIndex < calendar[rowIndex].length; colIndex++) {
-                    CalendarBox box = calendar[rowIndex][colIndex];
-                    if(box != null) {
-//                        System.out.println("ID:" + box.getChildren());
-                        if (Integer.valueOf(box.getChildren().get(0).getId()) == currentDate) {
-                            currentBox = calendar[rowIndex][colIndex];
-                            System.out.println(currentBox);
-                            break;
-                        }
-                    }
-                }
-                if(currentBox != null){
-                    break;
-                }
-            }
-
-            StackPane stackPane = (StackPane)(currentBox.getChildren().get(0));
-            System.out.println(stackPane);
-            AnchorPane anchorPane = (AnchorPane)stackPane.getChildren().get(0);
-            System.out.println(anchorPane);
-            JFXButton button = (JFXButton)anchorPane.getChildren().get(0);
-            System.out.println(button);
-            background = new Background(new BackgroundFill(Paint.valueOf("RED"),null, null));
-            button.setBackground(background);
+            changeButtonColor(getCalendarBox(date).getButton(),true);
         }
     }
 
+    public void changeButtonColor(JFXButton button,boolean selected){
+        if(selected){
+            button.getStyleClass().setAll("box-button-selected");
+        }else{
+            button.getStyleClass().setAll("box-button");
+        }
+    }
+
+    public CalendarBox getCalendarBox(int date){
+        CalendarBox currentBox = null;
+
+        for (int rowIndex = 0; rowIndex < calendar.length; rowIndex++) {
+            for (int colIndex = 0; colIndex < calendar[rowIndex].length; colIndex++) {
+                CalendarBox box = calendar[rowIndex][colIndex];
+                if(box != null) {
+                    if (Integer.valueOf(box.getChildren().get(0).getId()) == date) {
+                        currentBox = calendar[rowIndex][colIndex];
+                        break;
+                    }
+                }
+            }
+            if(currentBox != null){
+                break;
+            }
+        }
+        return currentBox;
+    }
 }

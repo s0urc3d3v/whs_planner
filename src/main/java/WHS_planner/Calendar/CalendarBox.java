@@ -1,6 +1,7 @@
 package WHS_planner.Calendar;
 
 import com.jfoenix.controls.JFXBadge;
+import com.jfoenix.controls.JFXButton;
 import com.sun.javafx.geom.BaseBounds;
 import com.sun.javafx.geom.transform.BaseTransform;
 import com.sun.javafx.jmx.MXNodeAlgorithm;
@@ -13,8 +14,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import java.util.*;
 
@@ -140,5 +143,11 @@ public class CalendarBox extends Pane{
 
     public int getDate() {
         return date;
+    }
+
+    public JFXButton getButton(){//TODO MAKE IT NOT HARD CODE
+        AnchorPane anchorPane = (AnchorPane)calendarBoxPane.getChildren().get(0);
+        JFXButton button = (JFXButton)anchorPane.getChildren().get(0);
+        return button;
     }
 }

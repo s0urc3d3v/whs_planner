@@ -26,8 +26,6 @@ public class UIController implements Initializable {
 
     @FXML
     private JFXButton button;
-    @FXML
-    private HBox iconContainer;
 
     public void initialize(URL location, ResourceBundle resources) {
         button.setOnMouseClicked((event -> {

@@ -28,6 +28,11 @@
 	-fx-button-type: RAISED
 }
 
+.box-button-selected {
+	-fx-background-color: #E38262; /*Light Gray*/
+	-fx-button-type: RAISED
+}
+
 .weekday:Label {
     -fx-font-weight: BOLD;
     -fx-underline: true;
