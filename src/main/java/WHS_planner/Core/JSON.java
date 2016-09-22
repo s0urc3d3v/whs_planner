@@ -142,14 +142,13 @@ public class JSON {
      * Writes an array to the JSON File in memory
      * @Param Key is the identifier of the JSON Object
      * @Param Data is the value of the JSON Object
-     * TODO: This method never actually writes to the JSON file.
      */
-    public void writeArray(String key, Object data[]){
-        key = "@" + key;
+    public void writeArray(String key, Object data[]) {
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < data.length; i++) {
-            jsonArray.add(data[i]);
+            jsonArray.add("key" + i + ": " + data[i]);
         }
+        object.put("@" + key, jsonArray);
     }
 
 }
