@@ -1,5 +1,6 @@
 language: java
 jdk: oraclejdk8
+install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script: mvn clean validate
 after_success:
   ./on_success.sh
