@@ -29,18 +29,13 @@ public class UIController implements Initializable {
     @FXML
     private HBox iconContainer;
 
-    private int currentTextBoxRow = -1;
-    private int currentDate = -1;
-
     public void initialize(URL location, ResourceBundle resources) {
-
-
-
         button.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 CalendarBox box = (CalendarBox) (button.getParent().getParent().getParent().lookup("#calendar-box"));
                 box.addHomework(null);
                 box.update();
+//                button.setStyle("-fx-background-color:#E38262;");
                 Calendar calendar = (Calendar)button.getParent().getParent().getParent().getParent().getParent().getParent();
                 calendar.update(box.getRow(),box.getDate());
             }else if (event.getButton() == MouseButton.SECONDARY) {

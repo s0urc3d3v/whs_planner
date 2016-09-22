@@ -1,5 +1,7 @@
 package WHS_planner.Calendar;
 
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -95,6 +98,9 @@ public class Calendar extends Pane {
         mainPane.getChildren().setAll(rows);
 
         this.getChildren().setAll(mainPane);
+
+        LayoutAnimator animator = new LayoutAnimator();
+        animator.observe(mainPane.getChildren());
     }
 
     public void update(int row, int date){
@@ -117,16 +123,26 @@ public class Calendar extends Pane {
 
             try {//TODO Replace with errorhandler
                 if(currentTextBoxRow != -1) {
-                    mainPane.getChildren().add(currentTextBoxRow, loader.load());
+                    Node node = loader.load();
+                    mainPane.getChildren().add(currentTextBoxRow, node);
+
+                    FadeTransition fadeIn = new FadeTransition(Duration.millis(1750));
+                    fadeIn.setNode(node);
+
+                    fadeIn.setFromValue(0.0);
+                    fadeIn.setToValue(1.0);
+                    fadeIn.setCycleCount(1);
+                    fadeIn.setAutoReverse(false);
+                    fadeIn.playFromStart();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-    }
 
-    public void makeTextBox(int row, int date){
-
+//        if(currentDate != -1){
+//            System.out.println(mainPane.lookup(""+currentDate));
+//        }
     }
 
 }

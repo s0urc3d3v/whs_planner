@@ -30,7 +30,6 @@ public class MainUI extends Application{
         Scene scene = new Scene(cal);
 //-------------------------------------------------------------------------------------------
 
-
         //Set the stylesheet
         scene.getStylesheets().add("/Calendar/MainUI.css");
 
