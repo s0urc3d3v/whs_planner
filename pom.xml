@@ -28,11 +28,9 @@
   <name>whs_planner_app</name>
   <url>http://maven.apache.org</url>
 
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
 
   <dependencies>
     <dependency>
@@ -40,6 +38,12 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <!-- jsoup HTML parser library @ http://jsoup.org/ -->
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.9.2</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
@@ -66,5 +70,19 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.7.21</version>
     </dependency>
+
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
