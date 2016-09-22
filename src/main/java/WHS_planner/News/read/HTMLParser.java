@@ -3,7 +3,6 @@ package WHS_planner.News.read;
 /**
  * Created by george_jiang on 9/20/16.
  */
-//import java.lang.Object;
 
 import org.jsoup.Jsoup;
 import WHS_planner.News.model.Feed;
