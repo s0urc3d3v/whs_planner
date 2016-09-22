@@ -10,6 +10,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by matthewelbing on 16.09.16.
@@ -21,7 +23,7 @@ public class JSON {
     private JSONParser parser;
     private String filePath;
 
-    public JSON () throws IOException {
+    public JSON () {
        parser = new JSONParser();
     }
 
@@ -110,19 +112,14 @@ public class JSON {
      * @Return returns an entire hashmap of Objects that can be casted into JSONObjects and accessed
      */
     public HashMap<Object, Object> dropJsonDb(){
-        HashMap<Object, Object> JsonData = new HashMap<Object, Object>();
-        try {
-            Object parseObject = parser.parse(new FileReader(filePath));
-            JSONObject jsonObject = (JSONObject) parseObject;
-            Object keySet = jsonObject.keySet();
-            Object dataSet = jsonObject.entrySet();
-            JsonData.put(keySet, dataSet);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        Set set = object.keySet();
+        Iterator<String> iterator = set.iterator();
+        HashMap<Object, Object> hashMap = new HashMap<>();
+        while(iterator.hasNext()) {
+            String key = iterator.next();
+            hashMap.put(key, object.get(key));
         }
-        return JsonData;
+        return hashMap;
     }
 
     /*
@@ -146,7 +143,7 @@ public class JSON {
     public void writeArray(String key, Object data[]) {
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < data.length; i++) {
-            jsonArray.add("key" + i + ": " + data[i]);
+            jsonArray.add(key + i + ": " + data[i]);
         }
         object.put("@" + key, jsonArray);
     }
