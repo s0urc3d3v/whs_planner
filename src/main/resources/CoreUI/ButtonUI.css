@@ -1,0 +1,18 @@
+.button-raised {
+     -fx-padding: 0.7em 0.57em;
+     -fx-font-size: 14px;
+     -fx-button-type: RAISED;
+     -fx-background-color: rgb(255, 95, 56);
+     -fx-text-fill: WHITE;
+     -fx-cursor: hand;
+}
+
+
+.jfx-hamburger-icon{
+    -fx-spacing: 5;
+    -fx-cursor: hand;
+}
+.jfx-hamburger-icon StackPane{
+    -fx-background-color : WHITE;
+    -fx-background-radius : 5px;
+}
