@@ -17,7 +17,7 @@ public class RSS {
         try {
             JSON json = new JSON();
             SyndFeedInput feedInput = new SyndFeedInput();
-            feedUrl = (URL) json.readObject("feedurl");
+            feedUrl = (URL) json.readPair("feedurl");
             feed = feedInput.build(new XmlReader(feedUrl));
 
         } catch (Exception e) {

@@ -14,6 +14,7 @@ public class JsonTest extends TestCase{
         try {
             JSON JsonApi = new JSON();
             JsonApi.writePair("test", "test data");
+            JsonApi.unloadFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
