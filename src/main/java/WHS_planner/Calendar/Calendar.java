@@ -1,5 +1,6 @@
 package WHS_planner.Calendar;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
@@ -7,10 +8,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
@@ -142,9 +141,35 @@ public class Calendar extends Pane {
             }
         }
 
-//        if(currentDate != -1){
-//            calendar.
-//        }
+        if(currentDate != -1){
+            CalendarBox currentBox = null;
+
+            for (int rowIndex = 0; rowIndex < calendar.length; rowIndex++) {
+                for (int colIndex = 0; colIndex < calendar[rowIndex].length; colIndex++) {
+                    CalendarBox box = calendar[rowIndex][colIndex];
+                    if(box != null) {
+//                        System.out.println("ID:" + box.getChildren());
+                        if (Integer.valueOf(box.getChildren().get(0).getId()) == currentDate) {
+                            currentBox = calendar[rowIndex][colIndex];
+                            System.out.println(currentBox);
+                            break;
+                        }
+                    }
+                }
+                if(currentBox != null){
+                    break;
+                }
+            }
+
+            StackPane stackPane = (StackPane)(currentBox.getChildren().get(0));
+            System.out.println(stackPane);
+            AnchorPane anchorPane = (AnchorPane)stackPane.getChildren().get(0);
+            System.out.println(anchorPane);
+            JFXButton button = (JFXButton)anchorPane.getChildren().get(0);
+            System.out.println(button);
+            background = new Background(new BackgroundFill(Paint.valueOf("RED"),null, null));
+            button.setBackground(background);
+        }
     }
 
 }

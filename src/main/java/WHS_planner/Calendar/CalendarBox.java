@@ -49,6 +49,7 @@ public class CalendarBox extends Pane{
             String dateString = date + "";
             this.setId("calendar-box");
             Label label = (Label) calendarBoxPane.lookup("#date");
+            calendarBoxPane.setId(dateString);
             label.setText(dateString);
             tests.add(null);//TODO remove these
             tests.add(null);//TODO remove these

@@ -17,10 +17,6 @@ import java.util.ArrayList;
  * Created by geoffrey_wang on 9/17/16.
  */
 public class MainUI extends Application{
-
-    //Days of the week
-    String[] daysOfTheWeek = new String[]{"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
-
     @Override
     public void start(Stage stage) throws Exception {
 //------------------------Calendar Pane Implementation---------------------------------------

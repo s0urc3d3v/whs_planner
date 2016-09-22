@@ -35,7 +35,6 @@ public class UIController implements Initializable {
                 CalendarBox box = (CalendarBox) (button.getParent().getParent().getParent().lookup("#calendar-box"));
                 box.addHomework(null);
                 box.update();
-                button.setStyle("-fx-background-color:#757575;"); // GRAY
                 Calendar calendar = (Calendar)button.getParent().getParent().getParent().getParent().getParent().getParent();
                 calendar.update(box.getRow(),box.getDate());
             }else if (event.getButton() == MouseButton.SECONDARY) {
