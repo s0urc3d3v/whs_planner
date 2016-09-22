@@ -23,14 +23,14 @@ import java.util.*;
  */
 public class CalendarBox extends Pane{
     private int date;
-    private int dayOfTheWeek;
+    private int row;
     private ArrayList<Task> homework;
     private ArrayList<Task> tests;
     private Pane calendarBoxPane;
 
-    public CalendarBox(int date, int dayOfTheWeek, UIController controller){
+    public CalendarBox(int date, int row, UIController controller){
         this.date = date;
-        this.dayOfTheWeek = dayOfTheWeek;
+        this.row = row;
         this.homework = new ArrayList<Task>();
         this.tests = new ArrayList<Task>();
 
@@ -131,5 +131,13 @@ public class CalendarBox extends Pane{
         if(getTestsCount() != 0) {
             tests.remove(0);
         }
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getDate() {
+        return date;
     }
 }

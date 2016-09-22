@@ -14,7 +14,7 @@ public class CalendarUtility {
     FXMLLoader loader;
 
     //Generates a calendar array with the correct amount of days and starting on the start day
-    public CalendarBox[][] generateCalendar(int startDay, int numberOfDays) throws IOException {
+    public CalendarBox[][] fillInCalendar(int startDay, int numberOfDays, UIController controller) throws IOException {
 
         //Intitialize a general calendar array size
         CalendarBox[][] calendar = new CalendarBox[5][7];
@@ -44,7 +44,7 @@ public class CalendarUtility {
 //                label.setText(calendar[row][col].getId());
 //                dayInMonth ++;
 
-                CalendarBox box = new CalendarBox(dayInMonth,col,null);
+                CalendarBox box = new CalendarBox(dayInMonth,row,controller);
                 calendar[row][col] = box;
                 dayInMonth++;
 
