@@ -1,1 +1,0 @@
-echo "About to start"
