@@ -12,9 +12,8 @@ public class ReadTest {
 
 
         for (FeedMessage message : feed.getMessages()) {
-            System.out.println(message);
+            System.out.println(message.getTitle());
+            System.out.print(" " + message.getDescription());
         }
-        //TODO actually figure out how to get the strings for title, description and link individually.
-        System.out.println(feed.getDescription());
     }
 }

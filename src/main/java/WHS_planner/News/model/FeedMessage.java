@@ -11,6 +11,7 @@ public class FeedMessage {
     String guid;
 
     public String getTitle() {
+        escapeHTML();
         return title;
     }
 
@@ -19,6 +20,7 @@ public class FeedMessage {
     }
 
     public String getDescription() {
+        escapeHTML();
         return description;
     }
 
@@ -50,14 +52,15 @@ public class FeedMessage {
         this.guid = guid;
     }
 
-    public void commencePurge() {
+    public void escapeHTML() {
         title = Jsoup.parse(title).text();
         description = Jsoup.parse(description).text();
+
     }
 
     @Override
     public String toString() {
-        commencePurge();
+        escapeHTML();
         return "FeedMessage [title=" + title + ", description=" + description
                 + ", link=" + link + ", author=" + author + ", guid=" + guid
                 + "]";
