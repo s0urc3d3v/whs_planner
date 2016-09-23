@@ -9,3 +9,5 @@ after_success:
   ./on_success.sh
 after_failure:
   ./on_failure.sh
+notifications:
+  email: false
