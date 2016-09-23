@@ -24,12 +24,12 @@
 }
 
 .box-button {
-	-fx-background-color: #FFFFFF; /*Light Gray*/
+	-fx-background-color: #FFFFFF;
 	-fx-button-type: RAISED
 }
 
 .box-button-selected {
-	-fx-background-color: #E38262; /*Light Gray*/
+	-fx-background-color: #E38262;
 	-fx-button-type: RAISED
 }
 
@@ -41,4 +41,8 @@
 
 .box {
     -fx-padding:0;
+}
+
+.taskBox {
+    -fx-background-color:#FFFFFF;
 }
