@@ -12,19 +12,17 @@ import java.net.URL;
  */
 public class RSS {
     private SyndFeed feed;
-    private URL feedUrl = null;
-    public RSS(){
-        try {
-            JSON json = new JSON();
-            SyndFeedInput feedInput = new SyndFeedInput();
-            feedUrl = (URL) json.readPair("feedurl");
-            feed = feedInput.build(new XmlReader(feedUrl));
 
+    public RSS(URL feedUrl){
+        try {
+            SyndFeedInput feedInput = new SyndFeedInput();
+            feed = feedInput.build(new XmlReader(feedUrl));
         } catch (Exception e) {
             e.printStackTrace();
             ErrorHandler.handleGenericError("Error with getting RSS Feed", new Exception()); //TODO Create error message and screen
         }
     }
+
     public SyndFeed getRssFeed(){
         return feed;
     }
