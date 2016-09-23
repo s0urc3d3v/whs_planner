@@ -6,18 +6,19 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 public class Schedule extends Application
 {
-    javafx.scene.control.Label[][] classes = new javafx.scene.control.Label[6][9];
+    @FXML
     Pane rootLayout;
 
-    @FXML
-    private GridPane grid;
-
+    private Map<String, Object> labels;
 
     public static void main(String[] args)
     {
@@ -29,8 +30,6 @@ public class Schedule extends Application
     {
         PrimaryStage.setTitle("src/main/resources/Schedule");
 
-        classes[0][0] = new javafx.scene.control.Label();
-        classes[0][0].setText("memes");
         try
         {
             FXMLLoader loader = new FXMLLoader();
@@ -38,9 +37,9 @@ public class Schedule extends Application
             loader.setLocation(getClass().getResource("/Schedule/scheduletest.fxml"));
 
             rootLayout = loader.load();
+            generateSchedule(loader);
 
             Scene scene = new Scene(rootLayout);
-
 
             PrimaryStage.setResizable(true);
             PrimaryStage.setMinHeight(520);
@@ -52,11 +51,44 @@ public class Schedule extends Application
         {
             e.printStackTrace();
         }
-
-
     }
 
 
+    private void generateSchedule(FXMLLoader loader)
+    {
+        labels = loader.getNamespace();
 
+        for (int i = 0; i < 9; i++)
+        {
+            String letter;
+            switch(i)
+            {
+                case 0: letter = "A";
+                    break;
+                case 1: letter = "B";
+                    break;
+                case 2: letter = "C";
+                    break;
+                case 3: letter = "D";
+                    break;
+                case 4: letter = "E";
+                    break;
+                case 5: letter = "F";
+                    break;
+                case 6: letter = "G";
+                    break;
+                case 7: letter = "H";
+                    break;
+                default: letter = "Time";
+                    break;
+            }
 
+            for (int j = 1; j <= 6; j++)
+            {
+                String s = Integer.toString(j);
+                Label l = (Label) labels.get(letter+s);
+                l.setText(letter+s);
+            }
+        }
+    }
 }

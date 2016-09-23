@@ -512,7 +512,7 @@
    <left>
       <BorderPane prefHeight="426.0" prefWidth="104.0" BorderPane.alignment="CENTER">
          <top>
-            <Button fx:id="ChangeButton" mnemonicParsing="false" text="See Today" BorderPane.alignment="CENTER">
+            <Button fx:id="ChangeButton" mnemonicParsing="false" text="See Today" BorderPane.alignment="CENTER" onAction="#TylerIsACreep">
                <font>
                   <Font size="12.0" />
                </font>
