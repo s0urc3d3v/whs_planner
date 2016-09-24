@@ -27,6 +27,7 @@ public class Feed {
         this.pubDate = pubDate;
     }
 
+
     public List<FeedMessage> getMessages() {
         return entries;
     }
