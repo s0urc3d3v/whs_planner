@@ -1,0 +1,13 @@
+language: java
+jdk: oraclejdk8
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+script: mvn clean validate
+after_success:
+  ./on_success.sh
+after_failure:
+  ./on_failure.sh
+notifications:
+  email: false
