@@ -14,11 +14,7 @@ public class ReadSchedule {
     public ReadSchedule (){
         //getUserName and getPass gets users user and pass for ipass
     }
-    private boolean auth(String user, String pass) throws Exception {
-        URLConnection connection = authWithIpass("https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html", user, pass);
-        return false;
-    }
-    public static URLConnection authWithIpass(String url_v, String user, String pass) throws Exception {
+    public static void authAndFindTableWithIpass(String user, String pass) throws Exception {
         Selenium selenium = new DefaultSelenium("localhost", 4444, "*chrome", "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html");
         selenium.start();
         selenium.open("https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html");
