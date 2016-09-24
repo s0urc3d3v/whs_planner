@@ -2,6 +2,8 @@ package WHS_planner.Core;
 
 import java.io.OutputStreamWriter;
 import java.net.*;
+import com.thoughtworks.selenium.*;
+
 
 /**
  * Created by matthewelbing on 23.09.16.
@@ -16,20 +18,17 @@ public class ReadSchedule {
         URLConnection connection = authWithIpass("https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html", user, pass);
         return false;
     }
-    public static URLConnection authWithIpass(String url_v, String username, String password) throws Exception {
-
-        String data = URLEncoder.encode("Usuario", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
-        data += "&" + URLEncoder.encode("Contrase", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
-
-        URL url = new URL(url_v);
-        URLConnection conn = url.openConnection();
-        conn.setDoOutput(true);
-
-        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-        wr.write(data);
-        wr.flush();
-        wr.close();
-        return conn;
+    public static URLConnection authWithIpass(String url_v, String user, String pass) throws Exception {
+        Selenium selenium = new DefaultSelenium("localhost", 4444, "*chrome", "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html");
+        selenium.start();
+        selenium.open("https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html");
+        selenium.type("name=userid", user);
+        selenium.type("name=password", pass);
+        selenium.click("css=img[alt=\"Login to iPass\"]");
+        selenium.waitForPageToLoad("30000");
+        selenium.click("id=nodeIcon1");
+        selenium.click("link=iStudent Schedule");
+        selenium.stop();
     }
 
 }
