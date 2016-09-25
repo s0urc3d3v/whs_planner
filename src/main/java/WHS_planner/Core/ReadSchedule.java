@@ -1,14 +1,14 @@
 package WHS_planner.Core;
 
-import java.io.File;
-import java.io.OutputStreamWriter;
-import java.net.*;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import com.thoughtworks.selenium.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.seleniumhq.selenium.fluent.FluentWebDriver;
+import org.seleniumhq.selenium.fluent.Period;
+import org.seleniumhq.selenium.fluent.TestableString;
+
+import java.io.File;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.thoughtworks.selenium.SeleneseTestBase.fail;
 
@@ -21,6 +21,7 @@ public class ReadSchedule {
     private String password;
     private StringBuffer verificationErrors = new StringBuffer();
     private WebDriver chromeDriver;
+    private FluentWebDriver fluentWebDriver;
     private boolean acceptNextAlert = true;
     public ReadSchedule (){
         try{
@@ -34,6 +35,7 @@ public class ReadSchedule {
     public void authAndFindTableWithIpass(String user, String pass) throws Exception {
         //Auth and navigate to schedule
         chromeDriver = new ChromeDriver();
+        fluentWebDriver = new FluentWebDriver(chromeDriver);
         String baseUrl = "https://ipass.wayland.k12.ma.us";
         chromeDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         chromeDriver.get(baseUrl + "/school/ipass/syslogin.html");
@@ -42,6 +44,7 @@ public class ReadSchedule {
         chromeDriver.findElement(By.name("password")).clear();
         chromeDriver.findElement(By.name("password")).sendKeys(pass);
         chromeDriver.get(baseUrl + "/school/ipass/samschedule.html?m=506&pr=19&dt=09241660439");
+        TestableString rawHtmlData = fluentWebDriver.div(By.className("heading")).within(Period.secs(3)).getText();
 
         //Read schedule table
         String tableData[][] = new String[100][100];
