@@ -17,12 +17,12 @@ public class RSS {
         try {
             JSON json = new JSON();
             SyndFeedInput feedInput = new SyndFeedInput();
-            feedUrl = (URL) json.readPair("feedurl");
+            feedUrl = (URL) json.readObject("feedurl");
             feed = feedInput.build(new XmlReader(feedUrl));
 
         } catch (Exception e) {
             e.printStackTrace();
-            ErrorHandler.handleGenericError("ERROR",e); //TODO Create error message and screen
+           // ErrorHandler.handleGenericError("Fill this in", new Exception()); //TODO Create error message and screen
         }
     }
     public SyndFeed getRssFeed(){
