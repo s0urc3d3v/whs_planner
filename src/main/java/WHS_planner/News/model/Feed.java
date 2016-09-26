@@ -1,10 +1,7 @@
 package WHS_planner.News.model;
 
-import WHS_planner.News.model.FeedMessage;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 /*
  * Stores an RSS read
@@ -29,6 +26,7 @@ public class Feed {
         this.copyright = copyright;
         this.pubDate = pubDate;
     }
+
 
     public List<FeedMessage> getMessages() {
         return entries;
@@ -58,11 +56,11 @@ public class Feed {
         return pubDate;
     }
 
+
     @Override
     public String toString() {
         return "Feed [copyright=" + copyright + ", description=" + description
                 + ", language=" + language + ", link=" + link + ", pubDate="
                 + pubDate + ", title=" + title + "]";
     }
-
 }

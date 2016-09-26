@@ -1,18 +1,17 @@
 package WHS_planner.News.read;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+import WHS_planner.News.model.Feed;
+import WHS_planner.News.model.FeedMessage;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.XMLEvent;
-
-import WHS_planner.News.model.Feed;
-import WHS_planner.News.model.FeedMessage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class RSSFeedParser {
     static final String TITLE = "title";
@@ -65,40 +64,76 @@ public class RSSFeedParser {
                     //noinspection Since15
                     String localPart = event.asStartElement().getName()
                             .getLocalPart();
-                    switch (localPart) {
-                        case ITEM:
-                            if (isFeedHeader) {
-                                isFeedHeader = false;
-                                feed = new Feed(title, link, description, language,
-                                        copyright, pubdate);
-                            }
-                            event = eventReader.nextEvent();
-                            break;
-                        case TITLE:
-                            title = getCharacterData(event, eventReader);
-                            break;
-                        case DESCRIPTION:
-                            description = getCharacterData(event, eventReader);
-                            break;
-                        case LINK:
-                            link = getCharacterData(event, eventReader);
-                            break;
-                        case GUID:
-                            guid = getCharacterData(event, eventReader);
-                            break;
-                        case LANGUAGE:
-                            language = getCharacterData(event, eventReader);
-                            break;
-                        case AUTHOR:
-                            author = getCharacterData(event, eventReader);
-                            break;
-                        case PUB_DATE:
-                            pubdate = getCharacterData(event, eventReader);
-                            break;
-                        case COPYRIGHT:
-                            copyright = getCharacterData(event, eventReader);
-                            break;
+                    /*Switch wasn't working so  replaced with if statements
+                     *
+                     */
+//                    switch (localPart) {
+//                        case ITEM:
+//                            if (isFeedHeader) {
+//                                isFeedHeader = false;
+//                                feed = new Feed(title, link, description, language,
+//                                        copyright, pubdate);
+//                            }
+//                            event = eventReader.nextEvent();
+//                            break;
+//                        case TITLE:
+//                            title = getCharacterData(event, eventReader);
+//                            break;
+//                        case DESCRIPTION:
+//                            description = getCharacterData(event, eventReader);
+//                            break;
+//                        case LINK:
+//                            link = getCharacterData(event, eventReader);
+//                            break;
+//                        case GUID:
+//                            guid = getCharacterData(event, eventReader);
+//                            break;
+//                        case LANGUAGE:
+//                            language = getCharacterData(event, eventReader);
+//                            break;
+//                        case AUTHOR:
+//                            author = getCharacterData(event, eventReader);
+//                            break;
+//                        case PUB_DATE:
+//                            pubdate = getCharacterData(event, eventReader);
+//                            break;
+//                        case COPYRIGHT:
+//                            copyright = getCharacterData(event, eventReader);
+//                            break;
+//                    }
+                    if (localPart == ITEM) {
+                        if (isFeedHeader) {
+                            isFeedHeader = false;
+                            feed = new Feed(title, link, description, language,
+                                    copyright, pubdate);
+                        }
+                        event = eventReader.nextEvent();
+
+                    } else if (localPart == TITLE) {
+                        title = getCharacterData(event, eventReader);
+
+                    } else if (localPart == DESCRIPTION) {
+                        description = getCharacterData(event, eventReader);
+
+                    } else if (localPart == LINK) {
+                        link = getCharacterData(event, eventReader);
+
+                    } else if (localPart == GUID) {
+                        guid = getCharacterData(event, eventReader);
+
+                    } else if (localPart == LANGUAGE) {
+                        language = getCharacterData(event, eventReader);
+
+                    } else if (localPart == AUTHOR) {
+                        author = getCharacterData(event, eventReader);
+
+                    } else if (localPart == PUB_DATE) {
+                        pubdate = getCharacterData(event, eventReader);
+                    } else if (localPart == COPYRIGHT) {
+                        copyright = getCharacterData(event, eventReader);
+
                     }
+
                 } else if (event.isEndElement()) {
                     if (event.asEndElement().getName().getLocalPart() == (ITEM)) {
                         FeedMessage message = new FeedMessage();
