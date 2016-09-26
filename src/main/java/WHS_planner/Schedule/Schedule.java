@@ -1,5 +1,7 @@
 package WHS_planner.Schedule;
 
+import java.io.File;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,6 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
+import org.jsoup.nodes.Document;
 
 import java.util.Map;
 
@@ -52,6 +57,8 @@ public class Schedule extends Application
             e.printStackTrace();
         }
     }
+
+
 
 
     private void generateSchedule(FXMLLoader loader)
