@@ -54,11 +54,9 @@ public class ReadSchedule {
         chromeDriver.findElement(By.name("password")).sendKeys(pass);
         //chromeDriver.findElement(By.cssSelector("img[alt=\"Login to iPass\"]")).submit();
         chromeDriver.findElement(By.name("password")).sendKeys(Keys.TAB);
-
         ((JavascriptExecutor) chromeDriver).executeScript("javascript:document.login.submit()"); //working just needed a parenthesis        ((JavascriptExecutor) chromeDriver).executeScript("javascript:document.login.submit()"); //working just needed a parenthesis
-        ((JavascriptExecutor) chromeDriver).executeScript("javascript:clickOnNode(1)"); //working just needed a parenthesis
-        ((JavascriptExecutor) chromeDriver).executeScript("javascript:ChangeTabs(9)");
         //chromeDriver.get(baseUrl + "https://ipass.wayland.k12.ma.us/school/ipass/index.html?dt=09261636690");
+        chromeDriver.get("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?m=506&amp;pr=19&amp;dt=09261649872");
         pageSource = chromeDriver.getPageSource();
         Files.write(Paths.get(System.getProperty("user.dir") + "/raw.html"), pageSource.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         /*

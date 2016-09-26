@@ -10,7 +10,7 @@ public class ReadScheduleTest extends TestCase{
     public void testAuthAndFindTableWithIpass(){
         try {
             ReadSchedule r = new ReadSchedule();
-            r.authAndFindTableWithIpass("", ""); //replace user and pass with credentials
+            r.authAndFindTableWithIpass("user", "pass"); //replace user and pass with credentials
         } catch (Exception e) {
             e.printStackTrace();
         }
