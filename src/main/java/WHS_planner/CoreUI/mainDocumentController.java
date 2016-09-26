@@ -1,5 +1,8 @@
 package WHS_planner.CoreUI;
 
+import WHS_planner.Calendar.Calendar;
+import WHS_planner.Calendar.CalendarBox;
+import WHS_planner.Calendar.CalendarUtility;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
@@ -7,6 +10,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -45,6 +49,13 @@ public class mainDocumentController implements Initializable {
             tempButton.getStyleClass().add("button-raised");
             buttonArray[i] = tempButton;
         }
+
+        buttonArray[0].setOnMouseClicked(event -> {
+            Calendar cal = new Calendar(CalendarUtility.TUESDAY, 30);
+            cal.setId("MainCalendar");
+            pane.getChildren().add(0,cal);
+        });
+
         VBox vBox = new VBox(buttonArray);
 
         navDrawer.setSidePane(vBox);
