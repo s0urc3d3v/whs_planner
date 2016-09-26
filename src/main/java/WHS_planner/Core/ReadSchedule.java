@@ -3,12 +3,18 @@ package WHS_planner.Core;
 import java.io.File;
 import java.io.OutputStreamWriter;
 import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptExecutor;
 import com.thoughtworks.selenium.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static com.thoughtworks.selenium.SeleneseTestBase.fail;
 
@@ -22,9 +28,10 @@ public class ReadSchedule {
     private StringBuffer verificationErrors = new StringBuffer();
     private WebDriver chromeDriver;
     private boolean acceptNextAlert = true;
+    private String pageSource;
     public ReadSchedule (){
         try{
-            File chromeWebDriverExec = new File("/Users/matthewelbing/School/whs_planner_app_maven/src/main/resources/Core/chromedriver");
+            File chromeWebDriverExec = new File(System.getProperty("user.dir") + "/src/main/resources/Core/chromedriver");
             System.setProperty("webdriver.chrome.driver", (System.getProperty("user.dir") + "/src/main/resources/Core/chromedriver"));
         }
         catch (Exception e){
@@ -33,7 +40,11 @@ public class ReadSchedule {
     }
     public void authAndFindTableWithIpass(String user, String pass) throws Exception {
         //Auth and navigate to schedule
-        chromeDriver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("window-size=1024,768");
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        chromeDriver = new ChromeDriver(capabilities);
         String baseUrl = "https://ipass.wayland.k12.ma.us";
         chromeDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         chromeDriver.get(baseUrl + "/school/ipass/syslogin.html");
@@ -41,9 +52,16 @@ public class ReadSchedule {
         chromeDriver.findElement(By.name("userid")).sendKeys(user);
         chromeDriver.findElement(By.name("password")).clear();
         chromeDriver.findElement(By.name("password")).sendKeys(pass);
-        chromeDriver.get(baseUrl + "/school/ipass/samschedule.html?m=506&pr=19&dt=09241660439");
+        //chromeDriver.findElement(By.cssSelector("img[alt=\"Login to iPass\"]")).submit();
+        chromeDriver.findElement(By.name("password")).sendKeys(Keys.TAB);
 
-        //Read schedule table
+        ((JavascriptExecutor) chromeDriver).executeScript("javascript:document.login.submit()"); //working just needed a parenthesis        ((JavascriptExecutor) chromeDriver).executeScript("javascript:document.login.submit()"); //working just needed a parenthesis
+        ((JavascriptExecutor) chromeDriver).executeScript("javascript:clickOnNode(1)"); //working just needed a parenthesis
+        ((JavascriptExecutor) chromeDriver).executeScript("javascript:ChangeTabs(9)");
+        //chromeDriver.get(baseUrl + "https://ipass.wayland.k12.ma.us/school/ipass/index.html?dt=09261636690");
+        pageSource = chromeDriver.getPageSource();
+        Files.write(Paths.get(System.getProperty("user.dir") + "/raw.html"), pageSource.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        /*
         String tableData[][] = new String[100][100];
         WebElement scheduleTable = chromeDriver.findElement(By.className("boxHdr"));
         List<WebElement> tableRows = scheduleTable.findElements(By.className("DATA"));
@@ -58,7 +76,7 @@ public class ReadSchedule {
                 collum_number++;
             }
         row_number++;
-        }
+        }*/
 
         chromeDriver.quit();
         String verificationErrorString = verificationErrors.toString();
