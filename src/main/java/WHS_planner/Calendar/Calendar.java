@@ -121,32 +121,15 @@ public class Calendar extends Pane {
             }else{
                 changeButtonColor(getCalendarBox(currentDate).getButton(), false);
                 mainPane.getChildren().remove(currentTextBoxRow);
-                currentTextBoxRow = -1;
-                currentDate = -1;
+                currentTextBoxRow = rowIDs[row];
+                currentDate = date;
+                loadTaskBox(currentTextBoxRow);
+                changeButtonColor(getCalendarBox(date).getButton(),true);
             }
         }else{
             currentTextBoxRow = rowIDs[row];
             currentDate = date;
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
-            loader.setLocation(getClass().getResource("/Calendar/taskBox.fxml"));
-
-            try {//TODO Replace with errorhandler
-                Node node = loader.load();
-                mainPane.getChildren().add(currentTextBoxRow, node);
-
-                FadeTransition fadeIn = new FadeTransition(Duration.millis(1750));
-                fadeIn.setNode(node);
-
-                fadeIn.setFromValue(0.0);
-                fadeIn.setToValue(1.0);
-                fadeIn.setCycleCount(1);
-                fadeIn.setAutoReverse(false);
-                fadeIn.playFromStart();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            loadTaskBox(currentTextBoxRow);
             changeButtonColor(getCalendarBox(date).getButton(),true);
         }
     }
@@ -177,5 +160,27 @@ public class Calendar extends Pane {
             }
         }
         return currentBox;
+    }
+
+    public void loadTaskBox(int row){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
+        loader.setLocation(getClass().getResource("/Calendar/taskBox.fxml"));
+
+        try {//TODO Replace with errorhandler
+            Node node = loader.load();
+            mainPane.getChildren().add(row, node);
+
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(1750));
+            fadeIn.setNode(node);
+
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.setCycleCount(1);
+            fadeIn.setAutoReverse(false);
+            fadeIn.playFromStart();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

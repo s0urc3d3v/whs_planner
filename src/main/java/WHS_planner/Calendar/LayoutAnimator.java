@@ -14,6 +14,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Code is written by Stack Overflow users: Chui Tey and corrected/fixed by jewelsea
+ * THIS CLASS IS FROM ->
+ * https://gist.github.com/jewelsea/5683558
+ * http://stackoverflow.com/questions/16828234/animation-upon-layout-changes
+ *
+ * This class has been modified by adding a "durationInMilli" variable to easily modify
+ * the duration of the animations.
+ */
+
+/**
  * Animates an object when its position is changed. For instance, when
  * additional items are added to a Region, and the layout has changed, then the
  * layout animator makes the transition by sliding each item into its final
