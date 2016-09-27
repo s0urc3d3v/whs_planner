@@ -28,23 +28,33 @@ public class wankers {
         int count = 0;
         Element schedElement = null;
 
-        File input = new File("/Users/william_robison/IdeaProjects/whs_planner/raw.html");
+        File input = new File("raw.html");
         Document doc = Jsoup.parse(input,"UTF-8","");
-        Elements links  = doc.select("table");
+        Elements tables  = doc.select("table");
 
-        for (int i = 0; i < links.size(); i++) {
-            if(links.get(i).id().equalsIgnoreCase("Student's Schedule")){
-                schedElement = links.get(i);
+        for (int i = 0; i < tables.size(); i++) {
+            if(tables.get(i).id().equalsIgnoreCase("Student's Schedule")){
+                schedElement = tables.get(i);
                 System.out.println(i);
             }
         }
 
-        for (int i = 0; i < 12; i++) {
-            System.out.println(links.get(wanks[i]));
+//        schedElement = schedElement.select("table table").first();
+        while(! schedElement.select(":has(table)").isEmpty()){
+            schedElement = schedElement.select("table table").first();
         }
+
+//        System.out.println(wowo);
+        System.out.println(schedElement);
         System.out.println(count);
         String wow2 = schedElement.toString();
-        System.out.println(wow2);
+//        System.out.println(wow2);
 
     }
+
+    private static String[] findClass(int period, String el){
+
+        return null;
+    }
+
 }
