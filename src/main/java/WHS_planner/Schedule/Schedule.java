@@ -1,21 +1,12 @@
 package WHS_planner.Schedule;
 
-import java.io.File;
-import java.io.IOException;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.jsoup.Jsoup;
-import org.jsoup.select.Elements;
-import org.jsoup.nodes.Document;
-
 import java.util.Map;
 
 public class Schedule extends Application
@@ -24,6 +15,8 @@ public class Schedule extends Application
     Pane rootLayout;
 
     private Map<String, Object> labels;
+
+    private String[] classes;
 
     public static void main(String[] args)
     {
@@ -34,6 +27,9 @@ public class Schedule extends Application
     public void start(Stage PrimaryStage)
     {
         PrimaryStage.setTitle("src/main/resources/Schedule");
+
+        classes = new String[8];
+
 
         try
         {
