@@ -26,21 +26,15 @@ public class wankers {
     public static void getClasses() throws IOException {
         int[] wanks = new int[12];
         int count = 0;
+        Element schedElement = null;
 
         File input = new File("/Users/william_robison/IdeaProjects/whs_planner/raw.html");
         Document doc = Jsoup.parse(input,"UTF-8","");
         Elements links  = doc.select("table");
-//        System.out.println(doc);
-//        System.out.println("wowow");
-//        System.out.println(links);
-//        System.out.println(links.size());
-//        System.out.println(links.get(1));
 
         for (int i = 0; i < links.size(); i++) {
             if(links.get(i).id().equalsIgnoreCase("Student's Schedule")){
-                System.out.println(i);
-                wanks[count] = i;
-                count++;
+                schedElement = links.get(i);
                 System.out.println(i);
             }
         }
@@ -49,6 +43,8 @@ public class wankers {
             System.out.println(links.get(wanks[i]));
         }
         System.out.println(count);
+        String wow2 = schedElement.toString();
+        System.out.println(wow2);
 
     }
 }
