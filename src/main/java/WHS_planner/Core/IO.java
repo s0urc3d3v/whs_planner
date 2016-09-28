@@ -15,6 +15,7 @@ public class IO {
     }
     public void writeScheduleArray(Object[] classLayout){
         jsonApi.writeArray("schedule", classLayout);
+
     }
     public Object[] readScheduleArray(){
         return (Object[]) jsonApi.readPair("@schedule");
