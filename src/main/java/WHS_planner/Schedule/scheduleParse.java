@@ -11,14 +11,17 @@ import java.io.IOException;
 /**
  * Created by william_robison on 9/26/16.
  */
-public class scheduleParse {
-
-
-
-    public static void main(String[] args) {
-        try {
+public class scheduleParse
+{
+    public static void main(String[] args)
+    {
+        try
+        {
             getClasses();
-        } catch (IOException e) {
+        }
+
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
