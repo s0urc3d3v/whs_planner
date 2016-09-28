@@ -34,6 +34,6 @@ public class ScheduleController implements Initializable
 
     public void TylerIsACreep()
     {
-        System.out.println("memes");
+        Schedule.MainStage.setScene(Schedule.day);
     }
 }

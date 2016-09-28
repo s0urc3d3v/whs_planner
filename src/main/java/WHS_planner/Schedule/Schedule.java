@@ -11,12 +11,21 @@ import java.util.Map;
 
 public class Schedule extends Application
 {
+
+    public static Stage MainStage;
+
     @FXML
     Pane rootLayout;
+
+    @FXML
+    Pane memes;
 
     private Map<String, Object> labels;
 
     private String[] classes;
+
+    public static Scene schedule;
+    public static Scene day;
 
     public static void main(String[] args)
     {
@@ -26,6 +35,8 @@ public class Schedule extends Application
 
     public void start(Stage PrimaryStage)
     {
+        MainStage = PrimaryStage;
+
         PrimaryStage.setTitle("src/main/resources/Schedule");
 
         classes = new String[8];
@@ -40,12 +51,19 @@ public class Schedule extends Application
             rootLayout = loader.load();
             generateSchedule(loader);
 
-            Scene scene = new Scene(rootLayout);
+            schedule = new Scene(rootLayout);
+
+            FXMLLoader load2 = new FXMLLoader();
+
+            load2.setLocation(getClass().getResource("/Schedule/day.fxml"));
+            memes = load2.load();
+
+            day = new Scene(memes);
 
             PrimaryStage.setResizable(true);
             PrimaryStage.setMinHeight(520);
             PrimaryStage.setMinWidth(573);
-            PrimaryStage.setScene(scene);
+            PrimaryStage.setScene(schedule);
             PrimaryStage.show();
         }
         catch(Exception e)
@@ -94,4 +112,5 @@ public class Schedule extends Application
             }
         }
     }
+
 }
