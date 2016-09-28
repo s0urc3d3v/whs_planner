@@ -50,22 +50,23 @@ public class scheduleParse
             }
 
         System.out.println(classesRaw.size());
-        for (int i = 0; i < 57; i++) {
+//        for (int i = 0; i < 57; i++) {
 //            System.out.println(polishClass(classesRaw.get(i)));
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println(classesRaw.get(i));
-            System.out.println();
-            System.out.println();
-            System.out.println();
-        }
+//            System.out.println();
+//            System.out.println();
+//            System.out.println();
+//            System.out.println(classesRaw.get(i));
+//            System.out.println();
+//            System.out.println();
+//            System.out.println();
+//        }
 
         ScheduleBlock[] schedule = new ScheduleBlock[57];
-
-//        for (int i = 0; i < 57 ; i++) {
-//            schedule[i] = new ScheduleBlock()
-//        }
+        String[] holder = new String[4];
+        for (int i = 0; i < 57 ; i++) {
+            holder = polishClass(classesRaw.get(i));
+            schedule[i] = new ScheduleBlock(holder[0],holder[1],holder[2],holder[3]);
+        }
 
 
     }
