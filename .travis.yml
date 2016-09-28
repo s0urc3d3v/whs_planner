@@ -11,3 +11,6 @@ after_failure:
   ./on_failure.sh
 notifications:
   email: false
+branches:
+  except:
+    - master
