@@ -38,19 +38,17 @@ public class scheduleParse {
                 schedElement = tables.get(i);
             }
         }
-
-
             while (!schedElement.select(":has(table)").isEmpty()) {
                 if(count < 59){
                 rawClass = schedElement.select("table table").get(count);
                 count++;
                 classesRaw.add(rawClass);}
                 else {break;}
-
             }
 
-        for (int i = 0; i < 55; i++) {
-            System.out.println(polishClass(classesRaw.get(i)));
+        System.out.println(classesRaw.size());
+        for (int i = 0; i < 57; i++) {
+//            System.out.println(polishClass(classesRaw.get(i)));
             System.out.println();
             System.out.println();
             System.out.println();
@@ -60,18 +58,27 @@ public class scheduleParse {
             System.out.println();
         }
 
+        ScheduleBlock[] schedule = new ScheduleBlock[57];
+
+//        for (int i = 0; i < 57 ; i++) {
+//            schedule[i] = new ScheduleBlock()
+//        }
+
 
     }
 
-    private static String polishClass(Element el){ // returns "Class:Teacher:Roome:Period"
+
+
+    private static String[] polishClass(Element el){ // returns "Class:Teacher:Roome:Period"
         //Write code for advisory
         String strEl = el.toString();
-        String polishedStr = "";
+        String[] polishedStr = new String[4];
         String utilStr = "";
+        String[] free = {"free","free","free","free"};
 
 
         if(strEl.length() < 200){
-            return "free";
+            return free;
         }
 
         //Find td's
@@ -83,11 +90,11 @@ public class scheduleParse {
         for (int i = 0; i < 4; i++) {
             if(i == 3){
                 utilStr = strEl.substring(strEl.indexOf("<td") + 1, strEl.indexOf("</td>") + 3);
-                polishedStr += utilStr.substring(utilStr.indexOf(":") + 2, utilStr.indexOf(" </"));
+                polishedStr[i] = utilStr.substring(utilStr.indexOf(":") + 2, utilStr.indexOf(" </"));
                 strEl = strEl.substring(0, strEl.indexOf("<td")) + strEl.substring(strEl.indexOf("</td>") + 5);
             }else {
                 utilStr = strEl.substring(strEl.indexOf("<td") + 1, strEl.indexOf("</td>") + 3);
-                polishedStr += utilStr.substring(utilStr.indexOf("> ") + 2, utilStr.indexOf(" </")) + ":";
+                polishedStr[i] = utilStr.substring(utilStr.indexOf("> ") + 2, utilStr.indexOf(" </")) + ":";
                 strEl = strEl.substring(0, strEl.indexOf("<td")) + strEl.substring(strEl.indexOf("</td>") + 5);
             }
         }
