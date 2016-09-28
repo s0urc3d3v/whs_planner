@@ -13,12 +13,15 @@ import java.util.ResourceBundle;
 public class SimpleController implements Initializable {
 
     @FXML
-    private Text dialog;
+
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        dialog.setText("text");
+
     }
 
+
+
+    //LINE TO OPEN URL: Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "http://waylandstudentpress.com/"});
 
 
 }

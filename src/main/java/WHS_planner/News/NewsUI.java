@@ -6,6 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import WHS_planner.News.model.Feed;
+import WHS_planner.News.model.FeedMessage;
+import WHS_planner.News.read.RSSFeedParser;
+
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -14,14 +19,16 @@ import java.net.URL;
 public class NewsUI extends Application {
     public void start(Stage stage) throws Exception{
 
+        RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
+        Feed feed = parser.readFeed();
 
-        String sceneFile = "/res/loginPage.fxml";
+        String sceneFile = "/resources/News/News1_2.fxml";
         Parent root = null;
         URL url  = null;
 
         try
         {
-            url  = getClass().getResource("/loginPage.fxml");
+            url = getClass().getResource("/News/News1_2.fxml");
             root = FXMLLoader.load(url);
             System.out.println( "  fxmlResource = " + sceneFile );
         }
