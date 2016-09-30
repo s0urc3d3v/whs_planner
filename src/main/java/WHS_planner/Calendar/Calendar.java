@@ -34,6 +34,7 @@ public class Calendar extends Pane {
     private VBox mainPane;
 
     private int currentTextBoxRow = -1;
+    // MARK: day in foucus
     private int currentDate = -1;
 
     public Calendar(int startDay, int numberOfDays){
