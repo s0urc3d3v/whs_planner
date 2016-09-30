@@ -165,6 +165,7 @@ public class Calendar extends Pane {
     public void loadTaskBox(int row){
         FXMLLoader loader = new FXMLLoader();
         loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
+        loader.setController(new TaskBoxController());
         loader.setLocation(getClass().getResource("/Calendar/taskBox.fxml"));
 
         try {//TODO Replace with errorhandler

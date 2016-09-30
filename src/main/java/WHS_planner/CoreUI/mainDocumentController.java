@@ -59,6 +59,7 @@ public class mainDocumentController implements Initializable {
         VBox vBox = new VBox(buttonArray);
 
         navDrawer.setSidePane(vBox);
+        navDrawer.setPickOnBounds(false);
 
         burgerTransition = new HamburgerBackArrowBasicTransition(navHamburger);
         burgerTransition.setRate(-1);

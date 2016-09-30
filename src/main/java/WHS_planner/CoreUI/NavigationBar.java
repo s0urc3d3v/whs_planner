@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -40,6 +42,11 @@ public class NavigationBar extends Application{
 //        Parent root = FXMLLoader.load(getClass().getResource("/loginPage.fxml")); //root is the fxml "loginPage" in the src dir
 
         Scene scene = new Scene(root);
+
+//        Region rect = (Region)root.getChildrenUnmodifiable().get(0);
+//
+//        rect.prefWidthProperty().bind(scene.widthProperty());
+//        rect.prefHeightProperty().bind(scene.heightProperty());
 
         //Set the stylesheet
         scene.getStylesheets().add("/Calendar/MainUI.css");
