@@ -10,14 +10,17 @@ import java.util.Objects;
  */
 public class IO {
     private JSON jsonApi;
-    public IO(){
+    public IO()
+    {
         jsonApi = new JSON();
     }
-    public void writeScheduleArray(Object[] classLayout){
+    public void writeScheduleArray(Object[] classLayout)
+    {
         jsonApi.writeArray("schedule", classLayout);
 
     }
-    public Object[] readScheduleArray(){
+    public Object[] readScheduleArray()
+    {
         return (Object[]) jsonApi.readPair("@schedule");
     }
 }

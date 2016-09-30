@@ -16,14 +16,16 @@ import java.util.Set;
 /**
  * Created by matthewelbing on 16.09.16.
  */
-public class JSON {
+public class JSON
+{
 
     private FileWriter fileWriter;
     private JSONObject object;
     private JSONParser parser;
     private String filePath;
 
-    public JSON () {
+    public JSON ()
+    {
        parser = new JSONParser();
     }
 
@@ -31,7 +33,8 @@ public class JSON {
      @Param filePath
      @return If the file was successfully loaded
      */
-    public boolean loadFile(String filePath) {
+    public boolean loadFile(String filePath)
+    {
         this.filePath = filePath;
         try {
             Object raw = null;
@@ -74,7 +77,8 @@ public class JSON {
      * @Param key of object to load
      * @Return Object from JSON File
      */
-    private Object readObject(String key) {
+    private Object readObject(String key)
+    {
         return object.get(key);
     }
 
@@ -140,11 +144,15 @@ public class JSON {
      * @Param Key is the identifier of the JSON Object
      * @Param Data is the value of the JSON Object
      */
-    public void writeArray(String key, Object data[]) {
+    public void writeArray(String key, Object data[])
+    {
         JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < data.length; i++) {
+
+        for (int i = 0; i < data.length; i++)
+        {
             jsonArray.add(key + i + ": " + data[i]);
         }
+
         object.put("@" + key, jsonArray);
     }
 
