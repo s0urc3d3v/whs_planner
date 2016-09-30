@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -35,6 +36,9 @@ public class SimpleController implements Initializable {
     @FXML
     private Text Description;
 
+    @FXML
+    private Label label;
+
     private RSSFeedParser parser;
     private Feed feed;
     private List<FeedMessage> feedArray;
@@ -50,6 +54,9 @@ public class SimpleController implements Initializable {
         nextPageButton = new Button();
         Author_Sample = new Text();
         Description = new Text();
+        label = new Label("ASDF");
+
+
 
         parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
         feed = parser.readFeed();
@@ -61,6 +68,8 @@ public class SimpleController implements Initializable {
         Article_Title_Sample2.setText(currentMessage.getTitle());
         Author_Sample.setText(currentMessage.getAuthor());
         Description.setText(currentMessage.getDescription());
+
+        label.setText("DSHGWDUYGDIDYUW");
 //        try {
 //            System.out.println(text.getText());
 //        } catch(Exception e){
@@ -121,6 +130,10 @@ public class SimpleController implements Initializable {
         Author_Sample.setText(currentMessage.getAuthor());
         Description.setText(currentMessage.getDescription());
 
+        System.out.println(Article_Title_Sample2.getText());
+        System.out.println(Author_Sample.getText());
+        System.out.println(Description.getText());
+
         if(currentArticle == 0){
             prevPageButton.setVisible(false);
             nextPageButton.setVisible(true);
@@ -133,8 +146,6 @@ public class SimpleController implements Initializable {
             prevPageButton.setVisible(true);
             nextPageButton.setVisible(true);
         }
-
-
     }
 }
 

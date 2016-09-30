@@ -1,9 +1,11 @@
 package WHS_planner.News;
 
 import javafx.application.Application;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -22,7 +24,11 @@ public class NewsUI extends Application {
         try
         {
             url = getClass().getResource("/News/News1_2.fxml");
-            root = FXMLLoader.load(url);
+            FXMLLoader fxmlLoader = new FXMLLoader(url);
+            root = fxmlLoader.load();
+            ObservableMap<String, Object> hashMap= fxmlLoader.getNamespace();
+            Label label = (Label)hashMap.get("label");
+            label.setText("ASDF");
             System.out.println( "  fxmlResource = " + sceneFile );
         }
         catch ( Exception ex )
