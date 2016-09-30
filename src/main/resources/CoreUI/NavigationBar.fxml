@@ -2,15 +2,18 @@
 
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
-
-
 <?import javafx.scene.layout.Pane?>
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WHS_planner.CoreUI.mainDocumentController">
+
+<AnchorPane minHeight="480.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WHS_planner.CoreUI.mainDocumentController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill= "rgb(255, 95, 56)" height="47.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
-      <JFXDrawer fx:id="navDrawer" defaultDrawerSize="200.0" layoutY="47.0" prefHeight="353.0" prefWidth="600.0" />
-      <JFXHamburger fx:id="navHamburger" layoutX="14.0" layoutY="14.0" onMouseClicked="#fistMeDaddy" />
+      <Pane fx:id="topBar" prefHeight="48.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </Pane>
+      <JFXDrawer fx:id="navDrawer" defaultDrawerSize="200.0" layoutY="63.0" minHeight="100.0" mouseTransparent="true" prefHeight="417.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0" />
+      <JFXHamburger fx:id="navHamburger" onMouseClicked="#fistMeDaddy" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
    </children>
-</Pane>
+</AnchorPane>
