@@ -1,5 +1,6 @@
 package WHS_planner.Schedule;
 
+import WHS_planner.Core.IO;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -68,12 +69,16 @@ public class scheduleParse
             schedule[i] = new ScheduleBlock(holder[0],holder[1],holder[2],holder[3]);
         }
 
+        IO io = new IO();
+        io.writeScheduleArray(schedule);
+        ScheduleBlock[] b = (ScheduleBlock[]) io.readScheduleArray();
+
 
     }
 
 
 
-    private static String[] polishClass(Element el){ // returns "Class:Teacher:Roome:Period"
+    private static String[] polishClass(Element el){ // returns "Class:Teacher:Room:Period"
         //Write code for advisory
         String strEl = el.toString();
         String[] polishedStr = new String[4];
