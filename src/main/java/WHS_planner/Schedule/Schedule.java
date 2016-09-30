@@ -1,5 +1,6 @@
 package WHS_planner.Schedule;
 
+import WHS_planner.Core.IO;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +23,6 @@ public class Schedule extends Application
 
     private Map<String, Object> labels;
 
-    private String[] classes;
 
     public static Scene schedule;
     public static Scene day;
@@ -32,6 +32,7 @@ public class Schedule extends Application
         launch(args);
     }
 
+    private ScheduleBlock[] blocks;
 
     public void start(Stage PrimaryStage)
     {
@@ -39,7 +40,6 @@ public class Schedule extends Application
 
         PrimaryStage.setTitle("src/main/resources/Schedule");
 
-        classes = new String[8];
 
 
         try
@@ -79,10 +79,29 @@ public class Schedule extends Application
     {
         labels = loader.getNamespace();
 
-        for (int i = 0; i < 9; i++)
+        blocks = getData();
+
+
+        String currentClass;
+        String currentTeacher;
+        String currentPeriod;
+        String currentRoom;
+
+        int incr = 0;
+        int incr2 = 0;
+
+        for (int i = 0; i < 56; i++)
         {
+            currentClass = blocks[i].getClassName();
+            currentTeacher = blocks[i].getTeacher();
+            currentPeriod = blocks[i].getPeriodNumber();
+            currentRoom = blocks[i].getRoomNumber();
+
+            String s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+currentPeriod;
+
             String letter;
-            switch(i)
+
+            switch(incr)
             {
                 case 0: letter = "A";
                     break;
@@ -104,13 +123,25 @@ public class Schedule extends Application
                     break;
             }
 
-            for (int j = 1; j <= 6; j++)
+            incr++;
+            if(incr == 8)
             {
-                String s = Integer.toString(j);
-                Label l = (Label) labels.get(letter+s);
-                l.setText(letter+s);
+                incr = 0;
+                incr2++;
             }
+
+            Label l = (Label) labels.get(letter+incr2);
+            l.setText(s);
+
         }
+    }
+
+    public ScheduleBlock[] getData()
+    {
+        ScheduleBlock[] blocks;
+        IO dotaIo = new IO();
+        blocks = (ScheduleBlock[]) dotaIo.readScheduleArray();
+        return blocks;
     }
 
 }
