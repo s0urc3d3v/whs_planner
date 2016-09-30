@@ -40,8 +40,6 @@ public class Schedule extends Application
 
         PrimaryStage.setTitle("src/main/resources/Schedule");
 
-
-
         try
         {
             FXMLLoader loader = new FXMLLoader();
@@ -88,7 +86,7 @@ public class Schedule extends Application
         String currentRoom;
 
         int incr = 0;
-        int incr2 = 0;
+        int incr2 = 1;
 
         for (int i = 0; i < 56; i++)
         {
