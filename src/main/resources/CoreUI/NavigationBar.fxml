@@ -13,7 +13,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </Pane>
-      <JFXDrawer fx:id="navDrawer" defaultDrawerSize="200.0" layoutY="63.0" minHeight="100.0" mouseTransparent="true" prefHeight="417.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0" />
+      <JFXDrawer fx:id="navDrawer" defaultDrawerSize="200.0" layoutY="63.0" minHeight="100.0" prefHeight="417.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0" />
       <JFXHamburger fx:id="navHamburger" onMouseClicked="#fistMeDaddy" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
    </children>
 </AnchorPane>
