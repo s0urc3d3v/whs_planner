@@ -23,6 +23,8 @@ import java.util.ResourceBundle;
 
 public class mainDocumentController implements Initializable {
 
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private Pane topBar;
