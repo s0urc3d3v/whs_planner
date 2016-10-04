@@ -29,8 +29,6 @@ public class scheduleParse
     {
 
         ScheduleBlock[] schedule;
-        int test = 0;
-
         int count = 2;
         Element schedElement = null;
         Element rawClass;
@@ -72,7 +70,6 @@ public class scheduleParse
             try
             {
                 holder = polishClass(classesRaw.get(i));
-                test++;
             }
             catch(Exception e)
             {
