@@ -19,9 +19,8 @@ import java.util.Set;
 public class JSON {
 
     private FileWriter fileWriter;
-    private JSONObject object;
+    private JSONObject object = new JSONObject();
     private JSONParser parser;
-    private String filePath;
 
     public JSON () {
        parser = new JSONParser();
@@ -32,19 +31,20 @@ public class JSON {
      @return If the file was successfully loaded
      */
     public boolean loadFile(String filePath) {
-        this.filePath = filePath;
         try {
-            Object raw = null;
             try {
-                raw = parser.parse(new FileReader(filePath));
+                object = (JSONObject) parser.parse(new FileReader(filePath));
                 fileWriter = new FileWriter(filePath);
             } catch (IOException e) {
-                ErrorHandler.HandleIOError(e);
-                return false;
+                e.printStackTrace();
             }
-            object = (JSONObject) raw;
         } catch (ParseException e) {
-            ErrorHandler.handleGenericError("Parser Error with JSON File loading", e);
+            object = new JSONObject();
+            try {
+                fileWriter = new FileWriter(filePath);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             return false;
         }
         parser = new JSONParser();
