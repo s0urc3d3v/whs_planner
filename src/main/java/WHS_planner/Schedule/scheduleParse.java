@@ -8,10 +8,6 @@ import org.jsoup.select.Elements;
 import java.io.File;
 import java.io.IOException;
 
-
-/**
- * Created by william_robison on 9/26/16.
- */
 public class scheduleParse
 {
 
@@ -33,8 +29,6 @@ public class scheduleParse
     {
 
         ScheduleBlock[] schedule;
-        int test = 0;
-
         int count = 2;
         Element schedElement = null;
         Element rawClass;
@@ -76,7 +70,6 @@ public class scheduleParse
             try
             {
                 holder = polishClass(classesRaw.get(i));
-                test++;
             }
             catch(Exception e)
             {
@@ -85,9 +78,10 @@ public class scheduleParse
             schedule[i] = new ScheduleBlock(holder[0],holder[1],holder[2],holder[3]);
         }
 
-        IO io = new IO();
+        IO io = new IO("Schedule");
         io.writeScheduleArray(schedule);
-
+        io.unload();
+    //change
     }
 
 

@@ -137,7 +137,7 @@ public class Schedule extends Application
     public ScheduleBlock[] getData()
     {
         ScheduleBlock[] blocks;
-        IO dotaIo = new IO();
+        IO dotaIo = new IO("Schedule");
         blocks = (ScheduleBlock[]) dotaIo.readScheduleArray();
         return blocks;
     }

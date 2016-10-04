@@ -10,19 +10,23 @@ import java.util.Objects;
  */
 public class IO {
     private JSON jsonApi;
-    public IO(String fileName){
+    public IO(String fileName)
+    {
         jsonApi = new JSON();
         jsonApi.loadFile(fileName);
     }
-    public void writeScheduleArray(Object[] classLayout){
-        jsonApi.writeArray("schedule", classLayout);
+    public void writeScheduleArray(Object[] classLayout)
+    {
+        jsonApi.writeArray("Schedule", classLayout);
 
     }
-    public Object[] readScheduleArray(){
-        return (Object[]) jsonApi.readPair("@schedule");
+    public Object[] readScheduleArray()
+    {
+        return (Object[]) jsonApi.readPair("@Schedule");
     }
 
-    public void unload() {
+    public void unload()
+    {
         jsonApi.unloadFile();
     }
 }
