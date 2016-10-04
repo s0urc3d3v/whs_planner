@@ -2,14 +2,6 @@ package WHS_planner.Calendar;
 
 import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.jmx.MXNodeAlgorithm;
-import com.sun.javafx.jmx.MXNodeAlgorithmContext;
-import com.sun.javafx.sg.prism.NGNode;
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -17,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
 import java.util.*;
 
@@ -25,15 +16,17 @@ import java.util.*;
  * Created by geoffrey_wang on 9/20/16.
  */
 public class CalendarBox extends Pane{
-    private int date;
-    private int row;
+
+    private int date; //The date of the box
+    private int week; //The week this box is in
+
     private ArrayList<Task> homework;
     private ArrayList<Task> tests;
     private Pane calendarBoxPane;
 
-    public CalendarBox(int date, int row, UIController controller){
+    public CalendarBox(int date, int week, UIController controller){
         this.date = date;
-        this.row = row;
+        this.week = week;
         this.homework = new ArrayList<Task>();
         this.tests = new ArrayList<Task>();
 
@@ -137,8 +130,8 @@ public class CalendarBox extends Pane{
         }
     }
 
-    public int getRow() {
-        return row;
+    public int getWeek() {
+        return week;
     }
 
     public int getDate() {
