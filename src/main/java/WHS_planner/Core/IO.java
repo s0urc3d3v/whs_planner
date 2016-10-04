@@ -17,12 +17,12 @@ public class IO {
     }
     public void writeScheduleArray(Object[] classLayout)
     {
-        jsonApi.writeArray("schedule", classLayout);
+        jsonApi.writeArray("Schedule", classLayout);
 
     }
     public Object[] readScheduleArray()
     {
-        return (Object[]) jsonApi.readPair("@schedule");
+        return (Object[]) jsonApi.readPair("@Schedule");
     }
 
     public void unload()
