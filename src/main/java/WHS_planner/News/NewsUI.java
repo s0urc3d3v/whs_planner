@@ -5,7 +5,6 @@ import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -14,21 +13,25 @@ import java.net.URL;
  * Created by andrew_eggleston on 9/26/16.
  */
 public class NewsUI extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     public void start(Stage stage) throws Exception{
 
 
-        String sceneFile = "/resources/News/News1_2.fxml";
+        String sceneFile = "/resources/News/News1_3.fxml";
         Parent root = null;
         URL url  = null;
 
         try
         {
-            url = getClass().getResource("/News/News1_2.fxml");
+            url = getClass().getResource("/News/News1_3.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             root = fxmlLoader.load();
             ObservableMap<String, Object> hashMap= fxmlLoader.getNamespace();
-            Label label = (Label)hashMap.get("label");
-            label.setText("ASDF");
+//            Label label = (Label)hashMap.get("label");
+//            label.setText("ASDF");
             System.out.println( "  fxmlResource = " + sceneFile );
         }
         catch ( Exception ex )
@@ -47,13 +50,5 @@ public class NewsUI extends Application {
 
         stage.setScene(scene);
         stage.show();
-    }
-
-
-
-
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

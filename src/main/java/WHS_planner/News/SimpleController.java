@@ -1,5 +1,8 @@
 package WHS_planner.News;
 
+import WHS_planner.News.model.Feed;
+import WHS_planner.News.model.FeedMessage;
+import WHS_planner.News.read.RSSFeedParser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,29 +15,22 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import WHS_planner.News.model.Feed;
-import WHS_planner.News.model.FeedMessage;
-import WHS_planner.News.read.RSSFeedParser;
-
 /**
  * Created by andrew_eggleston on 9/26/16.
  */
 public class SimpleController implements Initializable {
 
     @FXML
-    private Hyperlink Article_Title_Sample2;
+    private Hyperlink Title1;
 
     @FXML
-    private Button nextPageButton;
+    private Button refreshButton;
 
     @FXML
-    private Button prevPageButton;
+    private Text Author1;
 
     @FXML
-    private Text Author_Sample;
-
-    @FXML
-    private Text Description;
+    private Text Description1;
 
     @FXML
     private Label label;
@@ -49,11 +45,10 @@ public class SimpleController implements Initializable {
 
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        Article_Title_Sample2 = new Hyperlink();
-        prevPageButton = new Button();
-        nextPageButton = new Button();
-        Author_Sample = new Text();
-        Description = new Text();
+        Title1 = new Hyperlink();
+        refreshButton = new Button();
+        Author1 = new Text();
+        Description1 = new Text();
         label = new Label("ASDF");
 
 
@@ -65,9 +60,9 @@ public class SimpleController implements Initializable {
 
         FeedMessage currentMessage = feedArray.get(currentArticle);
 
-        Article_Title_Sample2.setText(currentMessage.getTitle());
-        Author_Sample.setText(currentMessage.getAuthor());
-        Description.setText(currentMessage.getDescription());
+        Title1.setText(currentMessage.getTitle());
+        Author1.setText(currentMessage.getAuthor());
+        Description1.setText(currentMessage.getDescription());
 
         label.setText("DSHGWDUYGDIDYUW");
 //        try {
@@ -96,12 +91,6 @@ public class SimpleController implements Initializable {
         }
     }
 
-
-    public void setArticle(int articleNumber){
-        currentArticle = articleNumber;
-        updateFrame();
-    }
-
     @FXML
     public void nextArticle(){
         if(currentArticle+1<=feedArray.size()-1) {
@@ -122,30 +111,23 @@ public class SimpleController implements Initializable {
         return currentArticle;
     }
 
+    public void setArticle(int articleNumber) {
+        currentArticle = articleNumber;
+        updateFrame();
+    }
+
     @FXML
     public void updateFrame(){
         FeedMessage currentMessage = feedArray.get(currentArticle);
 
-        Article_Title_Sample2.setText(currentMessage.getTitle());
-        Author_Sample.setText(currentMessage.getAuthor());
-        Description.setText(currentMessage.getDescription());
+        Title1.setText(currentMessage.getTitle());
+        Author1.setText(currentMessage.getAuthor());
+        Description1.setText(currentMessage.getDescription());
 
-        System.out.println(Article_Title_Sample2.getText());
-        System.out.println(Author_Sample.getText());
-        System.out.println(Description.getText());
+        System.out.println(Title1.getText());
+        System.out.println(Author1.getText());
+        System.out.println(Description1.getText());
 
-        if(currentArticle == 0){
-            prevPageButton.setVisible(false);
-            nextPageButton.setVisible(true);
-        }
-        else if(currentArticle == feedArray.size()-1){
-            prevPageButton.setVisible(true);
-            nextPageButton.setVisible(false);
-        }
-        else{
-            prevPageButton.setVisible(true);
-            nextPageButton.setVisible(true);
-        }
     }
 }
 
