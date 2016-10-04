@@ -30,6 +30,7 @@ public class Calendar extends Pane {
     private CalendarBox[][] calendar;
     private int startDay;
     private int numberOfDays;
+    private TaskBox taskBox;
 
     private VBox mainPane;
 
