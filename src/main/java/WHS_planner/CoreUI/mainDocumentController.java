@@ -1,5 +1,6 @@
 package WHS_planner.CoreUI;
 
+import WHS_planner.Calendar.Calendar;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
@@ -22,6 +23,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class mainDocumentController implements Initializable {
+
+    Calendar cal;
 
     @FXML
     private AnchorPane anchorPane;
@@ -55,28 +58,53 @@ public class mainDocumentController implements Initializable {
             tempButton.getStyleClass().add("button-raised");
             buttonArray[i] = tempButton;
         }
+
+        buttonArray[0].setOnMouseClicked(event -> {
+            if(cal == null){
+                cal = new Calendar(1, 30);
+            }
+            if(!anchorPane.getChildren().contains(cal)) {
+                anchorPane.getChildren().add(0, cal);
+                anchorPane.setTopAnchor(cal,45.0);
+            }
+        });
         VBox vBox = new VBox(buttonArray);
 
         navDrawer.setSidePane(vBox);
 
-
         burgerTransition = new HamburgerBackArrowBasicTransition(navHamburger);
         burgerTransition.setRate(-1);
+
+        navDrawer.setOnMouseClicked(event -> {
+            System.out.println("Test");
+            if (navDrawer.isShown()) {
+                navDrawer.setMouseTransparent(false);
+                burgerTransition.setRate(1); //Switches the transition between forward and backwards.
+                burgerTransition.play(); //Plays the transition
+//                navDrawer.close();
+            } else {
+                navDrawer.setMouseTransparent(true);
+                burgerTransition.setRate(-1);
+                burgerTransition.play(); //Plays the transition
+
+            }
+
+        });
     }
 
     @FXML
     void fistMeDaddy(MouseEvent event) {
-
         if (navDrawer.isShown()) {
+            navDrawer.setMouseTransparent(true);
             burgerTransition.setRate(-1); //Switches the transition between forward and backwards.
             navDrawer.close();
         } else {
+            navDrawer.setMouseTransparent(false);
             burgerTransition.setRate(1);
             navDrawer.open();
         }
 
         burgerTransition.play(); //Plays the transition
-
     }
 
 
