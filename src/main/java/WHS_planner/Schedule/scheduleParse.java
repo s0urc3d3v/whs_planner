@@ -8,12 +8,10 @@ import org.jsoup.select.Elements;
 import java.io.File;
 import java.io.IOException;
 
-
-/**
- * Created by william_robison on 9/26/16.
- */
 public class scheduleParse
 {
+
+
     public static void main(String[] args)
     {
         try
@@ -27,58 +25,70 @@ public class scheduleParse
         }
     }
 
-    public static void getClasses() throws IOException {
+    public static void getClasses() throws IOException
+    {
+
+        ScheduleBlock[] schedule;
         int count = 2;
         Element schedElement = null;
-        Element rawClass = null;
+        Element rawClass;
         Elements classesRaw = new Elements();
 
         File input = new File("raw.html");
         Document doc = Jsoup.parse(input,"UTF-8","");
         Elements tables  = doc.select("table");
 
-        for (int i = 0; i < tables.size(); i++) { // Finds the Schedule table & assigns it to schedElement
-            if(tables.get(i).id().equalsIgnoreCase("Student's Schedule")){
+        for (int i = 0; i < tables.size(); i++)
+        {
+            // Finds the Schedule table & assigns it to schedElement
+            if(tables.get(i).id().equalsIgnoreCase("Student's Schedule"))
+            {
                 schedElement = tables.get(i);
             }
         }
-            while (!schedElement.select(":has(table)").isEmpty()) {
-                if(count < 59){
+
+        while (!schedElement.select(":has(table)").isEmpty())
+        {
+            if(count < 59)
+            {
                 rawClass = schedElement.select("table table").get(count);
                 count++;
-                classesRaw.add(rawClass);}
-                else {break;}
+                classesRaw.add(rawClass);
             }
 
-        System.out.println(classesRaw.size());
-//        for (int i = 0; i < 57; i++) {
-//            System.out.println(polishClass(classesRaw.get(i)));
-//            System.out.println();
-//            System.out.println();
-//            System.out.println();
-//            System.out.println(classesRaw.get(i));
-//            System.out.println();
-//            System.out.println();
-//            System.out.println();
-//        }
+            else
+            {
+                break;
+            }
+        }
 
-        ScheduleBlock[] schedule = new ScheduleBlock[57];
+        schedule = new ScheduleBlock[56];
         String[] holder = new String[4];
-        for (int i = 0; i < 57 ; i++) {
-            holder = polishClass(classesRaw.get(i));
+
+        for (int i = 0; i < 56; i++)
+        {
+            try
+            {
+                holder = polishClass(classesRaw.get(i));
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
             schedule[i] = new ScheduleBlock(holder[0],holder[1],holder[2],holder[3]);
         }
 
-        IO io = new IO();
+        IO io = new IO("Schedule");
         io.writeScheduleArray(schedule);
-        ScheduleBlock[] b = (ScheduleBlock[]) io.readScheduleArray();
-
-
+        io.unload();
+    //change
     }
 
 
 
-    private static String[] polishClass(Element el){ // returns "Class:Teacher:Room:Period"
+    private static String[] polishClass(Element el) throws Exception
+    {
+        // returns "Class:Teacher:Room:Period"
         //Write code for advisory
         String strEl = el.toString();
         String[] polishedStr = new String[4];
@@ -86,7 +96,8 @@ public class scheduleParse
         String[] free = {"free","free","free","free"};
 
 
-        if(strEl.length() < 200){
+        if(strEl.length() < 200)
+        {
             return free;
         }
 
@@ -96,20 +107,24 @@ public class scheduleParse
         strEl = strEl.substring(0,strEl.indexOf("<td")) + strEl.substring(strEl.indexOf("</td>") + 5);
 
         //Finds Teacher
-        for (int i = 0; i < 4; i++) {
-            if(i == 3){
+        for (int i = 0; i < 4; i++)
+        {
+            if(i == 3)
+            {
                 utilStr = strEl.substring(strEl.indexOf("<td") + 1, strEl.indexOf("</td>") + 3);
+                System.out.println(utilStr);
                 polishedStr[i] = utilStr.substring(utilStr.indexOf(":") + 2, utilStr.indexOf(" </"));
                 strEl = strEl.substring(0, strEl.indexOf("<td")) + strEl.substring(strEl.indexOf("</td>") + 5);
-            }else {
+            }
+
+            else
+            {
                 utilStr = strEl.substring(strEl.indexOf("<td") + 1, strEl.indexOf("</td>") + 3);
-                polishedStr[i] = utilStr.substring(utilStr.indexOf("> ") + 2, utilStr.indexOf(" </")) + ":";
+                System.out.println(utilStr);
+                polishedStr[i] = utilStr.substring(utilStr.indexOf("> ")+2, utilStr.indexOf(" </")) + ":";
                 strEl = strEl.substring(0, strEl.indexOf("<td")) + strEl.substring(strEl.indexOf("</td>") + 5);
             }
         }
-
-
-        //
 
             return polishedStr;
         }
