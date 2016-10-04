@@ -78,7 +78,7 @@ public class scheduleParse
             schedule[i] = new ScheduleBlock(holder[0],holder[1],holder[2],holder[3]);
         }
 
-        IO io = new IO("Schedule");
+        IO io = new IO("Schedule.json");
         io.writeScheduleArray(schedule);
         io.unload();
     //change
