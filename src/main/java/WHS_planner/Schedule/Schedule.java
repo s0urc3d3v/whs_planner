@@ -1,33 +1,43 @@
 package WHS_planner.Schedule;
 
+import WHS_planner.Core.IO;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.util.Map;
 
 public class Schedule extends Application
 {
+
+    public static Stage MainStage;
+
     @FXML
     Pane rootLayout;
 
+    @FXML
+    Pane memes;
+
     private Map<String, Object> labels;
+
+
+    public static Scene schedule;
+    public static Scene day;
 
     public static void main(String[] args)
     {
         launch(args);
     }
 
+    private ScheduleBlock[] blocks;
 
     public void start(Stage PrimaryStage)
     {
+        MainStage = PrimaryStage;
+
         PrimaryStage.setTitle("src/main/resources/Schedule");
 
         try
@@ -39,12 +49,19 @@ public class Schedule extends Application
             rootLayout = loader.load();
             generateSchedule(loader);
 
-            Scene scene = new Scene(rootLayout);
+            schedule = new Scene(rootLayout);
+
+            FXMLLoader load2 = new FXMLLoader();
+
+            load2.setLocation(getClass().getResource("/Schedule/day.fxml"));
+            memes = load2.load();
+
+            day = new Scene(memes);
 
             PrimaryStage.setResizable(true);
             PrimaryStage.setMinHeight(520);
             PrimaryStage.setMinWidth(573);
-            PrimaryStage.setScene(scene);
+            PrimaryStage.setScene(schedule);
             PrimaryStage.show();
         }
         catch(Exception e)
@@ -54,14 +71,35 @@ public class Schedule extends Application
     }
 
 
+
+
     private void generateSchedule(FXMLLoader loader)
     {
         labels = loader.getNamespace();
 
-        for (int i = 0; i < 9; i++)
+        blocks = getData();
+
+
+        String currentClass;
+        String currentTeacher;
+        String currentPeriod;
+        String currentRoom;
+
+        int incr = 0;
+        int incr2 = 1;
+
+        for (int i = 0; i < 56; i++)
         {
+            currentClass = blocks[i].getClassName();
+            currentTeacher = blocks[i].getTeacher();
+            currentPeriod = blocks[i].getPeriodNumber();
+            currentRoom = blocks[i].getRoomNumber();
+
+            String s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+currentPeriod;
+
             String letter;
-            switch(i)
+
+            switch(incr)
             {
                 case 0: letter = "A";
                     break;
@@ -83,12 +121,25 @@ public class Schedule extends Application
                     break;
             }
 
-            for (int j = 1; j <= 6; j++)
+            incr++;
+            if(incr == 8)
             {
-                String s = Integer.toString(j);
-                Label l = (Label) labels.get(letter+s);
-                l.setText(letter+s);
+                incr = 0;
+                incr2++;
             }
+
+            Label l = (Label) labels.get(letter+incr2);
+            l.setText(s);
+
         }
     }
+
+    public ScheduleBlock[] getData()
+    {
+        ScheduleBlock[] blocks;
+        IO dotaIo = new IO("Schedule");
+        blocks = (ScheduleBlock[]) dotaIo.readScheduleArray();
+        return blocks;
+    }
+
 }
