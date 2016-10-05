@@ -1,5 +1,6 @@
 package WHS_planner.Core;
 
+import WHS_planner.Schedule.ScheduleBlock;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -11,9 +12,12 @@ public class IO
         jsonApi = new JSON();
         jsonApi.loadFile(fileName);
     }
-    public void writeScheduleArray(Object[] classLayout)
+    public void writeScheduleArray(ScheduleBlock[] array)
     {
-        jsonApi.writeArray("Schedule", classLayout);
+        int i = 0;
+        for(ScheduleBlock block: array) {
+            jsonApi.writeArray("@" + i, new Object[]{block.getClassName(), block.getPeriodNumber(), block.getRoomNumber(), block.getTeacher()});
+        }
 
     }
     public JSONArray readScheduleArray()

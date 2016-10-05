@@ -68,7 +68,7 @@ public class JSON {
     /**
      * Loads and returns a single object from a JSON file.
      * @Param key of object to load
-     * @Return Object from JSON File
+     * @Return JSONObject from JSON File
      */
     public JSONObject readObject(String key) {
         return (JSONObject) object.get(key);
