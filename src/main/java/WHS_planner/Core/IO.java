@@ -1,5 +1,8 @@
 package WHS_planner.Core;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 public class IO
 {
     private JSON jsonApi;
@@ -13,9 +16,9 @@ public class IO
         jsonApi.writeArray("Schedule", classLayout);
 
     }
-    public Object[] readScheduleArray()
+    public JSONArray readScheduleArray()
     {
-        return (Object[]) jsonApi.readPair("@Schedule");
+        return jsonApi.readArray("@Schedule");
     }
 
     public void unload()

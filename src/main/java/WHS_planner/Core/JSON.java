@@ -70,37 +70,18 @@ public class JSON {
      * @Param key of object to load
      * @Return Object from JSON File
      */
-    private Object readObject(String key) {
-        return object.get(key);
+    public JSONObject readObject(String key) {
+        return (JSONObject) object.get(key);
     }
 
     /**
      * Loads an array of objects from a JSON file.
      * @Param Key of object to load
-     * @Return Object array from JSON File
+     * @Return JSONArray from JSON File
      */
-    private Object[] readArray(String key) {
+    public JSONArray readArray(String key) {
         JSONArray array = (JSONArray) object.get(key);
-        //Turn the JSONArray into an object array
-        int length = array.size();
-        Object objArray[] = new Object[length];
-        for(int i = 0; i < length; i++) {
-            objArray[i] = array.get(i);
-        }
-        return objArray;
-    }
-
-    /**
-     * Loads the key value from a JSON file. Only public interface for this functionality.
-     * @Param String key of the JSON value
-     * @Return returns either an object array or a single object that can be cast to a JSONObject.
-     */
-    public Object readPair(String key) {
-        if(key.length() >= 1 && key.substring(0, 1).equals("@")) {
-            //It is an array and needs to be parsed as one.
-            return readArray(key);
-        }
-        return readObject(key);
+        return array;
     }
 
     /**
