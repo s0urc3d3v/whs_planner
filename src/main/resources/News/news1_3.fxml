@@ -27,7 +27,8 @@
                         <Font size="14.0"/>
                     </font>
                 </Text>
-                <Button id="refreshButton" layoutX="706.0" layoutY="12.0" mnemonicParsing="false" text="Refresh"/>
+                <Button id="refreshButton" layoutX="706.0" layoutY="12.0" mnemonicParsing="false"
+                        onAction="#updateFrame" text="Refresh"/>
             </children>
         </AnchorPane>
     </content>
