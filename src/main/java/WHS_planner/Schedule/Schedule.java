@@ -138,7 +138,15 @@ public class Schedule extends Application
     {
         ScheduleBlock[] blocks;
         IO dotaIo = new IO("Schedule.json");
-        blocks = (ScheduleBlock[]) dotaIo.readScheduleArray();
+        Object[] data = dotaIo.readScheduleArray();
+        dotaIo.unload();
+        blocks = (ScheduleBlock[]) data;
+
+       /* for (int i = 0; i < data.length; i++)
+        {
+            blocks[i] = (ScheduleBlock) data[i];
+        }*/
+
         return blocks;
     }
 
