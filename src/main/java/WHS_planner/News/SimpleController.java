@@ -49,7 +49,6 @@ public class SimpleController implements Initializable {
         refreshButton = new Button();
         Author1 = new Text();
         Description1 = new Text();
-        label = new Label("ASDF");
 
 
 
@@ -64,7 +63,7 @@ public class SimpleController implements Initializable {
         Author1.setText(currentMessage.getAuthor());
         Description1.setText(currentMessage.getDescription());
 
-        label.setText("DSHGWDUYGDIDYUW");
+
 //        try {
 //            System.out.println(text.getText());
 //        } catch(Exception e){
