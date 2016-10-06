@@ -95,12 +95,22 @@ public class Schedule extends Application
 
         for (int i = 0; i < 56; i++)
         {
+            String s;
+
             currentClass = blocks[i].getClassName();
             currentTeacher = blocks[i].getTeacher();
             currentPeriod = blocks[i].getPeriodNumber();
             currentRoom = blocks[i].getRoomNumber();
 
-            String s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+currentPeriod;
+            if(blocks[i].getClassName().equals("free"))
+            {
+                s = "free";
+            }
+            else
+            {
+                s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+currentPeriod;
+            }
+
             System.out.println(s);
 
             String letter;
