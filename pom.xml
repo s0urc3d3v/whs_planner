@@ -80,4 +80,5 @@
       <artifactId>google-api-services-gmail</artifactId>
       <version>v1-rev48-1.22.0</version>
     </dependency>
+  </dependencies>
 </project>
