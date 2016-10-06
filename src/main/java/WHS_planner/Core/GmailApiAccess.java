@@ -10,14 +10,18 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
+import com.google.api.services.gmail.model.Message;
 
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -27,7 +31,7 @@ import java.util.Properties;
 /**
  * Created by matthewelbing on 06.10.16.
  */
-public class Gmail_api_access {
+public class GmailApiAccess {
     private static final String APPLICATION_NAME = "whs_planner";
     private static final java.io.File DATA_STORE_DIR = new java.io.File(System.getProperty("user.home"), ".credentials/whs_planner");
     private static FileDataStoreFactory DATA_STORE_FACTORY;
@@ -44,7 +48,7 @@ public class Gmail_api_access {
         }
     }
     public static Credential authorize() throws Exception {
-        InputStream in = Gmail_api_access.class.getResourceAsStream("/client_secret.json");
+        InputStream in = GmailApiAccess.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
@@ -64,11 +68,11 @@ public class Gmail_api_access {
                 .build();
     }
 
-    public static void auth() throws Exception {
+    public static void sendEmail(String to, String from, String subject, String bodyText) throws Exception {
         Gmail service = getGmailService();
         String user = "whs_planner";
-        Gmail.Users.Messages mail = service.users().messages();
-        mail.send()
+        sendMessage(getGmailService(), "whs_planner", createEmail(to, from, subject, bodyText));
+
 
     }
     public static MimeMessage createEmail(String to, String from, String subject, String bodyText) throws MessagingException {
@@ -82,6 +86,22 @@ public class Gmail_api_access {
         email.setSubject(subject);
         email.setText(bodyText);
         return email;
+    }
+    public static Message createMessageFromMimeMessage(MimeMessage mimeMessage) throws MessagingException, IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        mimeMessage.writeTo(buffer);
+        byte[] bytes = buffer.toByteArray();
+        String encodedEmail = Base64.encodeBase64URLSafeString(bytes);
+        Message message = new Message();
+        message.setRaw(encodedEmail);
+        return message;
+    }
+    public static Message sendMessage(Gmail service, String userId, MimeMessage emailContent) throws MessagingException, IOException {
+        Message message = createMessageFromMimeMessage(emailContent);
+        message = service.users().messages().send(userId, message).execute();
+        System.out.println("Message ID: " + message.getId());
+        System.out.println(message.toPrettyString());
+        return message;
     }
 
 
