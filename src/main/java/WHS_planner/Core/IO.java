@@ -17,6 +17,7 @@ public class IO
         int i = 0;
         for(ScheduleBlock block: array) {
             jsonApi.writeArray("@" + i, new Object[]{block.getClassName(), block.getPeriodNumber(), block.getRoomNumber(), block.getTeacher()});
+            i++;
         }
 
     }

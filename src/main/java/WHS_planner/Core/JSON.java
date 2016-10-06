@@ -70,7 +70,8 @@ public class JSON {
      * @Param key of object to load
      * @Return JSONObject from JSON File
      */
-    public JSONObject readObject(String key) {
+    public JSONObject readObject(String key)
+    {
         return (JSONObject) object.get(key);
     }
 

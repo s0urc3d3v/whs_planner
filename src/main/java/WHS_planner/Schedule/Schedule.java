@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.json.simple.JSONArray;
+
+import java.io.IOException;
 import java.util.Map;
 
 public class Schedule extends Application
@@ -16,10 +19,10 @@ public class Schedule extends Application
     public static Stage MainStage;
 
     @FXML
-    Pane rootLayout;
+    private Pane rootLayout;
 
     @FXML
-    Pane memes;
+    private Pane memes;
 
     private Map<String, Object> labels;
 
@@ -134,18 +137,34 @@ public class Schedule extends Application
         }
     }
 
+    public void parseSchedule()
+    {
+        ScheduleParser parse = new ScheduleParser();
+        try
+        {
+            parse.getClasses();
+        }
+        catch(IOException ie)
+        {
+            ie.printStackTrace();
+        }
+    }
+
     public ScheduleBlock[] getData()
     {
-        ScheduleBlock[] blocks;
+        parseSchedule();
+        System.out.println("schedule parsed");
+        ScheduleBlock[] blocks = new ScheduleBlock[56];
         IO dotaIo = new IO("Schedule.json");
-        Object[] data = dotaIo.readScheduleArray();
+        JSONArray array = dotaIo.readScheduleArray();
         dotaIo.unload();
-        blocks = (ScheduleBlock[]) data;
-
-       /* for (int i = 0; i < data.length; i++)
+        for (int i = 0; i < array.size(); i++)
         {
-            blocks[i] = (ScheduleBlock) data[i];
-        }*/
+            blocks[i] = (ScheduleBlock) array.get(i);
+        }
+
+
+
 
         return blocks;
     }
