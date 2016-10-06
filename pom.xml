@@ -75,5 +75,9 @@
       <artifactId>fluent-selenium</artifactId>
       <version>1.14.2</version>
     </dependency>
-  </dependencies>
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-gmail</artifactId>
+      <version>v1-rev48-1.22.0</version>
+    </dependency>
 </project>
