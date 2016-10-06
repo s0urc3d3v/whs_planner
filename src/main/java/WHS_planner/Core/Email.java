@@ -7,7 +7,6 @@ public class Email {
     private String to = "EMAIL_HERE";
     private String from = "EMAIL_HERE";
     private String host = "localhost";
-
     public Email() {
 
     }
