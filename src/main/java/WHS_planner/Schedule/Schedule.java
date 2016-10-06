@@ -1,6 +1,7 @@
 package WHS_planner.Schedule;
 
 import WHS_planner.Core.IO;
+import WHS_planner.Core.JSON;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Schedule extends Application
@@ -153,19 +155,13 @@ public class Schedule extends Application
     public ScheduleBlock[] getData()
     {
         parseSchedule();
-        System.out.println("schedule parsed");
-        ScheduleBlock[] blocks = new ScheduleBlock[56];
         IO dotaIo = new IO("Schedule.json");
-        JSONArray array = dotaIo.readScheduleArray();
+        ArrayList<ScheduleBlock> array = dotaIo.readScheduleArray();
         dotaIo.unload();
-        for (int i = 0; i < array.size(); i++)
-        {
-            blocks[i] = (ScheduleBlock) array.get(i);
+        ScheduleBlock[] blocks = new ScheduleBlock[array.size()];
+        for(int i = 0; i < array.size(); i++) {
+            blocks[i] = array.get(i);
         }
-
-
-
-
         return blocks;
     }
 
