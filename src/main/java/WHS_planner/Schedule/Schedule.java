@@ -43,7 +43,7 @@ public class Schedule extends Application
     {
         MainStage = PrimaryStage;
 
-        PrimaryStage.setTitle("src/main/resources/Schedule");
+        PrimaryStage.setTitle("schedule my dude");
 
         try
         {
