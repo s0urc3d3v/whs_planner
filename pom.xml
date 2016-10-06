@@ -90,5 +90,11 @@
         <artifactId>google-api-client</artifactId>
         <version>1.22.0</version>
       </dependency>
+      <dependency>
+          <groupId>com.google.oauth-client</groupId>
+          <artifactId>google-oauth-client-java6</artifactId>
+          <version>1.11.0-beta</version>
+      </dependency>
+
   </dependencies>
 </project>
