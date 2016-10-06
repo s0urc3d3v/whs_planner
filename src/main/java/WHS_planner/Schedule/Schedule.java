@@ -101,6 +101,7 @@ public class Schedule extends Application
             currentRoom = blocks[i].getRoomNumber();
 
             String s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+currentPeriod;
+            System.out.println(s);
 
             String letter;
 
@@ -133,9 +134,16 @@ public class Schedule extends Application
                 incr2++;
             }
 
-            Label l = (Label) labels.get(letter+incr2);
-            l.setText(s);
 
+            try
+            {
+                Label l = (Label) labels.get(letter+incr2);
+                l.setText(s);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 
