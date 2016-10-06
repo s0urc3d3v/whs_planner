@@ -7,13 +7,12 @@ import org.json.simple.JSONObject;
 public class IO
 {
     private JSON jsonApi;
-    public IO(String fileName)
-    {
+    public IO(String fileName) {
         jsonApi = new JSON();
         jsonApi.loadFile(fileName);
     }
-    public void writeScheduleArray(ScheduleBlock[] array)
-    {
+
+    public void writeScheduleArray(ScheduleBlock[] array) {
         int i = 0;
         for(ScheduleBlock block: array) {
             jsonApi.writeArray("@" + i, new Object[]{block.getClassName(), block.getPeriodNumber(), block.getRoomNumber(), block.getTeacher()});
@@ -21,13 +20,12 @@ public class IO
         }
 
     }
-    public JSONArray readScheduleArray()
-    {
+
+    public JSONArray readScheduleArray() {
         return jsonApi.readArray("@Schedule");
     }
 
-    public void unload()
-    {
+    public void unload() {
         jsonApi.unloadFile();
     }
 }
