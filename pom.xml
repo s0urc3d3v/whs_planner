@@ -100,6 +100,12 @@
           <artifactId>google-oauth-client-jetty</artifactId>
           <version>1.11.0-beta</version>
       </dependency>
+      <dependency>
+          <groupId>javax.mail</groupId>
+          <artifactId>mail</artifactId>
+          <version>1.4</version>
+      </dependency>
+
 
 
   </dependencies>
