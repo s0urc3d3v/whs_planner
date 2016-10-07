@@ -7,7 +7,7 @@ public class Course {
     private String name;
     private int period;
     private String teacher;
-    private enum level{
+    public enum level{
         INTRO, COLLEGE, HONORS, AP
     }
     private level courseLevel;

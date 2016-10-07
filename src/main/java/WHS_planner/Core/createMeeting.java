@@ -11,8 +11,17 @@ public class createMeeting {
     private long hour;
     private long minute;
     private Course course;
+    private IO io;
 
-    public createMeeting() {
-
+    public createMeeting(String requestingStudent, String studentRequested, long hour, long minute, Course course) {
+        io = new IO("/src/main/resources/Core/meeting.json");
+        this.requestingStudent = requestingStudent;
+        this.studentRequested = studentRequested;
+        this.hour = hour;
+        this.minute = minute;
+        this.course = course;
+    }
+    public void create(){
+        io.writeMeetingJsonData(requestingStudent, studentRequested, hour, minute, course);
     }
 }
