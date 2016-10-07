@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -23,21 +24,21 @@ public class popupController implements Initializable{
     private JFXButton addListButton;
 
     @FXML
-    private JFXListView<String> popUpListView;
+    private JFXListView<SportsDate> popUpListView;
 
-    private ObservableList<String> listViewContents;
+    private ObservableList<SportsDate> listViewContents;
     private Stage stage = null;
     private HashMap<String, Object> result = new HashMap<String, Object>();
 
     @FXML
     void plusButtonPressed(MouseEvent event) {
-        listViewContents.add("daddy");
+        listViewContents.add(new SportsDate(new Date(), "Football"));
         popUpListView.setItems(listViewContents);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        listViewContents = FXCollections.observableArrayList("rip", "a", "really", "fat", "vape");
+        listViewContents = FXCollections.observableArrayList();
         popUpListView.setItems(listViewContents);
     }
 
