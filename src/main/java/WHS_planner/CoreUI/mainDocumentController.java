@@ -45,6 +45,8 @@ public class mainDocumentController implements Initializable {
 
 
     public void initialize(URL location, ResourceBundle resources) {
+        cal = new Calendar(1, 30);
+
         topBar.setStyle("-fx-background-color: #FF9800");
         navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");
         navHamburger.getStyleClass().add("jfx-hamburger-icon");
@@ -60,14 +62,15 @@ public class mainDocumentController implements Initializable {
         }
 
         buttonArray[0].setOnMouseClicked(event -> {
-            if(cal == null){
-                cal = new Calendar(1, 30);
-            }
             if(!anchorPane.getChildren().contains(cal)) {
                 anchorPane.getChildren().add(0, cal);
                 anchorPane.setTopAnchor(cal,45.0);
             }
         });
+
+
+
+
         VBox vBox = new VBox(buttonArray);
 
         navDrawer.setSidePane(vBox);
