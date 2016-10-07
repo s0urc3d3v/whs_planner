@@ -1,20 +1,15 @@
 package WHS_planner.Core;
 
-import java.io.File;
-import java.io.OutputStreamWriter;
-import java.net.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptExecutor;
-import com.thoughtworks.selenium.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.concurrent.TimeUnit;
 
 import static com.thoughtworks.selenium.SeleneseTestBase.fail;
 
