@@ -20,10 +20,7 @@ import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -48,7 +45,8 @@ public class GmailApiAccess {
         }
     }
     public static Credential authorize() throws Exception {
-        InputStream in = GmailApiAccess.class.getResourceAsStream("/client_secret.json");
+        File client_id = new File("src/main/resources/Core/client_id.json");
+        InputStream in = new FileInputStream(client_id);
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
@@ -71,7 +69,7 @@ public class GmailApiAccess {
     public static void sendEmail(String to, String from, String subject, String bodyText) throws Exception {
         Gmail service = getGmailService();
         String user = "whs_planner";
-        sendMessage(getGmailService(), "whs_planner", createEmail(to, from, subject, bodyText));
+        sendMessage(getGmailService(), "me", createEmail(to, from, subject, bodyText));
 
 
     }
