@@ -10,36 +10,36 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
+import java.io.IOException;
 import java.net.URL;
 
 
-public class NavigationBar extends Application{
+public class NavigationBar extends Application {
 
-    public void start(Stage stage) throws Exception{
+    private static Stage stage;
+
+    public void start(Stage stageNew) throws Exception {
+
+        stage = stageNew;
 
 
         String sceneFile = "/CoreUI/NavigationBar.fxml";
         Parent root = null;
-        URL    url  = null;
+        URL url = null;
 
-        try
-        {
-            FXMLLoader loader = new FXMLLoader();
-            url  = getClass().getResource("/CoreUI/NavigationBar.fxml");
-            root = loader.load(url);
-            System.out.println( "  fxmlResource = " + sceneFile );
-        }
-        catch ( Exception ex )
-        {
-            System.out.println( "Exception on FXMLLoader.load()" );
-            System.out.println( "  * url: " + url );
-            System.out.println( "  * " + ex );
-            System.out.println( "    ----------------------------------------\n" );
+        try {
+            url = getClass().getResource("/CoreUI/NavigationBar.fxml");
+            root = FXMLLoader.load(url);
+            System.out.println("  fxmlResource = " + sceneFile);
+        } catch (Exception ex) {
+            System.out.println("Exception on FXMLLoader.load()");
+            System.out.println("  * url: " + url);
+            System.out.println("  * " + ex);
+            System.out.println("    ----------------------------------------\n");
             throw ex;
         }
-
-//        Parent root = FXMLLoader.load(getClass().getResource("/loginPage.fxml")); //root is the fxml "loginPage" in the src dir
 
         Scene scene = new Scene(root);
 
@@ -57,6 +57,9 @@ public class NavigationBar extends Application{
 
 
 
+    public static Stage getStage() {
+        return stage;
+    }
 
 
     public static void main(String[] args) {

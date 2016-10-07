@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane fx:id="sportsPopupAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="413.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WHS_planner.CoreUI.popupController">
+<AnchorPane fx:id="sportsPopupAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="413.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <JFXButton fx:id="addListButton" graphicTextGap="0.0" layoutX="358.0" onMouseClicked="#plusButtonPressed" prefHeight="45.0" prefWidth="55.0" ripplerFill="#ff1212" text="+" textAlignment="CENTER">
          <font>

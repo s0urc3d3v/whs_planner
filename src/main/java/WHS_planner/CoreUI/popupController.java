@@ -8,8 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class popupController implements Initializable{
@@ -24,6 +26,8 @@ public class popupController implements Initializable{
     private JFXListView<String> popUpListView;
 
     private ObservableList<String> listViewContents;
+    private Stage stage = null;
+    private HashMap<String, Object> result = new HashMap<String, Object>();
 
     @FXML
     void plusButtonPressed(MouseEvent event) {
@@ -35,5 +39,26 @@ public class popupController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         listViewContents = FXCollections.observableArrayList("rip", "a", "really", "fat", "vape");
         popUpListView.setItems(listViewContents);
+    }
+
+    public HashMap<String, Object> getResult() {
+        return this.result;
+    }
+
+    /**
+     * setting the stage of this view
+     * @param stage
+     */
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    /**
+     * Closes the stage of this view
+     */
+    private void closeStage() {
+        if(stage!=null) {
+            stage.close();
+        }
     }
 }
