@@ -10,7 +10,43 @@ public class Course {
     private enum level{
         INTRO, COLLEGE, HONORS, AP
     }
-    public Course() {
+    private level courseLevel;
+    public Course(String name, int period, String teacher, level courseLevel) {
+        this.name = name;
+        this.period = period;
+        this.teacher = teacher;
+        this.courseLevel = courseLevel;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
+
+    public level getCourseLevel() {
+        return courseLevel;
+    }
+
+    public void setCourseLevel(level courseLevel) {
+        this.courseLevel = courseLevel;
     }
 }
