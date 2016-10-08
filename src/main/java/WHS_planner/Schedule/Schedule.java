@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.util.Map;
 
 public class Schedule extends Application
@@ -38,7 +40,7 @@ public class Schedule extends Application
     {
         MainStage = PrimaryStage;
 
-        PrimaryStage.setTitle("src/main/resources/Schedule");
+        PrimaryStage.setTitle("src" + File.pathSeparator + "main" + File.pathSeparator + "resources" + File.pathSeparator + "Schedule");
 
         try
         {

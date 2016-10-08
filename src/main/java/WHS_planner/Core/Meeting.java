@@ -2,10 +2,12 @@ package WHS_planner.Core;
 
 import WHS_planner.Util.Course;
 
+import java.io.File;
+
 /**
  * Created by matthewelbing on 07.10.16.
  */
-public class createMeeting {
+public class Meeting {
     private String requestingStudent;
     private String studentRequested;
     private long hour;
@@ -13,8 +15,9 @@ public class createMeeting {
     private Course course;
     private IO io;
 
-    public createMeeting(String requestingStudent, String studentRequested, long hour, long minute, Course course) {
-        io = new IO("/src/main/resources/Core/meeting.json");
+    public Meeting(String requestingStudent, String studentRequested, long hour, long minute, Course course) {
+        String filename = "src" + File.pathSeparator + "main" + File.pathSeparator + "resources" + File.pathSeparator + "Core" + File.pathSeparator + "meeting.json";
+        io = new IO(filename);
         this.requestingStudent = requestingStudent;
         this.studentRequested = studentRequested;
         this.hour = hour;

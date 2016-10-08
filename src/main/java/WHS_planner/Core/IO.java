@@ -1,12 +1,8 @@
 package WHS_planner.Core;
 
 import WHS_planner.Util.Course;
-import org.json.simple.JSONArray;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by matthewelbing on 27.09.16.
@@ -33,7 +29,7 @@ public class IO {
         jsonApi.unloadFile();
     }
 
-    public void writeMeetingJsonData(String requestingStudent, String studentRequested, long hour, long minute, Course course){
+    void writeMeetingJsonData(String requestingStudent, String studentRequested, long hour, long minute, Course course){
         HashMap<String, Object> meeting = new HashMap<String, Object>();
         meeting.put("requestingStudent", requestingStudent);
         meeting.put("studentRequested", studentRequested);
