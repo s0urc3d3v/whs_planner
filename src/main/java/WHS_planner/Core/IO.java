@@ -1,6 +1,7 @@
 package WHS_planner.Core;
 
 import WHS_planner.Util.Course;
+import org.json.simple.JSONObject;
 
 import java.util.HashMap;
 
@@ -39,4 +40,15 @@ public class IO {
         jsonApi.writeArray("meetingValues", meeting.entrySet().toArray());
         unload();
     }
+
+    public void readMeetingJsonData(){
+        HashMap<String, Object> meeting = new HashMap<String, Object>();
+        JSONObject meetingKeys = (JSONObject) jsonApi.readPair("@meetingKeys");
+        JSONObject meetingValues = (JSONObject) jsonApi.readPair("@meetingValues");
+        for (Object key : meeting.keySet()){
+            String keyStr = (String)key;
+            Object keyValue = meeting.get(keyStr);
+            System.out.println("key: " + keyStr + " value: " + keyValue);
+        }
+     }
 }
