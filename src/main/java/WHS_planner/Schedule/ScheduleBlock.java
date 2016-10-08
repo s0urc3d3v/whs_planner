@@ -8,7 +8,8 @@ public class ScheduleBlock
     private String periodNumber;
 
 
-    public ScheduleBlock(String name, String teacherName, String roomNumber, String periodNumber){
+    public ScheduleBlock(String name, String teacherName, String roomNumber, String periodNumber)
+    {
         this.name = name;
         this.teacherName = teacherName;
         this.roomNumber = roomNumber;

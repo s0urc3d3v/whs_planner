@@ -8,8 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.io.File;
 import java.util.Map;
 
 public class Schedule extends Application
@@ -40,13 +38,13 @@ public class Schedule extends Application
     {
         MainStage = PrimaryStage;
 
-        PrimaryStage.setTitle("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Schedule");
+        PrimaryStage.setTitle("src/main/resources/Schedule");
 
         try
         {
             FXMLLoader loader = new FXMLLoader();
 
-            loader.setLocation(getClass().getResource("Schedule" + File.pathSeparator + "scheduletest.fxml"));
+            loader.setLocation(getClass().getResource("/Schedule/scheduletest.fxml"));
 
             rootLayout = loader.load();
             generateSchedule(loader);
@@ -55,7 +53,7 @@ public class Schedule extends Application
 
             FXMLLoader load2 = new FXMLLoader();
 
-            load2.setLocation(getClass().getResource("Schedule" + File.pathSeparator + "day.fxml"));
+            load2.setLocation(getClass().getResource("/Schedule/day.fxml"));
             memes = load2.load();
 
             day = new Scene(memes);

@@ -1,5 +1,6 @@
 package WHS_planner.Schedule;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,10 +16,13 @@ public class ScheduleController implements Initializable
     private GridPane grid;
 
     @FXML
-    private Label Title;
+    private Label Title3;
 
     @FXML
     private Button ChangeButton;
+
+    @FXML
+    private JFXButton changestuff;
 
     @FXML
     private ProgressBar progressBar;
@@ -29,11 +33,13 @@ public class ScheduleController implements Initializable
     public void initialize(URL location, ResourceBundle resources)
     {
         //we can set the day here
-        Title.setText("It is A Day");
+        Title3.setText("It is A Day");
     }
 
     public void TylerIsACreep()
     {
         Schedule.MainStage.setScene(Schedule.day);
     }
+
+
 }

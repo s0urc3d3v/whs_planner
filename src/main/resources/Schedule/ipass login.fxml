@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <BorderPane prefHeight="384.0" prefWidth="266.0" BorderPane.alignment="CENTER">
+         <top>
+            <BorderPane prefHeight="151.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <left>
+                  <Label text="Username: " BorderPane.alignment="CENTER" />
+               </left>
+               <center>
+                  <TextField fx:id="user" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </top>
+         <center>
+            <BorderPane prefHeight="180.0" prefWidth="247.0" BorderPane.alignment="CENTER">
+               <left>
+                  <Label text="Password: " BorderPane.alignment="CENTER" />
+               </left>
+               <center>
+                  <PasswordField prefHeight="26.0" prefWidth="178.0" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </center>
+      </BorderPane>
+   </center>
+   <left>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <Pane prefHeight="155.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <top>
+      <BorderPane prefHeight="122.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <bottom>
+            <Pane prefHeight="59.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <Label text="Login to Ipass" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font></Label>
+         </center>
+         <top>
+            <Pane prefHeight="23.0" prefWidth="574.0" BorderPane.alignment="CENTER" />
+         </top>
+      </BorderPane>
+   </top>
+</BorderPane>

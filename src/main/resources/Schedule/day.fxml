@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WHS_planner.Schedule.dayController">
    <center>
       <GridPane gridLinesVisible="true" prefHeight="193.0" prefWidth="187.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -37,7 +37,7 @@
    <left>
       <BorderPane prefHeight="193.0" prefWidth="134.0" BorderPane.alignment="CENTER">
          <top>
-            <JFXButton defaultButton="true" prefHeight="26.0" prefWidth="104.0" ripplerFill="#c97575" text="See Schedule" BorderPane.alignment="CENTER" />
+            <JFXButton fx:id="changestuff" defaultButton="true" prefHeight="26.0" prefWidth="104.0" ripplerFill="#c97575" text="See Schedule" BorderPane.alignment="CENTER" onAction="#dirtyLittleSecret"/>
          </top>
       </BorderPane>
    </left>

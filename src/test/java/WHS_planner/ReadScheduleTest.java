@@ -1,6 +1,7 @@
 package WHS_planner;
 
 import WHS_planner.Core.ReadSchedule;
+import WHS_planner.Schedule.ScheduleParser;
 import junit.framework.TestCase;
 
 /**
@@ -14,5 +15,10 @@ public class ReadScheduleTest extends TestCase{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void testParseSchedule() throws Exception {
+        ScheduleParser scheduleParser = new ScheduleParser();
+        scheduleParser.getClasses();
     }
 }

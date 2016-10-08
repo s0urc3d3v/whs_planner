@@ -8,27 +8,17 @@ import org.jsoup.select.Elements;
 import java.io.File;
 import java.io.IOException;
 
-public class scheduleParse
+public class ScheduleParser
 {
+    private ScheduleBlock[] schedule;
 
-
-    public static void main(String[] args)
+    public ScheduleParser()
     {
-        try
-        {
-            getClasses();
-        }
-
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        schedule = new ScheduleBlock[56];
     }
 
-    public static void getClasses() throws IOException
+    public void getClasses() throws IOException
     {
-
-        ScheduleBlock[] schedule;
         int count = 2;
         Element schedElement = null;
         Element rawClass;
@@ -62,7 +52,6 @@ public class scheduleParse
             }
         }
 
-        schedule = new ScheduleBlock[56];
         String[] holder = new String[4];
 
         for (int i = 0; i < 56; i++)
@@ -78,15 +67,15 @@ public class scheduleParse
             schedule[i] = new ScheduleBlock(holder[0],holder[1],holder[2],holder[3]);
         }
 
-        IO io = new IO("Schedule");
+        IO io = new IO("Schedule.json");
         io.writeScheduleArray(schedule);
         io.unload();
-    //change
+
     }
 
 
 
-    private static String[] polishClass(Element el) throws Exception
+    private String[] polishClass(Element el) throws Exception
     {
         // returns "Class:Teacher:Room:Period"
         //Write code for advisory
@@ -112,7 +101,6 @@ public class scheduleParse
             if(i == 3)
             {
                 utilStr = strEl.substring(strEl.indexOf("<td") + 1, strEl.indexOf("</td>") + 3);
-                System.out.println(utilStr);
                 polishedStr[i] = utilStr.substring(utilStr.indexOf(":") + 2, utilStr.indexOf(" </"));
                 strEl = strEl.substring(0, strEl.indexOf("<td")) + strEl.substring(strEl.indexOf("</td>") + 5);
             }
@@ -120,7 +108,6 @@ public class scheduleParse
             else
             {
                 utilStr = strEl.substring(strEl.indexOf("<td") + 1, strEl.indexOf("</td>") + 3);
-                System.out.println(utilStr);
                 polishedStr[i] = utilStr.substring(utilStr.indexOf("> ")+2, utilStr.indexOf(" </")) + ":";
                 strEl = strEl.substring(0, strEl.indexOf("<td")) + strEl.substring(strEl.indexOf("</td>") + 5);
             }
