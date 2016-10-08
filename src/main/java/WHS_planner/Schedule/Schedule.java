@@ -46,7 +46,7 @@ public class Schedule extends Application
         {
             FXMLLoader loader = new FXMLLoader();
 
-            loader.setLocation(getClass().getResource("/Schedule/scheduletest.fxml"));
+            loader.setLocation(getClass().getResource("Schedule" + File.pathSeparator + "scheduletest.fxml"));
 
             rootLayout = loader.load();
             generateSchedule(loader);
@@ -55,7 +55,7 @@ public class Schedule extends Application
 
             FXMLLoader load2 = new FXMLLoader();
 
-            load2.setLocation(getClass().getResource("/Schedule/day.fxml"));
+            load2.setLocation(getClass().getResource("Schedule" + File.pathSeparator + "day.fxml"));
             memes = load2.load();
 
             day = new Scene(memes);
