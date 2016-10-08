@@ -38,6 +38,16 @@ public class Course {
         return teacher;
     }
 
+    @Override
+    public String toString() {
+        return "Course{" +
+                "name='" + name + '\'' +
+                ", period=" + period +
+                ", teacher='" + teacher + '\'' +
+                ", courseLevel=" + courseLevel +
+                '}';
+    }
+
     public void setTeacher(String teacher) {
         this.teacher = teacher;
     }
@@ -49,4 +59,5 @@ public class Course {
     public void setCourseLevel(level courseLevel) {
         this.courseLevel = courseLevel;
     }
+
 }

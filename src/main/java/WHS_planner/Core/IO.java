@@ -35,7 +35,7 @@ public class IO {
         meeting.put("studentRequested", studentRequested);
         meeting.put("hour", hour);
         meeting.put("minute", minute);
-        meeting.put("course", course);
+        meeting.put("course", course.toString());
         jsonApi.writeArray("meetingKeys", meeting.entrySet().toArray()); //init with meeting.json file of course
         jsonApi.writeArray("meetingValues", meeting.entrySet().toArray());
         unload();
