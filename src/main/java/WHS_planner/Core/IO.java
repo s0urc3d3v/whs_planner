@@ -29,10 +29,10 @@ public class IO {
         jsonApi.unloadFile();
     }
 
-    void writeMeetingJsonData(String requestingStudent, String studentRequested, long hour, long minute, Course course){
+    void writeMeetingJsonData(Student requestingStudent, Student studentRequested, long hour, long minute, Course course){
         HashMap<String, Object> meeting = new HashMap<String, Object>();
-        meeting.put("requestingStudent", requestingStudent);
-        meeting.put("studentRequested", studentRequested);
+        meeting.put("requestingStudent", requestingStudent.getFirstName() + " " + requestingStudent.getLastName());
+        meeting.put("studentRequested", studentRequested.getFirstName() + " " + studentRequested.getLastName());
         meeting.put("hour", hour);
         meeting.put("minute", minute);
         meeting.put("course", course.toString());

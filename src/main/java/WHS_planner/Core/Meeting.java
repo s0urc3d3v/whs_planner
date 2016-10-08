@@ -8,14 +8,14 @@ import java.io.File;
  * Created by matthewelbing on 07.10.16.
  */
 public class Meeting {
-    private String requestingStudent;
-    private String studentRequested;
+    private Student requestingStudent;
+    private Student studentRequested;
     private long hour;
     private long minute;
     private Course course;
     private IO io;
 
-    public Meeting(String requestingStudent, String studentRequested, long hour, long minute, Course course) {
+    public Meeting(Student requestingStudent, Student studentRequested, long hour, long minute, Course course) {
         String filename = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json.whsplannermeeting";
         io = new IO(filename);
         this.requestingStudent = requestingStudent;
@@ -26,5 +26,6 @@ public class Meeting {
     }
     public void create(){
         io.writeMeetingJsonData(requestingStudent, studentRequested, hour, minute, course);
+        GmailApiAccess.sendEmail(studentRequested.getEmail(), requestingStudent.getEmail(), "meeting", io.readMeetingdata()); //TODO
     }
 }

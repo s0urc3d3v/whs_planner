@@ -44,7 +44,7 @@ public class GmailApiAccess {
             t.printStackTrace();
         }
     }
-    public static Credential authorize() throws Exception {
+    private static Credential authorize() throws Exception {
         File client_id = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "/client_id.json");
         InputStream in = new FileInputStream(client_id);
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
@@ -59,7 +59,7 @@ public class GmailApiAccess {
         return credential;
 
     }
-    public static Gmail getGmailService() throws Exception {
+    private static Gmail getGmailService() throws Exception {
         Credential credential = authorize();
         return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
@@ -73,7 +73,7 @@ public class GmailApiAccess {
 
 
     }
-    public static MimeMessage createEmail(String to, String from, String subject, String bodyText) throws MessagingException {
+    private static MimeMessage createEmail(String to, String from, String subject, String bodyText) throws MessagingException {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
 
@@ -85,7 +85,7 @@ public class GmailApiAccess {
         email.setText(bodyText);
         return email;
     }
-    public static Message createMessageFromMimeMessage(MimeMessage mimeMessage) throws MessagingException, IOException {
+    private static Message createMessageFromMimeMessage(MimeMessage mimeMessage) throws MessagingException, IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         mimeMessage.writeTo(buffer);
         byte[] bytes = buffer.toByteArray();
@@ -94,7 +94,7 @@ public class GmailApiAccess {
         message.setRaw(encodedEmail);
         return message;
     }
-    public static Message sendMessage(Gmail service, String userId, MimeMessage emailContent) throws MessagingException, IOException {
+    private static Message sendMessage(Gmail service, String userId, MimeMessage emailContent) throws MessagingException, IOException {
         Message message = createMessageFromMimeMessage(emailContent);
         message = service.users().messages().send(userId, message).execute();
         System.out.println("Message ID: " + message.getId());
