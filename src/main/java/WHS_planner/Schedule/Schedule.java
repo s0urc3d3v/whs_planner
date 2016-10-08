@@ -40,7 +40,7 @@ public class Schedule extends Application
     {
         MainStage = PrimaryStage;
 
-        PrimaryStage.setTitle("src" + File.pathSeparator + "main" + File.pathSeparator + "resources" + File.pathSeparator + "Schedule");
+        PrimaryStage.setTitle("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Schedule");
 
         try
         {

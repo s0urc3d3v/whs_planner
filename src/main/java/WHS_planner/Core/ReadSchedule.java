@@ -26,7 +26,7 @@ public class ReadSchedule {
     private String pageSource;
     public ReadSchedule (){
         try{
-            File chromeWebDriverExec = new File(System.getProperty("user.dir") + "src" + File.pathSeparator + "main" + File.pathSeparator + "resources" + File.pathSeparator + "Core" + File.pathSeparator + "chromedriver");
+            File chromeWebDriverExec = new File(System.getProperty("user.dir") + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "chromedriver");
             System.setProperty("webdriver.chrome.driver", (System.getProperty("user.dir") + "/src/main/resources/Core/chromedriver"));
         }
         catch (Exception e){
@@ -53,7 +53,7 @@ public class ReadSchedule {
         //chromeDriver.get(baseUrl + "https://ipass.wayland.k12.ma.us/school/ipass/index.html?dt=09261636690");
         chromeDriver.get("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?m=506&amp;pr=19&amp;dt=09261649872");
         pageSource = chromeDriver.getPageSource();
-        Files.write(Paths.get(System.getProperty("user.dir") + "/raw.html"), pageSource.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        Files.write(Paths.get(System.getProperty("user.dir") + File.separator + "raw.html"), pageSource.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         /*
         String tableData[][] = new String[100][100];
         WebElement scheduleTable = chromeDriver.findElement(By.className("boxHdr"));

@@ -45,7 +45,7 @@ public class GmailApiAccess {
         }
     }
     public static Credential authorize() throws Exception {
-        File client_id = new File("src" + File.pathSeparator + "main" + File.pathSeparator + "resources" + File.pathSeparator + "Core" + File.pathSeparator + "/client_id.json");
+        File client_id = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "/client_id.json");
         InputStream in = new FileInputStream(client_id);
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 

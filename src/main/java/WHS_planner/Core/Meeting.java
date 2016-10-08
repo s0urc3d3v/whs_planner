@@ -16,7 +16,7 @@ public class Meeting {
     private IO io;
 
     public Meeting(String requestingStudent, String studentRequested, long hour, long minute, Course course) {
-        String filename = "src" + File.pathSeparator + "main" + File.pathSeparator + "resources" + File.pathSeparator + "Core" + File.pathSeparator + "meeting.json";
+        String filename = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json";
         io = new IO(filename);
         this.requestingStudent = requestingStudent;
         this.studentRequested = studentRequested;
