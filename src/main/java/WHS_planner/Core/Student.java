@@ -16,6 +16,16 @@ public class Student {
         this.grade = grade;
     }
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", grade=" + grade +
+                '}';
+    }
+
     public String getFirstName() {
         return firstName;
     }
