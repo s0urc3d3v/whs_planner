@@ -41,4 +41,8 @@ public class Student {
     public int getGrade() {
         return grade;
     }
+
+    public String getFullName(){
+        return getFirstName() + "_" + getLastName();
+    }
 }

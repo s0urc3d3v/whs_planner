@@ -1,8 +1,11 @@
 package WHS_planner.Core;
 
 import WHS_planner.Util.Course;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -50,5 +53,26 @@ public class IO {
             Object keyValue = meeting.get(keyStr);
             System.out.println("key: " + keyStr + " value: " + keyValue);
         }
+        unload();
      }
+
+    public void writeMeeting(Student requestingStudent, Student studentRequested, long hour, long minute, Course course) throws IOException {
+        JSONObject object = new JSONObject();
+        object.put("requestingStudent", requestingStudent.getFullName());
+        object.put("studentRequested", studentRequested.getFullName());
+        object.put("hour", hour);
+        object.put("minute", minute);
+
+        JSONArray requestedCourse = new JSONArray();
+        requestedCourse.add(course.getName());
+        requestedCourse.add(course.getPeriod());
+        requestedCourse.add(course.getTeacher());
+        requestedCourse.add(course.getCourseLevel());
+
+        object.put("course", requestedCourse);
+
+        jsonApi.loadFile("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json.whsplannermeeting");
+
+        jsonApi.writeRaw(object);
+    }
 }
