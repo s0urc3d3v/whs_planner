@@ -163,5 +163,13 @@ public class JSON {
         fileWriter.write(obj.toJSONString());
         fileWriter.flush();
     }
+
+    /**
+     * Gets raw json data for custom parsing
+     * @return JSONObject object
+     */
+    public JSONObject readRaw(){
+        return object;
+    }
 }
 
