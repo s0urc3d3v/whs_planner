@@ -26,6 +26,6 @@ public class Meeting {
     }
     public void create(){
         io.writeMeetingJsonData(requestingStudent, studentRequested, hour, minute, course);
-        //GmailApiAccess.sendEmail(studentRequested.getEmail(), requestingStudent.getEmail(), "meeting", io.readMeetingdata()); //TODO
+
     }
 }

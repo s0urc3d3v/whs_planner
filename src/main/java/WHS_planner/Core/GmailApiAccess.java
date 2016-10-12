@@ -16,10 +16,16 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Message;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
@@ -83,6 +89,22 @@ public class GmailApiAccess {
         email.addRecipient(javax.mail.Message.RecipientType.TO, new InternetAddress(to));
         email.setSubject(subject);
         email.setText(bodyText);
+
+        MimeBodyPart partOne = new MimeBodyPart(); //This is for text
+        partOne.setText("Meeting Scheduled!");
+
+        MimeBodyPart partTwo = new MimeBodyPart();
+        String filename = "meeting.json.whsplannermeeting";
+        DataSource dataSource = new FileDataSource("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + filename);
+        partTwo.setDataHandler(new DataHandler(dataSource));
+        partTwo.setFileName(filename);
+
+        Multipart mimeMultipart = new MimeMultipart();
+        mimeMultipart.addBodyPart(partOne);
+        mimeMultipart.addBodyPart(partTwo);
+
+        email.setContent(mimeMultipart);
+
         return email;
     }
     private static Message createMessageFromMimeMessage(MimeMessage mimeMessage) throws MessagingException, IOException {
@@ -100,6 +122,10 @@ public class GmailApiAccess {
         System.out.println("Message ID: " + message.getId());
         System.out.println(message.toPrettyString());
         return message;
+    }
+
+    public void sendMeetingData(Student requestingStudent, Student studentRequested, Meeting meeting){
+
     }
 
 
