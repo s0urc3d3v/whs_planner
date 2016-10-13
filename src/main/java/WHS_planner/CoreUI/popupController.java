@@ -24,15 +24,15 @@ public class popupController implements Initializable{
     private JFXButton addListButton;
 
     @FXML
-    private JFXListView<SportsDate> popUpListView;
+    private JFXListView<JFXButton> popUpListView;
 
-    private ObservableList<SportsDate> listViewContents;
+    private ObservableList<JFXButton> listViewContents;
     private Stage stage = null;
     private HashMap<String, Object> result = new HashMap<String, Object>();
 
     @FXML
     void plusButtonPressed(MouseEvent event) {
-        listViewContents.add(new SportsDate(new Date(), "Football"));
+        listViewContents.add(new JFXButton());
         popUpListView.setItems(listViewContents);
     }
 
