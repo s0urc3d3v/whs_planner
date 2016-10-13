@@ -31,7 +31,7 @@ public class IO
             JSONArray array = jsonApi.readArray("@" + i);
             if(array != null) {
                 Iterator iterator = array.iterator();
-                scheduleBlockArrayList.add(new ScheduleBlock(((String)array.get(0)).split(" ")[1], ((String)array.get(1)).split(" ")[1], ((String)array.get(2)).split(" ")[1], ((String)array.get(3)).split(" ")[1]));
+                scheduleBlockArrayList.add(new ScheduleBlock(((String)array.get(0)).split(":")[1], ((String)array.get(1)).split(":")[1], ((String)array.get(2)).split(":")[1], ((String)array.get(3)).split(":")[1]));
             }
         }
         return scheduleBlockArrayList;

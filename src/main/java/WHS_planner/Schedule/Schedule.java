@@ -102,7 +102,7 @@ public class Schedule extends Application
             currentPeriod = blocks[i].getPeriodNumber();
             currentRoom = blocks[i].getRoomNumber();
 
-            if(blocks[i].getClassName().equals("free"))
+            if(blocks[i].getClassName().trim().equals("free"))
             {
                 s = "free";
             }
