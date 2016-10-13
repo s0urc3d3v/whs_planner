@@ -13,6 +13,10 @@ import java.io.IOException;
  */
 public class MeetingFileHandler {
     public MeetingFileHandler() {
+
+    }
+
+    public static void configFileHandler(){
         if (System.getProperty("os.name").toLowerCase().contains("os x") || System.getProperty("os.name").toLowerCase().contains("mac")){
             Application application = Application.getApplication();
             application.setOpenFileHandler(new OpenFilesHandler() {
