@@ -5,6 +5,7 @@ import WHS_planner.Core.JSON;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -148,6 +149,9 @@ public class Schedule extends Application
             try
             {
                 Label l = (Label) labels.get(letter+incr2);
+                Bounds l2 = l.getBoundsInLocal();
+                double scalex = l.getWidth()/l2.getWidth();
+                l.setScaleX(scalex);
                 l.setText(s);
             }
             catch(Exception e)
