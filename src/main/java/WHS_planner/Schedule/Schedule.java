@@ -149,9 +149,9 @@ public class Schedule extends Application
             try
             {
                 Label l = (Label) labels.get(letter+incr2);
-                Bounds l2 = l.getBoundsInLocal();
+                /*Bounds l2 = l.getBoundsInLocal();
                 double scalex = l.getWidth()/l2.getWidth();
-                l.setScaleX(scalex);
+                l.setScaleX(scalex);*/
                 l.setText(s);
             }
             catch(Exception e)
