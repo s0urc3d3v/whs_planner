@@ -3,6 +3,7 @@ package WHS_planner.Core;
 import WHS_planner.Util.Course;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by matthewelbing on 07.10.16.
@@ -25,7 +26,11 @@ public class Meeting {
         this.course = course;
     }
     public void create(){
-        io.writeMeetingJsonData(requestingStudent, studentRequested, hour, minute, course);
+        try {
+            io.writeMeeting(requestingStudent, studentRequested, hour, minute, course);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
