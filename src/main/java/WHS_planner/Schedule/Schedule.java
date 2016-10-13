@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Schedule extends Application
+public class Schedule
 {
 
     public static Stage MainStage;
@@ -29,18 +29,32 @@ public class Schedule extends Application
 
     private Map<String, Object> labels;
 
+    private ScheduleBlock[] blocks;
 
     public static Scene schedule;
     public static Scene day;
 
-    public static void main(String[] args)
+   /* public static void main(String[] args)
     {
         launch(args);
     }
+    */
 
-    private ScheduleBlock[] blocks;
+    public Schedule()
+    {
+        try
+        {
+            buildSchedule();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 
-    public void start(Stage PrimaryStage)
+    }
+
+
+   /* public void start(Stage PrimaryStage)
     {
         MainStage = PrimaryStage;
 
@@ -48,22 +62,7 @@ public class Schedule extends Application
 
         try
         {
-            FXMLLoader loader = new FXMLLoader();
-
-            loader.setLocation(getClass().getResource("/Schedule/scheduletest.fxml"));
-
-            rootLayout = loader.load();
-            generateSchedule(loader);
-
-            schedule = new Scene(rootLayout);
-
-            FXMLLoader load2 = new FXMLLoader();
-
-            load2.setLocation(getClass().getResource("/Schedule/day.fxml"));
-            memes = load2.load();
-
-            day = new Scene(memes);
-
+            buildSchedule();
             PrimaryStage.setResizable(true);
             PrimaryStage.setMinHeight(520);
             PrimaryStage.setMinWidth(573);
@@ -74,6 +73,26 @@ public class Schedule extends Application
         {
             e.printStackTrace();
         }
+    }
+    */
+
+    public void buildSchedule() throws Exception
+    {
+        FXMLLoader loader = new FXMLLoader();
+
+        loader.setLocation(getClass().getResource("/Schedule/scheduletest.fxml"));
+
+        rootLayout = loader.load();
+        generateSchedule(loader);
+
+        schedule = new Scene(rootLayout);
+
+        FXMLLoader load2 = new FXMLLoader();
+
+        load2.setLocation(getClass().getResource("/Schedule/day.fxml"));
+        memes = load2.load();
+
+        day = new Scene(memes);
     }
 
 
