@@ -24,7 +24,7 @@ public class TaskBoxController implements Initializable {
     private JFXTextField textBox;
 
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println(textBox.getParent().getParent());
+        System.out.println(textBox.getParent());
         try {
             textBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
