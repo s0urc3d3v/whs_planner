@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -24,16 +23,13 @@ public class SimpleController implements Initializable {
     private Hyperlink Title1;
 
     @FXML
-    private Button refreshButton;
-
-    @FXML
     private Text Author1;
 
     @FXML
     private Text Description1;
 
     @FXML
-    private Label label;
+    private Button refreshButton;
 
     private RSSFeedParser parser;
     private Feed feed;
