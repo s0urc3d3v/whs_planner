@@ -75,7 +75,7 @@ public class JSON {
      * @Param key of object to load
      * @Return Object from JSON File
      */
-    private Object readObject(String key) {
+    public Object readObject(String key) {
         return object.get(key);
     }
 
@@ -85,15 +85,9 @@ public class JSON {
      * @Param Key of object to load
      * @Return Object array from JSON File
      */
-    private Object[] readArray(String key) {
+    public JSONArray readArray(String key) {
         JSONArray array = (JSONArray) object.get(key);
-        //Turn the JSONArray into an object array
-        int length = array.size();
-        Object objArray[] = new Object[length];
-        for (int i = 0; i < length; i++) {
-            objArray[i] = array.get(i);
-        }
-        return objArray;
+        return array;
     }
 
     /**
