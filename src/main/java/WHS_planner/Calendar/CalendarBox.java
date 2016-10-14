@@ -116,7 +116,7 @@ public class CalendarBox extends Pane{
         tests.add(task);
     }
 
-    //TODO Remove this testing method
+    //TODO Remove this method
     public void removeHomework(){
         if(getHomeworkCount() != 0) {
             homework.remove(0);
