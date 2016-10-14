@@ -2,6 +2,8 @@ package WHS_planner.CoreUI;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,20 +26,21 @@ public class popupController implements Initializable{
     private JFXButton addListButton;
 
     @FXML
-    private JFXListView<JFXButton> popUpListView;
+    private JFXListView<JFXTextArea> popUpListView;
 
-    private ObservableList<JFXButton> listViewContents;
+    private ObservableList<JFXTextArea> listViewContents;
     private Stage stage = null;
     private HashMap<String, Object> result = new HashMap<String, Object>();
 
     @FXML
     void plusButtonPressed(MouseEvent event) {
-        listViewContents.add(new JFXButton());
+        listViewContents.add(new JFXTextArea());
         popUpListView.setItems(listViewContents);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         listViewContents = FXCollections.observableArrayList();
         popUpListView.setItems(listViewContents);
     }
