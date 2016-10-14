@@ -99,7 +99,7 @@ public class MainDocumentController implements Initializable {
             anchorPane.setTopAnchor(cal, 45.0);
         });
 
-        buttonArray[2].setOnMouseClicked(event -> {
+        buttonArray[1].setOnMouseClicked(event -> {
             //anchorPane.getChildren().setAll(tempPane.getChildren());
             if(!anchorPane.getChildren().contains(schedulepane))
             {
