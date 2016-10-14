@@ -9,23 +9,23 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WHS_planner.News.SimpleController">
    <children>
-      <Hyperlink id="Article_Title_Sample2" layoutX="232.0" layoutY="14.0" onAction="#openLink" text="Article Title" textAlignment="CENTER">
+      <Hyperlink fx:id="Article_Title_Sample2" layoutX="232.0" layoutY="14.0" onAction="#openLink" text="Article Title" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
       </Hyperlink>
-      <Text id="Author_Sample" layoutX="273.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" textAlignment="CENTER">
+      <Text fx:id="Author_Sample" layoutX="273.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text id="Description" layoutX="264.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER">
+      <Text fx:id="Description" layoutX="264.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Button id="prevPageButton" layoutX="14.0" layoutY="360.0" mnemonicParsing="false" onAction="#prevArticle" text="Previous Article" />
-      <Button id="nextPageButton" layoutX="499.0" layoutY="360.0" mnemonicParsing="false" onAction="#nextArticle" text="Next Article" />
-      <Label fx:id="label" layoutX="284.0" layoutY="192.0" text="Label" />
+      <Button fx:id="prevPageButton" layoutX="14.0" layoutY="360.0" mnemonicParsing="false" onAction="#prevArticle" text="Previous Article" />
+      <Button fx:id="nextPageButton" layoutX="499.0" layoutY="360.0" mnemonicParsing="false" onAction="#nextArticle" text="Next Article" />
+      <Label fx:id="lab" layoutX="284.0" layoutY="235.0" text="Test" />
    </children>
 </AnchorPane>
