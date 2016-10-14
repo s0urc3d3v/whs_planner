@@ -35,6 +35,12 @@ public class RSSFeedParser {
         }
     }
 
+
+    /**
+     * Returns a Feed object with the information of a RSS
+     * Feed at the URL that was initialized with this class.
+     * @return The Feed at the previously set URL
+     */
     public Feed readFeed() {
         Feed feed = null;
         try {

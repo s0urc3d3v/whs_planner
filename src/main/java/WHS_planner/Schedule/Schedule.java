@@ -1,63 +1,68 @@
 package WHS_planner.Schedule;
 
 import WHS_planner.Core.IO;
+import WHS_planner.Core.JSON;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.json.simple.JSONArray;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
-public class Schedule extends Application
+public class Schedule
 {
 
     public static Stage MainStage;
 
     @FXML
-    Pane rootLayout;
+    private Pane rootLayout;
 
     @FXML
-    Pane memes;
+    private Pane memes;
 
     private Map<String, Object> labels;
 
+    private ScheduleBlock[] blocks;
 
     public static Scene schedule;
     public static Scene day;
 
-    public static void main(String[] args)
+   /* public static void main(String[] args)
     {
         launch(args);
     }
+    */
 
-    private ScheduleBlock[] blocks;
+    public Schedule()
+    {
+        try
+        {
+            buildSchedule();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 
-    public void start(Stage PrimaryStage)
+    }
+
+
+   /* public void start(Stage PrimaryStage)
     {
         MainStage = PrimaryStage;
 
-        PrimaryStage.setTitle("src/main/resources/Schedule");
+        PrimaryStage.setTitle("schedule my dude");
 
         try
         {
-            FXMLLoader loader = new FXMLLoader();
-
-            loader.setLocation(getClass().getResource("/Schedule/scheduletest.fxml"));
-
-            rootLayout = loader.load();
-            generateSchedule(loader);
-
-            schedule = new Scene(rootLayout);
-
-            FXMLLoader load2 = new FXMLLoader();
-
-            load2.setLocation(getClass().getResource("/Schedule/day.fxml"));
-            memes = load2.load();
-
-            day = new Scene(memes);
-
+            buildSchedule();
             PrimaryStage.setResizable(true);
             PrimaryStage.setMinHeight(520);
             PrimaryStage.setMinWidth(573);
@@ -68,6 +73,26 @@ public class Schedule extends Application
         {
             e.printStackTrace();
         }
+    }
+    */
+
+    public void buildSchedule() throws Exception
+    {
+        FXMLLoader loader = new FXMLLoader();
+
+        loader.setLocation(getClass().getResource("/Schedule/scheduletest.fxml"));
+
+        rootLayout = loader.load();
+        generateSchedule(loader);
+
+        schedule = new Scene(rootLayout);
+
+        FXMLLoader load2 = new FXMLLoader();
+
+        load2.setLocation(getClass().getResource("/Schedule/day.fxml"));
+        memes = load2.load();
+
+        day = new Scene(memes);
     }
 
 
@@ -90,12 +115,23 @@ public class Schedule extends Application
 
         for (int i = 0; i < 56; i++)
         {
+            String s;
+
             currentClass = blocks[i].getClassName();
             currentTeacher = blocks[i].getTeacher();
             currentPeriod = blocks[i].getPeriodNumber();
             currentRoom = blocks[i].getRoomNumber();
 
-            String s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+currentPeriod;
+            if(blocks[i].getClassName().trim().equals("free"))
+            {
+                s = "free";
+            }
+            else
+            {
+                s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+currentPeriod;
+            }
+
+            System.out.println(s);
 
             String letter;
 
@@ -128,17 +164,45 @@ public class Schedule extends Application
                 incr2++;
             }
 
-            Label l = (Label) labels.get(letter+incr2);
-            l.setText(s);
 
+            try
+            {
+                Label l = (Label) labels.get(letter+incr2);
+                /*Bounds l2 = l.getBoundsInLocal();
+                double scalex = l.getWidth()/l2.getWidth();
+                l.setScaleX(scalex);*/
+                l.setText(s);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void parseSchedule()
+    {
+        ScheduleParser parse = new ScheduleParser();
+        try
+        {
+            parse.getClasses();
+        }
+        catch(IOException ie)
+        {
+            ie.printStackTrace();
         }
     }
 
     public ScheduleBlock[] getData()
     {
-        ScheduleBlock[] blocks;
-        IO dotaIo = new IO("Schedule");
-        blocks = (ScheduleBlock[]) dotaIo.readScheduleArray();
+        parseSchedule();
+        IO dotaIo = new IO("Schedule.json");
+        ArrayList<ScheduleBlock> array = dotaIo.readScheduleArray();
+        dotaIo.unload();
+        ScheduleBlock[] blocks = new ScheduleBlock[array.size()];
+        for(int i = 0; i < array.size(); i++) {
+            blocks[i] = array.get(i);
+        }
         return blocks;
     }
 

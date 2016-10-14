@@ -9,15 +9,15 @@
 
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WHS_planner.CoreUI.SimpleController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <JFXButton fx:id="buttonTest" layoutX="220.0" layoutY="235.0" prefHeight="50.0" prefWidth="160.0" text="Login">
          <font>
             <Font size="19.0" />
          </font>
       </JFXButton>
-      <JFXPasswordField layoutX="219.0" layoutY="168.0" text="Password" />
-      <JFXTextField layoutX="219.0" layoutY="121.0" text="Email" />
+      <JFXPasswordField layoutX="219.0" layoutY="168.0" promptText="Password" />
+      <JFXTextField layoutX="219.0" layoutY="121.0" promptText="Email" />
       <JFXHamburger layoutX="14.0" layoutY="14.0" />
    </children>
 </Pane>

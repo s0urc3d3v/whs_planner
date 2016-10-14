@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="sportsPopupAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="413.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXButton fx:id="addListButton" graphicTextGap="0.0" layoutX="358.0" onMouseClicked="#plusButtonPressed" prefHeight="45.0" prefWidth="55.0" ripplerFill="#ff1212" text="+" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXListView fx:id="popUpListView" layoutY="44.0" prefHeight="170.0" prefWidth="413.0" />
+   </children>
+</AnchorPane>

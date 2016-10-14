@@ -186,4 +186,7 @@ public class Calendar extends Pane {
             e.printStackTrace();
         }
     }
+    public CalendarBox GetCurrentCalendarBox(){
+        return getCalendarBox(currentDate);
+    }
 }

@@ -52,10 +52,16 @@ public class FeedMessage {
         this.guid = guid;
     }
 
+
+    /**
+     * Changes all normally unprintable characters (Such as "...")
+     * into their respective appropriate characters in
+     * the title and description. This is used to remove
+     * the HTML codes in the RSS feed's description and title.
+     */
     public void escapeHTML() {
         title = Jsoup.parse(title).text();
         description = Jsoup.parse(description).text();
-
     }
 
     @Override
