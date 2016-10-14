@@ -22,7 +22,7 @@ public class JsonTest extends TestCase{
     public void testWriteArray(){
         JSON JsonApi = new JSON();
         JsonApi.loadFile("testDatabase/test.json");
-        JsonApi.writeArray("test", new Object[] {"Hello", "Bonjour", 123});
+        JsonApi.writeArray("test", new Object[] {"Hello", "Bonjour", 123, "Worked"});
         JsonApi.unloadFile();
     }
 

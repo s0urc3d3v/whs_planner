@@ -1,5 +1,9 @@
 package WHS_planner.Core;
-import org.slf4j.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /**
  * Created by matthewelbing on 17.09.16.
  */

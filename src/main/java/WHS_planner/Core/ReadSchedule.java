@@ -1,20 +1,15 @@
 package WHS_planner.Core;
 
-import java.io.File;
-import java.io.OutputStreamWriter;
-import java.net.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptExecutor;
-import com.thoughtworks.selenium.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.concurrent.TimeUnit;
 
 import static com.thoughtworks.selenium.SeleneseTestBase.fail;
 
@@ -31,7 +26,7 @@ public class ReadSchedule {
     private String pageSource;
     public ReadSchedule (){
         try{
-            File chromeWebDriverExec = new File(System.getProperty("user.dir") + "/src/main/resources/Core/chromedriver");
+            File chromeWebDriverExec = new File(System.getProperty("user.dir") + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "chromedriver");
             System.setProperty("webdriver.chrome.driver", (System.getProperty("user.dir") + "/src/main/resources/Core/chromedriver"));
         }
         catch (Exception e){
@@ -58,7 +53,7 @@ public class ReadSchedule {
         //chromeDriver.get(baseUrl + "https://ipass.wayland.k12.ma.us/school/ipass/index.html?dt=09261636690");
         chromeDriver.get("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?m=506&amp;pr=19&amp;dt=09261649872");
         pageSource = chromeDriver.getPageSource();
-        Files.write(Paths.get(System.getProperty("user.dir") + "/raw.html"), pageSource.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        Files.write(Paths.get(System.getProperty("user.dir") + File.separator + "raw.html"), pageSource.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         /*
         String tableData[][] = new String[100][100];
         WebElement scheduleTable = chromeDriver.findElement(By.className("boxHdr"));
