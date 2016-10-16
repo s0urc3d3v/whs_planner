@@ -8,16 +8,19 @@ import javafx.stage.Stage;
 
 public class Main extends Application
 {
+    static String argsGlobal[];
     public static void main(String[] args)
     {
+        argsGlobal = args;
        /*if (System.getProperty("os.name").toLowerCase().contains("mac") || System.getProperty("os.name").toLowerCase().contains("os x")){
         }
         MeetingFileHandler.configFileHandler(); //This must be at the top of Main() for meeting import to work
-        launch(args); */
+         */
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        launch(argsGlobal);
         NavigationBar bar = new NavigationBar();
         bar.start(primaryStage);
     }
