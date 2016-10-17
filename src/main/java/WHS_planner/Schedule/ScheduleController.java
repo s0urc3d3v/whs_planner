@@ -7,16 +7,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.Timer;
+import javax.swing.Timer;
 
-public class ScheduleController implements Initializable
+public class ScheduleController implements Initializable, ActionListener
 {
     @FXML
     private GridPane grid;
@@ -45,12 +46,8 @@ public class ScheduleController implements Initializable
         Title3.setText("It is A Day");
         normalDay = true;
 
-        double d = progressVal();
-        d = 1.0-d;
-
-        System.out.println(d);
-        progressBar.setProgress(d);
-
+        progressbartimer = new Timer(1000, this);
+        progressbartimer.start();
     }
 
     public void TylerIsACreep()
@@ -119,4 +116,11 @@ public class ScheduleController implements Initializable
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        double d = progressVal();
+        d = 1.0-d;
+        progressBar.setProgress(d);
+    }
 }
