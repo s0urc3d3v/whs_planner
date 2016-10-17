@@ -164,8 +164,10 @@ public class Schedule
         IO dotaIo = new IO("Schedule.json");
         ArrayList<ScheduleBlock> array = dotaIo.readScheduleArray();
         dotaIo.unload();
+
         ScheduleBlock[] blocks = new ScheduleBlock[array.size()];
-        for(int i = 0; i < array.size(); i++) {
+        for(int i = 0; i < array.size(); i++)
+        {
             blocks[i] = array.get(i);
         }
         return blocks;
