@@ -19,6 +19,7 @@ import javax.swing.Timer;
 
 public class ScheduleController implements Initializable, ActionListener
 {
+
     @FXML
     private GridPane grid;
 
