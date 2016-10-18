@@ -1,5 +1,8 @@
 package WHS_planner.News;
 
+import WHS_planner.News.model.Feed;
+import WHS_planner.News.model.FeedMessage;
+import WHS_planner.News.read.RSSFeedParser;
 import javafx.application.Application;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
@@ -9,16 +12,9 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import WHS_planner.News.model.Feed;
-import WHS_planner.News.model.FeedMessage;
-import WHS_planner.News.read.RSSFeedParser;
-
 import java.net.URL;
 import java.util.List;
 
-/**
- * Created by andrew_eggleston on 9/26/16.
- */
 public class NewsUI extends Application {
     public static void main(String[] args) {
         launch(args);
@@ -28,7 +24,7 @@ public class NewsUI extends Application {
 
 
         String sceneFile = "/resources/News/news1_3.fxml";
-        Parent root = null;
+        Parent root;
         URL url  = null;
 
         RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
@@ -122,8 +118,12 @@ public class NewsUI extends Application {
             throw ex;
         }
 
-//        Parent root = FXMLLoader.load(getClass().getResource("/loginPage.fxml")); //root is the fxml "loginPage" in the src dir
 
+        //TODO Issues:
+        /*
+         * Not getting author correctly, cs:creator
+         * Title shortened?
+         */
 
         Scene scene = new Scene(root);
 
