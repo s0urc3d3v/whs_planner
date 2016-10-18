@@ -1,4 +1,4 @@
-package WHS_planner.Core;
+/** package WHS_planner.Core;
 
 
 import com.apple.eawt.AppEvent;
@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * Created by matthewelbing on 12.10.16.
- */
+
 public class MeetingFileHandler {
     public MeetingFileHandler() {
 
@@ -39,3 +39,4 @@ public class MeetingFileHandler {
     }
 
 }
+     */ //Dies können Sein heir ob ihr windows kompilieren wollen TODO löschen Sie deisen Kommentar

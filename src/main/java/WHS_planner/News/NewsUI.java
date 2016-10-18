@@ -1,5 +1,8 @@
 package WHS_planner.News;
 
+import WHS_planner.News.model.Feed;
+import WHS_planner.News.model.FeedMessage;
+import WHS_planner.News.read.RSSFeedParser;
 import javafx.application.Application;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
@@ -9,16 +12,9 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import WHS_planner.News.model.Feed;
-import WHS_planner.News.model.FeedMessage;
-import WHS_planner.News.read.RSSFeedParser;
-
 import java.net.URL;
 import java.util.List;
 
-/**
- * Created by andrew_eggleston on 9/26/16.
- */
 public class NewsUI extends Application {
     public static void main(String[] args) {
         launch(args);
@@ -26,17 +22,15 @@ public class NewsUI extends Application {
 
     public void start(Stage stage) throws Exception{
 
-
         String sceneFile = "/resources/News/news1_3.fxml";
-        Parent root = null;
+        Parent root;
         URL url  = null;
 
         RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
         Feed feed = parser.readFeed();
         List<FeedMessage> feedArray = feed.getMessages();
 
-        try
-        {
+        try {
             url = getClass().getResource("/News/news1_3.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             root = fxmlLoader.load();
@@ -122,7 +116,9 @@ public class NewsUI extends Application {
             throw ex;
         }
 
-//        Parent root = FXMLLoader.load(getClass().getResource("/loginPage.fxml")); //root is the fxml "loginPage" in the src dir
+        //TODO Issues: RSS reader isn't getting author, WSPN feed uses dc:creator instead of author
+        //TODO title seems shortened sometimes
+        //TODO Each of the articles shown shouldn't be hard coded, use vbox and jfxlistview instead
 
 
         Scene scene = new Scene(root);

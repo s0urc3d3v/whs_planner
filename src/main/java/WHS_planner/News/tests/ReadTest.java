@@ -20,11 +20,11 @@ public class ReadTest {
             System.out.println();
         }
 
-
 //        for (FeedMessage message : feed.getMessages()) {
 //            System.out.println(message.getTitle());
 //            System.out.print(" " + message.getDescription());
 //            System.out.println();
 //        }
+
     }
 }

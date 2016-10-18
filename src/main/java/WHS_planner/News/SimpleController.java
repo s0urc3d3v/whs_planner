@@ -14,9 +14,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * Created by andrew_eggleston on 9/26/16.
- */
+
 public class SimpleController implements Initializable {
 
     @FXML
@@ -36,17 +34,11 @@ public class SimpleController implements Initializable {
     private List<FeedMessage> feedArray;
     private int currentArticle; //0 represents the first and most recent article
 
-//    @FXML
-//    private Text text;
-
-
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         Title1 = new Hyperlink();
         refreshButton = new Button();
         Author1 = new Text();
         Description1 = new Text();
-
-
 
         parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
         feed = parser.readFeed();
@@ -58,24 +50,7 @@ public class SimpleController implements Initializable {
         Title1.setText(currentMessage.getTitle());
         Author1.setText(currentMessage.getAuthor());
         Description1.setText(currentMessage.getDescription());
-
-
-//        try {
-//            System.out.println(text.getText());
-//        } catch(Exception e){
-//
-//        }
-//        text = new Text("ASDF");
-//        System.out.println(text.getText());
-//        text.setText("ASDF");
-//        System.out.println(text.getText());
-
     }
-
-
-
-    //LINE TO OPEN URL: Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "http://waylandstudentpress.com/"});
-
 
     @FXML
     public void openLink(){
@@ -112,7 +87,7 @@ public class SimpleController implements Initializable {
     }
 
     @FXML
-    public void updateFrame(){
+    private void updateFrame() {
         FeedMessage currentMessage = feedArray.get(currentArticle);
 
         Title1.setText(currentMessage.getTitle());

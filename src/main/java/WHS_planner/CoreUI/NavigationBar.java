@@ -1,18 +1,11 @@
 package WHS_planner.CoreUI;
 
-import WHS_planner.Calendar.Calendar;
-import WHS_planner.Calendar.CalendarUtility;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import java.io.IOException;
 import java.net.URL;
 
 
@@ -62,7 +55,4 @@ public class NavigationBar extends Application {
     }
 
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

@@ -14,18 +14,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class RSSFeedParser {
-    static final String TITLE = "title";
-    static final String DESCRIPTION = "description";
-    static final String CHANNEL = "channel";
-    static final String LANGUAGE = "language";
-    static final String COPYRIGHT = "copyright";
-    static final String LINK = "link";
-    static final String AUTHOR = "author";
-    static final String ITEM = "item";
-    static final String PUB_DATE = "pubDate";
-    static final String GUID = "guid";
+    private static final String TITLE = "title";
+    private static final String DESCRIPTION = "description";
+    private static final String LANGUAGE = "language";
+    private static final String COPYRIGHT = "copyright";
+    private static final String LINK = "link";
+    private static final String AUTHOR = "dc:creator";
+    private static final String ITEM = "item";
+    private static final String PUB_DATE = "pubDate";
+    private static final String GUID = "guid";
 
-    final URL url;
+    private final URL url;
 
     public RSSFeedParser(String feedUrl) {
         try {
@@ -34,8 +33,6 @@ public class RSSFeedParser {
             throw new RuntimeException(e);
         }
     }
-
-
     /**
      * Returns a Feed object with the information of a RSS
      * Feed at the URL that was initialized with this class.
@@ -70,78 +67,41 @@ public class RSSFeedParser {
                     //noinspection Since15
                     String localPart = event.asStartElement().getName()
                             .getLocalPart();
-                    /*Switch wasn't working so  replaced with if statements
-                     *
-                     */
-//                    switch (localPart) {
-//                        case ITEM:
-//                            if (isFeedHeader) {
-//                                isFeedHeader = false;
-//                                feed = new Feed(title, link, description, language,
-//                                        copyright, pubdate);
-//                            }
-//                            event = eventReader.nextEvent();
-//                            break;
-//                        case TITLE:
-//                            title = getCharacterData(event, eventReader);
-//                            break;
-//                        case DESCRIPTION:
-//                            description = getCharacterData(event, eventReader);
-//                            break;
-//                        case LINK:
-//                            link = getCharacterData(event, eventReader);
-//                            break;
-//                        case GUID:
-//                            guid = getCharacterData(event, eventReader);
-//                            break;
-//                        case LANGUAGE:
-//                            language = getCharacterData(event, eventReader);
-//                            break;
-//                        case AUTHOR:
-//                            author = getCharacterData(event, eventReader);
-//                            break;
-//                        case PUB_DATE:
-//                            pubdate = getCharacterData(event, eventReader);
-//                            break;
-//                        case COPYRIGHT:
-//                            copyright = getCharacterData(event, eventReader);
-//                            break;
-//                    }
-                    if (localPart == ITEM) {
+                    if (localPart.equals(ITEM)) {
                         if (isFeedHeader) {
                             isFeedHeader = false;
                             feed = new Feed(title, link, description, language,
                                     copyright, pubdate);
                         }
-                        event = eventReader.nextEvent();
+//                        event = eventReader.nextEvent();
 
-                    } else if (localPart == TITLE) {
+                    } else if (localPart.equals(TITLE)) {
                         title = getCharacterData(event, eventReader);
 
-                    } else if (localPart == DESCRIPTION) {
+                    } else if (localPart.equals(DESCRIPTION)) {
                         description = getCharacterData(event, eventReader);
 
-                    } else if (localPart == LINK) {
+                    } else if (localPart.equals(LINK)) {
                         link = getCharacterData(event, eventReader);
 
-                    } else if (localPart == GUID) {
+                    } else if (localPart.equals(GUID)) {
                         guid = getCharacterData(event, eventReader);
 
-                    } else if (localPart == LANGUAGE) {
+                    } else if (localPart.equals(LANGUAGE)) {
                         language = getCharacterData(event, eventReader);
 
-                    } else if (localPart == AUTHOR) {
+                    } else if (localPart.equals(AUTHOR)) {
                         author = getCharacterData(event, eventReader);
 
-                    } else if (localPart == PUB_DATE) {
+                    } else if (localPart.equals(PUB_DATE)) {
                         pubdate = getCharacterData(event, eventReader);
-                    } else if (localPart == COPYRIGHT) {
+                    } else if (localPart.equals(COPYRIGHT)) {
                         copyright = getCharacterData(event, eventReader);
 
                     }
 
                 } else if (event.isEndElement()) {
-                    if (event.asEndElement().getName().getLocalPart() == (ITEM)) {
+                    if (event.asEndElement().getName().getLocalPart().equals(ITEM)) {
                         FeedMessage message = new FeedMessage();
                         message.setAuthor(author);
                         message.setDescription(description);
@@ -149,15 +109,13 @@ public class RSSFeedParser {
                         message.setLink(link);
                         message.setTitle(title);
                         feed.getMessages().add(message);
-                        event = eventReader.nextEvent();
-                        continue;
+//                        event = eventReader.nextEvent();
                     }
                 }
             }
         } catch (XMLStreamException e) {
             throw new RuntimeException(e);
         }
-
         return feed;
     }
 

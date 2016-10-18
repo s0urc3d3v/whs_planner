@@ -9,6 +9,6 @@ public class ScheduleTest extends TestCase
 
     public void testSchedule() throws Exception
     {
-        WHS_planner.Schedule.Schedule schedule = new Schedule();
+        System.out.println("memes");
     }
 }

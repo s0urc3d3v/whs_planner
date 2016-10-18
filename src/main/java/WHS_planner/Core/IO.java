@@ -1,11 +1,13 @@
 package WHS_planner.Core;
 
+import WHS_planner.Schedule.ScheduleBlock;
 import WHS_planner.Util.Course;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -14,19 +16,18 @@ import java.util.Iterator;
  */
 public class IO {
     private JSON jsonApi;
-    public IO(String fileName)
-    {
+    public IO(String fileName) {
         jsonApi = new JSON();
         jsonApi.loadFile(fileName);
     }
-    public void writeScheduleArray(Object[] classLayout)
-    {
-        jsonApi.writeArray("Schedule", classLayout);
+    public void writeScheduleArray(ScheduleBlock[] array) {
+        int i = 0;
+        for(ScheduleBlock block: array) {
+            jsonApi.writeArray("@" + i, new Object[]{block.getClassName(), block.getPeriodNumber(), block.getRoomNumber(), block.getTeacher()});
+            jsonApi.writeArray(i + "", new Object[]{block.getClassName(), block.getTeacher(), block.getRoomNumber(), block.getPeriodNumber()});
+            i++;
+        }
 
-    }
-    public Object[] readScheduleArray()
-    {
-        return (Object[]) jsonApi.readPair("@Schedule");
     }
 
     public void unload()
@@ -115,5 +116,16 @@ public class IO {
 
         Meeting receivedMeeting = new Meeting(requestingStudent, studentRequested, hour, minute, course);
 
+    }
+
+    public ArrayList<ScheduleBlock> readScheduleArray() {
+        ArrayList<ScheduleBlock> scheduleBlockArrayList = new ArrayList<>();
+            for(int i = 0; i <= 57; i++) {
+                JSONArray array = jsonApi.readArray("@" + i);
+                if(array != null) {Iterator iterator = array.iterator();
+                    scheduleBlockArrayList.add(new ScheduleBlock(((String)array.get(0)).split(" ")[1], ((String)array.get(1)).split(" ")[1], ((String)array.get(2)).split(" ")[1], ((String)array.get(3)).split(" ")[1]));
+                }
+            }
+        return scheduleBlockArrayList;
     }
 }
