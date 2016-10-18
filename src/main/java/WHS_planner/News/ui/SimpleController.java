@@ -1,4 +1,4 @@
-package WHS_planner.News;
+package WHS_planner.News.ui;
 
 import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
@@ -6,8 +6,6 @@ import WHS_planner.News.read.RSSFeedParser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,14 +15,14 @@ import java.util.ResourceBundle;
 
 public class SimpleController implements Initializable {
 
-    @FXML
-    private Hyperlink Title1;
-
-    @FXML
-    private Text Author1;
-
-    @FXML
-    private Text Description1;
+//    @FXML
+//    private Hyperlink Title1;
+//
+//    @FXML
+//    private Text Author1;
+//
+//    @FXML
+//    private Text Description1;
 
     @FXML
     private Button refreshButton;
@@ -35,10 +33,10 @@ public class SimpleController implements Initializable {
     private int currentArticle; //0 represents the first and most recent article
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        Title1 = new Hyperlink();
+//        Title1 = new Hyperlink();
         refreshButton = new Button();
-        Author1 = new Text();
-        Description1 = new Text();
+//        Author1 = new Text();
+//        Description1 = new Text();
 
         parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
         feed = parser.readFeed();
@@ -47,9 +45,9 @@ public class SimpleController implements Initializable {
 
         FeedMessage currentMessage = feedArray.get(currentArticle);
 
-        Title1.setText(currentMessage.getTitle());
-        Author1.setText(currentMessage.getAuthor());
-        Description1.setText(currentMessage.getDescription());
+//        Title1.setText(currentMessage.getTitle());
+//        Author1.setText(currentMessage.getAuthor());
+//        Description1.setText(currentMessage.getDescription());
     }
 
     @FXML
@@ -61,21 +59,21 @@ public class SimpleController implements Initializable {
         }
     }
 
-    @FXML
-    public void nextArticle(){
-        if(currentArticle+1<=feedArray.size()-1) {
-            currentArticle++;
-            updateFrame();
-        }
-    }
-
-    @FXML
-    public void prevArticle(){
-        if(currentArticle-1>=0) {
-            currentArticle--;
-            updateFrame();
-        }
-    }
+//    @FXML
+//    public void nextArticle(){
+//        if(currentArticle+1<=feedArray.size()-1) {
+//            currentArticle++;
+//            updateFrame();
+//        }
+//    }
+//
+//    @FXML
+//    public void prevArticle(){
+//        if(currentArticle-1>=0) {
+//            currentArticle--;
+//            updateFrame();
+//        }
+//    }
 
     public int getArticle(){
         return currentArticle;
@@ -90,13 +88,13 @@ public class SimpleController implements Initializable {
     private void updateFrame() {
         FeedMessage currentMessage = feedArray.get(currentArticle);
 
-        Title1.setText(currentMessage.getTitle());
-        Author1.setText(currentMessage.getAuthor());
-        Description1.setText(currentMessage.getDescription());
-
-        System.out.println(Title1.getText());
-        System.out.println(Author1.getText());
-        System.out.println(Description1.getText());
+//        Title1.setText(currentMessage.getTitle());
+//        Author1.setText(currentMessage.getAuthor());
+//        Description1.setText(currentMessage.getDescription());
+//
+//        System.out.println(Title1.getText());
+//        System.out.println(Author1.getText());
+//        System.out.println(Description1.getText());
 
     }
 }
