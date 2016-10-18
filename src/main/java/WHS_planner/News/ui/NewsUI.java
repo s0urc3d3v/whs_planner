@@ -1,4 +1,4 @@
-package WHS_planner.News;
+package WHS_planner.News.ui;
 
 import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
