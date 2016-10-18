@@ -22,7 +22,6 @@ public class NewsUI extends Application {
 
     public void start(Stage stage) throws Exception{
 
-
         String sceneFile = "/resources/News/news1_3.fxml";
         Parent root;
         URL url  = null;
@@ -31,8 +30,7 @@ public class NewsUI extends Application {
         Feed feed = parser.readFeed();
         List<FeedMessage> feedArray = feed.getMessages();
 
-        try
-        {
+        try {
             url = getClass().getResource("/News/news1_3.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             root = fxmlLoader.load();
@@ -118,12 +116,10 @@ public class NewsUI extends Application {
             throw ex;
         }
 
+        //TODO Issues: RSS reader isn't getting author, WSPN feed uses dc:creator instead of author
+        //TODO title seems shortened sometimes
+        //TODO Each of the articles shown shouldn't be hard coded, use vbox and jfxlistview instead
 
-        //TODO Issues:
-        /*
-         * Not getting author correctly, cs:creator
-         * Title shortened?
-         */
 
         Scene scene = new Scene(root);
 

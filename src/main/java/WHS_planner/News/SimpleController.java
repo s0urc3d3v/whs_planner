@@ -34,15 +34,11 @@ public class SimpleController implements Initializable {
     private List<FeedMessage> feedArray;
     private int currentArticle; //0 represents the first and most recent article
 
-
-
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         Title1 = new Hyperlink();
         refreshButton = new Button();
         Author1 = new Text();
         Description1 = new Text();
-
-
 
         parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
         feed = parser.readFeed();
@@ -54,13 +50,7 @@ public class SimpleController implements Initializable {
         Title1.setText(currentMessage.getTitle());
         Author1.setText(currentMessage.getAuthor());
         Description1.setText(currentMessage.getDescription());
-
     }
-
-
-
-    //LINE TO OPEN URL: Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "http://waylandstudentpress.com/"});
-
 
     @FXML
     public void openLink(){

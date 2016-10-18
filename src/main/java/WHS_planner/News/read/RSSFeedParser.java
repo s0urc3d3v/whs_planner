@@ -16,7 +16,6 @@ import java.net.URL;
 public class RSSFeedParser {
     private static final String TITLE = "title";
     private static final String DESCRIPTION = "description";
-    private static final String CHANNEL = "channel";
     private static final String LANGUAGE = "language";
     private static final String COPYRIGHT = "copyright";
     private static final String LINK = "link";
@@ -117,7 +116,6 @@ public class RSSFeedParser {
         } catch (XMLStreamException e) {
             throw new RuntimeException(e);
         }
-
         return feed;
     }
 
