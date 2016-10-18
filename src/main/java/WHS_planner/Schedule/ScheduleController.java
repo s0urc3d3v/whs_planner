@@ -1,13 +1,10 @@
 package WHS_planner.Schedule;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -25,12 +22,6 @@ public class ScheduleController implements Initializable, ActionListener
 
     @FXML
     private Label Title3;
-
-    @FXML
-    private Button ChangeButton;
-
-    @FXML
-    private JFXButton changestuff;
 
     @FXML
     private ProgressBar progressBar;
@@ -51,10 +42,6 @@ public class ScheduleController implements Initializable, ActionListener
         progressbartimer.start();
     }
 
-    public void TylerIsACreep()
-    {
-        Schedule.MainStage.setScene(Schedule.day);
-    }
 
     public double progressVal()
     {
@@ -66,7 +53,7 @@ public class ScheduleController implements Initializable, ActionListener
 
         int num = parseDate(dateS);
 
-        double mod = 0;
+        double mod = 1;
 
         if(normalDay)
         {
