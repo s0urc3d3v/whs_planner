@@ -75,5 +75,43 @@
       <artifactId>fluent-selenium</artifactId>
       <version>1.14.2</version>
     </dependency>
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-gmail</artifactId>
+      <version>v1-rev48-1.22.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.google.oauth-client</groupId>
+        <artifactId>google-oauth-client</artifactId>
+        <version>1.22.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.google.api-client</groupId>
+        <artifactId>google-api-client</artifactId>
+        <version>1.22.0</version>
+      </dependency>
+      <dependency>
+          <groupId>com.google.oauth-client</groupId>
+          <artifactId>google-oauth-client-java6</artifactId>
+          <version>1.11.0-beta</version>
+      </dependency>
+      <dependency>
+          <groupId>com.google.oauth-client</groupId>
+          <artifactId>google-oauth-client-jetty</artifactId>
+          <version>1.11.0-beta</version>
+      </dependency>
+      <dependency>
+          <groupId>javax.mail</groupId>
+          <artifactId>mail</artifactId>
+          <version>1.4</version>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient</artifactId>
+          <version>4.3.5</version>
+      </dependency>
+
+
+
   </dependencies>
 </project>

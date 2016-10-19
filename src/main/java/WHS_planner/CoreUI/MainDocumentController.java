@@ -1,6 +1,7 @@
 package WHS_planner.CoreUI;
 
 import WHS_planner.Calendar.Calendar;
+import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
@@ -12,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -27,6 +29,10 @@ import java.util.ResourceBundle;
 public class MainDocumentController implements Initializable {
 
     Calendar cal;
+
+    Schedule schedule;
+
+    AnchorPane tempPane;
 
     @FXML
     private AnchorPane anchorPane;
@@ -52,13 +58,20 @@ public class MainDocumentController implements Initializable {
 
     private boolean sportsScheduleOpen;
 
+    private Pane[] panes;
+
     public MainDocumentController(){
         main = new NavigationBar();
     }
 
 
     public void initialize(URL location, ResourceBundle resources) {
+
+        panes = new Pane[8];
+
         cal = new Calendar(1, 30);
+        schedule = new Schedule();
+        BorderPane schedulepane = (BorderPane) schedule.getPane();
 
         topBar.setStyle("-fx-background-color: #FF9800");
         navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");
@@ -75,10 +88,27 @@ public class MainDocumentController implements Initializable {
         }
 
         buttonArray[0].setOnMouseClicked(event -> {
-            if(!anchorPane.getChildren().contains(cal)) {
+            //anchorPane.getChildren().setAll(tempPane.getChildren());
+            if(!anchorPane.getChildren().contains(cal))
+            {
                 anchorPane.getChildren().add(0, cal);
-                anchorPane.setTopAnchor(cal, 45.0);
+                panes[0] = cal;
+                remPane(panes[1]);
             }
+
+            anchorPane.setTopAnchor(cal, 45.0);
+        });
+
+        buttonArray[1].setOnMouseClicked(event -> {
+            //anchorPane.getChildren().setAll(tempPane.getChildren());
+            if(!anchorPane.getChildren().contains(schedulepane))
+            {
+                anchorPane.getChildren().add(0, schedulepane);
+                panes[1] = schedulepane;
+                remPane(panes[0]);
+            }
+
+            anchorPane.setTopAnchor(schedulepane, 45.0);
         });
         VBox vBox = new VBox(buttonArray);
 
@@ -103,6 +133,9 @@ public class MainDocumentController implements Initializable {
             }
 
         });
+
+       // tempPane = new AnchorPane();
+       // tempPane.getChildren().addAll(anchorPane.getChildren());
     }
 
     @FXML
@@ -150,5 +183,10 @@ public class MainDocumentController implements Initializable {
 //        return popupController.getResult();
 //    }
 
+
+    public void remPane(Pane p)
+    {
+        anchorPane.getChildren().remove(p);
+    }
 
 }

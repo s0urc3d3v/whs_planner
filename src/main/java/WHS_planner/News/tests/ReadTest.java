@@ -15,16 +15,16 @@ public class ReadTest {
 
         List<FeedMessage> feedArray = feed.getMessages();
         for (int i = 0; i < feedArray.size(); i++) {
-            System.out.print("Article " + i + ": " + feedArray.get(i).getTitle());
-            System.out.print(" DESCRIPTION: " + feedArray.get(i).getDescription());
-            System.out.println();
+//            System.out.print("Article " + i + ": " + feedArray.get(i).getTitle());
+//            System.out.print(" DESCRIPTION: " + feedArray.get(i).getDescription());
+//            System.out.println();
         }
-
 
 //        for (FeedMessage message : feed.getMessages()) {
 //            System.out.println(message.getTitle());
 //            System.out.print(" " + message.getDescription());
 //            System.out.println();
 //        }
+
     }
 }

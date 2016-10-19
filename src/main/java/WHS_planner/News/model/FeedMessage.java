@@ -4,11 +4,11 @@ import org.jsoup.Jsoup;
 
 public class FeedMessage {
 
-    String title;
-    String description;
-    String link;
-    String author;
-    String guid;
+    private String title;
+    private String description;
+    private String link;
+    private String author;
+    private String guid;
 
     public String getTitle() {
         escapeHTML();
@@ -52,10 +52,15 @@ public class FeedMessage {
         this.guid = guid;
     }
 
-    public void escapeHTML() {
+    /**
+     * Changes all normally unprintable characters (Such as "...")
+     * into their respective appropriate characters in
+     * the title and description. This is used to remove
+     * the HTML codes in the RSS feed's description and title.
+     */
+    private void escapeHTML() {
         title = Jsoup.parse(title).text();
         description = Jsoup.parse(description).text();
-
     }
 
     @Override
@@ -65,5 +70,4 @@ public class FeedMessage {
                 + ", link=" + link + ", author=" + author + ", guid=" + guid
                 + "]";
     }
-
 }
