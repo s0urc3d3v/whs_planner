@@ -24,6 +24,7 @@ import javafx.util.Callback;
 import java.net.URL;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -40,16 +41,16 @@ public class popupController implements Initializable{
     private JFXListView<JFXTextField> nameListView;
 
     @FXML
-    private JFXListView<JFXTextField> dateListView;
+    private JFXListView<JFXDatePicker> dateListView;
 
     @FXML
-    private JFXListView<JFXTextField> timeListView;
+    private JFXListView<JFXDatePicker> timeListView;
 
     private ObservableList<JFXTextField> nameContents;
 
-    private ObservableList<JFXTextField> dateContents;
+    private ObservableList<JFXDatePicker> dateContents;
 
-    private ObservableList<JFXTextField> timeContents;
+    private ObservableList<JFXDatePicker> timeContents;
 
     private Stage stage = null;
 
@@ -118,8 +119,10 @@ public class popupController implements Initializable{
     void plusButtonPressed(MouseEvent event) {
         resize();
         nameContents.add(new JFXTextField("Name of Event"));
-        dateContents.add(new JFXTextField("Date of Event"));
-        timeContents.add(new JFXTextField("Time of Event"));
+        dateContents.add(new JFXDatePicker());
+        JFXDatePicker temp = new JFXDatePicker();
+        temp.setShowTime(true);
+        timeContents.add(temp);
         nameListView.setItems(nameContents);
         dateListView.setItems(dateContents);
         timeListView.setItems(timeContents);
