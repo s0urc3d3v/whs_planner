@@ -3,9 +3,15 @@ package WHS_planner.News.ui;
 import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
+import com.jfoenix.controls.JFXListView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +31,10 @@ public class SimpleController implements Initializable {
 //    private Text Description1;
 
     @FXML
+    private JFXListView<VBox> articleListView;
+
+
+    @FXML
     private Button refreshButton;
 
     private RSSFeedParser parser;
@@ -32,22 +42,31 @@ public class SimpleController implements Initializable {
     private List<FeedMessage> feedArray;
     private int currentArticle; //0 represents the first and most recent article
 
+
+    private ObservableList<VBox> articleList;
+
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 //        Title1 = new Hyperlink();
         refreshButton = new Button();
+        articleListView = new JFXListView<VBox>();
 //        Author1 = new Text();
 //        Description1 = new Text();
 
-        parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
-        feed = parser.readFeed();
-        feedArray = feed.getMessages();
-        currentArticle = 0;
+//        parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
+//        feed = parser.readFeed();
+//        feedArray = feed.getMessages();
+//        currentArticle = 0;
+//
+//        FeedMessage currentMessage = feedArray.get(currentArticle);
 
-        FeedMessage currentMessage = feedArray.get(currentArticle);
+        articleList = FXCollections.observableArrayList();
+        articleListView.setItems(articleList);
+        updateFrame();
 
 //        Title1.setText(currentMessage.getTitle());
 //        Author1.setText(currentMessage.getAuthor());
 //        Description1.setText(currentMessage.getDescription());
+
     }
 
     @FXML
@@ -86,7 +105,18 @@ public class SimpleController implements Initializable {
 
     @FXML
     private void updateFrame() {
-        FeedMessage currentMessage = feedArray.get(currentArticle);
+        RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
+        Feed feed = parser.readFeed();
+
+        for (FeedMessage message : feed.getMessages()) {
+//            System.out.println(message.getTitle());
+            VBox v = new VBox(new Hyperlink(message.getTitle()), new Label(message.getAuthor()), new Label(message.getDescription()));
+            articleList.add(v);
+        }
+        articleListView.setItems(articleList);
+        //TODO this part doesnt work
+
+//        FeedMessage currentMessage = feedArray.get(currentArticle);
 
 //        Title1.setText(currentMessage.getTitle());
 //        Author1.setText(currentMessage.getAuthor());
