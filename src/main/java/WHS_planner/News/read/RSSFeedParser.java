@@ -55,6 +55,8 @@ public class RSSFeedParser {
             // First create a new XMLInputFactory
             //noinspection Since15,Since15
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+            inputFactory.setProperty("javax.xml.stream.isCoalescing", true);
+
             // Setup a new eventReader
             InputStream in = read();
             //noinspection Since15,Since15

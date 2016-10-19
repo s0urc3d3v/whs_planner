@@ -42,13 +42,11 @@ public class SimpleController implements Initializable {
     private List<FeedMessage> feedArray;
     private int currentArticle; //0 represents the first and most recent article
 
-
     private ObservableList<VBox> articleList;
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 //        Title1 = new Hyperlink();
         refreshButton = new Button();
-        articleListView = new JFXListView<VBox>();
 //        Author1 = new Text();
 //        Description1 = new Text();
 
@@ -112,9 +110,11 @@ public class SimpleController implements Initializable {
 //            System.out.println(message.getTitle());
             VBox v = new VBox(new Hyperlink(message.getTitle()), new Label(message.getAuthor()), new Label(message.getDescription()));
             articleList.add(v);
+//            articleListView.setItems(articleList);
         }
+        System.out.println(articleList.size());
         articleListView.setItems(articleList);
-        //TODO this part doesnt work
+
 
 //        FeedMessage currentMessage = feedArray.get(currentArticle);
 

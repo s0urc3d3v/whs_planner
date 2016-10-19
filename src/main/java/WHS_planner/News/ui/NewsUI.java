@@ -30,7 +30,7 @@ public class NewsUI extends Application {
         try {
             url = getClass().getResource("/News/news1_5.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(url);
-            root = fxmlLoader.load();
+            root = FXMLLoader.load(url);
 //            ObservableMap<String, Object> hashMap = fxmlLoader.getNamespace();
 //            Hyperlink Title1 = (Hyperlink)hashMap.get("Title1");
 //            Title1.setText(feedArray.get(0).getTitle());
@@ -113,9 +113,9 @@ public class NewsUI extends Application {
             throw ex;
         }
 
-        //TODO Issues: RSS reader isn't getting author, WSPN feed uses dc:creator instead of author
+        //fixed Issues: RSS reader isn't getting author, WSPN feed uses dc:creator instead of author
         //TODO title seems shortened sometimes
-        //TODO Each of the articles shown shouldn't be hard coded, use vbox and jfxlistview instead
+        //almost fixed Each of the articles shown shouldn't be hard coded, use vbox and jfxlistview instead
 
 
         Scene scene = new Scene(root);
