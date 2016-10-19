@@ -1,12 +1,9 @@
 package WHS_planner.CoreUI;
 
-import com.jfoenix.controls.*;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import com.jfoenix.skins.JFXDatePickerContent;
-import com.jfoenix.skins.JFXTimePickerContent;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,19 +11,15 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
-import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.net.URL;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class popupController implements Initializable{
@@ -38,7 +31,7 @@ public class popupController implements Initializable{
     private JFXButton addListButton;
 
     @FXML
-    private JFXListView<JFXTextField> nameListView;
+    private JFXListView<VBox> nameListView;
 
     @FXML
     private JFXListView<JFXDatePicker> dateListView;
@@ -46,7 +39,7 @@ public class popupController implements Initializable{
     @FXML
     private JFXListView<JFXDatePicker> timeListView;
 
-    private ObservableList<JFXTextField> nameContents;
+    private ObservableList<VBox> nameContents;
 
     private ObservableList<JFXDatePicker> dateContents;
 
@@ -118,14 +111,9 @@ public class popupController implements Initializable{
     @FXML
     void plusButtonPressed(MouseEvent event) {
         resize();
-        nameContents.add(new JFXTextField("Name of Event"));
-        dateContents.add(new JFXDatePicker());
-        JFXDatePicker temp = new JFXDatePicker();
-        temp.setShowTime(true);
-        timeContents.add(temp);
+        VBox v = new VBox(new Hyperlink("test"), new Label("Hello"), new Label("Description"));
+        nameContents.add(v); //Add VBox to the Observable List
         nameListView.setItems(nameContents);
-        dateListView.setItems(dateContents);
-        timeListView.setItems(timeContents);
     }
 
 
