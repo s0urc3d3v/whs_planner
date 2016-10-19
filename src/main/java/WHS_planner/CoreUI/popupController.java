@@ -151,8 +151,8 @@ public class popupController implements Initializable{
         timeListView.setPrefWidth(sportsPopupAnchorPane.getWidth()/3);
     }
 
-    class SportsEvent extends RecursiveTreeObject<SportsEvent>{
-//        private Date date;
+    class SportsEvent extends RecursiveTreeObject<SportsEvent> {
+        //        private Date date;
 //        private String event;
         private SimpleDateFormat dateFormat;
         private SimpleDateFormat timeFormat;
@@ -161,7 +161,7 @@ public class popupController implements Initializable{
         Date date;
         StringProperty event;
 
-        private SportsEvent(Date d, Date t, String s){
+        private SportsEvent(Date d, Date t, String s) {
             date = d;
             time = t;
             event = new SimpleStringProperty(s);
@@ -172,5 +172,5 @@ public class popupController implements Initializable{
             timeFormat.parse(time.toString(), new ParsePosition(0));
         }
 
-
+    }
 }
