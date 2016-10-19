@@ -5,9 +5,11 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -42,23 +44,6 @@ public class popupController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        JFXTreeTableColumn<SportsEvent, String> evtName = new JFXTreeTableColumn<>("Event");
-        evtName.setPrefWidth(150);
-        evtName.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<SportsEvent, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<SportsEvent, String> param) {
-                return param.getValue().getValue().event;
-            }
-        });
-
-        JFXTreeTableColumn<SportsEvent, String> dateCol = new JFXTreeTableColumn<>("Date");
-        dateCol.setPrefWidth(150);
-        dateCol.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<SportsEvent, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<SportsEvent, String> param) {
-                return param.getValue().getValue().event;
-            }
-        });
 
     }
 
@@ -94,6 +79,9 @@ public class popupController implements Initializable{
 //        private String event;
         private SimpleDateFormat dateFormat;
         private SimpleDateFormat timeFormat;
+        private JFXTextField dateField = new JFXTextField();
+        private JFXTextField timeField = new JFXTextField();
+        private JFXTextField eventField = new JFXTextField();
 
         Date time;
         Date date;
@@ -108,9 +96,22 @@ public class popupController implements Initializable{
 
             dateFormat.parse(date.toString(), new ParsePosition(0));
             timeFormat.parse(time.toString(), new ParsePosition(0));
+
+            dateField.setText(dateFormat.format(date));
+            timeField.setText(timeFormat.format(date));
+            eventField.setText(event.toString());
+
+
         }
 
 
+        public StringProperty getEventDate() {
+            return new SimpleStringProperty(dateFormat.format(date));
+        }
+
+        public StringProperty getEventTime() {
+            return new SimpleStringProperty(timeFormat.format(time));
+        }
 
         @Override
         public String toString() {

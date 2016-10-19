@@ -128,7 +128,7 @@ public class MainDocumentController implements Initializable {
         loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
         // initializing the controller
         popupController popupController = new popupController();
-        loader.setController(popupController);
+//        loader.setController(popupController);
         Parent layout;
         try {
             layout = loader.load();
