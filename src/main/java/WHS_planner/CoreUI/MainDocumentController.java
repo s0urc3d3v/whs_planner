@@ -63,7 +63,7 @@ public class MainDocumentController implements Initializable {
         topBar.setStyle("-fx-background-color: #FF9800");
         navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");
         navHamburger.getStyleClass().add("jfx-hamburger-icon");
-        String[] tabs = new String[]{"Calendar", "Schedule", "Homework", "Tests", "Rip A Fat Vape", "George"}; //Need to find a way to get this from another class,
+        String[] tabs = new String[]{"Calendar", "Schedule", "Homework", "Tests", "Schedule", "George"}; //Need to find a way to get this from another class,
         //Create the VBox                                                                            //May need to be an array of classes that extend tab, so you can get an fxml file related to them and their name.
         JFXButton[] buttonArray = new JFXButton[tabs.length];
         for (int i = 0; i < tabs.length; i++) {
@@ -120,35 +120,35 @@ public class MainDocumentController implements Initializable {
         burgerTransition.play(); //Plays the transition
     }
 
-    @FXML
-    private HashMap<String, Object> openSportsDialogue() {
-        HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
-        // initializing the controller
-        popupController popupController = new popupController();
+//    @FXML
+//    private HashMap<String, Object> openSportsDialogue() {
+//        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+//
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
+//        // initializing the controller
+//        popupController popupController = new popupController();
 //        loader.setController(popupController);
-        Parent layout;
-        try {
-            layout = loader.load();
-            Scene scene = new Scene(layout);
-            // this is the popup stage
-            Stage popupStage = new Stage();
-            // Giving the popup controller access to the popup stage (to allow the controller to close the stage)
-            popupController.setStage(popupStage);
-            if(this.main!=null) {
-                popupStage.initOwner(main.getStage());
-            }
-            popupStage.initModality(Modality.WINDOW_MODAL);
-            popupStage.setScene(scene);
-            popupStage.showAndWait();
-            sportsScheduleOpen = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return popupController.getResult();
-    }
+//        Parent layout;
+//        try {
+//            layout = loader.load();
+//            Scene scene = new Scene(layout);
+//            // this is the popup stage
+//            Stage popupStage = new Stage();
+//            // Giving the popup controller access to the popup stage (to allow the controller to close the stage)
+//            popupController.setStage(popupStage);
+//            if(this.main!=null) {
+//                popupStage.initOwner(main.getStage());
+//            }
+//            popupStage.initModality(Modality.WINDOW_MODAL);
+//            popupStage.setScene(scene);
+//            popupStage.showAndWait();
+//            sportsScheduleOpen = true;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return popupController.getResult();
+//    }
 
 
 }
