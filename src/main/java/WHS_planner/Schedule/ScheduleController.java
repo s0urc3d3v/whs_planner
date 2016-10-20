@@ -4,7 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -26,6 +30,8 @@ public class ScheduleController implements Initializable, ActionListener
     @FXML
     private ProgressBar progressBar;
 
+    private BorderPane[] panes;
+    private BorderPane[] bPanes;
 
     private Timer progressbartimer;
 
@@ -34,9 +40,49 @@ public class ScheduleController implements Initializable, ActionListener
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        panes = new BorderPane[72];
+        bPanes = new BorderPane[10];
+        int count = 0;
+        //Fills Arrays
+        for (int i = 0; i < 72; i++) {
+            panes[i] = new BorderPane();
+        }
+        for (int i = 0; i < 10; i++) {
+            bPanes[i] = new BorderPane();
+        }
+        for (int i = 1; i < 9; i++) {
+            for (int j = 2; j < 9; j++) {
+                grid.add(panes[count],i,j);
+                panes[count].setStyle("-fx-background-color: #ffc04c");
+                panes[count].toBack();
+                panes[count].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+                        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                count++;
+            }
+        }
+
+        for (int i = 2; i < 9; i++) {
+            grid.add(panes[54 + i],0,i);
+            panes[54 + i].setStyle("-fx-background-color: #ffc04c");
+            panes[54 + i].toBack();
+            panes[54 + i].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        }
+
+
+        for (int i = 0; i < 9; i++) {
+            grid.add(bPanes[i],i,1);
+            bPanes[i].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
+            bPanes[i].setStyle("-fx-background-color: #ffa500");
+            bPanes[i].toBack();
+        }
         //we can set the day here
         Title3.setText("It is A Day");
         normalDay = true;
+
+
 
         progressbartimer = new Timer(1000, this);
         progressbartimer.start();
