@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -147,7 +149,15 @@ public class Schedule
 
     public void parseSchedule()
     {
+        File f = new File("raw.html");
+
+
         ScheduleParser parse = new ScheduleParser();
+
+        if(!f.exists())
+        {
+            parse.grabwebpage("user", "pass");
+        }
         try
         {
             parse.getClasses();
