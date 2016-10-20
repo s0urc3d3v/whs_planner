@@ -3,12 +3,12 @@ package WHS_planner.News.ui;
 import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -21,110 +21,55 @@ import java.util.ResourceBundle;
 
 public class SimpleController implements Initializable {
 
-//    @FXML
-//    private Hyperlink Title1;
-//
-//    @FXML
-//    private Text Author1;
-//
-//    @FXML
-//    private Text Description1;
-
     @FXML
     private JFXListView<VBox> articleListView;
 
-
     @FXML
-    private Button refreshButton;
+    private JFXButton oldRefreshButton;
 
-    private RSSFeedParser parser;
-    private Feed feed;
+    private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
+    private Feed feed = parser.readFeed();
     private List<FeedMessage> feedArray;
-    private int currentArticle; //0 represents the first and most recent article
 
     private ObservableList<VBox> articleList;
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-//        Title1 = new Hyperlink();
-        refreshButton = new Button();
-//        Author1 = new Text();
-//        Description1 = new Text();
-
-//        parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
-//        feed = parser.readFeed();
-//        feedArray = feed.getMessages();
-//        currentArticle = 0;
-//
-//        FeedMessage currentMessage = feedArray.get(currentArticle);
-
+//        oldRefreshButton = new JFXButton();
         articleList = FXCollections.observableArrayList();
+        JFXButton refreshButton = new JFXButton("Refresh");
+
+
+        refreshButton.setOnMousePressed(event -> updateFrame());
+        //TODO ^
+
+        VBox r = new VBox(refreshButton);
+        articleList.add(r);
         articleListView.setItems(articleList);
         updateFrame();
-
-//        Title1.setText(currentMessage.getTitle());
-//        Author1.setText(currentMessage.getAuthor());
-//        Description1.setText(currentMessage.getDescription());
-
     }
 
     @FXML
     public void openLink(){
         try {
-            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", feedArray.get(currentArticle).getLink()});
+            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", /*LINK*/});
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-//    @FXML
-//    public void nextArticle(){
-//        if(currentArticle+1<=feedArray.size()-1) {
-//            currentArticle++;
-//            updateFrame();
-//        }
-//    }
-//
-//    @FXML
-//    public void prevArticle(){
-//        if(currentArticle-1>=0) {
-//            currentArticle--;
-//            updateFrame();
-//        }
-//    }
-
-    public int getArticle(){
-        return currentArticle;
-    }
-
-    public void setArticle(int articleNumber) {
-        currentArticle = articleNumber;
-        updateFrame();
-    }
 
     @FXML
     private void updateFrame() {
-        RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
-        Feed feed = parser.readFeed();
-
+        System.out.println("Update frame called!");
         for (FeedMessage message : feed.getMessages()) {
-//            System.out.println(message.getTitle());
             VBox v = new VBox(new Hyperlink(message.getTitle()), new Label(message.getAuthor()), new Label(message.getDescription()));
+            //variable tied to the hyperlink, so on action pressed it can send array index to method
             articleList.add(v);
-//            articleListView.setItems(articleList);
         }
-        System.out.println(articleList.size());
         articleListView.setItems(articleList);
+        //TODO make it so it replaces articles instead of adding
 
 
-//        FeedMessage currentMessage = feedArray.get(currentArticle);
-
-//        Title1.setText(currentMessage.getTitle());
-//        Author1.setText(currentMessage.getAuthor());
-//        Description1.setText(currentMessage.getDescription());
-//
-//        System.out.println(Title1.getText());
-//        System.out.println(Author1.getText());
-//        System.out.println(Description1.getText());
 
     }
 }
