@@ -62,7 +62,8 @@ public class MainDocumentController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         cal = new Calendar(1, 30);
-        cal.setPrefSize(anchorPane.getPrefWidth(),anchorPane.getPrefHeight());
+        cal.setPrefHeight(anchorPane.getPrefHeight());
+        cal.prefWidthProperty().bind(anchorPane.widthProperty());
 
         topBar.setStyle("-fx-background-color: #FF9800");
         navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");

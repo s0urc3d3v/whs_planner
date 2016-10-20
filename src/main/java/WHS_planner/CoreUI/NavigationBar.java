@@ -43,16 +43,11 @@ public class NavigationBar extends Application {
 
         Scene scene = new Scene(root);
 
-//        Region rect = (Region)root.getChildrenUnmodifiable().get(0);
-//
-//        rect.prefWidthProperty().bind(scene.widthProperty());
-//        rect.prefHeightProperty().bind(scene.heightProperty());
-
         //Set the stylesheet
         scene.getStylesheets().add("/Calendar/MainUI.css");
 
-        stage.setMinHeight(75*5+48+10*8+25+30);
-        stage.setMinWidth(780);
+        stage.setMinHeight(75*5+48+10*8+25+30+10);
+        stage.setMinWidth(790);
         stage.setScene(scene);
         stage.show();
     }
