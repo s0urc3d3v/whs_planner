@@ -34,13 +34,14 @@
 	-fx-background-color: #E38262;
 }
 
-/*
-.weekday:Label {
+
+.weekday {
     -fx-font-weight: BOLD;
     -fx-underline: true;
-    -fx-background-color:#E38262;
+    -fx-alignment: center ;
+    -fx-padding: 5;
+    -fx-font-size: 14.0px;
 }
-*/
 
 .taskHBox {
     -fx-background-color:#FFFFFF;

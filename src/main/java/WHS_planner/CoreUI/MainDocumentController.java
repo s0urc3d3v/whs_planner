@@ -62,8 +62,7 @@ public class MainDocumentController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         cal = new Calendar(1, 30);
-        cal.setPrefSize(anchorPane.getPrefWidth(),anchorPane.getPrefHeight());
-
+//        cal.prefWidthProperty().bind(anchorPane.widthProperty());
         topBar.setStyle("-fx-background-color: #FF9800");
         navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");
         navHamburger.getStyleClass().add("jfx-hamburger-icon");
@@ -132,7 +131,7 @@ public class MainDocumentController implements Initializable {
         loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
         // initializing the controller
         popupController popupController = new popupController();
-//        loader.setController(popupController);
+        loader.setController(popupController);
         Parent layout;
         try {
             layout = loader.load();

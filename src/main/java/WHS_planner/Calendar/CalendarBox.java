@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import java.util.*;
 
@@ -49,6 +50,11 @@ public class CalendarBox extends Pane{
             label.setText(dateString);
             tests.add(null);//TODO remove these
             tests.add(null);//TODO remove these
+
+            JFXButton button = (JFXButton) calendarBoxPane.getChildren().get(0);
+            button.prefWidthProperty().bind(this.widthProperty());
+            button.prefHeightProperty().bind(this.heightProperty());
+
             update();
         }else{
             loader.setLocation(getClass().getResource("/Calendar/calendarBoxV2-empty.fxml"));
@@ -59,6 +65,8 @@ public class CalendarBox extends Pane{
             }
             this.getChildren().setAll(calendarBoxPane);
         }
+        calendarBoxPane.prefWidthProperty().bind(this.widthProperty());
+        calendarBoxPane.prefHeightProperty().bind(this.heightProperty());
 
         this.getStyleClass().add("box");
     }
@@ -139,8 +147,7 @@ public class CalendarBox extends Pane{
     }
 
     public JFXButton getButton(){//TODO MAKE IT NOT HARD CODE
-        AnchorPane anchorPane = (AnchorPane)calendarBoxPane.getChildren().get(0);
-        JFXButton button = (JFXButton)anchorPane.getChildren().get(0);
+        JFXButton button = (JFXButton)calendarBoxPane.getChildren().get(0);
         return button;
     }
 }
