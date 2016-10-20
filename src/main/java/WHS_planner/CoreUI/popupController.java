@@ -11,8 +11,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -55,12 +53,11 @@ public class popupController implements Initializable{
     private ObservableList<JFXDatePicker> timeContents;
 
     private Stage stage = null;
+    private HashMap<String, Object> result = new HashMap<String, Object>();
 
     public popupController(){
 
     }
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -93,6 +90,7 @@ public class popupController implements Initializable{
             @Override
             public void run() {
                 Node n1 = nameListView.lookup(".scroll-bar");
+                System.out.println(nameListView.lookup(".scroll-bar"));
                 if (n1 instanceof ScrollBar) {
                     final ScrollBar bar1 = (ScrollBar) n1;
                     Node n2 = dateListView.lookup(".scroll-bar");
@@ -101,6 +99,7 @@ public class popupController implements Initializable{
                         Node n3 = timeListView.lookup(".scroll-bar");
                         if (n3 instanceof  ScrollBar) {
                             final ScrollBar bar3 = (ScrollBar) n3;
+                            System.out.println("bound");
                             bar1.valueProperty().bindBidirectional(bar2.valueProperty());
                             bar2.valueProperty().bindBidirectional(bar3.valueProperty());
                             bar3.valueProperty().bindBidirectional(bar1.valueProperty());
@@ -110,35 +109,24 @@ public class popupController implements Initializable{
             }
         });
 
-
     }
-
-
 
     @FXML
     void plusButtonPressed(MouseEvent event) {
         resize();
-
-        JFXTextField tempField = new JFXTextField();
-        tempField.setPromptText("Name of Event");
-
-        JFXDatePicker tempDate = new JFXDatePicker();
-        tempDate.setPromptText("MM/DD/YYYY");
-        tempDate.getEditor().setEditable(false);
-
-        JFXDatePicker tempTime = new JFXDatePicker();
-        tempTime.setShowTime(true);
-        tempTime.getEditor().setEditable(false);
-        tempTime.setPromptText("HH/MM AM/PM");
-
-        nameContents.add(tempField);
-        dateContents.add(tempDate);
-        timeContents.add(tempTime);
+        nameContents.add(new JFXTextField("Name of Event"));
+        dateContents.add(new JFXDatePicker());
+        JFXDatePicker temp = new JFXDatePicker();
+        temp.setShowTime(true);
+        timeContents.add(temp);
         nameListView.setItems(nameContents);
         dateListView.setItems(dateContents);
         timeListView.setItems(timeContents);
     }
 
+    public HashMap<String, Object> getResult() {
+        return this.result;
+    }
 
     /**
      * setting the stage of this view
@@ -163,5 +151,26 @@ public class popupController implements Initializable{
         timeListView.setPrefWidth(sportsPopupAnchorPane.getWidth()/3);
     }
 
+    class SportsEvent extends RecursiveTreeObject<SportsEvent> {
+        //        private Date date;
+//        private String event;
+        private SimpleDateFormat dateFormat;
+        private SimpleDateFormat timeFormat;
 
+        Date time;
+        Date date;
+        StringProperty event;
+
+        private SportsEvent(Date d, Date t, String s) {
+            date = d;
+            time = t;
+            event = new SimpleStringProperty(s);
+            dateFormat = new SimpleDateFormat("h:mm a");
+            timeFormat = new SimpleDateFormat("EEE, MMM d");
+
+            dateFormat.parse(date.toString(), new ParsePosition(0));
+            timeFormat.parse(time.toString(), new ParsePosition(0));
+        }
+
+    }
 }

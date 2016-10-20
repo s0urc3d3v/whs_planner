@@ -18,7 +18,6 @@
             <JFXListView fx:id="nameListView" prefWidth="210.0" />
             <JFXListView fx:id="dateListView" prefWidth="210.0" />
             <JFXListView fx:id="timeListView" prefWidth="210.0" />
-            <JFXListView fx:id="minusListView" prefHeight="285.0" prefWidth="73.0" />
          </children>
       </HBox>
    </children>

@@ -92,7 +92,9 @@ public class Calendar extends Pane {
                 if (calendar[r][c] != null) {
                     row.add(calendar[r][c], c, 0);
                 }else{
-                    row.add(new CalendarBox(0,0,null),c,0);
+                    CalendarBox calBox = new CalendarBox(0,0,null);
+                    row.add(calBox,c,0);
+                    calBox.setPrefSize(this.getPrefWidth(),this.getPrefHeight());
                 }
             }
             rows.add(row);
