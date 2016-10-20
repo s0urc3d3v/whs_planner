@@ -46,7 +46,7 @@ public class Schedule
     {
         FXMLLoader loader = new FXMLLoader();
 
-        loader.setLocation(getClass().getResource("/Schedule/scheduletest.fxml"));
+        loader.setLocation(getClass().getResource("/Schedule/wankTest.fxml"));
 
         rootLayout = loader.load();
         generateSchedule(loader);
