@@ -62,11 +62,12 @@ public class MainDocumentController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         cal = new Calendar(1, 30);
-//        cal.prefWidthProperty().bind(anchorPane.widthProperty());
+        cal.setPrefSize(anchorPane.getPrefWidth(),anchorPane.getPrefHeight());
+
         topBar.setStyle("-fx-background-color: #FF9800");
         navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");
         navHamburger.getStyleClass().add("jfx-hamburger-icon");
-        String[] tabs = new String[]{"Calendar", "Schedule", "Homework", "Tests", "Rip A Fat Vape", "George"}; //Need to find a way to get this from another class,
+        String[] tabs = new String[]{"Calendar", "Schedule", "Homework", "Tests", "Schedule", "George"}; //Need to find a way to get this from another class,
         //Create the VBox                                                                            //May need to be an array of classes that extend tab, so you can get an fxml file related to them and their name.
         JFXButton[] buttonArray = new JFXButton[tabs.length];
         for (int i = 0; i < tabs.length; i++) {
@@ -131,7 +132,7 @@ public class MainDocumentController implements Initializable {
         loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
         // initializing the controller
         popupController popupController = new popupController();
-        loader.setController(popupController);
+        //loader.setController(popupController);
         Parent layout;
         try {
             layout = loader.load();
