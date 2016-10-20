@@ -59,6 +59,8 @@ public class NavigationBar extends Application {
         //Set the stylesheet
         scene.getStylesheets().add("/Calendar/MainUI.css");
 
+        stage.setMinHeight(75*5+48+10*8+25+30);
+        stage.setMinWidth(780);
         stage.setScene(scene);
         stage.show();
     }

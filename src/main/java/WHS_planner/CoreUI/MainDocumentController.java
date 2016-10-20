@@ -6,6 +6,8 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
@@ -195,35 +198,35 @@ public class MainDocumentController implements Initializable {
         burgerTransition.play(); //Plays the transition
     }
 
-    @FXML
-    private HashMap<String, Object> openSportsDialogue() {
-        HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
-        // initializing the controller
-        popupController popupController = new popupController();
-        loader.setController(popupController);
-        Parent layout;
-        try {
-            layout = loader.load();
-            Scene scene = new Scene(layout);
-            // this is the popup stage
-            Stage popupStage = new Stage();
-            // Giving the popup controller access to the popup stage (to allow the controller to close the stage)
-            popupController.setStage(popupStage);
-            if(this.main!=null) {
-                popupStage.initOwner(main.getStage());
-            }
-            popupStage.initModality(Modality.WINDOW_MODAL);
-            popupStage.setScene(scene);
-            popupStage.showAndWait();
-            sportsScheduleOpen = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return popupController.getResult();
-    }
+//    @FXML
+//    private HashMap<String, Object> openSportsDialogue() {
+//        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+//
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
+//        // initializing the controller
+//        popupController popupController = new popupController();
+//        loader.setController(popupController);
+//        Parent layout;
+//        try {
+//            layout = loader.load();
+//            Scene scene = new Scene(layout);
+//            // this is the popup stage
+//            Stage popupStage = new Stage();
+//            // Giving the popup controller access to the popup stage (to allow the controller to close the stage)
+//            popupController.setStage(popupStage);
+//            if(this.main!=null) {
+//                popupStage.initOwner(main.getStage());
+//            }
+//            popupStage.initModality(Modality.WINDOW_MODAL);
+//            popupStage.setScene(scene);
+//            popupStage.showAndWait();
+//            sportsScheduleOpen = true;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return popupController.getResult();
+//    }
 
 
     public void remPane(Pane p)
