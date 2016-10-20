@@ -198,35 +198,35 @@ public class MainDocumentController implements Initializable {
         burgerTransition.play(); //Plays the transition
     }
 
-//    @FXML
-//    private HashMap<String, Object> openSportsDialogue() {
-//        HashMap<String, Object> resultMap = new HashMap<String, Object>();
-//
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
-//        // initializing the controller
-//        popupController popupController = new popupController();
-//        loader.setController(popupController);
-//        Parent layout;
-//        try {
-//            layout = loader.load();
-//            Scene scene = new Scene(layout);
-//            // this is the popup stage
-//            Stage popupStage = new Stage();
-//            // Giving the popup controller access to the popup stage (to allow the controller to close the stage)
-//            popupController.setStage(popupStage);
-//            if(this.main!=null) {
-//                popupStage.initOwner(main.getStage());
-//            }
-//            popupStage.initModality(Modality.WINDOW_MODAL);
-//            popupStage.setScene(scene);
-//            popupStage.showAndWait();
-//            sportsScheduleOpen = true;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return popupController.getResult();
-//    }
+    @FXML
+    private HashMap<String, Object> openSportsDialogue() {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
+        // initializing the controller
+        popupController popupController = new popupController();
+        loader.setController(popupController);
+        Parent layout;
+        try {
+            layout = loader.load();
+            Scene scene = new Scene(layout);
+            // this is the popup stage
+            Stage popupStage = new Stage();
+            // Giving the popup controller access to the popup stage (to allow the controller to close the stage)
+            popupController.setStage(popupStage);
+            if(this.main!=null) {
+                popupStage.initOwner(main.getStage());
+            }
+            popupStage.initModality(Modality.WINDOW_MODAL);
+            popupStage.setScene(scene);
+            popupStage.showAndWait();
+            sportsScheduleOpen = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return popupController.getResult();
+    }
 
 
     public void remPane(Pane p)
