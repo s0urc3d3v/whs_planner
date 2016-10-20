@@ -11,6 +11,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -21,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.awt.*;
 import java.net.URL;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -92,13 +94,14 @@ public class popupController implements Initializable{
         dateListView.getStylesheets().add("/CoreUI/ListView.css");
         dateListView.getStyleClass().add("list-views");
         timeListView.getStylesheets().add("/CoreUI/ListView.css");
-        timeListView.getStyleClass().add("list-viewvert"); //Only removes the horizontal scrollbar
+        timeListView.getStyleClass().add("list-views");
+        minusListView.getStylesheets().add("/CoreUI/ListView.css");
+        minusListView.getStyleClass().add("list-viewvert"); //Only removes the horizontal scrollbar
 
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 Node n1 = nameListView.lookup(".scroll-bar");
-                System.out.println(nameListView.lookup(".scroll-bar"));
                 if (n1 instanceof ScrollBar) {
                     final ScrollBar bar1 = (ScrollBar) n1;
                     Node n2 = dateListView.lookup(".scroll-bar");
@@ -107,10 +110,15 @@ public class popupController implements Initializable{
                         Node n3 = timeListView.lookup(".scroll-bar");
                         if (n3 instanceof  ScrollBar) {
                             final ScrollBar bar3 = (ScrollBar) n3;
-                            System.out.println("bound");
-                            bar1.valueProperty().bindBidirectional(bar2.valueProperty());
-                            bar2.valueProperty().bindBidirectional(bar3.valueProperty());
-                            bar3.valueProperty().bindBidirectional(bar1.valueProperty());
+                            Node n4 = minusListView.lookup(".scroll-bar");
+                            if (n4 instanceof ScrollBar) {
+                                final ScrollBar bar4 = (ScrollBar) n4;
+                                bar1.valueProperty().bindBidirectional(bar2.valueProperty());
+                                bar2.valueProperty().bindBidirectional(bar3.valueProperty());
+                                bar3.valueProperty().bindBidirectional(bar4.valueProperty());
+                                bar4.valueProperty().bindBidirectional(bar1.valueProperty());
+                            }
+
                         }
                     }
                 }
@@ -136,11 +144,34 @@ public class popupController implements Initializable{
         JFXDatePicker tempTime = new JFXDatePicker();
         tempTime.setShowTime(true);
         tempTime.setPromptText("HH/MM AM/PM");
+        System.out.println(tempTime.getPrefHeight());
         timeContents.add(tempTime);
         timeListView.setItems(timeContents);
 
         JFXButton tempMinusButton = new JFXButton("-");
+        tempMinusButton.setPrefSize(31, 31);
         minusContents.add(tempMinusButton);
+        tempMinusButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                int index = 0;
+                for (int i = 0; i < minusContents.size(); i++) {
+                    if (minusContents.get(i) == tempMinusButton) {
+                        index = i;
+break;
+                    }
+                }
+                timeContents.remove(index);
+                nameContents.remove(index);
+                dateContents.remove(index);
+                minusContents.remove(index);
+                timeListView.setItems(timeContents);
+                dateListView.setItems(dateContents);
+                nameListView.setItems(nameContents);
+                minusListView.setItems(minusContents);
+
+            }
+        });
         minusListView.setItems(minusContents);
     }
 
