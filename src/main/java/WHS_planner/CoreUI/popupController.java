@@ -46,11 +46,17 @@ public class popupController implements Initializable{
     @FXML
     private JFXListView<JFXDatePicker> timeListView;
 
+    @FXML
+    private JFXListView<JFXButton> minusListView;
+
     private ObservableList<JFXTextField> nameContents;
 
     private ObservableList<JFXDatePicker> dateContents;
 
     private ObservableList<JFXDatePicker> timeContents;
+
+    private ObservableList<JFXButton> minusContents;
+
 
     private Stage stage = null;
     private HashMap<String, Object> result = new HashMap<String, Object>();
@@ -73,9 +79,11 @@ public class popupController implements Initializable{
         nameContents = FXCollections.observableArrayList();
         dateContents = FXCollections.observableArrayList();
         timeContents = FXCollections.observableArrayList();
+        minusContents = FXCollections.observableArrayList();
         nameListView.setItems(nameContents);
         dateListView.setItems(dateContents);
         timeListView.setItems(timeContents);
+        minusListView.setItems(minusContents);
 
         sportsPopupAnchorPane.applyCss();
 
@@ -131,7 +139,9 @@ public class popupController implements Initializable{
         timeContents.add(tempTime);
         timeListView.setItems(timeContents);
 
-
+        JFXButton tempMinusButton = new JFXButton("-");
+        minusContents.add(tempMinusButton);
+        minusListView.setItems(minusContents);
     }
 
     public HashMap<String, Object> getResult() {
@@ -156,9 +166,9 @@ public class popupController implements Initializable{
     }
 
     private void resize(){
-        nameListView.setPrefWidth(sportsPopupAnchorPane.getWidth()/3);
-        dateListView.setPrefWidth(sportsPopupAnchorPane.getWidth()/3);
-        timeListView.setPrefWidth(sportsPopupAnchorPane.getWidth()/3);
+        nameListView.setPrefWidth((sportsPopupAnchorPane.getWidth()-75)/3);
+        dateListView.setPrefWidth((sportsPopupAnchorPane.getWidth()-75)/3);
+        timeListView.setPrefWidth((sportsPopupAnchorPane.getWidth()-75)/3);
     }
 
     class SportsEvent extends RecursiveTreeObject<SportsEvent> {
