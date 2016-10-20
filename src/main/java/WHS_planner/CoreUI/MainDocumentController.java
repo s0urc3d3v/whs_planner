@@ -57,7 +57,8 @@ public class MainDocumentController implements Initializable {
 
     private Pane[] panes;
 
-    public MainDocumentController(){
+    public MainDocumentController()
+    {
         main = new NavigationBar();
     }
 
@@ -79,7 +80,8 @@ public class MainDocumentController implements Initializable {
         String[] tabs = new String[]{"Calendar", "Schedule", "Today", "Tests", "Rip A Fat Vape", "George"}; //Need to find a way to get this from another class,
         //Create the VBox                                                                            //May need to be an array of classes that extend tab, so you can get an fxml file related to them and their name.
         JFXButton[] buttonArray = new JFXButton[tabs.length];
-        for (int i = 0; i < tabs.length; i++) {
+        for (int i = 0; i < tabs.length; i++)
+        {
             JFXButton tempButton = new JFXButton(tabs[i].toUpperCase());
             tempButton.setPrefSize(navDrawer.getDefaultDrawerSize(), (navDrawer.getPrefHeight()) / tabs.length);
             tempButton.getStylesheets().add("/CoreUI/ButtonUI.css");
