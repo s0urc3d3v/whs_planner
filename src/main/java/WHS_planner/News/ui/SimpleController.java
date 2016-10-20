@@ -29,7 +29,7 @@ public class SimpleController implements Initializable {
 
     private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
-    private List<FeedMessage> feedArray;
+    private List<FeedMessage> feedArray = feed.getMessages();
 
     private ObservableList<VBox> articleList;
 
@@ -49,9 +49,10 @@ public class SimpleController implements Initializable {
     }
 
     @FXML
-    public void openLink(){
+    public void openLink(int index) {
+        //TODO get index
         try {
-            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", /*LINK*/});
+            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", feedArray.get(index).getLink()});
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,7 +64,7 @@ public class SimpleController implements Initializable {
         System.out.println("Update frame called!");
         for (FeedMessage message : feed.getMessages()) {
             VBox v = new VBox(new Hyperlink(message.getTitle()), new Label(message.getAuthor()), new Label(message.getDescription()));
-            //variable tied to the hyperlink, so on action pressed it can send array index to method
+            //TODO variable tied to the hyperlink, so on action pressed it can send array index to method
             articleList.add(v);
         }
         articleListView.setItems(articleList);
