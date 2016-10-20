@@ -32,13 +32,11 @@ public class SimpleController implements Initializable {
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         articleList = FXCollections.observableArrayList();
+
         JFXButton refreshButton = new JFXButton("Refresh");
-
-
         refreshButton.setOnAction((event) -> {
             updateFrame();
         });
-
 
         VBox r = new VBox(refreshButton);
         articleList.add(r);
@@ -48,7 +46,6 @@ public class SimpleController implements Initializable {
 
     @FXML
     public void openLink(int index) {
-        //TODO get index
         try {
             Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", feedArray.get(index).getLink()});
         } catch (IOException e) {
@@ -63,7 +60,6 @@ public class SimpleController implements Initializable {
 
 //        for (FeedMessage message : feed.getMessages()) {
 //            VBox v = new VBox(new Hyperlink(message.getTitle()), new Label(message.getAuthor()), new Label(message.getDescription()));
-//            //TODO variable tied to the hyperlink, so on action pressed it can send array index to method
 //            articleList.add(v);
 //        }
         //TODO make it so it replaces articles instead of adding
@@ -73,6 +69,7 @@ public class SimpleController implements Initializable {
             Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
             hpl.setOnAction((event) -> {
                 openLink(i);
+                //TODO how
             });
 
             VBox v = new VBox(hpl, new Label(feedArray.get(i).getAuthor()), new Label(feedArray.get(i).getDescription()));
