@@ -2,6 +2,7 @@ package WHS_planner.Schedule;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
@@ -15,6 +16,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.swing.Timer;
 
@@ -37,9 +39,15 @@ public class ScheduleController implements Initializable, ActionListener
 
     private boolean normalDay;
 
+    private Map<String, Object> labels;
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        labels = Schedule.loader.getNamespace();
+
+
+
         panes = new BorderPane[72];
         bPanes = new BorderPane[10];
         int count = 0;
@@ -156,5 +164,6 @@ public class ScheduleController implements Initializable, ActionListener
         double d = progressVal();
         d = 1.0-d;
         progressBar.setProgress(d);
+
     }
 }

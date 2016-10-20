@@ -3,6 +3,7 @@ package WHS_planner.Schedule;
 import WHS_planner.Core.IO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -10,8 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -32,6 +32,8 @@ public class Schedule
     public static Scene schedule;
     public static Scene day;
 
+    public static FXMLLoader loader;
+
     public Schedule()
     {
         try
@@ -47,9 +49,9 @@ public class Schedule
 
     public void buildSchedule() throws Exception
     {
-        FXMLLoader loader = new FXMLLoader();
+        loader = new FXMLLoader();
 
-        loader.setLocation(getClass().getResource("/Schedule/scheduleTest.fxml"));
+        loader.setLocation(getClass().getResource("/Schedule/wankTest.fxml"));
 
         rootLayout = loader.load();
         generateSchedule(loader);
@@ -99,8 +101,6 @@ public class Schedule
                 s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+currentPeriod;
             }
 
-            //System.out.println(s);
-
             String letter;
 
             switch(incr)
@@ -136,10 +136,8 @@ public class Schedule
             try
             {
                 Label l = (Label) labels.get(letter+incr2);
-                /*Bounds l2 = l.getBoundsInLocal();
-                double scalex = l.getWidth()/l2.getWidth();
-                l.setScaleX(scalex);*/
                 l.setText(s);
+
             }
             catch(Exception e)
             {
@@ -154,6 +152,9 @@ public class Schedule
 
         File input = new File("user.key");
 
+        String user = null;
+        String pass = null;
+
         try
         {
             if(!input.exists())
@@ -161,8 +162,14 @@ public class Schedule
                 input.createNewFile();
             }
 
+            FileReader fr = new FileReader(input);
+            BufferedReader br = new BufferedReader(fr);
 
+            user = br.readLine();
+            pass = br.readLine();
 
+            br.close();
+            fr.close();
         }
         catch(Exception e)
         {
@@ -174,9 +181,9 @@ public class Schedule
 
         ScheduleParser parse = new ScheduleParser();
 
-        if(!f.exists())
+        if(!f.exists() && user != null && pass != null )
         {
-            parse.grabwebpage("user", "pass");
+            parse.grabwebpage(user, pass);
         }
         try
         {
