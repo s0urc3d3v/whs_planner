@@ -24,9 +24,6 @@ public class SimpleController implements Initializable {
     @FXML
     private JFXListView<VBox> articleListView;
 
-    @FXML
-    private JFXButton oldRefreshButton;
-
     private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
     private List<FeedMessage> feedArray = feed.getMessages();
@@ -34,13 +31,14 @@ public class SimpleController implements Initializable {
     private ObservableList<VBox> articleList;
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-//        oldRefreshButton = new JFXButton();
         articleList = FXCollections.observableArrayList();
         JFXButton refreshButton = new JFXButton("Refresh");
 
 
-        refreshButton.setOnMousePressed(event -> updateFrame());
-        //TODO ^
+        refreshButton.setOnAction((event) -> {
+            updateFrame();
+        });
+
 
         VBox r = new VBox(refreshButton);
         articleList.add(r);
@@ -61,15 +59,26 @@ public class SimpleController implements Initializable {
 
     @FXML
     private void updateFrame() {
-        System.out.println("Update frame called!");
-        for (FeedMessage message : feed.getMessages()) {
-            VBox v = new VBox(new Hyperlink(message.getTitle()), new Label(message.getAuthor()), new Label(message.getDescription()));
-            //TODO variable tied to the hyperlink, so on action pressed it can send array index to method
+//        System.out.println("Update frame called!");
+
+//        for (FeedMessage message : feed.getMessages()) {
+//            VBox v = new VBox(new Hyperlink(message.getTitle()), new Label(message.getAuthor()), new Label(message.getDescription()));
+//            //TODO variable tied to the hyperlink, so on action pressed it can send array index to method
+//            articleList.add(v);
+//        }
+        //TODO make it so it replaces articles instead of adding
+
+        for (int i = 0; i < feedArray.size(); i++) {
+
+            Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
+            hpl.setOnAction((event) -> {
+                openLink(i);
+            });
+
+            VBox v = new VBox(hpl, new Label(feedArray.get(i).getAuthor()), new Label(feedArray.get(i).getDescription()));
             articleList.add(v);
         }
         articleListView.setItems(articleList);
-        //TODO make it so it replaces articles instead of adding
-
 
 
     }

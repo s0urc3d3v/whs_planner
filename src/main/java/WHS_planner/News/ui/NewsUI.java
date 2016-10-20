@@ -20,7 +20,7 @@ public class NewsUI extends Application {
 
     public void start(Stage stage) throws Exception{
 
-        String sceneFile = "/resources/News/news1_5.fxml";
+        String sceneFile = "/resources/News/news1_6.fxml";
         Parent root;
         URL url  = null;
 
@@ -29,7 +29,7 @@ public class NewsUI extends Application {
         List<FeedMessage> feedArray = feed.getMessages();
 
         try {
-            url = getClass().getResource("/News/news1_5.fxml");
+            url = getClass().getResource("/News/news1_6.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             root = FXMLLoader.load(url);
             System.out.println( "  fxmlResource = " + sceneFile );
