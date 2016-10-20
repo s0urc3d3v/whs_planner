@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -48,7 +49,7 @@ public class Schedule
     {
         FXMLLoader loader = new FXMLLoader();
 
-        loader.setLocation(getClass().getResource("/Schedule/wankTest.fxml"));
+        loader.setLocation(getClass().getResource("/Schedule/scheduleTest.fxml"));
 
         rootLayout = loader.load();
         generateSchedule(loader);
@@ -150,6 +151,25 @@ public class Schedule
     public void parseSchedule()
     {
         File f = new File("raw.html");
+
+        File input = new File("user.key");
+
+        try
+        {
+            if(!input.exists())
+            {
+                input.createNewFile();
+            }
+
+
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
 
 
         ScheduleParser parse = new ScheduleParser();

@@ -14,11 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -74,6 +70,8 @@ public class MainDocumentController implements Initializable {
         schedule = new Schedule();
         BorderPane schedulepane = (BorderPane) schedule.getPane();
         BorderPane daypane = (BorderPane) schedule.getdaypane();
+
+
 
         topBar.setStyle("-fx-background-color: #FF9800");
         navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");
