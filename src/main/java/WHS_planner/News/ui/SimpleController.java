@@ -94,7 +94,14 @@ public class SimpleController implements Initializable {
             } else {
                 System.out.println("lol something went wrong");
             }
-            VBox v = new VBox(hpl, new Label(feedArray.get(i).getAuthor()), new Label(feedArray.get(i).getDescription()));
+
+            Label author = new Label(feedArray.get(i).getAuthor());
+            author.setWrapText(true);
+            Label description = new Label(feedArray.get(i).getDescription());
+            description.setWrapText(true);
+            VBox v = new VBox(hpl, author, description);
+            v.setMaxWidth(560);
+            //TODO dont hard code this
             articleList.add(v);
         }
         articleListView.setItems(articleList);
