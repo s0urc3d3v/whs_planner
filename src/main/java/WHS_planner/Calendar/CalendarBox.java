@@ -6,10 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.util.*;
 
@@ -18,136 +17,139 @@ import java.util.*;
  */
 public class CalendarBox extends Pane{
 
+    public static final int CALENDAR_BOX_HEIGHT = 80, CALENDAR_BOX_WIDTH = 110;
+    public static final int HOMEWORK = 0,TESTS = 1;
+    private static final int NUMBER_OF_TASKLISTS = 2;
+
     private int date; //The date of the box
     private int week; //The week this box is in
 
-    private ArrayList<Task> homework;
-    private ArrayList<Task> tests;
-    private Pane calendarBoxPane;
+    private ArrayList<ArrayList<Task>> tasks; //List of the lists of tasks
+    private Pane mainPane; //The main pane
+    private Map<String,Object> map; //A map of all the objects in the FXML
 
-    public CalendarBox(int date, int week, UIController controller){
-        this.date = date;
-        this.week = week;
-        this.homework = new ArrayList<Task>();
-        this.tests = new ArrayList<Task>();
+    public CalendarBox(int date, int week, boolean active){
+        this.date = date; //This box's date
+        this.week = week; //The week (row) this box is in
+        this.tasks = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome"));
-
-        if(date != 0) {
-            loader.setController(new UIController());
-            loader.setLocation(getClass().getResource("/Calendar/calendarBoxV2.fxml"));
-
-            try {//TODO Replace this with errorhandler
-                calendarBoxPane = loader.load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            String dateString = date + "";
-            this.setId("calendar-box");
-            Label label = (Label) calendarBoxPane.lookup("#date");
-            calendarBoxPane.setId(dateString);
-            label.setText(dateString);
-            tests.add(null);//TODO remove these
-            tests.add(null);//TODO remove these
-
-            JFXButton button = (JFXButton) calendarBoxPane.getChildren().get(0);
-            button.prefWidthProperty().bind(this.widthProperty());
-            button.prefHeightProperty().bind(this.heightProperty());
-
-            update();
-        }else{
-            loader.setLocation(getClass().getResource("/Calendar/calendarBoxV2-empty.fxml"));
-            try {//TODO Replace this with errorhandler
-                calendarBoxPane = loader.load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            this.getChildren().setAll(calendarBoxPane);
+        //Creates and fills in tasks with correct amount of lists according to NUMBER_OF_TASKLISTS
+        for (int taskListIndex = 0; taskListIndex < NUMBER_OF_TASKLISTS; taskListIndex++) {
+            tasks.add(new ArrayList<>()); //Create a new list
         }
-        calendarBoxPane.prefWidthProperty().bind(this.widthProperty());
-        calendarBoxPane.prefHeightProperty().bind(this.heightProperty());
 
-        this.getStyleClass().add("box");
+        FXMLLoader loader = new FXMLLoader(); //Create a new loader
+        loader.setResources(ResourceBundle.getBundle("FontAwesome.fontawesome")); //Load the Font Awesome font into the loader
+        loader.setController(new UIController()); //Set the UI controller of the loader
+        loader.setLocation(getClass().getResource("/Calendar/calendarBoxV2.fxml")); //Set the path of the FXML file
+
+        //Load in the FXML and set the map to be the list of all the objects in the FXML
+        try {
+            mainPane = loader.load();
+            map = loader.getNamespace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Set up the calendar box
+        initFXMLBox();
+
+        //Make the button inactive if required
+        if(!active){
+            setInactive();
+        }
+
+        this.getStyleClass().add("box"); //Set the CSS style class to be box
     }
 
-    public int getHomeworkCount(){
-        return homework.size();
+    //Used to get the number of tasks in a certain list
+    public int getTaskCount(int listID){
+        return tasks.get(listID).size();
     }
 
-    public int getTestsCount(){
-        return tests.size();
-    }
-
-    public Pane getPane(){
-        update();
-        return calendarBoxPane;
-    }
 
     public void update(){
-        HBox iconContainer = (HBox)calendarBoxPane.lookup("#iconContainer");
+        HBox iconContainer = (HBox) map.get("iconContainer"); //Get the iconContainer from the FXML
 
-        ArrayList<Node> icons = new ArrayList<Node>();
+        ArrayList<Node> icons = new ArrayList<Node>(); //The nodes
 
-        if(getHomeworkCount() != 0){
-            Label icon = new Label();
-            icon.getStyleClass().add("icon");
-            icon.setId("homework-icon");
-            icon.setText("\uf0f6"); //File Icon
+        String[] iconsUnicode = new String[]{"\uf0f6","\uf00c"}; //File Icon, Check Icon
 
-            JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
-            badge.getStyleClass().add("icon-badge");
-            badge.setText(""+getHomeworkCount());
-            icons.add(badge);
+        for (int listID = 0; listID < tasks.size(); listID++) {
+            if(getTaskCount(listID) != 0) {
+                Label icon = new Label();
+                icon.getStyleClass().add("icon");
+                icon.setId("homework-icon");
+                icon.setText(iconsUnicode[listID]); //File Icon
+
+                JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
+                badge.getStyleClass().add("icon-badge");
+                badge.setText("" + getTaskCount(listID));
+                icons.add(badge);
+            }
         }
 
-        if(getTestsCount() != 0){
-            Label icon = new Label();
-            icon.getStyleClass().add("icon");
-            icon.setId("test-icon");
-            icon.setText("\uf00c"); //Check Icon
-
-            JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
-            badge.getStyleClass().add("icon-badge");
-            badge.setText(""+getTestsCount());
-            icons.add(badge);
-        }
         iconContainer.getChildren().setAll(icons);
-        this.getChildren().setAll(calendarBoxPane);
+        this.getChildren().setAll(mainPane);
     }
 
-    public void addHomework(Task task){
-        homework.add(task);
+    //Adds a task in a certain list based on the listID
+    public void addTask(int listID, Task task){
+        tasks.get(listID).add(task);
     }
 
-    public void addTest(Task task){
-        tests.add(task);
-    }
-
-    //TODO Remove this method
-    public void removeHomework(){
-        if(getHomeworkCount() != 0) {
-            homework.remove(0);
-        }
-    }
-
-    //TODO Remove this testing method
-    public void removeTest(){
-        if(getTestsCount() != 0) {
-            tests.remove(0);
-        }
+    //Removes a task in a certain list based on the listID
+    public void removeTask(int listID, Task task){
+        tasks.get(listID).remove(task);
     }
 
     public int getWeek() {
         return week;
-    }
+    }//Get the week this box is in (row)
 
     public int getDate() {
         return date;
+    }//Get the date of this box
+
+    //Get the button
+    public JFXButton getButtonNode(){
+        JFXButton button = (JFXButton)map.get("button");
+        return button;
     }
 
-    public JFXButton getButton(){//TODO MAKE IT NOT HARD CODE
-        JFXButton button = (JFXButton)calendarBoxPane.getChildren().get(0);
-        return button;
+    //Get the date Label
+    public Label getDateLabel(){
+        Label date = (Label)map.get("dateLabel");
+        return date;
+    }
+
+    public void setInactive(){
+        getButtonNode().setDisable(true);
+        getDateLabel().setText("");
+    }
+
+    public void initFXMLBox(){
+        String dateString = date + ""; //Creates a string version of the date value
+        this.setId("calendar-box"); //Set the id of this box to be "calendar-box"
+        getDateLabel().setText(dateString); //Set the dateLabel text = to the date
+
+        //Set the size of the mainPane
+        mainPane.prefWidthProperty().bind(this.widthProperty());
+        mainPane.prefHeightProperty().bind(this.heightProperty());
+
+        //Set the button size to be equal to the mainPane's size
+        getButtonNode().prefWidthProperty().bind(mainPane.widthProperty());
+        getButtonNode().prefHeightProperty().bind(mainPane.heightProperty());
+
+        VBox vbox = (VBox)map.get("vbox");
+        vbox.prefWidthProperty().bind(mainPane.widthProperty());
+        vbox.prefHeightProperty().bind(mainPane.heightProperty());
+
+        HBox iconContainer = (HBox) map.get("iconContainer");
+        iconContainer.prefWidthProperty().bind(mainPane.widthProperty());
+        iconContainer.prefHeightProperty().bind(vbox.heightProperty());
+
+        //Initiate update sequence
+        update();
     }
 }

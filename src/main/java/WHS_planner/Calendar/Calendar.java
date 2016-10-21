@@ -87,7 +87,7 @@ public class Calendar extends BorderPane {
                 if (calendar[r][c] != null) {
                     tempCalendarBox = calendar[r][c];
                 }else{
-                    tempCalendarBox = new CalendarBox(0,0,null);
+                    tempCalendarBox = new CalendarBox(0,0,false);
                 }
                 tempCalendarBox.prefHeightProperty().bind(row.heightProperty());
                 row.add(tempCalendarBox,c,0);
@@ -99,8 +99,8 @@ public class Calendar extends BorderPane {
         for (Node row:rows) {
             mainPane.setVgrow(row,Priority.ALWAYS);
             GridPane tempGridPane = (GridPane)row;
-            tempGridPane.setMinHeight(85);
-            tempGridPane.setMinWidth(7*110+10);
+            tempGridPane.setMinHeight(CalendarBox.CALENDAR_BOX_HEIGHT+10);
+            tempGridPane.setMinWidth(7*CalendarBox.CALENDAR_BOX_WIDTH+10);
         }
         rows.add(0,firstRow);
 
@@ -118,27 +118,27 @@ public class Calendar extends BorderPane {
 
         if(currentDate != -1){
             if(date == currentDate) {
-                changeButtonColor(getCalendarBox(currentDate).getButton(), false);
+                changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);
                 mainPane.getChildren().remove(currentTextBoxRow+1);
                 currentTextBoxRow = -1;
                 currentDate = -1;
             }else if(currentTextBoxRow == rowIDs[row]){
-                changeButtonColor(getCalendarBox(currentDate).getButton(), false);
-                changeButtonColor(getCalendarBox(date).getButton(),true);
+                changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);
+                changeButtonColor(getCalendarBox(date).getButtonNode(),true);
                 currentDate = date;
             }else{
-                changeButtonColor(getCalendarBox(currentDate).getButton(), false);
+                changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);
                 mainPane.getChildren().remove(currentTextBoxRow+1);
                 currentTextBoxRow = rowIDs[row];
                 currentDate = date;
                 loadTaskBox(currentTextBoxRow);
-                changeButtonColor(getCalendarBox(date).getButton(),true);
+                changeButtonColor(getCalendarBox(date).getButtonNode(),true);
             }
         }else{
             currentTextBoxRow = rowIDs[row];
             currentDate = date;
             loadTaskBox(currentTextBoxRow);
-            changeButtonColor(getCalendarBox(date).getButton(),true);
+            changeButtonColor(getCalendarBox(date).getButtonNode(),true);
         }
     }
 
@@ -157,7 +157,7 @@ public class Calendar extends BorderPane {
             for (int colIndex = 0; colIndex < calendar[rowIndex].length; colIndex++) {
                 CalendarBox box = calendar[rowIndex][colIndex];
                 if(box != null) {
-                    if (Integer.valueOf(box.getChildren().get(0).getId()) == date) {
+                    if (Integer.valueOf(box.getDate()) == date) {
                         currentBox = calendar[rowIndex][colIndex];
                         break;
                     }

@@ -24,13 +24,13 @@ public class UIController implements Initializable {
         button.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 CalendarBox box = (CalendarBox) (button.getParent().getParent().lookup("#calendar-box"));
-                box.addHomework(null);
+                box.addTask(CalendarBox.HOMEWORK,null);
                 box.update();
                 Calendar calendar = (Calendar)button.getParent().getParent().getParent().getParent().getParent();
                 calendar.update(box.getWeek(),box.getDate());
             }else if (event.getButton() == MouseButton.SECONDARY) {
                 CalendarBox box = (CalendarBox) (button.getParent().getParent().lookup("#calendar-box"));
-                box.removeTest();
+                box.removeTask(CalendarBox.TESTS,null);
                 box.update();
             }
         }));
