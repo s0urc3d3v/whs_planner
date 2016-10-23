@@ -1,19 +1,12 @@
 package WHS_planner.CoreUI;
 
-import WHS_planner.Calendar.Calendar;
 import WHS_planner.Calendar.CalendarBox;
-import WHS_planner.Calendar.CalendarUtility;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import java.io.IOException;
 import java.net.URL;
 
 
@@ -47,8 +40,8 @@ public class NavigationBar extends Application {
         //Set the stylesheet
         scene.getStylesheets().add("/Calendar/MainUI.css");
 
-        stage.setMinHeight(CalendarBox.CALENDAR_BOX_HEIGHT*5+48+10*8+30+30+10);
-        stage.setMinWidth(CalendarBox.CALENDAR_BOX_WIDTH*7+90);
+        stage.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT *5+48+10*8+30+30+10);
+        stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH *7+90);
         stage.setScene(scene);
         stage.show();
     }
