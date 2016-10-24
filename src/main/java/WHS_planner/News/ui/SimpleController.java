@@ -51,13 +51,14 @@ public class SimpleController implements Initializable {
             final int eye = i;
             Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
             hpl.setOnAction((event) -> openLink(eye));
+            hpl.setPadding(new Insets(0, 0, 0, -1));
 //            hpl.setStyle("-fx-background-color:#000000");
             //TODO move link position left
             Label author = new Label(feedArray.get(i).getAuthor());
             author.setWrapText(true);
-            author.setPadding(new Insets(0, 0, 0, 20));
+//            author.setPadding(new Insets(0, 0, 0, 20));
             Label description = new Label(feedArray.get(i).getDescription());
-            description.setPadding(new Insets(0, 0, 0, 20));
+//            description.setPadding(new Insets(0, 0, 0, 20));
             description.setWrapText(true);
             VBox v = new VBox(hpl, author, description);
             v.setMaxWidth(550);
