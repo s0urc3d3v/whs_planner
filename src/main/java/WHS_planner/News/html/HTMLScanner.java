@@ -5,6 +5,7 @@ import java.net.URLConnection;
 import java.util.Scanner;
 
 
+
 class HTMLScanner {
 
     String scanURL(URL link) {
@@ -16,6 +17,7 @@ class HTMLScanner {
             Scanner scanner = new Scanner(connection.getInputStream());
             scanner.useDelimiter("\\Z");
             content = scanner.next();
+            scanner.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -24,9 +26,14 @@ class HTMLScanner {
 
 
     String scanHTML(String content) {
-
-        return null;
+        String link;
+        if (content.contains("prettyPhoto[1]")) {
+            content = content.substring(content.indexOf("prettyPhoto[1]") + 22, content.length());
+            link = content.substring(0, content.indexOf("\""));
+            return link;
+        } else {
+            return null;
+        }
     }
-
 }
 
