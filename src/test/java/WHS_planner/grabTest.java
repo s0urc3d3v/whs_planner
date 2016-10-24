@@ -10,9 +10,7 @@ import java.io.*;
  */
 public class grabTest extends TestCase
 {
-
-
-    public void testdothething()
+    public void testGrabCalendar()
     {
         try
         {

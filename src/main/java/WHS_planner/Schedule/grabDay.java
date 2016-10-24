@@ -10,9 +10,9 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class grabDay
 {
@@ -22,6 +22,7 @@ public class grabDay
     private String user;
     private String pass;
 
+    private List<String> cookies;
 
     public grabDay(String user, String pass)
     {
@@ -33,6 +34,8 @@ public class grabDay
     {
         String url = "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html";
         String calurl = "https://ipass.wayland.k12.ma.us/school/ipass/hello.html";
+
+        CookieHandler.setDefault(new CookieManager());
 
         Grabber grabber = new Grabber();
 
@@ -86,6 +89,14 @@ public class grabDay
             connection.setRequestMethod("GET");
 
             connection.setRequestProperty("User-Agent", USER_AGENT);
+
+            if (cookies != null)
+            {
+                for (String cookie : cookies)
+                {
+                    connection.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
+                }
+            }
 
             int resp = connection.getResponseCode();
 
@@ -160,9 +171,16 @@ public class grabDay
 
             URL obj = new URL(url);
 
+            connection = (HttpURLConnection) obj.openConnection();
+
             connection.setRequestMethod("POST");
             connection.setRequestProperty("User-Agent", USER_AGENT);
             connection.setRequestProperty("Connection", "keep-alive");
+
+            for (String cookie : cookies)
+            {
+                connection.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
+            }
 
             connection.setDoOutput(true);
             connection.setDoInput(true);
@@ -188,6 +206,16 @@ public class grabDay
                 stringbuffer.append(input);
             }
             br.close();
+        }
+
+        private List<String> getCookies()
+        {
+            return cookies;
+        }
+
+        private void setCookies(List<String> cs)
+        {
+            cookies = cs;
         }
     }
 }
