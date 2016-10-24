@@ -18,34 +18,15 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
 public class SimpleController implements Initializable {
-
-    private final int ZERO = 0;
-    private final int ONE = 1;
-    private final int TWO = 2;
-    private final int THREE = 3;
-    private final int FOUR = 4;
-    private final int FIVE = 5;
-    private final int SIX = 6;
-    private final int SEVEN = 7;
-    private final int EIGHT = 8;
-    private final int NINE = 9;
-    private final int TEN = 10;
-
     @FXML
     private JFXListView<VBox> articleListView;
-
     private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
     private List<FeedMessage> feedArray = feed.getMessages();
-
-    private ObservableList<VBox> articleList;
+    private ObservableList<VBox> articleList = FXCollections.observableArrayList();
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        articleList = FXCollections.observableArrayList();
-
-//        articleListView.setItems(articleList);
         updateFrame();
     }
 
@@ -61,24 +42,22 @@ public class SimpleController implements Initializable {
     @FXML
     private void updateFrame() {
         articleList.clear();
-
         JFXButton refreshButton = new JFXButton("Refresh");
         refreshButton.setOnAction((event) -> updateFrame());
         VBox r = new VBox(refreshButton);
         articleList.add(r);
-
         for (int i = 0; i < feedArray.size(); i++) {
-            final int vapeNaysh = i;
+            final int eye = i;
             Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
-            hpl.setOnAction((event) -> openLink(vapeNaysh));
-
+            hpl.setOnAction((event) -> openLink(eye));
+            //TODO ^Move link position left
             Label author = new Label(feedArray.get(i).getAuthor());
             author.setWrapText(true);
             Label description = new Label(feedArray.get(i).getDescription());
             description.setWrapText(true);
             VBox v = new VBox(hpl, author, description);
-            v.setMaxWidth(560);
-            //TODO dont hard code this
+            v.setMaxWidth(550);
+            //TODO ^don't hard code this
             articleList.add(v);
         }
         articleListView.setItems(articleList);
