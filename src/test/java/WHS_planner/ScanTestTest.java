@@ -8,14 +8,14 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple MainUI.
  */
-public class MainTest
+public class ScanTestTest
         extends TestCase {
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public MainTest(String testName) {
+    public ScanTestTest(String testName) {
         super(testName);
     }
 
@@ -23,7 +23,7 @@ public class MainTest
      * @return the suite of tests being tested
      */
     public static Test suite() {
-        return new TestSuite(MainTest.class);
+        return new TestSuite(ScanTestTest.class);
     }
 
     /**
