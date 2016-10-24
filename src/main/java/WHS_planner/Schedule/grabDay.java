@@ -1,6 +1,5 @@
 package WHS_planner.Schedule;
 
-import WHS_planner.Core.JSON;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -47,7 +46,7 @@ public class grabDay
             grabber.send(url, params);
 
             String res = grabber.getPageContent(calurl+"?month=11&day=2&year=2016");
-            System.out.println(res);
+            System.out.println(res.length());
         }
         catch(Exception e)
         {
@@ -117,6 +116,9 @@ public class grabDay
             br.close();
             ir.close();
 
+            //TODO: This is what needs to be fixed
+            setCookies(connection.getHeaderFields().get("Set-Cookie"));
+
             return response.toString();
         }
 
@@ -177,6 +179,8 @@ public class grabDay
             connection.setRequestProperty("User-Agent", USER_AGENT);
             connection.setRequestProperty("Connection", "keep-alive");
 
+
+            //TODO: program breaks here
             for (String cookie : cookies)
             {
                 connection.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
