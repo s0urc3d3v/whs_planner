@@ -68,32 +68,9 @@ public class SimpleController implements Initializable {
         articleList.add(r);
 
         for (int i = 0; i < feedArray.size(); i++) {
+            final int vapeNaysh = i;
             Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
-            if (i == 0) {
-                hpl.setOnAction((event) -> openLink(ZERO));
-            } else if (i == 1) {
-                hpl.setOnAction((event) -> openLink(ONE));
-            } else if (i == 2) {
-                hpl.setOnAction((event) -> openLink(TWO));
-            } else if (i == 3) {
-                hpl.setOnAction((event) -> openLink(THREE));
-            } else if (i == 4) {
-                hpl.setOnAction((event) -> openLink(FOUR));
-            } else if (i == 5) {
-                hpl.setOnAction((event) -> openLink(FIVE));
-            } else if (i == 6) {
-                hpl.setOnAction((event) -> openLink(SIX));
-            } else if (i == 7) {
-                hpl.setOnAction((event) -> openLink(SEVEN));
-            } else if (i == 8) {
-                hpl.setOnAction((event) -> openLink(EIGHT));
-            } else if (i == 9) {
-                hpl.setOnAction((event) -> openLink(NINE));
-            } else if (i == 10) {
-                hpl.setOnAction((event) -> openLink(TEN));
-            } else {
-                System.out.println("lol something went wrong");
-            }
+            hpl.setOnAction((event) -> openLink(vapeNaysh));
 
             Label author = new Label(feedArray.get(i).getAuthor());
             author.setWrapText(true);
