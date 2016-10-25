@@ -59,7 +59,7 @@ public class SimpleController implements Initializable {
             author.setWrapText(true);
             Label description = new Label(feedArray.get(i).getDescription());
             description.setWrapText(true);
-            VBox v = new VBox(hpl, author, description);
+            VBox v = new VBox(hpl, /*author,*/ description);
             v.setMaxWidth(550);
             //TODO ^don't hard code this
             articleList.add(v);
