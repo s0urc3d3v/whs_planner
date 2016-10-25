@@ -29,6 +29,7 @@ public class NewsUI extends Application {
             throw ex;
         }
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("/News/ButtonStyle.css");
         stage.setScene(scene);
         stage.show();
     }
