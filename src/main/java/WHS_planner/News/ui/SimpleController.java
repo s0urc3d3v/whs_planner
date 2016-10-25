@@ -39,7 +39,6 @@ public class SimpleController implements Initializable {
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         updateFrame();
-
     }
 
     @FXML
@@ -52,39 +51,27 @@ public class SimpleController implements Initializable {
     }
 
     @FXML
-    private void updateFrame() /*throws IOException*/ {
+    private void updateFrame() {
         articleList.clear();
-
         JFXButton refreshButton = new JFXButton("Refresh");
         refreshButton.getStyleClass().add("button-raised");
-
         refreshButton.setOnAction((event) -> updateFrame());
         VBox r = new VBox(refreshButton);
         articleList.add(r);
-
         for (int i = 0; i < feedArray.size(); i++) {
-
-
-
-
-
             final int eye = i;
             Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
             hpl.setOnAction((event) -> openLink(eye));
             hpl.setPadding(new Insets(0, 0, 0, -1));
             Label description = new Label(feedArray.get(i).getDescription());
             description.setWrapText(true);
-
-
             try {
                 if (HTMLScanner.scanHTML(HTMLScanner.scanURL(new URL(feedArray.get(i).getLink()))) == null) {
                     VBox v = new VBox(hpl, /*author,*/ description);
-                    v.setMaxWidth(550);
+                    v.setMaxWidth(articleListView.getPrefWidth());
                     articleList.add(v);
                 } else {
                     url = new URL(HTMLScanner.scanHTML(HTMLScanner.scanURL(new URL(feedArray.get(i).getLink()))));
-
-
                     BufferedImage bf = null;
                     try {
                         bf = ImageIO.read(url);
@@ -92,25 +79,21 @@ public class SimpleController implements Initializable {
                         ex.printStackTrace();
                     }
                     WritableImage wr = convertImg(bf);
-
-
                     ImageView img = new ImageView(wr);
+                    img.setFitWidth(articleListView.getPrefWidth());
                     img.setImage(wr);
 
-
                     VBox v = new VBox(img, hpl, /*author,*/ description);
-                    v.setMaxWidth(550);
+                    v.setMaxWidth(articleListView.getPrefWidth());
                     articleList.add(v);
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-
-
         }
-
         articleListView.setItems(articleList);
     }
+
 
     private WritableImage convertImg(BufferedImage bf) {
         WritableImage wr = null;
