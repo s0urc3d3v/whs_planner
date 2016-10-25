@@ -6,6 +6,8 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
@@ -29,10 +32,6 @@ import java.util.ResourceBundle;
 public class MainDocumentController implements Initializable {
 
     Calendar cal;
-
-    Schedule schedule;
-
-    AnchorPane tempPane;
 
     @FXML
     private AnchorPane anchorPane;
@@ -56,6 +55,8 @@ public class MainDocumentController implements Initializable {
 
     private NavigationBar main;
 
+    private Schedule schedule;
+
     private boolean sportsScheduleOpen;
 
     private Pane[] panes;
@@ -72,11 +73,12 @@ public class MainDocumentController implements Initializable {
         cal = new Calendar(1, 30);
         schedule = new Schedule();
         BorderPane schedulepane = (BorderPane) schedule.getPane();
+        BorderPane daypane = (BorderPane) schedule.getdaypane();
 
         topBar.setStyle("-fx-background-color: #FF9800");
         navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");
         navHamburger.getStyleClass().add("jfx-hamburger-icon");
-        String[] tabs = new String[]{"Calendar", "Schedule", "Homework", "Tests", "Rip A Fat Vape", "George"}; //Need to find a way to get this from another class,
+        String[] tabs = new String[]{"Calendar", "Schedule", "Today", "Tests", "Rip A Fat Vape", "George"}; //Need to find a way to get this from another class,
         //Create the VBox                                                                            //May need to be an array of classes that extend tab, so you can get an fxml file related to them and their name.
         JFXButton[] buttonArray = new JFXButton[tabs.length];
         for (int i = 0; i < tabs.length; i++) {
@@ -93,7 +95,17 @@ public class MainDocumentController implements Initializable {
             {
                 anchorPane.getChildren().add(0, cal);
                 panes[0] = cal;
-                remPane(panes[1]);
+
+                for (int i = 0; i < panes.length; i++)
+                {
+                    if(i != 0)
+                    {
+                        if(panes[i] != null)
+                        {
+                            remPane(panes[i]);
+                        }
+                    }
+                }
             }
 
             anchorPane.setTopAnchor(cal, 45.0);
@@ -105,11 +117,44 @@ public class MainDocumentController implements Initializable {
             {
                 anchorPane.getChildren().add(0, schedulepane);
                 panes[1] = schedulepane;
-                remPane(panes[0]);
+
+                for (int i = 0; i < panes.length; i++)
+                {
+                    if(i != 1)
+                    {
+                        if(panes[i] != null)
+                        {
+                            remPane(panes[i]);
+                        }
+                    }
+                }
             }
 
             anchorPane.setTopAnchor(schedulepane, 45.0);
         });
+
+        buttonArray[2].setOnMouseClicked(event -> {
+            //anchorPane.getChildren().setAll(tempPane.getChildren());
+            if(!anchorPane.getChildren().contains(daypane))
+            {
+                anchorPane.getChildren().add(0, daypane);
+                panes[2] = daypane;
+
+                for (int i = 0; i < panes.length; i++)
+                {
+                    if(i != 2)
+                    {
+                        if(panes[i] != null)
+                        {
+                            remPane(panes[i]);
+                        }
+                    }
+                }
+            }
+
+            anchorPane.setTopAnchor(daypane, 45.0);
+        });
+
         VBox vBox = new VBox(buttonArray);
 
         navDrawer.setSidePane(vBox);
@@ -188,5 +233,6 @@ public class MainDocumentController implements Initializable {
     {
         anchorPane.getChildren().remove(p);
     }
+
 
 }
