@@ -11,30 +11,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.geometry.Insets?>
 
-<StackPane minHeight="75.0" minWidth="100.0" prefHeight="75" prefWidth="100.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.VBox?>
+<StackPane fx:id="stackPane" minHeight="80.0" minWidth="110.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane fx:id="anchorPane">
-         <children>
-            <JFXButton styleClass="box-button" fx:id="button" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children>
-      </AnchorPane>
-      <BorderPane mouseTransparent="true">
-         <top>
-            <Label styleClass="date-label" fx:id="date" text="Date" BorderPane.alignment="TOP_LEFT"/>
-         </top>
-         <center>
-            <HBox fx:id="iconContainer" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <JFXBadge fx:id="badge" position="TOP_RIGHT" styleClass="icon-badge">
-                     <Label fx:id="icon" alignment="CENTER" contentDisplay="CENTER" styleClass="icon">
-                        <padding>
-                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </padding>
-                     </Label>
-                  </JFXBadge>
-               </children>
-            </HBox>
-         </center>
-      </BorderPane>
+      <JFXButton fx:id="button" styleClass="box-button"  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <VBox fx:id="vbox" mouseTransparent="true">
+         <Label fx:id="dateLabel" styleClass="date-label" alignment="TOP_LEFT" mouseTransparent="true"/>
+         <HBox fx:id="iconContainer" alignment="CENTER" mouseTransparent="true"></HBox>
+      </VBox>
    </children>
 </StackPane>
