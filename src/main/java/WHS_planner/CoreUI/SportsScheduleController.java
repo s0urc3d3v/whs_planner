@@ -1,13 +1,13 @@
 package WHS_planner.CoreUI;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.ResourceBundle;
-
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class SportsScheduleController implements Initializable {
 
@@ -26,7 +26,7 @@ public class SportsScheduleController implements Initializable {
         return this.result;
     }
 
-    /**
+    /*
      * setting the stage of this view
      * @param stage
      */
@@ -34,7 +34,7 @@ public class SportsScheduleController implements Initializable {
         this.stage = stage;
     }
 
-    /**
+    /*
      * Closes the stage of this view
      */
     private void closeStage() {
