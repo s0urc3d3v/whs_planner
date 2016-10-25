@@ -103,7 +103,6 @@ public class SimpleController implements Initializable {
         articleListView.setItems(articleList);
     }
 
-
     private WritableImage convertImg(BufferedImage bf) {
         WritableImage wr = null;
         if (bf != null) {
