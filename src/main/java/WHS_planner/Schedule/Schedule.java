@@ -148,7 +148,7 @@ public class Schedule
 
     public void parseSchedule()
     {
-        File f = new File("raw.html");
+        File f = new File("output.html");
 
         File input = new File("user.key");
 

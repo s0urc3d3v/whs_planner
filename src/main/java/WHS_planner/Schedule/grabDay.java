@@ -6,9 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.*;
 import java.util.*;
 
@@ -46,14 +44,49 @@ public class grabDay
 
             grabber.send(url, params);
 
-            String res = grabber.getPageContent(calurl+"?month=11&day=2&year=2016");
-//            String res = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/index.html?dt=10251646070");
+            //String res = grabber.getPageContent(calurl+"?month=11&day=2&year=2016");
+            String res = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html");
             System.out.println(res);
+
+            parseHtml(res, "output.html");
+
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
+    }
+
+
+    private File parseHtml(String input, String name) throws IOException
+    {
+        File f = new File(name);
+
+        FileWriter fw = new FileWriter(f);
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        char[] data = input.toCharArray();
+
+        int i = 0;
+        while(i < data.length)
+        {
+            if(data[i] == '\n')
+            {
+                bw.newLine();
+            }
+            else
+            {
+                bw.write(data[i]);
+            }
+            i++;
+
+        }
+
+        bw.flush();
+        bw.close();
+        fw.close();
+
+        return f;
     }
 
     protected class Grabber
