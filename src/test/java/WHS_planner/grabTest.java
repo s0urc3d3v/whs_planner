@@ -32,7 +32,7 @@ public class grabTest extends TestCase
         }
         catch(Exception e)
         {
-
+            e.printStackTrace();
         }
     }
 

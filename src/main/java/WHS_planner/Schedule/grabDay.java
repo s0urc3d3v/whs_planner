@@ -4,16 +4,21 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
+/**
+ * Created by John on 10/24/2016.
+ */
 public class grabDay
 {
-    final String USER_AGENT = "Mozilla/5.0";
+    private final String USER_AGENT = "Mozilla/5.0";
+
     private HttpURLConnection connection;
+
+    private String calurl = "https://ipass.wayland.k12.ma.us/school/ipass/hello.html";
 
     private String user;
     private String pass;
@@ -29,7 +34,6 @@ public class grabDay
     public void grabData()
     {
         String url = "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html";
-        String calurl = "https://ipass.wayland.k12.ma.us/school/ipass/hello.html";
 
         CookieHandler.setDefault(new CookieManager());
         CookieManager cookieManager = new CookieManager();
@@ -44,11 +48,11 @@ public class grabDay
 
             grabber.send(url, params);
 
-            //String res = grabber.getPageContent(calurl+"?month=11&day=2&year=2016");
-            String res = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html");
-            System.out.println(res);
+            //String res = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html");
 
-            parseHtml(res, "output.html");
+            File output = getCalendar("tmp", grabber);
+
+            connection.disconnect();
 
         }
         catch(Exception e)
@@ -56,6 +60,67 @@ public class grabDay
             e.printStackTrace();
         }
     }
+
+    private File getCalendar(String foldername, Grabber g) throws Exception
+    {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+
+
+        File root = new File(foldername);
+        root.mkdir();
+
+        int[] months = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        for (int i = 0; i < months.length; i++)
+        {
+            String mon;
+            switch(i)
+            {
+                case 0: mon = "January";
+                    break;
+                case 1: mon = "February";
+                    break;
+                case 2: mon = "March";
+                    break;
+                case 3: mon = "April";
+                    break;
+                case 4: mon = "May";
+                        break;
+                case 5: mon = "June";
+                    break;
+                case 6: mon = "July";
+                    break;
+                case 7: mon = "August";
+                    break;
+                case 8: mon = "September";
+                    break;
+                case 9: mon = "October";
+                    break;
+                case 10: mon = "November";
+                    break;
+                case 11: mon = "December";
+                    break;
+                default: mon = "Error";
+                    break;
+            }
+
+            String childs = foldername + "/"+mon;
+            File child = new File(childs);
+            child.mkdir();
+
+            for (int j = 0; j < months[i]; j++)
+            {
+
+                String filename = childs+"/"+(j+1);
+                String supp = "?month="+(i+1)+"&day="+(j+1)+"&year="+year;
+                String res = g.getPageContent(calurl+supp);
+                parseHtml(res, filename);
+            }
+        }
+
+        return root;
+    }
+
 
 
     private File parseHtml(String input, String name) throws IOException
@@ -102,7 +167,7 @@ public class grabDay
             connection = (HttpsURLConnection) ipass.openConnection();
             connection.setRequestMethod("GET");
 
-            connection.setRequestProperty("User-Agent", "Foo?");
+            connection.setRequestProperty("User-Agent", USER_AGENT);
 
             connection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
             connection.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch, br");
@@ -133,9 +198,6 @@ public class grabDay
             }
             br.close();
             ir.close();
-
-
-            //TODO: This is what needs to be fixed
 
             return response.toString();
         }
@@ -182,8 +244,6 @@ public class grabDay
                 }
             }
 
-            System.out.println(buffer.toString());
-
             return buffer.toString();
         }
 
@@ -196,7 +256,7 @@ public class grabDay
             connection = (HttpURLConnection) obj.openConnection();
 
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("User-Agent", "Foo?");
+            connection.setRequestProperty("User-Agent", USER_AGENT);
             connection.setRequestProperty("Connection", "keep-alive");
             connection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
             connection.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch, br");
@@ -229,7 +289,6 @@ public class grabDay
             }
             br.close();
 
-            System.out.println(stringbuffer.toString());
         }
 
         private List<String> getCookies()
