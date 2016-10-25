@@ -42,14 +42,17 @@ public class SimpleController implements Initializable {
 
     @FXML
     private void updateFrame() {
-
+        //Deletes old article list
         articleList.clear();
+
+        //Initialize refresh button
         JFXButton refreshButton = new JFXButton("Refresh");
         refreshButton.getStyleClass().add("button-raised");
-
         refreshButton.setOnAction((event) -> updateFrame());
         VBox r = new VBox(refreshButton);
         articleList.add(r);
+
+        //Initializes vbox of articles
         for (int i = 0; i < feedArray.size(); i++) {
             final int eye = i;
             Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
@@ -64,6 +67,8 @@ public class SimpleController implements Initializable {
             //TODO ^don't hard code this
             articleList.add(v);
         }
+
+        //Sets list view to list of articles
         articleListView.setItems(articleList);
     }
 }
