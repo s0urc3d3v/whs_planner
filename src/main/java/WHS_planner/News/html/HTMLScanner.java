@@ -29,6 +29,7 @@ public class HTMLScanner {
         if (content.contains("prettyPhoto[1]")) {
             content = content.substring(content.indexOf("prettyPhoto[1]") + 22, content.length());
             link = content.substring(0, content.indexOf("\""));
+            System.out.println(link);
             return link;
         } else {
             return null;

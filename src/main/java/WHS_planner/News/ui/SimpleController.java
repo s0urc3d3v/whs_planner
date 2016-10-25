@@ -52,6 +52,7 @@ public class SimpleController implements Initializable {
 
     @FXML
     private void updateFrame() {
+        double widthLength;
         articleList.clear();
         JFXButton refreshButton = new JFXButton("Refresh");
         refreshButton.getStyleClass().add("button-raised");
@@ -66,12 +67,11 @@ public class SimpleController implements Initializable {
             Label description = new Label(feedArray.get(i).getDescription());
             description.setWrapText(true);
             try {
-                if (HTMLScanner.scanHTML(HTMLScanner.scanURL(new URL(feedArray.get(i).getLink()))) == null) {
-                    VBox v = new VBox(hpl, /*author,*/ description);
-                    v.setMaxWidth(articleListView.getPrefWidth());
-                    articleList.add(v);
-                } else {
-                    url = new URL(HTMLScanner.scanHTML(HTMLScanner.scanURL(new URL(feedArray.get(i).getLink()))));
+                Long startTime = System.currentTimeMillis();
+                String urlString = HTMLScanner.scanHTML(HTMLScanner.scanURL(new URL(feedArray.get(i).getLink())));
+                if (urlString != null) {
+                    url = new URL(urlString);
+
                     BufferedImage bf = null;
                     try {
                         bf = ImageIO.read(url);
@@ -80,13 +80,22 @@ public class SimpleController implements Initializable {
                     }
                     WritableImage wr = convertImg(bf);
                     ImageView img = new ImageView(wr);
-                    img.setFitWidth(articleListView.getPrefWidth());
+
+
+                    widthLength = articleListView.getPrefWidth() / 2;
+                    img.setFitWidth(widthLength);
+                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
                     img.setImage(wr);
 
                     VBox v = new VBox(img, hpl, /*author,*/ description);
                     v.setMaxWidth(articleListView.getPrefWidth());
                     articleList.add(v);
+                } else {
+                    VBox v = new VBox(hpl, /*author,*/ description);
+                    v.setMaxWidth(articleListView.getPrefWidth());
+                    articleList.add(v);
                 }
+                System.out.println(System.currentTimeMillis() - startTime);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
