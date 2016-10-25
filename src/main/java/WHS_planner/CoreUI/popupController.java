@@ -84,7 +84,7 @@ public class popupController implements Initializable{
         dateListView.getStylesheets().add("/CoreUI/ListView.css");
         dateListView.getStyleClass().add("list-views");
         timeListView.getStylesheets().add("/CoreUI/ListView.css");
-        timeListView.getStyleClass().add("list-viewvert");
+        timeListView.getStyleClass().add("list-viewvert"); //Only removes the horizontal scrollbar
 
         Platform.runLater(new Runnable() {
             @Override
@@ -114,14 +114,24 @@ public class popupController implements Initializable{
     @FXML
     void plusButtonPressed(MouseEvent event) {
         resize();
-        nameContents.add(new JFXTextField("Name of Event"));
-        dateContents.add(new JFXDatePicker());
-        JFXDatePicker temp = new JFXDatePicker();
-        temp.setShowTime(true);
-        timeContents.add(temp);
+
+        JFXTextField tempText = new JFXTextField();
+        tempText.setPromptText("Name of Event");
+        nameContents.add(tempText);
         nameListView.setItems(nameContents);
+
+        JFXDatePicker tempDate = new JFXDatePicker();
+        tempDate.setPromptText("MM/DD/YYYY");
+        dateContents.add(tempDate);
         dateListView.setItems(dateContents);
+
+        JFXDatePicker tempTime = new JFXDatePicker();
+        tempTime.setShowTime(true);
+        tempTime.setPromptText("HH/MM AM/PM");
+        timeContents.add(tempTime);
         timeListView.setItems(timeContents);
+
+
     }
 
     public HashMap<String, Object> getResult() {
