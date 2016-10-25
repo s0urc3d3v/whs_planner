@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -20,7 +22,6 @@ public class Schedule
     @FXML
     private Pane rootLayout;
 
-    @FXML
     private Pane memes;
 
     private Map<String, Object> labels;
@@ -57,6 +58,7 @@ public class Schedule
         FXMLLoader load2 = new FXMLLoader();
 
         load2.setLocation(getClass().getResource("/Schedule/day.fxml"));
+
         memes = load2.load();
 
         day = new Scene(memes);
@@ -147,7 +149,15 @@ public class Schedule
 
     public void parseSchedule()
     {
+        File f = new File("raw.html");
+
+
         ScheduleParser parse = new ScheduleParser();
+
+        if(!f.exists())
+        {
+            parse.grabwebpage("user", "pass");
+        }
         try
         {
             parse.getClasses();
@@ -176,6 +186,12 @@ public class Schedule
     public Node getPane()
     {
         Node n = schedule.getRoot();
+        return n;
+    }
+
+    public Node getdaypane()
+    {
+        Node n = day.getRoot();
         return n;
     }
 

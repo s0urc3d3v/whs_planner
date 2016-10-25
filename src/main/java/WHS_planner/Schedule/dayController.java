@@ -7,10 +7,6 @@ import java.util.ResourceBundle;
 
 public class dayController implements Initializable
 {
-    public void dirtyLittleSecret()
-    {
-        Schedule.MainStage.setScene(Schedule.schedule);
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
