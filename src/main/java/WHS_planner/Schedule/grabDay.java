@@ -132,7 +132,7 @@ public class grabDay
                     val = pass;
                 }
 
-                params.add(key + URLEncoder.encode(val, "UTF-8"));
+                params.add(key + "=" + URLEncoder.encode(val, "UTF-8"));
             }
 
             StringBuffer buffer = new StringBuffer();
@@ -148,6 +148,8 @@ public class grabDay
                     buffer.append("&" + param);
                 }
             }
+
+            System.out.println(buffer.toString());
 
             return buffer.toString();
         }
