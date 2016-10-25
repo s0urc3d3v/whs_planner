@@ -60,8 +60,7 @@ public class SimpleController implements Initializable {
             Label description = new Label(feedArray.get(i).getDescription());
             description.setWrapText(true);
             VBox v = new VBox(hpl, /*author,*/ description);
-            v.setMaxWidth(550);
-            //TODO ^don't hard code this
+            v.setMaxWidth(articleListView.getPrefWidth() - 45);
             articleList.add(v);
         }
         articleListView.setItems(articleList);
