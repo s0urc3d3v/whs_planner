@@ -10,8 +10,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class grabDay
 {
@@ -35,6 +34,8 @@ public class grabDay
         String calurl = "https://ipass.wayland.k12.ma.us/school/ipass/hello.html";
 
         CookieHandler.setDefault(new CookieManager());
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 
         Grabber grabber = new Grabber();
 
@@ -46,33 +47,14 @@ public class grabDay
             grabber.send(url, params);
 
             String res = grabber.getPageContent(calurl+"?month=11&day=2&year=2016");
-            System.out.println(res.length());
+//            String res = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/index.html?dt=10251646070");
+            System.out.println(res);
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
     }
-
-    /*public void buildCalendar() throws Exception
-    {
-
-
-        String url = "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html";
-
-
-
-        URL ipass = new URL("https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html");
-        BufferedReader br = new BufferedReader(new InputStreamReader(ipass.openStream()));
-
-        String inputline;
-        while((inputline = br.readLine()) != null)
-        {
-            System.out.println(inputline);
-        }
-
-        br.close();
-    }*/
 
     protected class Grabber
     {
@@ -87,7 +69,10 @@ public class grabDay
             connection = (HttpsURLConnection) ipass.openConnection();
             connection.setRequestMethod("GET");
 
-            connection.setRequestProperty("User-Agent", USER_AGENT);
+            connection.setRequestProperty("User-Agent", "Foo?");
+
+            connection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            connection.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch, br");
 
             if (cookies != null)
             {
@@ -106,18 +91,18 @@ public class grabDay
             BufferedReader br = new BufferedReader(ir);
 
             String inLine;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
 
             while((inLine = br.readLine()) != null)
             {
                 response.append(inLine);
+                response.append("\n");
             }
-
             br.close();
             ir.close();
 
+
             //TODO: This is what needs to be fixed
-            setCookies(connection.getHeaderFields().get("Set-Cookie"));
 
             return response.toString();
         }
@@ -176,15 +161,12 @@ public class grabDay
             connection = (HttpURLConnection) obj.openConnection();
 
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("User-Agent", USER_AGENT);
+            connection.setRequestProperty("User-Agent", "Foo?");
             connection.setRequestProperty("Connection", "keep-alive");
+            connection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            connection.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch, br");
 
 
-            //TODO: program breaks here
-            for (String cookie : cookies)
-            {
-                connection.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
-            }
 
             connection.setDoOutput(true);
             connection.setDoInput(true);
@@ -195,9 +177,10 @@ public class grabDay
             dos.flush();
             dos.close();
 
+
             int response = connection.getResponseCode();
 
-            System.out.printf("\nSending POST request to "+url);
+            System.out.println("\nSending POST request to "+url);
             System.out.println("Parameters : " + params);
             System.out.println("Response code:" + response);
 
@@ -210,6 +193,8 @@ public class grabDay
                 stringbuffer.append(input);
             }
             br.close();
+
+            System.out.println(stringbuffer.toString());
         }
 
         private List<String> getCookies()
