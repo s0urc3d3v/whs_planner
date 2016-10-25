@@ -1,5 +1,6 @@
 package WHS_planner.News.ui;
 
+import WHS_planner.News.html.HTMLScanner;
 import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
@@ -12,8 +13,13 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -25,7 +31,10 @@ public class SimpleController implements Initializable {
     private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
     private List<FeedMessage> feedArray = feed.getMessages();
+    private HTMLScanner HTMLScanner = new HTMLScanner();
     private ObservableList<VBox> articleList = FXCollections.observableArrayList();
+    private URL url;
+
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         updateFrame();
@@ -41,19 +50,38 @@ public class SimpleController implements Initializable {
     }
 
     @FXML
-    private void updateFrame() {
-        //Deletes old article list
+    private void updateFrame() throws IOException {
         articleList.clear();
 
-        //Initialize refresh button
         JFXButton refreshButton = new JFXButton("Refresh");
         refreshButton.getStyleClass().add("button-raised");
         refreshButton.setOnAction((event) -> updateFrame());
         VBox r = new VBox(refreshButton);
         articleList.add(r);
 
-        //Initializes vbox of articles
         for (int i = 0; i < feedArray.size(); i++) {
+            url = new URL(HTMLScanner.scanHTML(HTMLScanner.scanURL(new URL(feedArray.get(i).getLink()))));
+
+            BufferedImage bf = null;
+            try {
+                bf = ImageIO.read(url);
+            } catch (IOException ex) {
+            }
+
+            WritableImage wr = null;
+            if (bf != null) {
+                wr = new WritableImage(bf.getWidth(), bf.getHeight());
+                PixelWriter pw = wr.getPixelWriter();
+                for (int x = 0; x < bf.getWidth(); x++) {
+                    for (int y = 0; y < bf.getHeight(); y++) {
+                        pw.setArgb(x, y, bf.getRGB(x, y));
+                    }
+                }
+            }
+
+            ImageView img = new ImageView(wr);
+            img.setImage(wr);
+
             final int eye = i;
             Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
             hpl.setOnAction((event) -> openLink(eye));
@@ -68,9 +96,6 @@ public class SimpleController implements Initializable {
             articleList.add(v);
         }
 
-        //Sets list view to list of articles
         articleListView.setItems(articleList);
     }
 }
-
-//test

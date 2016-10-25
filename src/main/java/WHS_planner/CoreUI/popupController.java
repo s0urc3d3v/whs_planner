@@ -47,6 +47,7 @@ public class popupController implements Initializable{
 
     private Stage stage = null;
 
+
     public popupController(){
 
     }
@@ -106,6 +107,9 @@ public class popupController implements Initializable{
 
     }
 
+    java.util.HashMap getResult() {
+        return null;
+    }
 
 
     @FXML

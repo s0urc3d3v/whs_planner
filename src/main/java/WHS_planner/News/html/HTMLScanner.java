@@ -5,10 +5,9 @@ import java.net.URLConnection;
 import java.util.Scanner;
 
 
+public class HTMLScanner {
 
-class HTMLScanner {
-
-    String scanURL(URL link) {
+    public String scanURL(URL link) {
         String content = null;
         URLConnection connection;
         try {
@@ -25,7 +24,7 @@ class HTMLScanner {
     }
 
 
-    String scanHTML(String content) {
+    public String scanHTML(String content) {
         String link;
         if (content.contains("prettyPhoto[1]")) {
             content = content.substring(content.indexOf("prettyPhoto[1]") + 22, content.length());
