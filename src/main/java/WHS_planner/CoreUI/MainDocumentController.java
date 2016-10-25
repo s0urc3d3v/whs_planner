@@ -32,7 +32,7 @@ public class MainDocumentController implements Initializable {
     Calendar cal;
 
     @FXML
-    private AnchorPane anchorPane;
+    private VBox anchorPane;
 
     @FXML
     private Pane topBar;
@@ -81,8 +81,8 @@ public class MainDocumentController implements Initializable {
 
         buttonArray[0].setOnMouseClicked(event -> {
             if(!anchorPane.getChildren().contains(cal)) {
-                anchorPane.getChildren().add(0, cal);
-                anchorPane.setTopAnchor(cal, 45.0);
+                anchorPane.getChildren().add(1, cal);
+//                anchorPane.setTopAnchor(cal, 45.0);
             }
         });
         VBox vBox = new VBox(buttonArray);
