@@ -67,3 +67,5 @@ public class SimpleController implements Initializable {
         articleListView.setItems(articleList);
     }
 }
+
+//test
