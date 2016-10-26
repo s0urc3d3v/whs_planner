@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.BorderPane?>
@@ -17,7 +16,7 @@
 
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WHS_planner.Schedule.ScheduleController">
    <center>
-      <GridPane fx:id="grid" style="-fx-border-color: Black; -fx-grid-lines-visible: True;" BorderPane.alignment="CENTER">
+      <GridPane fx:id="grid" style="-fx-border-color: Black; -fx-grid-lines-visible: False;" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -41,6 +40,7 @@
             <RowConstraints minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
+            <Pane fx:id="P11" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="51.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="41.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <fill>
                   <LinearGradient endX="0.7163461538461539" endY="0.014423076923076924" startX="0.5384615384615384" startY="0.673076923076923">
@@ -651,16 +651,6 @@
                   </LinearGradient>
                </fill>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="51.0" layoutX="11.0" layoutY="87.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="41.0" GridPane.rowIndex="2">
-               <fill>
-                  <LinearGradient endX="0.7163461538461539" endY="0.014423076923076924" startX="0.5384615384615384" startY="0.673076923076923">
-                     <stops>
-                        <Stop color="#f3a55891" />
-                        <Stop color="#ffffff00" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </fill>
-            </Rectangle>
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="51.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="41.0" GridPane.rowIndex="3">
                <fill>
                   <LinearGradient endX="0.7163461538461539" endY="0.014423076923076924" startX="0.5384615384615384" startY="0.673076923076923">
@@ -1130,7 +1120,7 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+            <Label fx:id="Time7" alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <font>
                   <Font size="10.0" />
                </font>
@@ -1140,37 +1130,37 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+            <Label fx:id="B7" alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+            <Label fx:id="C7" alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+            <Label fx:id="D7" alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label text="Label" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+            <Label fx:id="E7" text="Label" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+            <Label fx:id="F7" alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+            <Label fx:id="G7" alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+            <Label fx:id="H7" alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <font>
                   <Font size="10.0" />
                </font>
@@ -1189,15 +1179,7 @@
       <Pane prefHeight="388.0" prefWidth="102.0" BorderPane.alignment="CENTER" />
    </right>
    <left>
-      <BorderPane prefHeight="426.0" prefWidth="104.0" BorderPane.alignment="CENTER">
-         <top>
-            <Button fx:id="ChangeButton" mnemonicParsing="false" onAction="#TylerIsACreep" text="See Today" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="12.0" />
-               </font>
-            </Button>
-         </top>
-      </BorderPane>
+      <BorderPane prefHeight="426.0" prefWidth="104.0" BorderPane.alignment="CENTER" />
    </left>
    <bottom>
       <BorderPane prefHeight="58.0" prefWidth="573.0" BorderPane.alignment="CENTER">

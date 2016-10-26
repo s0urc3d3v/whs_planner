@@ -6,8 +6,13 @@ import WHS_planner.CoreUI.NavigationBar;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 public class Main extends Application
 {
+    public static NavigationBar bar;
+
     public static void main(String[] args)
     {
        /*if (System.getProperty("os.name").toLowerCase().contains("mac") || System.getProperty("os.name").toLowerCase().contains("os x")){
@@ -19,7 +24,7 @@ public class Main extends Application
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        NavigationBar bar = new NavigationBar();
+        bar = new NavigationBar();
         bar.start(primaryStage);
     }
 }
