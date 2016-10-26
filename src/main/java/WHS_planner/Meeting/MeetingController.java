@@ -55,6 +55,7 @@ public class MeetingController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("initialized");
         anchorPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
                 resize();
@@ -67,6 +68,9 @@ public class MeetingController implements Initializable{
         classListView.setItems(classContents);
         requestingListView.setItems(requestingContents);
         requestedListView.setItems(requestedContents);
+
+        addSession("I", "Really", "Enjoy", "Ripping", "A", "Fat", "Fucking", "Vape", "My", "Friends");
+        System.out.println("Session Added");
 
         anchorPane.applyCss();
 
@@ -97,6 +101,9 @@ public class MeetingController implements Initializable{
                 }
             }
         });
+
+
+
 
     }
 
