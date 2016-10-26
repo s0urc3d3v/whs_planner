@@ -147,7 +147,7 @@ public class MeetingController implements Initializable{
     public void changeSession(int Index,String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
         requestingContents.set(Index, new VBox(new Label(requestingStudentName), new Label(requestingGrade), new Label(requestingLevel), new Label(requestingTeacher)));
         classContents.set(Index, new VBox(new Label(className), new Label(classTime), new Label(" "), new Label(" ")));
-        requestedContents.set(Index, new VBox(new Label(requestingStudentName), new Label(requestingGrade), new Label(requestingLevel), new Label(requestingTeacher)));
+        requestedContents.set(Index, new VBox(new Label(requestedStudentName), new Label(requestedStudentGrade), new Label(requestedStudentLevel), new Label(requestedStudentTeacher)));
 
         requestingListView.setItems(requestingContents);
         classListView.setItems(classContents);
