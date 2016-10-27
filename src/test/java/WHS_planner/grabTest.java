@@ -30,12 +30,13 @@ public class grabTest extends TestCase
             System.out.println("User: "+user+" : Password: "+pass);
 
             grabDay gd = new grabDay(user, pass);
-            //gd.grabData();
-
+            gd.grabData();
 
             ParseCalendar pc = new ParseCalendar();
 
             pc.setData();
+
+            System.out.println(pc.getDay("10/25"));
 
         }
         catch(Exception e)

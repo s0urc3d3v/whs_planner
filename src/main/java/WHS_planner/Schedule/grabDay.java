@@ -77,32 +77,50 @@ public class grabDay
             switch(i)
             {
                 case 0: mon = "January";
+                    year = Calendar.getInstance().get(Calendar.YEAR)+1;
                     break;
                 case 1: mon = "February";
+                    year = Calendar.getInstance().get(Calendar.YEAR)+1;
                     break;
                 case 2: mon = "March";
+                    year = Calendar.getInstance().get(Calendar.YEAR)+1;
                     break;
                 case 3: mon = "April";
+                    year = Calendar.getInstance().get(Calendar.YEAR)+1;
                     break;
                 case 4: mon = "May";
+                    year = Calendar.getInstance().get(Calendar.YEAR)+1;
                         break;
                 case 5: mon = "June";
+                    year = Calendar.getInstance().get(Calendar.YEAR)+1;
                     break;
                 case 6: mon = "July";
+                    year = Calendar.getInstance().get(Calendar.YEAR);
                     break;
                 case 7: mon = "August";
+                    year = Calendar.getInstance().get(Calendar.YEAR);
                     break;
                 case 8: mon = "September";
+                    year = Calendar.getInstance().get(Calendar.YEAR);
                     break;
                 case 9: mon = "October";
+                    year = Calendar.getInstance().get(Calendar.YEAR);
                     break;
                 case 10: mon = "November";
+                    year = Calendar.getInstance().get(Calendar.YEAR);
                     break;
                 case 11: mon = "December";
+                    year = Calendar.getInstance().get(Calendar.YEAR);
                     break;
                 default: mon = "Error";
                     break;
             }
+
+            if(Calendar.getInstance().get(Calendar.MONTH) < 8)
+            {
+                year = Calendar.getInstance().get(Calendar.YEAR);
+            }
+
 
             String childs = foldername + "/"+mon;
             File child = new File(childs);
