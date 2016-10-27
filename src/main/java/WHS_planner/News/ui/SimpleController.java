@@ -38,6 +38,8 @@ public class SimpleController implements Initializable {
     private URL kms;
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+
+
         updateFrame();
     }
 
