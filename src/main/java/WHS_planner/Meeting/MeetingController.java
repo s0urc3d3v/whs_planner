@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
@@ -69,8 +70,7 @@ public class MeetingController implements Initializable{
         requestingListView.setItems(requestingContents);
         requestedListView.setItems(requestedContents);
 
-        addSession("I", "Really", "Enjoy", "Ripping", "A", "Fat", "Fucking", "Vape", "My", "Friends");
-        System.out.println("Session Added");
+        addSession("Name1", "Grade1", "Level1", "Teacher1", "Class", "Time", "Name2", "Grade2", "Level2", "Teacher2");
 
         anchorPane.applyCss();
 
@@ -135,9 +135,9 @@ public class MeetingController implements Initializable{
     }
 
     public void addSession(String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
-        requestingContents.add(new VBox(new Label(requestingStudentName), new Label(requestingGrade), new Label(requestingLevel), new Label(requestingTeacher)));
-        classContents.add(new VBox(new Label(className), new Label(classTime), new Label(" "), new Label(" ")));
-        requestedContents.add(new VBox(new Label(requestingStudentName), new Label(requestingGrade), new Label(requestingLevel), new Label(requestingTeacher)));
+        requestingContents.add(createVBox(requestingStudentName, requestingGrade, requestingLevel, requestingTeacher));
+        classContents.add(createVBox(className, classTime, " ", " "));
+        requestedContents.add(createVBox(requestedStudentName, requestedStudentGrade, requestedStudentLevel, requestedStudentTeacher));
 
         requestingListView.setItems(requestingContents);
         classListView.setItems(classContents);
@@ -145,9 +145,9 @@ public class MeetingController implements Initializable{
     }
 
     public void changeSession(int Index,String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
-        requestingContents.set(Index, new VBox(new Label(requestingStudentName), new Label(requestingGrade), new Label(requestingLevel), new Label(requestingTeacher)));
-        classContents.set(Index, new VBox(new Label(className), new Label(classTime), new Label(" "), new Label(" ")));
-        requestedContents.set(Index, new VBox(new Label(requestedStudentName), new Label(requestedStudentGrade), new Label(requestedStudentLevel), new Label(requestedStudentTeacher)));
+        requestingContents.add(createVBox(requestingStudentName, requestingGrade, requestingLevel, requestingTeacher));
+        classContents.add(createVBox(className, classTime, " ", " "));
+        requestedContents.add(createVBox(requestedStudentName, requestedStudentGrade, requestedStudentLevel, requestedStudentTeacher));
 
         requestingListView.setItems(requestingContents);
         classListView.setItems(classContents);
@@ -162,5 +162,18 @@ public class MeetingController implements Initializable{
         requestingListView.setItems(requestingContents);
         classListView.setItems(classContents);
         requestedListView.setItems(requestedContents);
+    }
+
+    private VBox createVBox(String one, String two, String three, String four){
+        Label l1 = new Label(one);
+        l1.setPadding(new Insets(5));
+        Label l2 = new Label(two);
+        l2.setPadding(new Insets(5));
+        Label l3 = new Label(three);
+        l3.setPadding(new Insets(5));
+        Label l4 = new Label(four);
+        l4.setPadding(new Insets(5));
+        VBox vbox = new VBox(l1, l2, l3, l4);
+        return vbox;
     }
 }
