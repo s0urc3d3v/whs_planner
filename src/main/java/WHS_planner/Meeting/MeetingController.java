@@ -44,7 +44,7 @@ public class MeetingController implements Initializable{
     private ObservableList<VBox> classContents;
 
     private ObservableList<VBox> requestedContents;
-
+    //populate JFXMListViews from json
 
 
     private Stage stage = null;
@@ -101,10 +101,9 @@ public class MeetingController implements Initializable{
                 }
             }
         });
-
-
-
-
+        //Set text here from: https://community.oracle.com/thread/2307758
+        ObservableList<String> items = requestedListView.getItems();
+        items.add("[PLACEHOLDER]");
     }
 
     public HashMap<String, Object> getResult() {
