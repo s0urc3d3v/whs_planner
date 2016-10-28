@@ -74,14 +74,11 @@ public class popupController implements Initializable{
                 resize();
             }
         });
-
-
-
-
         nameContents = FXCollections.observableArrayList();
         dateContents = FXCollections.observableArrayList();
         timeContents = FXCollections.observableArrayList();
         minusContents = FXCollections.observableArrayList();
+
         nameListView.setItems(nameContents);
         dateListView.setItems(dateContents);
         timeListView.setItems(timeContents);
@@ -158,13 +155,14 @@ public class popupController implements Initializable{
                 for (int i = 0; i < minusContents.size(); i++) {
                     if (minusContents.get(i) == tempMinusButton) {
                         index = i;
-break;
+                        break;
                     }
                 }
                 timeContents.remove(index);
                 nameContents.remove(index);
                 dateContents.remove(index);
                 minusContents.remove(index);
+
                 timeListView.setItems(timeContents);
                 dateListView.setItems(dateContents);
                 nameListView.setItems(nameContents);
@@ -200,28 +198,5 @@ break;
         nameListView.setPrefWidth((sportsPopupAnchorPane.getWidth()-75)/3);
         dateListView.setPrefWidth((sportsPopupAnchorPane.getWidth()-75)/3);
         timeListView.setPrefWidth((sportsPopupAnchorPane.getWidth()-75)/3);
-    }
-
-    class SportsEvent extends RecursiveTreeObject<SportsEvent> {
-        //        private Date date;
-//        private String event;
-        private SimpleDateFormat dateFormat;
-        private SimpleDateFormat timeFormat;
-
-        Date time;
-        Date date;
-        StringProperty event;
-
-        private SportsEvent(Date d, Date t, String s) {
-            date = d;
-            time = t;
-            event = new SimpleStringProperty(s);
-            dateFormat = new SimpleDateFormat("h:mm a");
-            timeFormat = new SimpleDateFormat("EEE, MMM d");
-
-            dateFormat.parse(date.toString(), new ParsePosition(0));
-            timeFormat.parse(time.toString(), new ParsePosition(0));
-        }
-
     }
 }
