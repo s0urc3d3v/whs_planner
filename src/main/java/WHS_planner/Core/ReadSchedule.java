@@ -26,7 +26,7 @@ public class ReadSchedule {
     private String pageSource;
     public ReadSchedule (){
         try{
-            String execPath = System.getProperty("user.dir") + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "chromedriver";
+            String execPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "chromedriver";
             File chromeWebDriverExec = new File(execPath);
             System.setProperty("webdriver.chrome.driver", (execPath));
         }
