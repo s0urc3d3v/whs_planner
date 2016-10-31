@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
+import java.io.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +30,7 @@ public class Schedule
 
     public static Scene schedule;
     public static Scene day;
+
 
     public Schedule()
     {
@@ -124,29 +125,24 @@ public class Schedule
                     break;
             }
 
+            try
+            {
+                System.out.println(letter+incr2);
+
+                Label l = (Label) labels.get(letter+incr2);
+                l.setText(s);
+                l.setWrapText(true);
+            }
+            catch(Exception e)
+            {
+                //e.printStackTrace();
+            }
+
             incr++;
             if(incr == 8)
             {
                 incr = 0;
                 incr2++;
-            }
-
-
-            try
-            {
-                Label l = (Label) labels.get(letter+incr2);
-                /*Bounds l2 = l.getBoundsInLocal();
-                double scalex = l.getWidth()/l2.getWidth();
-                l.setScaleX(scalex);*/
-                l.setText(s);
-                l.setWrapText(true);
-
-
-
-            }
-            catch(Exception e)
-            {
-                //e.printStackTrace();
             }
         }
     }

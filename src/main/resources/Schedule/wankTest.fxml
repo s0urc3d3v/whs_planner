@@ -531,7 +531,7 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label fx:id="G6" alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <Label fx:id="G7" alignment="CENTER" text="Label" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <font>
                   <Font size="10.0" />
                </font>

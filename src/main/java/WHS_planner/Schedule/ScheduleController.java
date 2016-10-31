@@ -1,6 +1,7 @@
 package WHS_planner.Schedule;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Label;
@@ -45,10 +46,11 @@ public class ScheduleController implements Initializable, ActionListener
 
     private Map<String, Object> labels;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        labels = Schedule.loader.getNamespace();
+        //labels = Schedule.loader.getNamespace();
 
 
 
