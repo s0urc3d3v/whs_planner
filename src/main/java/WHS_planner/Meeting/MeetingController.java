@@ -1,5 +1,7 @@
 package WHS_planner.Meeting;
 
+import WHS_planner.Core.IO;
+import WHS_planner.Core.Meeting;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
@@ -21,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -101,9 +104,19 @@ public class MeetingController implements Initializable{
                 }
             }
         });
-        //Set text here from: https://community.oracle.com/thread/2307758
-        ObservableList<String> items = requestedListView.getItems();
-        items.add("[PLACEHOLDER]");
+        IO io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json.whsplannermeeting");
+        Meeting meeting = io.readMeetingJsonData();
+        addSession(meeting.getRequestingStudent().getFirstName() + " " + meeting.getRequestingStudent().getLastName(),
+                String.valueOf(meeting.getRequestingStudent().getGrade()),
+                String.valueOf(meeting.getCourse().getCourseLevel()),
+                meeting.getRequestingStudent().getTeacher(),
+                String.valueOf(meeting.getCourse()),
+                meeting.getHour() + ":" + meeting.getMinute(),
+                meeting.getStudentRequested().getFirstName() + " " + meeting.getStudentRequested().getLastName(),
+                String.valueOf(meeting.getStudentRequested().getGrade()),
+                String.valueOf(meeting.getCourse().getCourseLevel()),
+                meeting.getStudentRequested().getTeacher());
+
     }
 
     public HashMap<String, Object> getResult() {

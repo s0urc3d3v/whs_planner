@@ -12,14 +12,14 @@ import junit.framework.TestCase;
 public class MeetingTest extends TestCase {
     public void testMeetingCreation(){
         Course english = new Course("English", 4, "Teacher", Course.level.COLLEGE);
-        Student requestingStudent = new Student("John", "Smith", "test@test.com", 12);
-        Student studentRequested = new Student("Smith", "John", "matthewelbing@gmail.com", 12);
+        Student requestingStudent = new Student("John", "Smith", "test@test.com", 12, "teacher1");
+        Student studentRequested = new Student("Smith", "John", "matthewelbing@gmail.com", 12, "teacher2");
         Meeting m = new Meeting(requestingStudent, studentRequested, 10, 12, english);
         m.create();
-        try {
+        /*try {
             GmailApiAccess.sendEmail(studentRequested.getEmail(), requestingStudent.getEmail(), "WHS_planner meeting", "test");
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

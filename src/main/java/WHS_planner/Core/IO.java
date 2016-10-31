@@ -55,18 +55,20 @@ public class IO {
         requestingStuentJsonData.add(requestingStudent.getLastName());
         requestingStuentJsonData.add(requestingStudent.getEmail());
         requestingStuentJsonData.add(requestingStudent.getGrade());
+        requestingStuentJsonData.add(requestingStudent.getTeacher());
 
         JSONArray studentRequestedJsonData = new JSONArray();
         studentRequestedJsonData.add(studentRequested.getFirstName());
         studentRequestedJsonData.add(studentRequested.getLastName());
         studentRequestedJsonData.add(studentRequested.getEmail());
         studentRequestedJsonData.add(studentRequested.getGrade());
+        studentRequestedJsonData.add(studentRequested.getTeacher());
 
         JSONArray requestedCourse = new JSONArray();
         requestedCourse.add(course.getName());
         requestedCourse.add(course.getPeriod());
         requestedCourse.add(course.getTeacher());
-        requestedCourse.add(course.getCourseLevel());
+        requestedCourse.add(String.valueOf(course.getCourseLevel()));
 
 
         object.put("studentRequesting", requestingStuentJsonData);
@@ -83,7 +85,7 @@ public class IO {
 
     }
 
-    public void readMeetingJsonData(){
+    public Meeting readMeetingJsonData(){
         JSONObject rawObject = jsonApi.readRaw();
 
         JSONArray requestingStudentArray = (JSONArray) rawObject.get("studentRequesting"); //JSONArray
@@ -92,7 +94,8 @@ public class IO {
         String rsLastName = requestingStudentIterator.next();
         String rsEmail = requestingStudentIterator.next();
         String rsGrade = requestingStudentIterator.next();
-        Student requestingStudent = new Student(rsFirstName, rsLastName, rsEmail, Integer.parseInt(rsGrade));
+        String rsTeacher = requestingStudentIterator.next();
+        Student requestingStudent = new Student(rsFirstName, rsLastName, rsEmail, Integer.parseInt(rsGrade), rsTeacher);
 
         JSONArray studentRequestedArray = (JSONArray) rawObject.get("studentRequested");
         Iterator<String> studentRequestedIterator = studentRequestedArray.iterator();
@@ -100,7 +103,8 @@ public class IO {
         String srLastName = studentRequestedIterator.next();
         String srEmail = studentRequestedIterator.next();
         String srGrade = studentRequestedIterator.next();
-        Student studentRequested = new Student(srFirstName, srLastName, srEmail, Integer.parseInt(srGrade));
+        String srTeacher = studentRequestedIterator.next();
+        Student studentRequested = new Student(srFirstName, srLastName, srEmail, Integer.parseInt(srGrade), srTeacher);
 
         JSONArray courseArray = (JSONArray) rawObject.get("course");
         Iterator<String> courseArrayIterator = courseArray.iterator();
@@ -115,6 +119,7 @@ public class IO {
         int minute = Integer.parseInt(String.valueOf(rawObject.get("minute")));
 
         Meeting receivedMeeting = new Meeting(requestingStudent, studentRequested, hour, minute, course);
+        return receivedMeeting;
 
     }
 

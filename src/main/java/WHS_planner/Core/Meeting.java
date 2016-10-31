@@ -13,6 +13,55 @@ public class Meeting {
     private Student studentRequested;
     private long hour;
     private long minute;
+
+    public Student getRequestingStudent() {
+        return requestingStudent;
+    }
+
+    public void setRequestingStudent(Student requestingStudent) {
+        this.requestingStudent = requestingStudent;
+    }
+
+    public Student getStudentRequested() {
+        return studentRequested;
+    }
+
+    public void setStudentRequested(Student studentRequested) {
+        this.studentRequested = studentRequested;
+    }
+
+    public long getHour() {
+        return hour;
+    }
+
+    public void setHour(long hour) {
+        this.hour = hour;
+    }
+
+    public long getMinute() {
+        return minute;
+    }
+
+    public void setMinute(long minute) {
+        this.minute = minute;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public IO getIo() {
+        return io;
+    }
+
+    public void setIo(IO io) {
+        this.io = io;
+    }
+
     private Course course;
     private IO io;
 
