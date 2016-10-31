@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -35,10 +34,6 @@
       <Pane prefHeight="193.0" prefWidth="129.0" BorderPane.alignment="CENTER" />
    </right>
    <left>
-      <BorderPane prefHeight="193.0" prefWidth="134.0" BorderPane.alignment="CENTER">
-         <top>
-            <JFXButton fx:id="changestuff" defaultButton="true" prefHeight="26.0" prefWidth="104.0" ripplerFill="#c97575" text="See Schedule" BorderPane.alignment="CENTER" onAction="#dirtyLittleSecret"/>
-         </top>
-      </BorderPane>
+      <BorderPane prefHeight="193.0" prefWidth="134.0" BorderPane.alignment="CENTER" />
    </left>
 </BorderPane>

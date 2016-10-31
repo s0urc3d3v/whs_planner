@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,20 +12,22 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * Created by matthewelbing on 16.09.16.
+ */
 public class JSON {
 
     private FileWriter fileWriter;
     private JSONObject object = new JSONObject();
     private JSONParser parser;
 
-    public JSON () {
-       parser = new JSONParser();
+    public JSON() {
+        parser = new JSONParser();
     }
 
     /**
-     @Param filePath
-     @return If the file was successfully loaded
-     *
+     * @return If the file was successfully loaded
+     * @Param filePath
      */
     public boolean loadFile(String filePath) {
         try {
@@ -49,9 +52,10 @@ public class JSON {
 
     /**
      * Unloads a JSON file from memory
+     *
      * @Note: Once the file is unloaded it cannot be read from or written from until a new file is loaded with loadFile.
      */
-    public void unloadFile(){
+    public void unloadFile() {
         try {
             fileWriter.write(object.toJSONString());
             fileWriter.flush();
@@ -67,18 +71,19 @@ public class JSON {
 
     /**
      * Loads and returns a single object from a JSON file.
+     *
      * @Param key of object to load
-     * @Return JSONObject from JSON File
+     * @Return Object from JSON File
      */
-    public JSONObject readObject(String key)
-    {
-        return (JSONObject) object.get(key);
+    public Object readObject(String key) {
+        return object.get(key);
     }
 
     /**
-     * Loads an array of objects from a JSON file.
+     * Loads an array of objects from a JSON file
+     *
      * @Param Key of object to load
-     * @Return JSONArray from JSON File
+     * @Return Object array from JSON File
      */
     public JSONArray readArray(String key) {
         JSONArray array = (JSONArray) object.get(key);
@@ -86,14 +91,29 @@ public class JSON {
     }
 
     /**
+     * Loads the key value from a JSON file. Only public interface for this functionality.
+     *
+     * @Param String key of the JSON value
+     * @Return returns either an object array or a single object that can be cast to a JSONObject.
+     */
+    public Object readPair(String key) {
+        if (key.length() >= 1 && key.substring(0, 1).equals("@")) {
+            //It is an array and needs to be parsed as one.
+            return readArray(key);
+        }
+        return readObject(key);
+    }
+
+    /**
      * 'Drops' the JSON Table, giving you the entire table
+     *
      * @Return returns an entire hashmap of Objects that can be casted into JSONObjects and accessed
      */
-    public HashMap<Object, Object> dropJsonDb(){
+    public HashMap<Object, Object> dropJsonDb() {
         Set set = object.keySet();
         Iterator<String> iterator = set.iterator();
         HashMap<Object, Object> hashMap = new HashMap<>();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             String key = iterator.next();
             hashMap.put(key, object.get(key));
         }
@@ -106,15 +126,17 @@ public class JSON {
 
     /**
      * Writes a value to the JSON File in memory
+     *
      * @Param Key is the identifier of the JSON Object
      * @Param Data is the value of the JSON Object
      */
-    public void writePair(String key, String data){
+    public void writePair(String key, String data) {
         object.put(key, data);
     }
 
     /**
      * Writes an array to the JSON File in memory
+     *
      * @Param Key is the identifier of the JSON Object
      * @Param Data is the value of the JSON Object
      */
@@ -126,4 +148,22 @@ public class JSON {
         object.put("@" + key, jsonArray);
     }
 
+    /**
+     * Writes a raw JSONObject allowing for custom file layouts
+     * @param obj JSONObject with custom layout
+     * @throws IOException IOEXception is thrown form FileWriter.write(), and .flush()
+     */
+    public void writeRaw(JSONObject obj) throws IOException {
+        fileWriter.write(obj.toJSONString());
+        fileWriter.flush();
+    }
+
+    /**
+     * Gets raw json data for custom parsing
+     * @return JSONObject object
+     */
+    public JSONObject readRaw(){
+        return object;
+    }
 }
+

@@ -3,19 +3,15 @@ package WHS_planner.News.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * Stores an RSS read
- */
 public class Feed {
 
-    final String title;
-    final String link;
-    final String description;
-    final String language;
-    final String copyright;
-    final String pubDate;
-
-    final List<FeedMessage> entries = new ArrayList<FeedMessage>();
+    private final List<FeedMessage> entries = new ArrayList<>();
+    private final String title;
+    private final String link;
+    private final String description;
+    private final String language;
+    private final String copyright;
+    private final String pubDate;
 
     public Feed(String title, String link, String description, String language,
                 String copyright, String pubDate) {
@@ -26,7 +22,6 @@ public class Feed {
         this.copyright = copyright;
         this.pubDate = pubDate;
     }
-
 
     public List<FeedMessage> getMessages() {
         return entries;

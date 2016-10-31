@@ -8,7 +8,6 @@ import junit.framework.TestCase;
  */
 public class AutoSaveTest extends TestCase {
     public void testAutoSave(){
-        AutoSave autoSave = new AutoSave();
-        autoSave.run();
+        AutoSave autoSave = new AutoSave(100);
     }
 }

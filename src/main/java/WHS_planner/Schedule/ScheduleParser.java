@@ -1,6 +1,7 @@
 package WHS_planner.Schedule;
 
 import WHS_planner.Core.IO;
+import WHS_planner.Core.ReadSchedule;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -114,6 +115,20 @@ public class ScheduleParser
         }
 
             return polishedStr;
+        }
+
+
+        public void grabwebpage(String u, String p)
+        {
+            try
+            {
+                ReadSchedule r = new ReadSchedule();
+                r.authAndFindTableWithIpass(u, p); //replace user and pass with credentials
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" vbarPolicy="ALWAYS"
+            xmlns="http://javafx.com/javafx/8.0.65" fx:controller="WHS_planner.News.ui.SimpleController">
+    <content>
+        <AnchorPane prefHeight="600.0" prefWidth="800.0">
+            <children>
+                <Hyperlink fx:id="Title1" layoutX="39.0" layoutY="24.0" onAction="#openLink" text="Title">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Hyperlink>
+                <Label id="Author1" fx:id="AuthorOne" layoutX="48.0" layoutY="72.0" text="Author">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                </Label>
+                <Label id="Description1" fx:id="DescriptionOne" layoutX="48.0" layoutY="96.0" text="Description">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Button id="refreshButton" layoutX="706.0" layoutY="12.0" mnemonicParsing="false" text="Refresh" />
+            <Hyperlink fx:id="Title2" layoutX="39.0" layoutY="148.0" onAction="#openLink" text="Title">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Hyperlink>
+            <Label id="Author1" fx:id="AuthorTwo" layoutX="48.0" layoutY="200.0" text="Author">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="Description1" fx:id="DescriptionTwo" layoutX="48.0" layoutY="224.0" text="Description">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="Title3" layoutX="40.0" layoutY="284.0" onAction="#openLink" text="Title">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Hyperlink>
+            <Label id="Author1" fx:id="AuthorThree" layoutX="49.0" layoutY="332.0" text="Author">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="Description1" fx:id="DescriptionThree" layoutX="49.0" layoutY="356.0" text="Description">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="Title4" layoutX="40.0" layoutY="416.0" onAction="#openLink" text="Title">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Hyperlink>
+            <Label id="Author1" fx:id="AuthorFour" layoutX="49.0" layoutY="464.0" text="Author">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label id="Description1" fx:id="DescriptionFour" layoutX="49.0" layoutY="488.0" text="Description">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+                <Hyperlink fx:id="Title5" layoutX="40.0" layoutY="548.0" onAction="#openLink" text="Title">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Hyperlink>
+                <Label id="Author1" fx:id="AuthorFive" layoutX="49.0" layoutY="596.0" text="Author">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                </Label>
+                <Label id="Description1" fx:id="DescriptionFive" layoutX="49.0" layoutY="620.0" text="Description">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Hyperlink fx:id="Title6" layoutX="40.0" layoutY="680.0" onAction="#openLink" text="Title">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Hyperlink>
+                <Label id="Author1" fx:id="AuthorSix" layoutX="49.0" layoutY="724.0" text="Author">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                </Label>
+                <Label id="Description1" fx:id="DescriptionSix" layoutX="49.0" layoutY="748.0" text="Description">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Hyperlink fx:id="Title7" layoutX="40.0" layoutY="808.0" onAction="#openLink" text="Title">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Hyperlink>
+                <Label id="Author1" fx:id="AuthorSeven" layoutX="49.0" layoutY="856.0" text="Author">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                </Label>
+                <Label id="Description1" fx:id="DescriptionSeven" layoutX="49.0" layoutY="880.0" text="Description">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Hyperlink fx:id="Title8" layoutX="40.0" layoutY="940.0" onAction="#openLink" text="Title">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Hyperlink>
+                <Label id="Author1" fx:id="AuthorEight" layoutX="49.0" layoutY="988.0" text="Author">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                </Label>
+                <Label id="Description1" fx:id="DescriptionEight" layoutX="49.0" layoutY="1012.0" text="Description">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Hyperlink fx:id="Title9" layoutX="40.0" layoutY="1072.0" onAction="#openLink" text="Title">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Hyperlink>
+                <Label id="Author1" fx:id="AuthorNine" layoutX="49.0" layoutY="1120.0" text="Author">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                </Label>
+                <Label id="Description1" fx:id="DescriptionNine" layoutX="49.0" layoutY="1144.0" text="Description">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Hyperlink fx:id="Title10" layoutX="40.0" layoutY="1204.0" onAction="#openLink" text="Title">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Hyperlink>
+                <Label id="Author1" fx:id="AuthorTen" layoutX="49.0" layoutY="1252.0" text="Author">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                </Label>
+                <Label id="Description1" fx:id="DescriptionTen" layoutX="49.0" layoutY="1276.0" text="Description">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </content>
+</ScrollPane>
