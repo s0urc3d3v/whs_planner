@@ -3,17 +3,15 @@ package WHS_planner.Schedule;
 import WHS_planner.Core.IO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Map;
 
 public class Schedule
@@ -33,8 +31,6 @@ public class Schedule
     public static Scene schedule;
     public static Scene day;
 
-    public static FXMLLoader loader;
-
     public Schedule()
     {
         try
@@ -50,7 +46,7 @@ public class Schedule
 
     public void buildSchedule() throws Exception
     {
-        loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader();
 
         loader.setLocation(getClass().getResource("/Schedule/wankTest.fxml"));
 
@@ -99,8 +95,10 @@ public class Schedule
             }
             else
             {
-                s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+currentPeriod;
+                s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+ "Block:" + currentPeriod;
             }
+
+            //System.out.println(s);
 
             String letter;
 
@@ -137,7 +135,13 @@ public class Schedule
             try
             {
                 Label l = (Label) labels.get(letter+incr2);
+                /*Bounds l2 = l.getBoundsInLocal();
+                double scalex = l.getWidth()/l2.getWidth();
+                l.setScaleX(scalex);*/
                 l.setText(s);
+                l.setWrapText(true);
+
+
 
             }
             catch(Exception e)
@@ -222,6 +226,5 @@ public class Schedule
         Node n = day.getRoot();
         return n;
     }
-
 
 }
