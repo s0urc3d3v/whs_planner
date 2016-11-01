@@ -32,15 +32,16 @@ public class SimpleController implements Initializable {
     private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
     private List<FeedMessage> feedArray = feed.getMessages();
+    private List<FeedMessage> newArticles = feed.getMessages();
+    private double widthLength;
     private HTMLScanner HTMLScanner = new HTMLScanner();
     private ObservableList<VBox> articleList = FXCollections.observableArrayList();
     private URL url;
     private URL kms;
-
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 
 
-        updateFrame();
+        init();
     }
 
     @FXML
@@ -54,26 +55,28 @@ public class SimpleController implements Initializable {
 
     @FXML
     private void updateFrame() {
-        double widthLength;
-        articleList.clear();
-        JFXButton refreshButton = new JFXButton("Refresh");
-        refreshButton.getStyleClass().add("button-raised");
-        refreshButton.setOnAction((event) -> updateFrame());
-        VBox r = new VBox(refreshButton);
-        articleList.add(r);
-        for (int i = 0; i < feedArray.size(); i++) {
+
+        //Get new articles
+        feedArray = parser.getNewArticles(feedArray);
+
+        //Loop through all NEW articles backwards (to add them in the correct order)
+        for (int i = feedArray.size(); i > 0; i--) {
+
+            //Add Hyperlink
             final int eye = i;
             Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
             hpl.setOnAction((event) -> openLink(eye));
             hpl.setPadding(new Insets(0, 0, 0, -1));
+            //Add label
             Label description = new Label(feedArray.get(i).getDescription());
             description.setWrapText(true);
+
+            //Add Image
             try {
                 Long startTime = System.currentTimeMillis();
                 String urlString = HTMLScanner.scanHTML(HTMLScanner.scanURL(new URL(feedArray.get(i).getLink())));
                 if (urlString != null) {
                     url = new URL(urlString);
-
                     BufferedImage bf = null;
                     try {
                         bf = ImageIO.read(url);
@@ -82,17 +85,83 @@ public class SimpleController implements Initializable {
                     }
                     WritableImage wr = convertImg(bf);
                     ImageView img = new ImageView(wr);
-
-
                     widthLength = articleListView.getPrefWidth() / 2;
                     img.setFitWidth(widthLength);
                     img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
                     img.setImage(wr);
 
+
+                    //Add article to list
+                    VBox v = new VBox(img, hpl, /*author,*/ description);
+                    v.setMaxWidth(articleListView.getPrefWidth());
+                    articleList.add(0, v);
+                } else {
+
+                    //Add article to list
+                    VBox v = new VBox(hpl, /*author,*/ description);
+                    v.setMaxWidth(articleListView.getPrefWidth());
+                    articleList.add(0, v);
+                }
+                System.out.println(System.currentTimeMillis() - startTime);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+        articleListView.setItems(articleList);
+    }
+
+
+    @FXML
+    private void init() {
+
+        articleList.clear();
+
+        //Add button
+        JFXButton refreshButton = new JFXButton("Refresh");
+        refreshButton.getStyleClass().add("button-raised");
+        refreshButton.setOnAction((event) -> updateFrame());
+        VBox r = new VBox(refreshButton);
+        articleList.add(r);
+
+        //Loop through all articles
+        for (int i = 0; i < feedArray.size(); i++) {
+
+            //Add Hyperlink
+            final int eye = i;
+            Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
+            hpl.setOnAction((event) -> openLink(eye));
+            hpl.setPadding(new Insets(0, 0, 0, -1));
+
+            //Add label
+            Label description = new Label(feedArray.get(i).getDescription());
+            description.setWrapText(true);
+
+            //Add Image
+            try {
+                Long startTime = System.currentTimeMillis();
+                String urlString = HTMLScanner.scanHTML(HTMLScanner.scanURL(new URL(feedArray.get(i).getLink())));
+                if (urlString != null) {
+                    url = new URL(urlString);
+                    BufferedImage bf = null;
+                    try {
+                        bf = ImageIO.read(url);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    WritableImage wr = convertImg(bf);
+                    ImageView img = new ImageView(wr);
+                    widthLength = articleListView.getPrefWidth() / 2;
+                    img.setFitWidth(widthLength);
+                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
+                    img.setImage(wr);
+
+                    //Add article to list
                     VBox v = new VBox(img, hpl, /*author,*/ description);
                     v.setMaxWidth(articleListView.getPrefWidth());
                     articleList.add(v);
                 } else {
+
+                    //Add article to list
                     VBox v = new VBox(hpl, /*author,*/ description);
                     v.setMaxWidth(articleListView.getPrefWidth());
                     articleList.add(v);
@@ -104,6 +173,7 @@ public class SimpleController implements Initializable {
         }
         articleListView.setItems(articleList);
     }
+
 
     private WritableImage convertImg(BufferedImage bf) {
         WritableImage wr = null;

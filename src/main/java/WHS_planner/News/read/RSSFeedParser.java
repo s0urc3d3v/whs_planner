@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 public class RSSFeedParser {
     private static final String TITLE = "title";
@@ -42,7 +43,7 @@ public class RSSFeedParser {
         Feed feed = null;
         try {
             boolean isFeedHeader = true;
-            // Set header values intial to the empty string
+            // Set header values initial to the empty string
             String description = "";
             String title = "";
             String link = "";
@@ -137,5 +138,27 @@ public class RSSFeedParser {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public List<FeedMessage> getNewArticles(List<FeedMessage> oldFeed) {
+        List<FeedMessage> currentFeed = readFeed().getMessages();
+        List<FeedMessage> newFeed = readFeed().getMessages();
+        newFeed.clear();
+
+        if (readFeed() == oldFeed) {
+            return oldFeed;
+        } else {
+
+            int i = 0;
+            while (!(currentFeed.get(i) == oldFeed.get(0))) {
+                newFeed.add(0, currentFeed.get(i));
+                i++;
+            }
+            //TODO not right order?
+
+            return newFeed;
+        }
+
     }
 }
