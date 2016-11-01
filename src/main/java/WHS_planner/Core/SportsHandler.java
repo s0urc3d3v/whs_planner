@@ -1,62 +1,27 @@
 package WHS_planner.Core;
 
-import WHS_planner.Util.OS;
-import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by matthewelbing on 27.09.16.
  */
-public class SportsHandler {
+public class SportsHandler extends WebDriver {
 
-    PhantomJSDriver driver;
     String sportSite = "http://miaa.net/schools/public/WaylWa1";
-    DesiredCapabilities desiredCapabilities;
-    Process driverStart;
 
     public SportsHandler() {
-        desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setJavascriptEnabled(true);
-        desiredCapabilities.setCapability("phantomjs.binary.path", getDriverPath());
-    }
-
-    public boolean setup() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            driverStart = runtime.exec(getDriverPath() + " --webdriver=8910");
-            driver = new PhantomJSDriver(desiredCapabilities);
+        super();
+        if(setup()) {
+            //If setup of the driver worked than load this link
             driver.get(sportSite);
-        } catch (IOException e) {
-            e.printStackTrace();
-            ErrorHandler.handleGenericError("Failed to initialize web driver", e);
-            return false;
+        } else {
+            ErrorHandler.handleGenericError("WebDriver in SportsHandler decided to fail :( ", new Exception());
         }
-        return true;
-    }
-    
-    private String getDriverPath() {
-        //These File.separators hurt to type on the inside.
-        return "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "phantomjs-" + getSystemName() + File.separator + "bin" + File.separator + "phantomjs";
-    }
-
-    private String getSystemName() {
-        OS.OSType osType = OS.getOSType();
-        if(osType == OS.OSType.LINUX) {
-            return "linux";
-        } else if(osType == OS.OSType.MAC) {
-            return "mac";
-        }
-        return "windows";
     }
 
     public String[] getSports() {
@@ -82,16 +47,4 @@ public class SportsHandler {
 //        System.out.println(driver.findElementByClassName("schedule-table").findElements(By.tagName("tr")).get(4).findElements(By.tagName("td")).get(1).getText());
         return null;
     }
-
-    public void close() {
-        driver.quit();
-        driverStart.destroy();
-    }
-
-    public static void main(String[] args) {
-        PropertyConfigurator.configure("/home/jack/Dev/Github_Projects/whs_planner/log4j.properties");
-    }
-
-
-
 }

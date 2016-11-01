@@ -21,7 +21,7 @@ public class ReadSchedule {
     private String username;
     private String password;
     private StringBuffer verificationErrors = new StringBuffer();
-    private WebDriver chromeDriver;
+    private ChromeDriver chromeDriver;
     private boolean acceptNextAlert = true;
     private String pageSource;
     public ReadSchedule (){

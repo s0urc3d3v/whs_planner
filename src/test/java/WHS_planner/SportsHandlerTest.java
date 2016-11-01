@@ -9,9 +9,8 @@ import java.util.Arrays;
  * Created by jack on 10/31/16.
  */
 public class SportsHandlerTest extends TestCase {
-    public void SportsHandlerTest() {
+    public void testSportsHandler() {
         SportsHandler sportsHandler = new SportsHandler();
-        sportsHandler.setup();
         System.out.println(Arrays.toString(sportsHandler.getSports()));
         sportsHandler.close();
     }
