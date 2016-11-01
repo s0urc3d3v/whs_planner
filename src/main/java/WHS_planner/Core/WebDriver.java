@@ -17,21 +17,27 @@ public class WebDriver {
     private Process driverStart;
 
     public WebDriver() {
+        //Set the capabilities, because you want it to be able to do stuff
         desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setJavascriptEnabled(true);
         desiredCapabilities.setCapability("phantomjs.binary.path", getDriverPath());
     }
 
     public boolean setup() {
+        //Start a shell thingy to run stuff
         Runtime runtime = Runtime.getRuntime();
         try {
+            //Start PhantomJS in said shell
             driverStart = runtime.exec(getDriverPath() + " --webdriver=8910");
+            //Start the driver which is separate :(
             driver = new PhantomJSDriver(desiredCapabilities);
         } catch (IOException e) {
+            //Tell the world when it breaks
             e.printStackTrace();
             ErrorHandler.handleGenericError("Failed to initialize web driver", e);
             return false;
         }
+        //:)
         return true;
     }
 
@@ -51,6 +57,7 @@ public class WebDriver {
     }
 
     public void close() {
+        //Quit the driver and destroy the shell process for PhantomJS
         driver.quit();
         driverStart.destroy();
     }

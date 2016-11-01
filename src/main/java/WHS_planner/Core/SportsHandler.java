@@ -16,6 +16,7 @@ public class SportsHandler extends WebDriver {
 
     public SportsHandler() {
         super();
+        //Setup and Initialize the Driver
         if(setup()) {
             //If setup of the driver worked than load this link
             driver.get(sportSite);
@@ -25,12 +26,18 @@ public class SportsHandler extends WebDriver {
     }
 
     public String[] getSports() {
+        //Find all the sports name boxes
         WebElement tableBody = driver.findElements(By.className("x-grid3-body")).get(1);
+        //Get the rows that the names are in
         List<WebElement> tableRows = tableBody.findElements(By.className("x-grid3-row-table"));
+        //Make a string array because you want to
         String[] sports = new String[tableRows.size()];
+        //Go through the rows
         for(int i = 0; i < tableRows.size(); i++) {
+            //Pull out the second table element... that is the sports name
             sports[i] = tableRows.get(i).findElements(By.tagName("td")).get(1).getText();
         }
+        //Return over-sized array
         return sports;
     }
 
