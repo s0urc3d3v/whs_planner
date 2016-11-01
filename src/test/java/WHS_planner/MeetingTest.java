@@ -2,6 +2,7 @@ package WHS_planner;
 
 import WHS_planner.Core.GmailApiAccess;
 import WHS_planner.Core.Meeting;
+import WHS_planner.Core.ReadSchedule;
 import WHS_planner.Core.Student;
 import WHS_planner.Util.Course;
 import junit.framework.TestCase;
@@ -16,6 +17,8 @@ public class MeetingTest extends TestCase {
         Student studentRequested = new Student("Smith", "John", "matthewelbing@gmail.com", 12, "teacher2");
         Meeting m = new Meeting(requestingStudent, studentRequested, 10, 12, english);
         m.create();
+        ReadMeetingDataTest readMeetingDataTest = new ReadMeetingDataTest();
+        readMeetingDataTest.testReadMeetingData();
         /*try {
             GmailApiAccess.sendEmail(studentRequested.getEmail(), requestingStudent.getEmail(), "WHS_planner meeting", "test");
         } catch (Exception e) {

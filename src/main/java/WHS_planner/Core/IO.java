@@ -119,6 +119,7 @@ public class IO {
         int minute = Integer.parseInt(String.valueOf(rawObject.get("minute")));
 
         Meeting receivedMeeting = new Meeting(requestingStudent, studentRequested, hour, minute, course);
+        jsonApi.unloadFile();
         return receivedMeeting;
 
     }
@@ -132,5 +133,6 @@ public class IO {
                 }
             }
         return scheduleBlockArrayList;
+
     }
 }
