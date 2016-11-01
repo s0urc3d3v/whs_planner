@@ -41,10 +41,10 @@ public class WebDriver {
     }
 
     private String getSystemName() {
-        OS.OSType osType = OS.getOSType();
-        if(osType == OS.OSType.LINUX) {
+        OS.type osType = OS.getOSType();
+        if(osType == OS.type.LINUX) {
             return "linux";
-        } else if(osType == OS.OSType.MAC) {
+        } else if(osType == OS.type.MAC) {
             return "mac";
         }
         return "windows";
