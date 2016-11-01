@@ -110,8 +110,10 @@
           <artifactId>httpclient</artifactId>
           <version>4.3.5</version>
       </dependency>
-
-
-
+      <dependency>
+          <groupId>com.github.detro.ghostdriver</groupId>
+          <artifactId>phantomjsdriver</artifactId>
+          <version>1.1.0</version>
+      </dependency>
   </dependencies>
 </project>

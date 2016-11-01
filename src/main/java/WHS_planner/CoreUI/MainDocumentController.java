@@ -65,7 +65,6 @@ public class MainDocumentController implements Initializable {
         main = new NavigationBar();
     }
 
-
     public void initialize(URL location, ResourceBundle resources) {
 
         panes = new Pane[8];

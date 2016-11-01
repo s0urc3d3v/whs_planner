@@ -5,6 +5,8 @@ package WHS_planner;
 import WHS_planner.CoreUI.NavigationBar;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -19,6 +21,7 @@ public class Main extends Application
         }
         MeetingFileHandler.configFileHandler(); //This must be at the top of Main() for meeting import to work
          */
+       PropertyConfigurator.configure("log4j.properties");
        launch(args);
     }
 

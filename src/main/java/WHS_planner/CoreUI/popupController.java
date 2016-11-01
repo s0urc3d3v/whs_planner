@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class popupController implements Initializable{
@@ -51,6 +52,9 @@ public class popupController implements Initializable{
 
     }
 
+    public HashMap<String, Object> getResult() {
+        return null;
+    }
 
 
     @Override
