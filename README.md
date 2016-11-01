@@ -12,6 +12,7 @@ Also please do not merge until Travis says that your branch is working.
 [**Github Emojis to Spice up our commits!**](http://www.webpagefx.com/tools/emoji-cheat-sheet/)
 
 Look at those lines of code boys!
+```
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
@@ -24,3 +25,4 @@ Bourne Shell                     2              0              0              2
 -------------------------------------------------------------------------------
 SUM:                           153            668            413           5499
 -------------------------------------------------------------------------------
+```
