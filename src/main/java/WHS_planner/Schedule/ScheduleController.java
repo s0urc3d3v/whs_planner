@@ -52,8 +52,6 @@ public class ScheduleController implements Initializable, ActionListener
     {
         //labels = Schedule.loader.getNamespace();
 
-
-
         panes = new BorderPane[72];
         bPanes = new BorderPane[10];
         int count = 0;
@@ -135,7 +133,7 @@ public class ScheduleController implements Initializable, ActionListener
 
             File tmp = new File("tmp");
 
-            if(!tmp.exists())
+            if(!tmp.exists() || tmp.listFiles().length != 0)
             {
                 System.out.println("User: "+user+" : Password: "+pass);
 
@@ -149,7 +147,6 @@ public class ScheduleController implements Initializable, ActionListener
 
             String s = (Calendar.getInstance().get(Calendar.MONTH)+1)+"/"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
-            System.out.println(s);
             result = pc.getDay(s);
 
         }
@@ -159,7 +156,6 @@ public class ScheduleController implements Initializable, ActionListener
         }
 
         return result;
-
     }
 
 

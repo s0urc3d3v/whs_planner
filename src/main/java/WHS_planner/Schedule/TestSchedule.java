@@ -13,11 +13,7 @@ public class TestSchedule extends Application
     @Override
     public void start(Stage PrimaryStage) throws Exception
     {
-        Schedule.MainStage = PrimaryStage;
-
         Schedule schedule = new Schedule();
-
-
         PrimaryStage.setResizable(true);
         PrimaryStage.setMinHeight(520);
         PrimaryStage.setMinWidth(573);

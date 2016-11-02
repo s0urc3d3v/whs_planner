@@ -127,8 +127,6 @@ public class Schedule
 
             try
             {
-                System.out.println(letter+incr2);
-
                 Label l = (Label) labels.get(letter+incr2);
                 l.setText(s);
                 l.setWrapText(true);
@@ -149,7 +147,7 @@ public class Schedule
 
     public void parseSchedule()
     {
-        File f = new File("output.html");
+        File f = new File("raw.html");
 
         File input = new File("user.key");
 
@@ -176,8 +174,6 @@ public class Schedule
         {
             e.printStackTrace();
         }
-
-
 
 
         ScheduleParser parse = new ScheduleParser();
