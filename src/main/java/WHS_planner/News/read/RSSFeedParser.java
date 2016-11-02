@@ -54,20 +54,16 @@ public class RSSFeedParser {
             String guid = "";
 
             // First create a new XMLInputFactory
-            //noinspection Since15,Since15
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
             inputFactory.setProperty("javax.xml.stream.isCoalescing", true);
 
             // Setup a new eventReader
             InputStream in = read();
-            //noinspection Since15,Since15
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
             // read the XML document
             while (eventReader.hasNext()) {
-                //noinspection Since15,Since15
                 XMLEvent event = eventReader.nextEvent();
                 if (event.isStartElement()) {
-                    //noinspection Since15
                     String localPart = event.asStartElement().getName()
                             .getLocalPart();
                     if (localPart.equals(ITEM)) {
@@ -76,31 +72,22 @@ public class RSSFeedParser {
                             feed = new Feed(title, link, description, language,
                                     copyright, pubdate);
                         }
-//                        event = eventReader.nextEvent();
-
                     } else if (localPart.equals(TITLE)) {
-                        title = getCharacterData(event, eventReader);
-
+                        title = getCharacterData(eventReader);
                     } else if (localPart.equals(DESCRIPTION)) {
-                        description = getCharacterData(event, eventReader);
-
+                        description = getCharacterData(eventReader);
                     } else if (localPart.equals(LINK)) {
-                        link = getCharacterData(event, eventReader);
-
+                        link = getCharacterData(eventReader);
                     } else if (localPart.equals(GUID)) {
-                        guid = getCharacterData(event, eventReader);
-
+                        guid = getCharacterData(eventReader);
                     } else if (localPart.equals(LANGUAGE)) {
-                        language = getCharacterData(event, eventReader);
-
+                        language = getCharacterData(eventReader);
                     } else if (localPart.equals(AUTHOR)) {
-                        author = getCharacterData(event, eventReader);
-
+                        author = getCharacterData(eventReader);
                     } else if (localPart.equals(PUB_DATE)) {
-                        pubdate = getCharacterData(event, eventReader);
+                        pubdate = getCharacterData(eventReader);
                     } else if (localPart.equals(COPYRIGHT)) {
-                        copyright = getCharacterData(event, eventReader);
-
+                        copyright = getCharacterData(eventReader);
                     }
 
                 } else if (event.isEndElement()) {
@@ -112,7 +99,6 @@ public class RSSFeedParser {
                         message.setLink(link);
                         message.setTitle(title);
                         feed.getMessages().add(message);
-//                        event = eventReader.nextEvent();
                     }
                 }
             }
@@ -122,10 +108,10 @@ public class RSSFeedParser {
         return feed;
     }
 
-    private String getCharacterData(XMLEvent event, XMLEventReader eventReader)
+    private String getCharacterData(XMLEventReader eventReader)
             throws XMLStreamException {
         String result = "";
-        event = eventReader.nextEvent();
+        XMLEvent event = eventReader.nextEvent();
         if (event instanceof Characters) {
             result = event.asCharacters().getData();
         }
@@ -144,19 +130,17 @@ public class RSSFeedParser {
     public List<FeedMessage> getNewArticles(List<FeedMessage> oldFeed) {
         List<FeedMessage> currentFeed = readFeed().getMessages();
         List<FeedMessage> newFeed = readFeed().getMessages();
+        //LUL
         newFeed.clear();
 
         if (readFeed() == oldFeed) {
             return oldFeed;
         } else {
-
             int i = 0;
             while (!(currentFeed.get(i) == oldFeed.get(0))) {
                 newFeed.add(0, currentFeed.get(i));
                 i++;
             }
-            //TODO not right order?
-
             return newFeed;
         }
 
