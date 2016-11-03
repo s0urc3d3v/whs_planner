@@ -61,6 +61,34 @@ public class grabDay
         }
     }
 
+    public void grabSchedule()
+    {
+        Grabber grabber = new Grabber();
+
+        String url = "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html";
+
+        CookieHandler.setDefault(new CookieManager());
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+
+        try
+        {
+            String page = grabber.getPageContent(url);
+            String params = grabber.getForm(page, user, pass);
+            grabber.send(url, params);
+
+            String output = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?dt=11031642682");
+            parseHtml(output, "output.html");
+
+            connection.disconnect();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
     private File getCalendar(String foldername, Grabber g) throws Exception
     {
         int year = Calendar.getInstance().get(Calendar.YEAR);

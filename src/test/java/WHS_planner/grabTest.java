@@ -45,5 +45,30 @@ public class grabTest extends TestCase
         }
     }
 
+    public void testGrabSchedule()
+    {
+        try
+        {
+            File f = new File("user.key");
+
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+
+            String user = br.readLine();
+            String pass = br.readLine();
+
+            br.close();
+            fr.close();
+
+            grabDay gd = new grabDay(user, pass);
+
+            gd.grabSchedule();
+        }
+        catch(Exception e)
+        {
+
+        }
+
+    }
 
 }

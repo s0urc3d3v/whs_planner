@@ -133,7 +133,7 @@ public class ScheduleController implements Initializable, ActionListener
 
             File tmp = new File("tmp");
 
-            if(!tmp.exists() || tmp.listFiles().length != 0)
+            if(!tmp.exists() || tmp.listFiles().length == 0)
             {
                 System.out.println("User: "+user+" : Password: "+pass);
 
