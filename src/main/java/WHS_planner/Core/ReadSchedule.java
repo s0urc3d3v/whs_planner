@@ -27,7 +27,7 @@ public class ReadSchedule {
     public ReadSchedule (){
         try{
             File chromeWebDriverExec = new File(System.getProperty("user.dir") + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "chromedriver");
-            System.setProperty("webdriver.chrome.driver", (System.getProperty("user.dir") + "/src/main/resources/Core/chromedriver"));
+            System.setProperty("webdriver.chrome.driver", (System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + "Core" + File.separator + "chromedriver"));
         }
         catch (Exception e){
             e.printStackTrace();
@@ -53,14 +53,14 @@ public class ReadSchedule {
         //chromeDriver.get(baseUrl + "https://ipass.wayland.k12.ma.us/school/ipass/index.html?dt=09261636690");
         chromeDriver.get("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?m=506&amp;pr=19&amp;dt=09261649872");
         pageSource = chromeDriver.getPageSource();
-        Files.write(Paths.get(System.getProperty("user.dir") + File.separator + "raw.html"), pageSource.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-        /*
+        Files.write(Paths.get(System.getProperty("use®r.dir") + File.separator + "raw.html"), pageSource.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+
         String tableData[][] = new String[100][100];
         WebElement scheduleTable = chromeDriver.findElement(By.className("boxHdr"));
-        List<WebElement> tableRows = scheduleTable.findElements(By.className("DATA"));
+        /*List<WebElement> tableRows = scheduleTable.findElements(By.className("DATA"));
         int row_number, collum_number;
         row_number = 1;
-        for (WebElement tableRowElement : tableRows){
+        /*for (WebElement tableRowElement : tableRows){
             List<WebElement> tableCols = tableRowElement.findElements(By.xpath("td"));
             collum_number = 1;
             for (WebElement tableColElement : tableCols){
