@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by matthewelbing on 27.09.16.
  */
-public class SportsHandler extends WebDriver {
+public class SportsHandler extends HeadlessWebDriver {
 
     String sportSite = "http://miaa.net/schools/public/WaylWa1";
 
@@ -21,7 +21,7 @@ public class SportsHandler extends WebDriver {
             //If setup of the driver worked than load this link
             driver.get(sportSite);
         } else {
-            ErrorHandler.handleGenericError("WebDriver in SportsHandler decided to fail :( ", new Exception());
+            ErrorHandler.handleGenericError("HeadlessWebDriver in SportsHandler decided to fail :( ", new Exception());
         }
     }
 

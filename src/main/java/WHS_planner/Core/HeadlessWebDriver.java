@@ -11,12 +11,12 @@ import java.io.IOException;
  * Created by jack on 10/31/16.
  * Headless Web Driver Abstraction to make it easier to use :P
  */
-public class WebDriver {
+public class HeadlessWebDriver {
     protected PhantomJSDriver driver;
     private DesiredCapabilities desiredCapabilities;
     private Process driverStart;
 
-    public WebDriver() {
+    public HeadlessWebDriver() {
         //Set the capabilities, because you want it to be able to do stuff
         desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setJavascriptEnabled(true);
