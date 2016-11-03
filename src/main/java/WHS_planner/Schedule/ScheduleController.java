@@ -199,7 +199,7 @@ public class ScheduleController implements Initializable, ActionListener
             }
             else
             {
-                mod = 0;
+                mod = 1;
             }
         }
 
@@ -226,6 +226,5 @@ public class ScheduleController implements Initializable, ActionListener
         double d = progressVal();
         d = 1.0-d;
         progressBar.setProgress(d);
-
     }
 }
