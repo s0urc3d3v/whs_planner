@@ -3,6 +3,7 @@ package WHS_planner.Core;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -21,12 +22,14 @@ public class ReadSchedule {
     private String username;
     private String password;
     private StringBuffer verificationErrors = new StringBuffer();
-    private WebDriver chromeDriver;
+    private WebDriver firefoxDriver;
     private boolean acceptNextAlert = true;
     private String pageSource;
     public ReadSchedule (){
         try{
             File chromeWebDriverExec = new File(System.getProperty("user.dir") + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "chromedriver");
+            System.setProperty("webdriver.chrome.driver", (System.getProperty("user.dir") + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "chromedriver"));
+            File fireFoxWebDriver = new File(System.getProperty("user.dir") + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "chromedriver");
             System.setProperty("webdriver.chrome.driver", (System.getProperty("user.dir") + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "chromedriver"));
         }
         catch (Exception e){
@@ -35,28 +38,26 @@ public class ReadSchedule {
     }
     public void authAndFindTableWithIpass(String user, String pass) throws Exception {
         //Auth and navigate to schedule
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("window-size=1024,768");
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        chromeDriver = new ChromeDriver(capabilities);
+        //ChromeOptions options = new ChromeOptions();
+        //options.addArguments("window-size=1024,768");
+        firefoxDriver = new FirefoxDriver();
         String baseUrl = "https://ipass.wayland.k12.ma.us";
-        chromeDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        chromeDriver.get(baseUrl + "/school/ipass/syslogin.html");
-        chromeDriver.findElement(By.name("userid")).clear();
-        chromeDriver.findElement(By.name("userid")).sendKeys(user);
-        chromeDriver.findElement(By.name("password")).clear();
-        chromeDriver.findElement(By.name("password")).sendKeys(pass);
-        //chromeDriver.findElement(By.cssSelector("img[alt=\"Login to iPass\"]")).submit();
-        chromeDriver.findElement(By.name("password")).sendKeys(Keys.TAB);
-        ((JavascriptExecutor) chromeDriver).executeScript("javascript:document.login.submit()"); //working just needed a parenthesis        ((JavascriptExecutor) chromeDriver).executeScript("javascript:document.login.submit()"); //working just needed a parenthesis
-        //chromeDriver.get(baseUrl + "https://ipass.wayland.k12.ma.us/school/ipass/index.html?dt=09261636690");
-        chromeDriver.get("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?m=506&amp;pr=19&amp;dt=09261649872");
-        pageSource = chromeDriver.getPageSource();
+        firefoxDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        firefoxDriver.get(baseUrl + "/school/ipass/syslogin.html");
+        firefoxDriver.findElement(By.name("userid")).clear();
+        firefoxDriver.findElement(By.name("userid")).sendKeys(user);
+        firefoxDriver.findElement(By.name("password")).clear();
+        firefoxDriver.findElement(By.name("password")).sendKeys(pass);
+        //firefoxDriver.findElement(By.cssSelector("img[alt=\"Login to iPass\"]")).submit();
+        firefoxDriver.findElement(By.name("password")).sendKeys(Keys.TAB);
+        ((JavascriptExecutor) firefoxDriver).executeScript("javascript:document.login.submit()"); //working just needed a parenthesis        ((JavascriptExecutor) firefoxDriver).executeScript("javascript:document.login.submit()"); //working just needed a parenthesis
+        //firefoxDriver.get(baseUrl + "https://ipass.wayland.k12.ma.us/school/ipass/index.html?dt=09261636690");
+        firefoxDriver.get("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?m=506&amp;pr=19&amp;dt=09261649872");
+        pageSource = firefoxDriver.getPageSource();
         Files.write(Paths.get(System.getProperty("user.dir") + File.separator + "raw.html"), pageSource.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         /*
         String tableData[][] = new String[100][100];
-        WebElement scheduleTable = chromeDriver.findElement(By.className("boxHdr"));
+        WebElement scheduleTable = firefoxDriver.findElement(By.className("boxHdr"));
         List<WebElement> tableRows = scheduleTable.findElements(By.className("DATA"));
         int row_number, collum_number;
         row_number = 1;
@@ -71,7 +72,7 @@ public class ReadSchedule {
         row_number++;
         }*/
 
-        chromeDriver.quit();
+        firefoxDriver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
@@ -79,7 +80,7 @@ public class ReadSchedule {
     }
     private boolean isElementPresent(By by) {
         try {
-            chromeDriver.findElement(by);
+            firefoxDriver.findElement(by);
             return true;
         } catch (NoSuchElementException e) {
             return false;
@@ -88,7 +89,7 @@ public class ReadSchedule {
 
     private boolean isAlertPresent() {
         try {
-            chromeDriver.switchTo().alert();
+            firefoxDriver.switchTo().alert();
             return true;
         } catch (NoAlertPresentException e) {
             return false;
@@ -97,7 +98,7 @@ public class ReadSchedule {
 
     private String closeAlertAndGetItsText() {
         try {
-            Alert alert = chromeDriver.switchTo().alert();
+            Alert alert = firefoxDriver.switchTo().alert();
             String alertText = alert.getText();
             if (acceptNextAlert) {
                 alert.accept();
