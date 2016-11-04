@@ -1,5 +1,6 @@
-package WHS_planner.News.html;
+package WHS_planner.News.tests;
 
+import WHS_planner.News.html.HTMLScanner;
 import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;

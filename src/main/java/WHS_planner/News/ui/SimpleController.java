@@ -66,9 +66,13 @@ public class SimpleController implements Initializable {
 
         //Get new articles
         feedArray = parser.getNewArticles(feedArray);
+        System.out.println("NEW ARTICLE LIST SIZE: " + feedArray.size());
 
-        //Loop through all NEW articles backwards (to add them in the correct order)
-        for (int i = feedArray.size(); i > 0; i--) {
+        //Loop through all NEW articles
+        //TODO: make them loop backwards
+        for (int i = 0; i < feedArray.size(); i++) {
+//        for (int i = feedArray.size(); i > 0; i--) {
+//            System.out.println(i);
 
             //Add Hyperlink
             final int eye = i;
@@ -102,15 +106,15 @@ public class SimpleController implements Initializable {
                     //Add article to list
                     VBox v = new VBox(img, hpl, /*author,*/ description);
                     v.setMaxWidth(articleListView.getPrefWidth());
-                    articleList.add(0, v);
+                    articleList.add(1, v);
                 } else {
 
                     //Add article to list
                     VBox v = new VBox(hpl, /*author,*/ description);
                     v.setMaxWidth(articleListView.getPrefWidth());
-                    articleList.add(0, v);
+                    articleList.add(1, v);
                 }
-                System.out.println(System.currentTimeMillis() - startTime);
+//                System.out.println(System.currentTimeMillis() - startTime);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -174,7 +178,7 @@ public class SimpleController implements Initializable {
                     v.setMaxWidth(articleListView.getPrefWidth());
                     articleList.add(v);
                 }
-                System.out.println(System.currentTimeMillis() - startTime);
+//                System.out.println(System.currentTimeMillis() - startTime);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }

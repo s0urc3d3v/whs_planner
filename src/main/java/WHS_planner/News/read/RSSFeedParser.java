@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RSSFeedParser {
@@ -140,20 +139,29 @@ public class RSSFeedParser {
 
     public List<FeedMessage> getNewArticles(List<FeedMessage> oldFeed) {
         List<FeedMessage> currentFeed = readFeed().getMessages();
-        ArrayList<FeedMessage> test = new ArrayList<>();
-//        List<FeedMessage> newFeed = readFeed().getMessages();
+//        ArrayList<FeedMessage> test = new ArrayList<>();
+        List<FeedMessage> newFeed = readFeed().getMessages();
         //LUL
-//        newFeed.clear();
+        newFeed.clear();
 
-        if (readFeed() == oldFeed) {
+//        System.out.println(currentFeed.get(0).getLink());
+//        System.out.println(oldFeed.get(0).getLink());
+        if (oldFeed.size() == 0) {
+            return oldFeed;
+        } else if (currentFeed.get(0).getLink().equals(oldFeed.get(0).getLink())) {
+            oldFeed.clear();
             return oldFeed;
         } else {
             int i = 0;
-            while (i < currentFeed.size() && !(currentFeed.get(i) == oldFeed.get(0))) {
-                test.add(0, currentFeed.get(i));
+            while (!(currentFeed.get(i).getLink().equals(oldFeed.get(0).getLink()))) {
+                System.out.println(i);
+                newFeed.add(0, currentFeed.get(i));
                 i++;
             }
-            return (List) test;
+            System.out.println("WHILE LOOP ENDED --------------------------------------");
+
+//            return (List) test;
+            return newFeed;
         }
 
     }
