@@ -27,17 +27,23 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class SimpleController implements Initializable {
-    @FXML
-    private JFXListView<VBox> articleListView;
+
     private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
     private List<FeedMessage> feedArray = feed.getMessages();
-    private List<FeedMessage> newArticles = feed.getMessages();
-    private double widthLength;
+
     private HTMLScanner HTMLScanner = new HTMLScanner();
+
+    @FXML
+    private JFXListView<VBox> articleListView;
+    private double widthLength;
     private ObservableList<VBox> articleList = FXCollections.observableArrayList();
     private URL url;
-    private URL kms;
+
+    public SimpleController() {
+
+    }
+
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 
 
