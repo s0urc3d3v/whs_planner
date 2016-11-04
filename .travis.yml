@@ -4,7 +4,7 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
-script: mvn clean validate
+script: mvn clean validate; mvn test
 after_success:
   ./on_success.sh
 after_failure:
