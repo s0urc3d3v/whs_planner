@@ -1,5 +1,6 @@
 package WHS_planner.Schedule;
 
+import WHS_planner.Core.IO;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Document;
@@ -24,6 +25,16 @@ public class ParseCalendar
     public void setData() throws Exception
     {
         classdays = parseData();
+    }
+
+    public void writeData()
+    {
+        IO io = new IO("DayArray.json");
+    }
+
+    public void readData()
+    {
+        IO io = new IO("DayArray.json");
     }
 
     private String[] parseData() throws Exception
@@ -154,8 +165,5 @@ public class ParseCalendar
             System.out.println("day not found");
             return "No School Today";
         }
-
-
-
     }
 }

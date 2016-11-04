@@ -118,6 +118,17 @@ public class ScheduleController implements Initializable, ActionListener
     {
         String result = "error";
 
+        String s = (Calendar.getInstance().get(Calendar.MONTH)+1)+"/"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+        ParseCalendar pc = new ParseCalendar();
+
+        pc.getDay(s);
+
+        return result;
+    }
+
+    public void buildLetterDays()
+    {
         try
         {
             File f = new File("user.key");
@@ -144,18 +155,11 @@ public class ScheduleController implements Initializable, ActionListener
             ParseCalendar pc = new ParseCalendar();
 
             pc.setData();
-
-            String s = (Calendar.getInstance().get(Calendar.MONTH)+1)+"/"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-
-            result = pc.getDay(s);
-
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
-
-        return result;
     }
 
 
