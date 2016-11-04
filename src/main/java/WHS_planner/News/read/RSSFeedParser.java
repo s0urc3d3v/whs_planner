@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RSSFeedParser {
@@ -139,19 +140,20 @@ public class RSSFeedParser {
 
     public List<FeedMessage> getNewArticles(List<FeedMessage> oldFeed) {
         List<FeedMessage> currentFeed = readFeed().getMessages();
-        List<FeedMessage> newFeed = readFeed().getMessages();
+        ArrayList<FeedMessage> test = new ArrayList<>();
+//        List<FeedMessage> newFeed = readFeed().getMessages();
         //LUL
-        newFeed.clear();
+//        newFeed.clear();
 
         if (readFeed() == oldFeed) {
             return oldFeed;
         } else {
             int i = 0;
-            while (!(currentFeed.get(i) == oldFeed.get(0))) {
-                newFeed.add(0, currentFeed.get(i));
+            while (i < currentFeed.size() && !(currentFeed.get(i) == oldFeed.get(0))) {
+                test.add(0, currentFeed.get(i));
                 i++;
             }
-            return newFeed;
+            return (List) test;
         }
 
     }

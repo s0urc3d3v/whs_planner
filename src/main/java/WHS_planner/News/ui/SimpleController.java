@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
+import org.jsoup.Jsoup;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -59,6 +60,7 @@ public class SimpleController implements Initializable {
         }
     }
 
+
     @FXML
     private void updateFrame() {
 
@@ -70,17 +72,17 @@ public class SimpleController implements Initializable {
 
             //Add Hyperlink
             final int eye = i;
-            Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
+            Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
             hpl.setOnAction((event) -> openLink(eye));
             hpl.setPadding(new Insets(0, 0, 0, -1));
             //Add label
-            Label description = new Label(feedArray.get(i).getDescription());
+            Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
             description.setWrapText(true);
 
             //Add Image
             try {
                 Long startTime = System.currentTimeMillis();
-                String urlString = HTMLScanner.scanHTML(HTMLScanner.scanURL(new URL(feedArray.get(i).getLink())));
+                String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
                 if (urlString != null) {
                     url = new URL(urlString);
                     BufferedImage bf = null;
@@ -134,18 +136,18 @@ public class SimpleController implements Initializable {
 
             //Add Hyperlink
             final int eye = i;
-            Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
+            Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
             hpl.setOnAction((event) -> openLink(eye));
             hpl.setPadding(new Insets(0, 0, 0, -1));
 
             //Add label
-            Label description = new Label(feedArray.get(i).getDescription());
+            Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
             description.setWrapText(true);
 
             //Add Image
             try {
                 Long startTime = System.currentTimeMillis();
-                String urlString = HTMLScanner.scanHTML(HTMLScanner.scanURL(new URL(feedArray.get(i).getLink())));
+                String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
                 if (urlString != null) {
                     url = new URL(urlString);
                     BufferedImage bf = null;
@@ -193,6 +195,10 @@ public class SimpleController implements Initializable {
             }
         }
         return wr;
+    }
+
+    private String escapeHTML(String string) {
+        return Jsoup.parse(string).text();
     }
 }
 
