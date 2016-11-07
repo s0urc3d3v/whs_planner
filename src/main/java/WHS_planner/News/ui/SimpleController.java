@@ -83,7 +83,7 @@ public class SimpleController implements Initializable {
 //            System.out.println(feedArray.get(i).getTitle());
 //        }
 //        System.out.println();
-//
+//      kill me
         //Get new articles
         feedArray = parser.getNewArticles(onScreenMessages);
 
