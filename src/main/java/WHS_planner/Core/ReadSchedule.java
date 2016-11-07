@@ -1,30 +1,22 @@
 package WHS_planner.Core;
 
-import jdk.jfr.events.FileWriteEvent;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static com.thoughtworks.selenium.SeleneseTestBase.fail;
 
 
 /**
  * Created by matthewelbing on 23.09.16.
  * Grabs Schedule from IPass
+ *
+ * RIP Selenium we will never forget you
  */
 public class ReadSchedule {
     private String username;
