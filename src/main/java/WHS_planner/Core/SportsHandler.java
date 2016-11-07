@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class SportsHandler extends HeadlessWebDriver {
 
+    //GLITCH LINK: http://miaa.net/athletics/calendar/schedule.php?school_id=1424&team_type_ids=45&PRINT_PREVIEW=1
     String sportSite = "http://miaa.net/schools/public/WaylWa1";
 
     public SportsHandler() {
