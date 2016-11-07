@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RSSFeedParser {
@@ -137,32 +138,29 @@ public class RSSFeedParser {
     }
 
 
-    public List<FeedMessage> getNewArticles(List<FeedMessage> oldFeed) {
-        List<FeedMessage> currentFeed = readFeed().getMessages();
-//        ArrayList<FeedMessage> test = new ArrayList<>();
-        List<FeedMessage> newFeed = readFeed().getMessages();
-        //LUL
-        newFeed.clear();
+    public List getNewArticles(List<FeedMessage> oldFeed) {
 
-//        System.out.println(currentFeed.get(0).getLink());
-//        System.out.println(oldFeed.get(0).getLink());
+        List<FeedMessage> currentFeed = readFeed().getMessages();
+
         if (oldFeed.size() == 0) {
+
+            System.out.println("Case lul");
             return oldFeed;
         } else if (currentFeed.get(0).getLink().equals(oldFeed.get(0).getLink())) {
+            System.out.println("Case 1");
+
             oldFeed.clear();
             return oldFeed;
         } else {
+            ArrayList<FeedMessage> newFeed = new ArrayList<>();
             int i = 0;
             while (!(currentFeed.get(i).getLink().equals(oldFeed.get(0).getLink()))) {
-                System.out.println(i);
+//                System.out.println(i);
                 newFeed.add(0, currentFeed.get(i));
                 i++;
             }
-            System.out.println("WHILE LOOP ENDED --------------------------------------");
-
-//            return (List) test;
+            System.out.println("Case 2");
             return newFeed;
         }
-
     }
 }

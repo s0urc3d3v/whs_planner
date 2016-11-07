@@ -24,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -31,7 +32,12 @@ public class SimpleController implements Initializable {
 
     private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
+
+    //List of articles to add to display
     private List<FeedMessage> feedArray = feed.getMessages();
+
+    //List of articles CURRENTLY ON DISPLAY
+    private List<FeedMessage> onScreenMessages = new ArrayList<>();
 
     private HTMLScanner HTMLScanner = new HTMLScanner();
 
@@ -54,7 +60,7 @@ public class SimpleController implements Initializable {
     @FXML
     public void openLink(int index) {
         try {
-            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", feedArray.get(index).getLink()});
+            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", parser.readFeed().getMessages().get(index).getLink()});
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,16 +69,28 @@ public class SimpleController implements Initializable {
 
     @FXML
     private void updateFrame() {
+        Long refreshStartTime = System.currentTimeMillis();
 
+//        System.out.println("ON SCREEN MESSAGES: " + onScreenMessages.size());
+//        for (int i = 0; i < onScreenMessages.size(); i++) {
+//            System.out.println(onScreenMessages.get(i).getTitle());
+//        }
+//        System.out.println();
+//
+//
+//        System.out.println("FEED ARRAY: " + feedArray.size());
+//        for (int i = 0; i < feedArray.size(); i++) {
+//            System.out.println(feedArray.get(i).getTitle());
+//        }
+//        System.out.println();
+//
         //Get new articles
-        feedArray = parser.getNewArticles(feedArray);
-        System.out.println("NEW ARTICLE LIST SIZE: " + feedArray.size());
+        feedArray = parser.getNewArticles(onScreenMessages);
+
+
 
         //Loop through all NEW articles
-        //TODO: make them loop backwards
         for (int i = 0; i < feedArray.size(); i++) {
-//        for (int i = feedArray.size(); i > 0; i--) {
-//            System.out.println(i);
 
             //Add Hyperlink
             final int eye = i;
@@ -85,9 +103,11 @@ public class SimpleController implements Initializable {
 
             //Add Image
             try {
+                //Timing test
                 Long startTime = System.currentTimeMillis();
+
                 String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
-                if (urlString != null) {
+                if (urlString != null) { //Image
                     url = new URL(urlString);
                     BufferedImage bf = null;
                     try {
@@ -102,24 +122,29 @@ public class SimpleController implements Initializable {
                     img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
                     img.setImage(wr);
 
-
                     //Add article to list
                     VBox v = new VBox(img, hpl, /*author,*/ description);
                     v.setMaxWidth(articleListView.getPrefWidth());
                     articleList.add(1, v);
-                } else {
+                } else { //No Image!
 
                     //Add article to list
                     VBox v = new VBox(hpl, /*author,*/ description);
                     v.setMaxWidth(articleListView.getPrefWidth());
                     articleList.add(1, v);
                 }
-//                System.out.println(System.currentTimeMillis() - startTime);
+                //print
+                System.out.println(System.currentTimeMillis() - startTime);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
+            onScreenMessages.add(feedArray.get(i));
+
         }
         articleListView.setItems(articleList);
+        System.out.println("REFRESH FINISH: " + (System.currentTimeMillis() - refreshStartTime) + " ms");
+        System.out.println();
+        System.out.println();
     }
 
 
@@ -141,7 +166,7 @@ public class SimpleController implements Initializable {
             //Add Hyperlink
             final int eye = i;
             Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
-            hpl.setOnAction((event) -> openLink(eye));
+            hpl.setOnAction((event) -> openLink(feedArray.size() - eye));
             hpl.setPadding(new Insets(0, 0, 0, -1));
 
             //Add label
@@ -150,7 +175,10 @@ public class SimpleController implements Initializable {
 
             //Add Image
             try {
+
+                //Timing Test
                 Long startTime = System.currentTimeMillis();
+
                 String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
                 if (urlString != null) {
                     url = new URL(urlString);
@@ -178,10 +206,13 @@ public class SimpleController implements Initializable {
                     v.setMaxWidth(articleListView.getPrefWidth());
                     articleList.add(v);
                 }
-//                System.out.println(System.currentTimeMillis() - startTime);
+                //print
+                System.out.println(System.currentTimeMillis() - startTime);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
+            onScreenMessages.add(feedArray.get(i));
+
         }
         articleListView.setItems(articleList);
     }
@@ -204,5 +235,7 @@ public class SimpleController implements Initializable {
     private String escapeHTML(String string) {
         return Jsoup.parse(string).text();
     }
+
+
 }
 

@@ -12,37 +12,5 @@ public class HTMLScanner {
             return null;
         }
     }
-
-//    public String scanURL(URL link) {
-//        String content = null;
-//        URLConnection connection;
-//        try {
-////          connection is a url
-//            connection = link.openConnection();
-//            Scanner scanner = new Scanner(connection.getInputStream());
-//            scanner.useDelimiter("\\Z");
-//            content = scanner.next();
-//            scanner.close();
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return content;
-//    }
-
-
-//    public String scanHTML(String content) {
-//        String link;
-//        if (content.contains("prettyPhoto[1]")) {
-//            content = content.substring(content.indexOf("prettyPhoto[1]") + 22, content.length());
-//            link = content.substring(0, content.indexOf("\""));
-//            System.out.println(link);
-//            return link;
-//        } else {
-//            return null;
-//        }
-//    }
-
-
-
 }
 
