@@ -71,7 +71,7 @@ public class grabTest extends TestCase
 
     }
 
-    public void testWriteMap()
+    public void testWrite()
     {
         ParseCalendar pc = new ParseCalendar();
         try
@@ -84,6 +84,19 @@ public class grabTest extends TestCase
             e.printStackTrace();
         }
 
+    }
+
+    public void testRead()
+    {
+        try
+        {
+            ParseCalendar pc = new ParseCalendar();
+            pc.readData();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
 }

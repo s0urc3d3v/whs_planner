@@ -10,6 +10,7 @@ import org.jsoup.select.Elements;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ParseCalendar
 {
@@ -30,25 +31,53 @@ public class ParseCalendar
     public void writeData()
     {
         IO io = new IO("DayArray.json");
-        io.writeArray("calendarData", (Object[]) classdays);
-        io.unload();
+        io.writeArray("calendarData", classdays);
+        //io.unload();
 
-        IO io2 = new IO("DayMap.json");
-        io2.writeMap(tracker);
-        io2.unload();
+        //IO io2 = new IO("dateArray.json");
+
+        Set keys = tracker.keySet();
+        String[] datess = new String[keys.size()];
+        Object[] dates = keys.toArray();
+
+
+        Integer[] days = new Integer[keys.size()];
+
+        for (int i = 0; i < keys.size(); i++)
+        {
+            datess[i] = dates[i].toString();
+            days[i] = tracker.get(dates[i]);
+        }
+
+
+        io.writeArray("dates", datess);
+        //io2.unload();
+
+
+        //IO io3 = new IO("MapArray.json");
+        io.writeArray("days", days);
+        io.unload();
     }
 
     public void readData()
     {
         IO io = new IO("DayArray.json");
-        Object[] objects = io.readArray("calendarData");
+        Object[] objects = io.readArray("@calendarData");
         for (int i = 0; i < objects.length; i++)
         {
             classdays[i] = objects[i].toString();
         }
+
+        objects = io.readArray("@dates");
+        Object[] objects2 = io.readArray("@days");
+        for (int i = 0; i < objects.length; i++)
+        {
+            tracker.put(objects[i].toString(), (Integer) objects2[i]);
+        }
+
         io.unload();
 
-        IO io2 = new IO("DayMap.json");
+
 
     }
 
