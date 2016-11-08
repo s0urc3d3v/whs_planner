@@ -30,11 +30,26 @@ public class ParseCalendar
     public void writeData()
     {
         IO io = new IO("DayArray.json");
+        io.writeArray("calendarData", (Object[]) classdays);
+        io.unload();
+
+        IO io2 = new IO("DayMap.json");
+        io2.writeMap(tracker);
+        io2.unload();
     }
 
     public void readData()
     {
         IO io = new IO("DayArray.json");
+        Object[] objects = io.readArray("calendarData");
+        for (int i = 0; i < objects.length; i++)
+        {
+            classdays[i] = objects[i].toString();
+        }
+        io.unload();
+
+        IO io2 = new IO("DayMap.json");
+
     }
 
     private String[] parseData() throws Exception

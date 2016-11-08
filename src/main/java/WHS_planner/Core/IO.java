@@ -129,16 +129,38 @@ public class IO {
         return scheduleBlockArrayList;
     }
 
-    public void writeMap(Map<String, Integer> map) {
+    public void writeMap(Map<String, Integer> map)
+    {
         Iterator iterator = map.keySet().iterator();
-        while(iterator.hasNext()) {
+        while(iterator.hasNext())
+        {
             Map.Entry entry = (Map.Entry<String,Integer>)iterator.next();
             jsonApi.writePair((String) entry.getKey(), Integer.toString( (Integer) entry.getValue()));
             iterator.remove();
         }
     }
 
+    public Map<String, Integer> readMap()
+    {
+        //TODO: Write this fucking method
+        return null;
+    }
+
     public void writeArray(String arrayName, Object[] objects) {
         jsonApi.writeArray(arrayName, objects);
     }
+
+    public Object[] readArray(String arrayName)
+    {
+        JSONArray array = jsonApi.readArray(arrayName);
+        Object[] objects = new Object[array.size()];
+
+        for (int i = 0; i < array.size(); i++)
+        {
+            objects[i] = array.get(i);
+        }
+
+        return objects;
+    }
+
 }
