@@ -122,7 +122,16 @@ public class ScheduleController implements Initializable, ActionListener
 
         ParseCalendar pc = new ParseCalendar();
 
-        pc.getDay(s);
+        try
+        {
+            pc.setData();
+            result = pc.getDay(s);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
 
         return result;
     }
