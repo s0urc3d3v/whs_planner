@@ -98,7 +98,8 @@ public class IO {
         String rsLastName = requestingStudentIterator.next();
         String rsEmail = requestingStudentIterator.next();
         String rsGrade = requestingStudentIterator.next();
-        Student requestingStudent = new Student(rsFirstName, rsLastName, rsEmail, Integer.parseInt(rsGrade));
+        String rsTeacher = requestingStudentIterator.next();
+        Student requestingStudent = new Student(rsFirstName, rsLastName, rsEmail, Integer.parseInt(rsGrade), rsTeacher);
 
         JSONArray studentRequestedArray = (JSONArray) rawObject.get("studentRequested");
         Iterator<String> studentRequestedIterator = studentRequestedArray.iterator();
@@ -106,7 +107,8 @@ public class IO {
         String srLastName = studentRequestedIterator.next();
         String srEmail = studentRequestedIterator.next();
         String srGrade = studentRequestedIterator.next();
-        Student studentRequested = new Student(srFirstName, srLastName, srEmail, Integer.parseInt(srGrade));
+        String srTeacher = studentRequestedIterator.next();
+        Student studentRequested = new Student(srFirstName, srLastName, srEmail, Integer.parseInt(srGrade), srTeacher);
 
         JSONArray courseArray = (JSONArray) rawObject.get("course");
         Iterator<String> courseArrayIterator = courseArray.iterator();
