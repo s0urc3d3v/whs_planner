@@ -34,10 +34,13 @@ public class IO {
     {
         jsonApi.unloadFile();
     }
-    void writeMeetingJsonData(Student requestingStudent, Student studentRequested, long hour, long minute, Course course){
+    void writeMeetingJsonData(Student requestingStudent, Student studentRequested, int month, int day, int year, long hour, long minute, Course course){
         HashMap<String, Object> meeting = new HashMap<String, Object>();
         meeting.put("requestingStudent", requestingStudent.getFirstName() + " " + requestingStudent.getLastName());
         meeting.put("studentRequested", studentRequested.getFirstName() + " " + studentRequested.getLastName());
+        meeting.put("month", month);
+        meeting.put("day", day);
+        meeting.put("year", year);
         meeting.put("hour", hour);
         meeting.put("minute", minute);
         meeting.put("course", course.toString());
@@ -47,7 +50,7 @@ public class IO {
     }
 
 
-    public void writeMeeting(Student requestingStudent, Student studentRequested, long hour, long minute, Course course) throws IOException {
+    public void writeMeeting(Student requestingStudent, Student studentRequested, int month, int day, long year, long hour, long minute, Course course) throws IOException {
         JSONObject object = new JSONObject();
 
         JSONArray requestingStuentJsonData = new JSONArray();
@@ -71,6 +74,9 @@ public class IO {
 
         object.put("studentRequesting", requestingStuentJsonData);
         object.put("studentRequested", studentRequested);
+        object.put("month", month);
+        object.put("day", day);
+        object.put("year", year);
         object.put("hour", hour);
         object.put("minute", minute);
 
@@ -113,8 +119,11 @@ public class IO {
 
         int hour = Integer.parseInt(String.valueOf(rawObject.get("hour")));
         int minute = Integer.parseInt(String.valueOf(rawObject.get("minute")));
+        int month = Integer.parseInt(String.valueOf(rawObject.get("month")));
+        int day = Integer.parseInt(String.valueOf(rawObject.get("day")));
+        long year = Integer.parseInt(String.valueOf(rawObject.get("year")));
 
-        Meeting receivedMeeting = new Meeting(requestingStudent, studentRequested, hour, minute, course);
+        Meeting receivedMeeting = new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course);
 
     }
 
