@@ -1,6 +1,7 @@
 sudo: required
 language: java
 jdk: oraclejdk8
+before-install: sudo apt-add-repository ppa:webupd8team/java
 addons:
   apt:
     packages:
