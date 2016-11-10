@@ -6,6 +6,7 @@ import WHS_planner.Schedule.grabDay;
 import junit.framework.TestCase;
 
 import java.io.*;
+import java.util.Calendar;
 
 /**
  * Created by John on 10/24/2016.
@@ -92,6 +93,11 @@ public class grabTest extends TestCase
         {
             ParseCalendar pc = new ParseCalendar();
             pc.readData();
+
+            String s = (Calendar.getInstance().get(Calendar.MONTH)+1)+"/"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+            s = pc.getDay(s);
+            System.out.println(s);
         }
         catch(Exception e)
         {

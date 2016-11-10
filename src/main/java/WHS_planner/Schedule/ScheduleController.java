@@ -13,9 +13,7 @@ import javafx.scene.paint.Color;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -92,7 +90,30 @@ public class ScheduleController implements Initializable, ActionListener
         }
 
 
-        String s ;
+        String s;
+
+        BufferedReader br;
+        try
+        {
+            File f = new File("DayArray.json");
+
+            if(!f.exists())
+            {
+                f.createNewFile();
+            }
+
+            br = new BufferedReader(new FileReader("DayArray.json"));
+
+            if (br.readLine() == null)
+            {
+                buildLetterDays();
+            }
+            br.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         s = getletterday();
 
@@ -124,7 +145,7 @@ public class ScheduleController implements Initializable, ActionListener
 
         try
         {
-            pc.setData();
+            pc.readData();
             result = pc.getDay(s);
         }
         catch (Exception e)
@@ -162,8 +183,11 @@ public class ScheduleController implements Initializable, ActionListener
             }
 
             ParseCalendar pc = new ParseCalendar();
-
             pc.setData();
+            pc.writeData();
+
+            delete(tmp);
+
         }
         catch(Exception e)
         {
@@ -239,5 +263,30 @@ public class ScheduleController implements Initializable, ActionListener
         double d = progressVal();
         d = 1.0-d;
         progressBar.setProgress(d);
+    }
+
+    private void delete(File file) throws IOException
+    {
+
+        for (File childFile : file.listFiles())
+        {
+
+            if (childFile.isDirectory())
+            {
+                delete(childFile);
+            }
+            else
+            {
+                if (!childFile.delete())
+                {
+                    throw new IOException();
+                }
+            }
+        }
+
+        if (!file.delete())
+        {
+            throw new IOException();
+        }
     }
 }

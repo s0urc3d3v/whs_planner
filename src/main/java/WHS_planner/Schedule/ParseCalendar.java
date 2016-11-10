@@ -61,18 +61,29 @@ public class ParseCalendar
 
     public void readData()
     {
+        tracker = new HashMap<String, Integer>();
+        classdays = new String[365];
+
         IO io = new IO("DayArray.json");
         Object[] objects = io.readArray("@calendarData");
         for (int i = 0; i < objects.length; i++)
         {
-            classdays[i] = objects[i].toString();
+            String sub = objects[i].toString();
+            sub = sub.substring(sub.indexOf(":")+2);
+            classdays[i] = sub;
         }
 
         objects = io.readArray("@dates");
         Object[] objects2 = io.readArray("@days");
         for (int i = 0; i < objects.length; i++)
         {
-            tracker.put(objects[i].toString(), (Integer) objects2[i]);
+            String sub = objects2[i].toString();
+            sub = sub.substring(sub.indexOf(":")+2);
+
+            String sub2 = objects[i].toString();
+            sub2 = sub2.substring(sub2.indexOf(":")+2);
+
+            tracker.put(sub2, Integer.parseInt(sub));
         }
 
         io.unload();
