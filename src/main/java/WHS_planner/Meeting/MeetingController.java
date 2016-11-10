@@ -104,18 +104,18 @@ public class MeetingController implements Initializable{
                 }
             }
         });
-        IO io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json.whsplannermeeting");
-        Meeting meeting = io.readMeetingJsonData();
-        addSession(meeting.getRequestingStudent().getFirstName() + " " + meeting.getRequestingStudent().getLastName(),
-                String.valueOf(meeting.getRequestingStudent().getGrade()),
-                String.valueOf(meeting.getCourse().getCourseLevel()),
-                meeting.getRequestingStudent().getTeacher(),
-                String.valueOf(meeting.getCourse()),
-                meeting.getHour() + ":" + meeting.getMinute(),
-                meeting.getStudentRequested().getFirstName() + " " + meeting.getStudentRequested().getLastName(),
-                String.valueOf(meeting.getStudentRequested().getGrade()),
-                String.valueOf(meeting.getCourse().getCourseLevel()),
-                meeting.getStudentRequested().getTeacher());
+//        IO io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json.whsplannermeeting");
+//        Meeting meeting = io.readMeetingJsonData();
+//        addSession(meeting.getRequestingStudent().getFirstName() + " " + meeting.getRequestingStudent().getLastName(),
+//                String.valueOf(meeting.getRequestingStudent().getGrade()),
+//                String.valueOf(meeting.getCourse().getCourseLevel()),
+//                meeting.getRequestingStudent().getTeacher(),
+//                String.valueOf(meeting.getCourse()),
+//                meeting.getHour() + ":" + meeting.getMinute(),
+//                meeting.getStudentRequested().getFirstName() + " " + meeting.getStudentRequested().getLastName(),
+//                String.valueOf(meeting.getStudentRequested().getGrade()),
+//                String.valueOf(meeting.getCourse().getCourseLevel()),
+//                meeting.getStudentRequested().getTeacher());
 
     }
 
