@@ -1,6 +1,7 @@
 package WHS_planner;
 
 import WHS_planner.Core.ErrorHandler;
+import javafx.stage.Stage;
 import junit.framework.TestCase;
 
 /**
@@ -9,7 +10,8 @@ import junit.framework.TestCase;
 public class ErrorHandlerTest extends TestCase{
 
     public void testHandleGenericError() throws Exception {
-
-        ErrorHandler.handleGenericError("test_txt", new Exception());
+        //Cant test this error handler because the program needs to be running.
+        //The Program runs until the user stops it... kinda stinks
+//        ErrorHandler.handleGenericError("test_txt", new Exception());
     }
 }
