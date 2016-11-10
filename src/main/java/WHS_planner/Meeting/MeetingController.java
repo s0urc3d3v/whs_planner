@@ -73,7 +73,7 @@ public class MeetingController implements Initializable{
         requestingListView.setItems(requestingContents);
         requestedListView.setItems(requestedContents);
 
-        addSession("Name1", "Grade1", "Level1", "Teacher1", "Class", "Time", "Name2", "Grade2", "Level2", "Teacher2");
+        addSession("Name1", "Grade1", "Level1", "Teacher1", "Class", "Time", "Date", "Name2", "Grade2", "Level2", "Teacher2");
 
         anchorPane.applyCss();
 
@@ -146,9 +146,9 @@ public class MeetingController implements Initializable{
         requestedListView.setPrefWidth((anchorPane.getWidth())/3);
     }
 
-    public void addSession(String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
+    public void addSession(String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String meetingDate, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
         requestingContents.add(createVBox(requestingStudentName, requestingGrade, requestingLevel, requestingTeacher));
-        classContents.add(createVBox(className, classTime, " ", " "));
+        classContents.add(createVBox(meetingDate ,className, classTime, " "));
         requestedContents.add(createVBox(requestedStudentName, requestedStudentGrade, requestedStudentLevel, requestedStudentTeacher));
 
         requestingListView.setItems(requestingContents);
@@ -156,9 +156,9 @@ public class MeetingController implements Initializable{
         requestedListView.setItems(requestedContents);
     }
 
-    public void changeSession(int Index,String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
+    public void changeSession(int Index,String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String meetingDate, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
         requestingContents.add(createVBox(requestingStudentName, requestingGrade, requestingLevel, requestingTeacher));
-        classContents.add(createVBox(className, classTime, " ", " "));
+        classContents.add(createVBox(meetingDate, className, classTime, " "));
         requestedContents.add(createVBox(requestedStudentName, requestedStudentGrade, requestedStudentLevel, requestedStudentTeacher));
 
         requestingListView.setItems(requestingContents);
