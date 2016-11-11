@@ -1,8 +1,8 @@
 package WHS_planner;
 
 import WHS_planner.Core.Meeting;
-import WHS_planner.Core.Student;
 import WHS_planner.Util.Course;
+import WHS_planner.Util.Student;
 import junit.framework.TestCase;
 
 /**

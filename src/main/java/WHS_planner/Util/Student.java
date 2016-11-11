@@ -1,4 +1,4 @@
-package WHS_planner.Core;
+package WHS_planner.Util;
 
 /**
  * Created by spam on 08.10.2016.
