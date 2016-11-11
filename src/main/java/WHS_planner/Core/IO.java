@@ -89,7 +89,7 @@ public class IO {
 
     }
 
-    public void readMeetingJsonData(){
+    public Meeting readMeetingJsonData(){
         JSONObject rawObject = jsonApi.readRaw();
 
         JSONArray requestingStudentArray = (JSONArray) rawObject.get("studentRequesting"); //JSONArray
@@ -125,7 +125,7 @@ public class IO {
         int day = Integer.parseInt(String.valueOf(rawObject.get("day")));
         long year = Integer.parseInt(String.valueOf(rawObject.get("year")));
 
-        Meeting receivedMeeting = new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course);
+        return new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course);
 
     }
 
