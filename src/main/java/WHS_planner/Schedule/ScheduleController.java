@@ -1,16 +1,12 @@
 package WHS_planner.Schedule;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -178,7 +174,7 @@ public class ScheduleController implements Initializable, ActionListener
             {
                 System.out.println("User: "+user+" : Password: "+pass);
 
-                grabDay gd = new grabDay(user, pass);
+                GrabDay gd = new GrabDay(user, pass);
                 gd.grabData();
             }
 

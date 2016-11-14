@@ -1,8 +1,6 @@
 package WHS_planner;
 
-import WHS_planner.Core.ReadSchedule;
-import WHS_planner.Schedule.ScheduleParser;
-import WHS_planner.Schedule.grabDay;
+import WHS_planner.Schedule.GrabDay;
 import junit.framework.TestCase;
 
 /**
@@ -11,9 +9,9 @@ import junit.framework.TestCase;
  */
 public class ReadScheduleTest extends TestCase{
     public void testAuthAndFindTableWithIpass(){
-//        grabDay grabDay = new grabDay("", "");
-//        grabDay.grabSchedule("raw.html");
-        System.out.println("Passed because no User and Pass");
+        GrabDay grabDay = new GrabDay("user", "pass");
+        grabDay.grabSchedule("raw.html");
+//        System.out.println("Passed because no User and Pass");
     }
 
     public void testParseSchedule() throws Exception {

@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * Created by John on 10/24/2016.
  */
-public class grabDay
+public class GrabDay
 {
     private final String USER_AGENT = "Mozilla/5.0";
 
@@ -25,7 +25,7 @@ public class grabDay
 
     private List<String> cookies;
 
-    public grabDay(String user, String pass)
+    public GrabDay(String user, String pass)
     {
         this.user = user;
         this.pass = pass;

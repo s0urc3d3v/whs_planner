@@ -1,8 +1,7 @@
 package WHS_planner;
 
+import WHS_planner.Schedule.GrabDay;
 import WHS_planner.Schedule.ParseCalendar;
-import WHS_planner.Schedule.ScheduleParser;
-import WHS_planner.Schedule.grabDay;
 import junit.framework.TestCase;
 
 import java.io.*;
@@ -30,7 +29,7 @@ public class grabTest extends TestCase
 
             System.out.println("User: "+user+" : Password: "+pass);
 
-            grabDay gd = new grabDay(user, pass);
+            GrabDay gd = new GrabDay(user, pass);
             gd.grabData();
 
             ParseCalendar pc = new ParseCalendar();
@@ -61,7 +60,7 @@ public class grabTest extends TestCase
             br.close();
             fr.close();
 
-            grabDay gd = new grabDay(user, pass);
+            GrabDay gd = new GrabDay(user, pass);
 
             gd.grabSchedule("output.html");
         }
