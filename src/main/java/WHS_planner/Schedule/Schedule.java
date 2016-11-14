@@ -3,15 +3,14 @@ package WHS_planner.Schedule;
 import WHS_planner.Core.IO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -32,7 +31,6 @@ public class Schedule
     public static Scene schedule;
     public static Scene day;
 
-    public static FXMLLoader loader;
 
     public Schedule()
     {
@@ -49,7 +47,7 @@ public class Schedule
 
     public void buildSchedule() throws Exception
     {
-        loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader();
 
         loader.setLocation(getClass().getResource("/Schedule/wankTest.fxml"));
 
@@ -98,8 +96,10 @@ public class Schedule
             }
             else
             {
-                s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+currentPeriod;
+                s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+ "Block:" + currentPeriod;
             }
+
+            //System.out.println(s);
 
             String letter;
 
@@ -125,30 +125,29 @@ public class Schedule
                     break;
             }
 
+            try
+            {
+                Label l = (Label) labels.get(letter+incr2);
+                l.setText(s);
+                l.setWrapText(true);
+            }
+            catch(Exception e)
+            {
+                //e.printStackTrace();
+            }
+
             incr++;
             if(incr == 8)
             {
                 incr = 0;
                 incr2++;
             }
-
-
-            try
-            {
-                Label l = (Label) labels.get(letter+incr2);
-                l.setText(s);
-
-            }
-            catch(Exception e)
-            {
-                //e.printStackTrace();
-            }
         }
     }
 
     public void parseSchedule()
     {
-        File f = new File("raw.html");
+        File f = new File("output.html");
 
         File input = new File("user.key");
 
@@ -175,8 +174,6 @@ public class Schedule
         {
             e.printStackTrace();
         }
-
-
 
 
         ScheduleParser parse = new ScheduleParser();

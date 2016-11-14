@@ -2,19 +2,18 @@ package WHS_planner.Schedule;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -41,12 +40,11 @@ public class ScheduleController implements Initializable, ActionListener
 
     private Map<String, Object> labels;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        labels = Schedule.loader.getNamespace();
-
-
+        //labels = Schedule.loader.getNamespace();
 
         panes = new BorderPane[72];
         bPanes = new BorderPane[10];
@@ -86,14 +84,111 @@ public class ScheduleController implements Initializable, ActionListener
             bPanes[i].setStyle("-fx-background-color: #ffa500");
             bPanes[i].toBack();
         }
+
+
+        String s;
+
+        BufferedReader br;
+        try
+        {
+            File f = new File("DayArray.json");
+
+            if(!f.exists())
+            {
+                f.createNewFile();
+            }
+
+            br = new BufferedReader(new FileReader("DayArray.json"));
+
+            if (br.readLine() == null)
+            {
+                buildLetterDays();
+            }
+            br.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        s = getletterday();
+
+        if(s.length() == 1)
+        {
+            s = "Today is " + s + " day!";
+        }
+
         //we can set the day here
-        Title3.setText("It is A Day");
+        Title3.setText(s);
+
+
         normalDay = true;
 
 
 
         progressbartimer = new Timer(1000, this);
         progressbartimer.start();
+    }
+
+
+    public String getletterday()
+    {
+        String result = "error";
+
+        String s = (Calendar.getInstance().get(Calendar.MONTH)+1)+"/"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+        ParseCalendar pc = new ParseCalendar();
+
+        try
+        {
+            pc.readData();
+            result = pc.getDay(s);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+        return result;
+    }
+
+    public void buildLetterDays()
+    {
+        try
+        {
+            File f = new File("user.key");
+
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+
+            String user = br.readLine();
+            String pass = br.readLine();
+
+            br.close();
+            fr.close();
+
+            File tmp = new File("tmp");
+
+            if(!tmp.exists() || tmp.listFiles().length == 0)
+            {
+                System.out.println("User: "+user+" : Password: "+pass);
+
+                GrabDay gd = new GrabDay(user, pass);
+                gd.grabData();
+            }
+
+            ParseCalendar pc = new ParseCalendar();
+            pc.setData();
+            pc.writeData();
+
+            delete(tmp);
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
 
@@ -137,7 +232,7 @@ public class ScheduleController implements Initializable, ActionListener
             }
             else
             {
-                mod = 0;
+                mod = 1;
             }
         }
 
@@ -164,6 +259,30 @@ public class ScheduleController implements Initializable, ActionListener
         double d = progressVal();
         d = 1.0-d;
         progressBar.setProgress(d);
+    }
 
+    private void delete(File file) throws IOException
+    {
+
+        for (File childFile : file.listFiles())
+        {
+
+            if (childFile.isDirectory())
+            {
+                delete(childFile);
+            }
+            else
+            {
+                if (!childFile.delete())
+                {
+                    throw new IOException();
+                }
+            }
+        }
+
+        if (!file.delete())
+        {
+            throw new IOException();
+        }
     }
 }

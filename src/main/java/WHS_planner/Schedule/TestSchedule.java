@@ -6,18 +6,15 @@ import javafx.stage.Stage;
 public class TestSchedule extends Application
 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch(args);
     }
 
     @Override
     public void start(Stage PrimaryStage) throws Exception
     {
-        Schedule.MainStage = PrimaryStage;
-
         Schedule schedule = new Schedule();
-
-
         PrimaryStage.setResizable(true);
         PrimaryStage.setMinHeight(520);
         PrimaryStage.setMinWidth(573);
