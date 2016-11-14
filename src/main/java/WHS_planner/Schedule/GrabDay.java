@@ -322,7 +322,7 @@ public class GrabDay
             int response = connection.getResponseCode();
 
             System.out.println("\nSending POST request to "+url);
-            System.out.println("Parameters : " + params);
+//            System.out.println("Parameters : " + params); //Unsafe
             System.out.println("Response code:" + response);
 
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
