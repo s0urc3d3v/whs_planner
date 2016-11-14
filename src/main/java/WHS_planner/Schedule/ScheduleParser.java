@@ -122,8 +122,8 @@ public class ScheduleParser
         {
             try
             {
-                ReadSchedule r = new ReadSchedule();
-                r.authAndFindTableWithIpass(u, p); //replace user and pass with credentials
+                grabDay gd = new grabDay(u, p);
+                gd.grabSchedule();
             }
             catch(Exception e)
             {
