@@ -63,7 +63,7 @@ public class grabTest extends TestCase
 
             grabDay gd = new grabDay(user, pass);
 
-            gd.grabSchedule();
+            gd.grabSchedule("output.html");
         }
         catch(Exception e)
         {

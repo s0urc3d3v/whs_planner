@@ -61,7 +61,7 @@ public class grabDay
         }
     }
 
-    public void grabSchedule()
+    public void grabSchedule(String scheduleFileName)
     {
         Grabber grabber = new Grabber();
 
@@ -78,7 +78,7 @@ public class grabDay
             grabber.send(url, params);
 
             String output = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?dt=11031642682");
-            parseHtml(output, "output.html");
+            parseHtml(output, scheduleFileName);
 
             connection.disconnect();
         }
