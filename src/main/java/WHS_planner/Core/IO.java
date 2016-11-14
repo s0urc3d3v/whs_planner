@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by matthewelbing on 27.09.16.
@@ -26,7 +27,6 @@ public class IO {
             jsonApi.writeArray(i + "", new Object[]{block.getClassName(), block.getTeacher(), block.getRoomNumber(), block.getPeriodNumber()});
             i++;
         }
-
     }
 
     public void unload()
@@ -137,4 +137,39 @@ public class IO {
             }
         return scheduleBlockArrayList;
     }
+
+    public void writeMap(Map<String, Integer> map)
+    {
+        Iterator iterator = map.keySet().iterator();
+        while(iterator.hasNext())
+        {
+            Map.Entry entry = (Map.Entry<String,Integer>)iterator.next();
+            jsonApi.writePair((String) entry.getKey(), Integer.toString( (Integer) entry.getValue()));
+            iterator.remove();
+        }
+    }
+
+    public Map<String, Integer> readMap()
+    {
+        //TODO: Write this fucking method.......eventually ~ John/Vrend
+        return null;
+    }
+
+    public void writeArray(String arrayName, Object[] objects) {
+        jsonApi.writeArray(arrayName, objects);
+    }
+
+    public Object[] readArray(String arrayName)
+    {
+        JSONArray array = jsonApi.readArray(arrayName);
+        Object[] objects = new Object[array.size()];
+
+        for (int i = 0; i < array.size(); i++)
+        {
+            objects[i] = array.get(i);
+        }
+
+        return objects;
+    }
+
 }
