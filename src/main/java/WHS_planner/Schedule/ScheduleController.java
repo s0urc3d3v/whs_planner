@@ -36,7 +36,6 @@ public class ScheduleController implements Initializable, ActionListener
     private ProgressBar progressBar;
 
     private BorderPane[] panes;
-    private BorderPane[] bPanes;
 
     private Timer progressbartimer;
 
@@ -48,18 +47,14 @@ public class ScheduleController implements Initializable, ActionListener
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        //labels = Schedule.loader.getNamespace();
 
-        panes = new BorderPane[72];
-        bPanes = new BorderPane[10];
+        panes = new BorderPane[82];
         int count = 0;
         //Fills Arrays
-        for (int i = 0; i < 72; i++) {
+        for (int i = 0; i < 82; i++) {
             panes[i] = new BorderPane();
         }
-        for (int i = 0; i < 10; i++) {
-            bPanes[i] = new BorderPane();
-        }
+
         for (int i = 1; i < 9; i++) {
             for (int j = 2; j < 9; j++) {
                 grid.add(panes[count],i,j);
@@ -81,12 +76,11 @@ public class ScheduleController implements Initializable, ActionListener
 
 
         for (int i = 0; i < 9; i++) {
-            grid.add(bPanes[i],i,1);
-            bPanes[i].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+            grid.add(panes[i + 63],i,1);
+            panes[i + 63].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
-            bPanes[i].setStyle("-fx-background-color: #ffa500");
-            bPanes[i].toBack();
+            panes[i + 63].setStyle("-fx-background-color: #ffa500");
+            panes[i + 63].toBack();
         }
 
 
