@@ -1,13 +1,8 @@
 package WHS_planner;
 
-
-//import WHS_planner.Core.MeetingFileHandler;
 import WHS_planner.CoreUI.NavigationBar;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class Main extends Application
 {
