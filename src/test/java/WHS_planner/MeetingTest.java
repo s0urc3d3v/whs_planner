@@ -1,8 +1,8 @@
 package WHS_planner;
 
 import WHS_planner.Core.Meeting;
+import WHS_planner.Core.Student;
 import WHS_planner.Util.Course;
-import WHS_planner.Util.Student;
 import junit.framework.TestCase;
 
 /**
@@ -13,7 +13,7 @@ public class MeetingTest extends TestCase {
         Course english = new Course("English", 4, "Teacher", Course.level.COLLEGE);
         Student requestingStudent = new Student("John", "Smith", "test@test.com", 12, "teacher1");
         Student studentRequested = new Student("Smith", "John", "matthewelbing@gmail.com", 12, "teacher2");
-        Meeting m = new Meeting(requestingStudent, studentRequested, 8, 9, 10, 12, 13, english);
+        Meeting m = new Meeting(requestingStudent, studentRequested, 11, 13, 10, 12, 16, english);
         m.create();
         ReadMeetingDataTest readMeetingDataTest = new ReadMeetingDataTest();
         readMeetingDataTest.testReadMeetingData();
