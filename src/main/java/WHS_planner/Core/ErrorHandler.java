@@ -62,4 +62,9 @@ public class ErrorHandler {
             ErrorHandler.CreateErrorLog(e);
         }
     }
+
+    public static void handleNoIpassKeyFileError(){
+        WHS_planner.CoreUI.ErrorPage.displayErrorWithMsg("You have not logged into ipass yet or your Creditials where deleated, we're sorry!");
+
+    }
 }

@@ -172,4 +172,12 @@ public class IO {
         return objects;
     }
 
+    public void setFirstRunVar(){
+        jsonApi.writePair("hasRun", String.valueOf(true));
+    }
+
+    public boolean hasRun(){
+        return (boolean) jsonApi.readPair("hasRun");
+    }
+
 }
