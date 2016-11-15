@@ -149,7 +149,7 @@ public class Schedule
     {
         File f = new File("output.html");
 
-        File input = new File("user.key");
+        File input = new File("Keys/ipassKey");
 
         String user = null;
         String pass = null;

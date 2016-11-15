@@ -151,7 +151,7 @@ public class ScheduleController implements Initializable, ActionListener
     {
         try
         {
-            File f = new File("user.key");
+            File f = new File("Keys/ipassKey");
 
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
