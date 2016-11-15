@@ -12,12 +12,13 @@
 <?import javafx.geometry.Insets?>
 
 <?import javafx.scene.layout.VBox?>
-<StackPane fx:id="stackPane" minHeight="80.0" minWidth="110.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <JFXButton fx:id="button" styleClass="box-button"  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <VBox fx:id="vbox" mouseTransparent="true">
-         <Label fx:id="dateLabel" styleClass="date-label" alignment="TOP_LEFT" mouseTransparent="true"/>
-         <HBox fx:id="iconContainer" alignment="CENTER" mouseTransparent="true"></HBox>
-      </VBox>
-   </children>
+<?import com.jfoenix.controls.JFXRippler?>
+<JFXRippler fx:id="rippler" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="stackPane" minHeight="80.0" minWidth="110.0" styleClass="box-button">
+    <!--<JFXButton fx:id="button" styleClass="box-button"/>-->
+    <VBox fx:id="vbox" mouseTransparent="true">
+        <Label fx:id="dateLabel" styleClass="date-label" alignment="TOP_LEFT"/>
+        <HBox fx:id="iconContainer" alignment="CENTER"></HBox>
+    </VBox>
 </StackPane>
+</JFXRippler>

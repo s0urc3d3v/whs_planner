@@ -6,8 +6,6 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,10 +29,10 @@ public class MainDocumentController implements Initializable {
     Calendar cal;
 
     @FXML
-    private AnchorPane anchorPane;
+    private VBox contentPane;
 
     @FXML
-    private Pane topBar;
+    private BorderPane topBar;
 
     @FXML
     private JFXHamburger navHamburger;
@@ -69,8 +67,8 @@ public class MainDocumentController implements Initializable {
         panes = new Pane[8];
 
         cal = new Calendar(1, 30);
-        cal.setPrefHeight(anchorPane.getPrefHeight());
-        cal.prefWidthProperty().bind(anchorPane.widthProperty());
+        cal.setPrefHeight(contentPane.getPrefHeight()-topBar.getPrefHeight());
+        cal.prefWidthProperty().bind(contentPane.widthProperty());
         schedule = new Schedule();
         BorderPane schedulepane = (BorderPane) schedule.getPane();
         BorderPane daypane = (BorderPane) schedule.getdaypane();
@@ -93,10 +91,10 @@ public class MainDocumentController implements Initializable {
         }
 
         buttonArray[0].setOnMouseClicked(event -> {
-            //anchorPane.getChildren().setAll(tempPane.getChildren());
-            if(!anchorPane.getChildren().contains(cal))
+            //contentPane.getChildren().setAll(tempPane.getChildren());
+            if(!contentPane.getChildren().contains(cal))
             {
-                anchorPane.getChildren().add(0, cal);
+                contentPane.getChildren().add(1, cal);
                 panes[0] = cal;
 
                 for (int i = 0; i < panes.length; i++)
@@ -111,14 +109,14 @@ public class MainDocumentController implements Initializable {
                 }
             }
 
-            anchorPane.setTopAnchor(cal, 45.0);
+//            contentPane.setTopAnchor(cal, 45.0);
         });
 
         buttonArray[1].setOnMouseClicked(event -> {
-            //anchorPane.getChildren().setAll(tempPane.getChildren());
-            if(!anchorPane.getChildren().contains(schedulepane))
+            //contentPane.getChildren().setAll(tempPane.getChildren());
+            if(!contentPane.getChildren().contains(schedulepane))
             {
-                anchorPane.getChildren().add(0, schedulepane);
+                contentPane.getChildren().add(1, schedulepane);
                 panes[1] = schedulepane;
 
                 for (int i = 0; i < panes.length; i++)
@@ -133,14 +131,14 @@ public class MainDocumentController implements Initializable {
                 }
             }
 
-            anchorPane.setTopAnchor(schedulepane, 45.0);
+//            contentPane.setTopAnchor(schedulepane, 45.0);
         });
 
         buttonArray[2].setOnMouseClicked(event -> {
-            //anchorPane.getChildren().setAll(tempPane.getChildren());
-            if(!anchorPane.getChildren().contains(daypane))
+            //contentPane.getChildren().setAll(tempPane.getChildren());
+            if(!contentPane.getChildren().contains(daypane))
             {
-                anchorPane.getChildren().add(0, daypane);
+                contentPane.getChildren().add(1, daypane);
                 panes[2] = daypane;
 
                 for (int i = 0; i < panes.length; i++)
@@ -155,7 +153,7 @@ public class MainDocumentController implements Initializable {
                 }
             }
 
-            anchorPane.setTopAnchor(daypane, 45.0);
+//            contentPane.setTopAnchor(daypane, 45.0);
         });
 
         VBox vBox = new VBox(buttonArray);
@@ -183,7 +181,7 @@ public class MainDocumentController implements Initializable {
         });
 
         // tempPane = new AnchorPane();
-        // tempPane.getChildren().addAll(anchorPane.getChildren());
+        // tempPane.getChildren().addAll(contentPane.getChildren());
     }
 
     @FXML
@@ -234,7 +232,7 @@ public class MainDocumentController implements Initializable {
 
     public void remPane(Pane p)
     {
-        anchorPane.getChildren().remove(p);
+        contentPane.getChildren().remove(p);
     }
 
 
