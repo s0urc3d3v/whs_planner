@@ -122,8 +122,8 @@ public class ScheduleParser
         {
             try
             {
-                grabDay gd = new grabDay(u, p);
-                gd.grabSchedule();
+                GrabDay gd = new GrabDay(u, p);
+                gd.grabSchedule("output.html");
             }
             catch(Exception e)
             {
