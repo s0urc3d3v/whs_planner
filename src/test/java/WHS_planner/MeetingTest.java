@@ -1,4 +1,4 @@
-package WHS_planner;
+/*package WHS_planner;
 
 import WHS_planner.Core.Meeting;
 import WHS_planner.Core.Student;
@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 
 /**
  * Created by spam on 08.10.2016.
- */
+
 public class MeetingTest extends TestCase {
     public void testMeetingCreation(){
         Course english = new Course("English", 4, "Teacher", Course.level.COLLEGE);
@@ -17,10 +17,11 @@ public class MeetingTest extends TestCase {
         m.create();
         ReadMeetingDataTest readMeetingDataTest = new ReadMeetingDataTest();
         readMeetingDataTest.testReadMeetingData();
-        /*try {
+        try {
             GmailApiAccess.sendEmail(studentRequested.getEmail(), requestingStudent.getEmail(), "WHS_planner meeting", "test");
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }
 }
+*/
