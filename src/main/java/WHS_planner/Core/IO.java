@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by matthewelbing on 27.09.16.
@@ -91,43 +92,55 @@ public class IO {
 
     public Meeting readMeetingJsonData(){
         JSONObject rawObject = jsonApi.readRaw();
+        //These students need to be parsed
+        Object requestingStudentUnparsed = rawObject.get("requestingStudent");
+        System.out.println(requestingStudentUnparsed.toString());
+        Object studentRequestedUnparsed = rawObject.get("studentRequested");
+        int month = (int) rawObject.get("month");
+        int day = (int) rawObject.get("day");
+        long year = (long) rawObject.get("year");
+        long hour = (long) rawObject.get("hour");
+        long minute = (long) rawObject.get("minute");
+        Object courseUnparsed = rawObject.get("course");
+
         //does not work
-        JSONArray requestingStudentArray = (JSONArray) rawObject.get("studentRequesting"); //JSONArray
-        Iterator requestingStudentIterator = requestingStudentArray.iterator();
-        String rsFirstName = (String) requestingStudentIterator.next();
-        String rsLastName = (String) requestingStudentIterator.next();
-        String rsEmail = (String) requestingStudentIterator.next();
-        String rsGrade = (String) requestingStudentIterator.next();
-        String rsTeacher = (String) requestingStudentIterator.next();
-        Student requestingStudent = new Student(rsFirstName, rsLastName, rsEmail, Integer.parseInt(rsGrade), rsTeacher);
-        System.out.println(requestingStudent.toString());
-
-        JSONArray studentRequestedArray = (JSONArray) rawObject.get("studentRequested");
-        Iterator studentRequestedIterator = studentRequestedArray.iterator();
-        String srFirstName = (String) studentRequestedIterator.next();
-        String srLastName = (String) studentRequestedIterator.next();
-        String srEmail = (String) studentRequestedIterator.next();
-        String srGrade = (String) studentRequestedIterator.next();
-        String srTeacher = (String) studentRequestedIterator.next();
-        Student studentRequested = new Student(srFirstName, srLastName, srEmail, Integer.parseInt(srGrade), srTeacher);
-        System.out.println(studentRequested.toString());
-
-        JSONArray courseArray = (JSONArray) rawObject.get("course");
-        Iterator courseArrayIterator = courseArray.iterator();
-        String cName = (String) courseArrayIterator.next();
-        String cPeriod = (String) courseArrayIterator.next();
-        String cTeacher = (String) courseArrayIterator.next();
-        String cCourseLevel = (String) courseArrayIterator.next();
-
-        Course course = new Course(cName, Integer.parseInt(cPeriod), cTeacher, Course.level.valueOf(cCourseLevel));
-
-        int hour = Integer.parseInt(String.valueOf(rawObject.get("month")));
-        int minute = Integer.parseInt(String.valueOf(rawObject.get("minute")));
-        int month = Integer.parseInt(String.valueOf(rawObject.get("month")));
-        int day = Integer.parseInt(String.valueOf(rawObject.get("day")));
-        long year = Integer.parseInt(String.valueOf(rawObject.get("year")));
-
-        return new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course, getJsonApi().getFilePath());
+//        JSONArray requestingStudentArray = (JSONArray) rawObject.get("studentRequesting"); //JSONArray
+//        Iterator requestingStudentIterator = requestingStudentArray.iterator();
+//        String rsFirstName = (String) requestingStudentIterator.next();
+//        String rsLastName = (String) requestingStudentIterator.next();
+//        String rsEmail = (String) requestingStudentIterator.next();
+//        String rsGrade = (String) requestingStudentIterator.next();
+//        String rsTeacher = (String) requestingStudentIterator.next();
+//        Student requestingStudent = new Student(rsFirstName, rsLastName, rsEmail, Integer.parseInt(rsGrade), rsTeacher);
+//        System.out.println(requestingStudent.toString());
+//
+//        JSONArray studentRequestedArray = (JSONArray) rawObject.get("studentRequested");
+//        Iterator studentRequestedIterator = studentRequestedArray.iterator();
+//        String srFirstName = (String) studentRequestedIterator.next();
+//        String srLastName = (String) studentRequestedIterator.next();
+//        String srEmail = (String) studentRequestedIterator.next();
+//        String srGrade = (String) studentRequestedIterator.next();
+//        String srTeacher = (String) studentRequestedIterator.next();
+//        Student studentRequested = new Student(srFirstName, srLastName, srEmail, Integer.parseInt(srGrade), srTeacher);
+//        System.out.println(studentRequested.toString());
+//
+//        JSONArray courseArray = (JSONArray) rawObject.get("course");
+//        Iterator courseArrayIterator = courseArray.iterator();
+//        String cName = (String) courseArrayIterator.next();
+//        String cPeriod = (String) courseArrayIterator.next();
+//        String cTeacher = (String) courseArrayIterator.next();
+//        String cCourseLevel = (String) courseArrayIterator.next();
+//
+//        Course course = new Course(cName, Integer.parseInt(cPeriod), cTeacher, Course.level.valueOf(cCourseLevel));
+//
+//        int hour = Integer.parseInt(String.valueOf(rawObject.get("month")));
+//        int minute = Integer.parseInt(String.valueOf(rawObject.get("minute")));
+//        int month = Integer.parseInt(String.valueOf(rawObject.get("month")));
+//        int day = Integer.parseInt(String.valueOf(rawObject.get("day")));
+//        long year = Integer.parseInt(String.valueOf(rawObject.get("year")));
+//
+//        return new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course, getJsonApi().getFilePath());
+        return null;
 
     }
 
