@@ -72,6 +72,15 @@ public class JSON {
         }
     }
 
+    public void unloadWithoutWrite(){
+        try {
+            fileWriter.flush();
+            fileWriter.close();
+    } catch (IOException e) {
+            ErrorHandler.HandleIOError(e);
+        }
+    }
+
     /*
     READING METHODS
      */

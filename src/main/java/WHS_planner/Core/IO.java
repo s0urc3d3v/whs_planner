@@ -85,7 +85,7 @@ public class IO {
         object.put("course", requestedCourse);
 
         jsonApi.writeRaw(object);
-        jsonApi.unloadFile();
+        jsonApi.unloadWithoutWrite();
 
     }
 
