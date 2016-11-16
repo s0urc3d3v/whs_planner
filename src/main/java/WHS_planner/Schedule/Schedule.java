@@ -73,6 +73,9 @@ public class Schedule
         blocks = getData();
 
 
+        String[] start = {"7:30", "8:32", "9:39", "10:41", "12:16", "1:18", "0:00"};
+        String[] end = {"8:27", "9:29", "10:36", "12:11", "1:13", "2:15", "0:00"};
+
         String currentClass;
         String currentTeacher;
         String currentPeriod;
@@ -142,6 +145,14 @@ public class Schedule
                 incr = 0;
                 incr2++;
             }
+        }
+
+        for (int i = 1; i <= 7; i++)
+        {
+            Label l = (Label) labels.get("Time"+i);
+            String s = "Period "+i+"\nStart: "+"\n"+start[i-1]+"\nEnd:\n"+end[i-1];
+            l.setText(s);
+            l.setWrapText(true);
         }
     }
 
