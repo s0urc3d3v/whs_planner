@@ -112,32 +112,32 @@ public class Calendar extends BorderPane {
         int[] rowIDs = new int[]{1,2,3,4,5};
         GridPane tempPane = (GridPane) mainPane.getChildren().get(1);
 
-//        if(currentDate != -1){
-//            if(date == currentDate) {
-//                changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);
-//                removeTaskBox(taskBox);
-//                currentTextBoxRow = -1;
-//                currentDate = -1;
-//            }else if(currentTextBoxRow == rowIDs[row]){
-//                changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);
-//                changeButtonColor(getCalendarBox(date).getButtonNode(),true);
-//                removeTaskBox(taskBox);
-//                addTaskBox(currentTextBoxRow, getCalendarBox(date).getTaskBox(tempPane.widthProperty()));
-//                currentDate = date;
-//            }else{
-//                changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);
-//                removeTaskBox(taskBox);
-//                currentTextBoxRow = rowIDs[row];
-//                currentDate = date;
-//                addTaskBox(currentTextBoxRow, getCalendarBox(date).getTaskBox(tempPane.widthProperty()));
-//                changeButtonColor(getCalendarBox(date).getButtonNode(),true);
-//            }
-//        }else{
-//            currentTextBoxRow = rowIDs[row];
-//            currentDate = date;
-//            addTaskBox(currentTextBoxRow, getCalendarBox(date).getTaskBox(tempPane.widthProperty()));
-//            changeButtonColor(getCalendarBox(date).getButtonNode(),true);
-//        }
+        if(currentDate != -1){
+            if(date == currentDate) {
+                changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);
+                removeTaskBox(taskBox);
+                currentTextBoxRow = -1;
+                currentDate = -1;
+            }else if(currentTextBoxRow == rowIDs[row]){
+                changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);
+                changeButtonColor(getCalendarBox(date).getButtonNode(),true);
+                removeTaskBox(taskBox);
+                addTaskBox(currentTextBoxRow, getCalendarBox(date).getTaskBox(tempPane.widthProperty()));
+                currentDate = date;
+            }else{
+                changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);
+                removeTaskBox(taskBox);
+                currentTextBoxRow = rowIDs[row];
+                currentDate = date;
+                addTaskBox(currentTextBoxRow, getCalendarBox(date).getTaskBox(tempPane.widthProperty()));
+                changeButtonColor(getCalendarBox(date).getButtonNode(),true);
+            }
+        }else{
+            currentTextBoxRow = rowIDs[row];
+            currentDate = date;
+            addTaskBox(currentTextBoxRow, getCalendarBox(date).getTaskBox(tempPane.widthProperty()));
+            changeButtonColor(getCalendarBox(date).getButtonNode(),true);
+        }
         taskBox = getCalendarBox(date).getTaskBox(tempPane.widthProperty());
     }
 

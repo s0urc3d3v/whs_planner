@@ -2,7 +2,6 @@ package WHS_planner.Calendar;
 
 import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -76,21 +75,21 @@ public class CalendarBox extends Pane{
         getDateLabel().setText(dateString); //Set the dateLabel text = to the date
 
         //Set the buttonClicked action
-//        getButtonNode().setOnMouseClicked((event -> {
-//            if (event.getButton() == MouseButton.PRIMARY) {
-//                update();
-//                Calendar calendar = (Calendar)this.getParent().getParent().getParent();
-//                calendar.update(week,date);
-//            }
-//        }));
+        getButtonNode().setOnMouseClicked((event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                update();
+                Calendar calendar = (Calendar)this.getParent().getParent().getParent();
+                calendar.update(week,date);
+            }
+        }));
 
         //Set the size of the mainPane
         mainPane.prefWidthProperty().bind(this.widthProperty());
         mainPane.prefHeightProperty().bind(this.heightProperty());
 
         //Set the button size to be equal to the mainPane's size
-//        getButtonNode().prefWidthProperty().bind(this.widthProperty());
-//        getButtonNode().prefHeightProperty().bind(this.heightProperty());
+        getButtonNode().prefWidthProperty().bind(mainPane.widthProperty());
+        getButtonNode().prefHeightProperty().bind(mainPane.heightProperty());
 
         //Set the size of a VBox to be equal to the mainPane's size
         VBox vbox = (VBox)map.get("vbox");
@@ -101,10 +100,6 @@ public class CalendarBox extends Pane{
         HBox iconContainer = (HBox) map.get("iconContainer");
         iconContainer.prefWidthProperty().bind(mainPane.widthProperty());
         iconContainer.prefHeightProperty().bind(vbox.heightProperty());
-
-        JFXRippler rippler = (JFXRippler) map.get("rippler");
-        rippler.prefWidthProperty().bind(this.widthProperty());
-        rippler.prefHeightProperty().bind(this.heightProperty());
 
         this.getStyleClass().add("box"); //Set the CSS style class to be box
         this.getChildren().setAll(mainPane); //Set this pane to contain the mainPane
@@ -141,7 +136,7 @@ public class CalendarBox extends Pane{
 
     //If button is not in the right month, set them to be unclickable and remove the date
     public void setInactive(){
-//        getButtonNode().setDisable(true);
+        getButtonNode().setDisable(true);
         getDateLabel().setText("");
     }
 
@@ -213,10 +208,10 @@ public class CalendarBox extends Pane{
 
     /*-----NODE RELATED-----*/
     //Get the button
-//    public JFXButton getButtonNode(){
-//        JFXButton button = (JFXButton)map.get("button");
-//        return button;
-//    }
+    public JFXButton getButtonNode(){
+        JFXButton button = (JFXButton)map.get("button");
+        return button;
+    }
 
     //Get the date Label
     public Label getDateLabel(){
