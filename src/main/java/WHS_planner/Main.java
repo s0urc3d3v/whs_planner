@@ -6,6 +6,8 @@ import javafx.stage.Stage;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.PropertyConfigurator;
 
+import java.io.File;
+
 public class Main extends Application
 {
     public static NavigationBar bar;
@@ -17,6 +19,16 @@ public class Main extends Application
         MeetingFileHandler.configFileHandler(); //This must be at the top of Main() for meeting import to work
          */
        PropertyConfigurator.configure("log4j.properties");
+
+       try
+       {
+           initData();
+       }
+       catch(Exception e)
+       {
+           e.printStackTrace();
+       }
+
        launch(args);
     }
 
@@ -25,4 +37,23 @@ public class Main extends Application
         bar = new NavigationBar();
         bar.start(primaryStage);
     }
+
+    public static void initData() throws Exception
+    {
+        File keys = new File("Keys");
+
+        if(!keys.exists())
+        {
+            keys.mkdir();
+        }
+
+        File ipass = new File("ipass.key");
+
+        if(!ipass.exists())
+        {
+            ipass.createNewFile();
+        }
 }
+}
+
+

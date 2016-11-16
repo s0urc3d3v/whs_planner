@@ -1,5 +1,6 @@
 package WHS_planner.Schedule;
 
+import WHS_planner.Main;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -14,6 +15,8 @@ public class TestSchedule extends Application
     @Override
     public void start(Stage PrimaryStage) throws Exception
     {
+        Main.initData();
+
         Schedule schedule = new Schedule();
         PrimaryStage.setResizable(true);
         PrimaryStage.setMinHeight(520);
