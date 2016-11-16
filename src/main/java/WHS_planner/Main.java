@@ -20,15 +20,6 @@ public class Main extends Application
          */
        PropertyConfigurator.configure("log4j.properties");
 
-       try
-       {
-           initData();
-       }
-       catch(Exception e)
-       {
-           e.printStackTrace();
-       }
-
        launch(args);
     }
 
@@ -37,23 +28,6 @@ public class Main extends Application
         bar = new NavigationBar();
         bar.start(primaryStage);
     }
-
-    public static void initData() throws Exception
-    {
-        File keys = new File("Keys");
-
-        if(!keys.exists())
-        {
-            keys.mkdir();
-        }
-
-        File ipass = new File("ipass.key");
-
-        if(!ipass.exists())
-        {
-            ipass.createNewFile();
-        }
-}
 }
 
 

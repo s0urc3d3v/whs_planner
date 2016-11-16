@@ -15,7 +15,6 @@ public class TestSchedule extends Application
     @Override
     public void start(Stage PrimaryStage) throws Exception
     {
-        Main.initData();
 
         Schedule schedule = new Schedule();
         PrimaryStage.setResizable(true);
