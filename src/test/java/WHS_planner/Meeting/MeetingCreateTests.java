@@ -12,7 +12,7 @@ import java.io.File;
 
  /* Created by spam on 08.10.2016*/
 
-public class MeetingCreateTests extends TestCase {
+public class MeetingCreateTests extends TestCase { //THIS WORKS!
     public void testMeetingCreation(){
         Course english = new Course("English", 4, "Teacher", Course.level.COLLEGE);
         Student requestingStudent = new Student("John", "Smith", "test@test.com", 12, "teacher1");

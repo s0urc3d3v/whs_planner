@@ -52,28 +52,30 @@ public class IO {
 
     public void writeJsonMeetingData(Student requestingStudent, Student studentRequested, int month, int day, long year, long hour, long minute, Course course) throws IOException {
         JSONObject object = new JSONObject();
-
+        //THIS CREATES INVALID JSON and it breaks the read method
         JSONArray requestingStudentJsonData = new JSONArray();
         requestingStudentJsonData.add(requestingStudent.getFirstName());
         requestingStudentJsonData.add(requestingStudent.getLastName());
         requestingStudentJsonData.add(requestingStudent.getEmail());
         requestingStudentJsonData.add(requestingStudent.getGrade());
+        System.out.println(requestingStudentJsonData.toString());
 
         JSONArray studentRequestedJsonData = new JSONArray();
         studentRequestedJsonData.add(studentRequested.getFirstName());
         studentRequestedJsonData.add(studentRequested.getLastName());
         studentRequestedJsonData.add(studentRequested.getEmail());
         studentRequestedJsonData.add(studentRequested.getGrade());
+        System.out.println(studentRequestedJsonData.toString());
 
         JSONArray requestedCourse = new JSONArray();
         requestedCourse.add(course.getName());
         requestedCourse.add(course.getPeriod());
         requestedCourse.add(course.getTeacher());
         requestedCourse.add(String.valueOf(course.getCourseLevel()));
+        System.out.println(requestedCourse.toString());
 
-
-        object.put("studentRequesting", requestingStudentJsonData.toJSONString());
-        object.put("studentRequested", studentRequested);
+        object.put("requestingStudent", requestingStudentJsonData.toJSONString());
+        object.put("studentRequested", studentRequestedJsonData.toJSONString());
         object.put("month", month);
         object.put("day", day);
         object.put("year", year);
@@ -99,6 +101,7 @@ public class IO {
         String rsTeacher = (String) requestingStudentIterator.next();
         Student requestingStudent = new Student(rsFirstName, rsLastName, rsEmail, Integer.parseInt(rsGrade), rsTeacher);
         System.out.println(requestingStudent.toString());
+
         JSONArray studentRequestedArray = (JSONArray) rawObject.get("studentRequested");
         Iterator studentRequestedIterator = studentRequestedArray.iterator();
         String srFirstName = (String) studentRequestedIterator.next();
@@ -108,6 +111,7 @@ public class IO {
         String srTeacher = (String) studentRequestedIterator.next();
         Student studentRequested = new Student(srFirstName, srLastName, srEmail, Integer.parseInt(srGrade), srTeacher);
         System.out.println(studentRequested.toString());
+
         JSONArray courseArray = (JSONArray) rawObject.get("course");
         Iterator courseArrayIterator = courseArray.iterator();
         String cName = (String) courseArrayIterator.next();
