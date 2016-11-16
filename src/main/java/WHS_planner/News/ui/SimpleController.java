@@ -69,6 +69,7 @@ public class SimpleController implements Initializable {
 
     @FXML
     private void updateFrame() {
+
         Long refreshStartTime = System.currentTimeMillis();
 
 //        System.out.println("ON SCREEN MESSAGES: " + onScreenMessages.size());
@@ -151,6 +152,7 @@ public class SimpleController implements Initializable {
     @FXML
     private void init() {
 
+
         articleList.clear();
 
         //Add button
@@ -159,6 +161,7 @@ public class SimpleController implements Initializable {
         refreshButton.setOnAction((event) -> updateFrame());
         VBox r = new VBox(refreshButton);
         articleList.add(r);
+
 
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
