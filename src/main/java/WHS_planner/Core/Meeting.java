@@ -69,8 +69,8 @@ public class Meeting {
     private Course course;
     private IO io;
 
-    public Meeting(Student requestingStudent, Student studentRequested, int month, int day, long year, long hour, long minute, Course course) {
-        String filename = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json.whsplannermeeting";
+    public Meeting(Student requestingStudent, Student studentRequested, int month, int day, long year, long hour, long minute, Course course, String path) {
+        String filename = path;
         io = new IO(filename);
         this.requestingStudent = requestingStudent;
         this.studentRequested = studentRequested;

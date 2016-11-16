@@ -123,7 +123,7 @@ public class IO {
         int day = Integer.parseInt(String.valueOf(rawObject.get("day")));
         long year = Integer.parseInt(String.valueOf(rawObject.get("year")));
 
-        return new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course);
+        return new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course, getJsonApi().getFilePath());
 
     }
 
@@ -178,6 +178,9 @@ public class IO {
 
     public boolean hasRun(){
         return (boolean) jsonApi.readPair("hasRun");
+    }
+    public JSON getJsonApi(){
+        return jsonApi;
     }
 
 }

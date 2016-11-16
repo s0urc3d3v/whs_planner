@@ -20,9 +20,14 @@ public class JSON {
     private FileWriter fileWriter;
     private JSONObject object = new JSONObject();
     private JSONParser parser;
+    String filePath;
 
     public JSON() {
         parser = new JSONParser();
+    }
+
+    public String getFilePath() {
+        return filePath;
     }
 
     /**
@@ -30,6 +35,8 @@ public class JSON {
      * @Param filePath
      */
     public boolean loadFile(String filePath) {
+        this.filePath = filePath;
+
         try {
             try {
                 object = (JSONObject) parser.parse(new FileReader(filePath));
