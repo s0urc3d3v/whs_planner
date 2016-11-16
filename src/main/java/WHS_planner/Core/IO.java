@@ -91,7 +91,7 @@ public class IO {
 
     public Meeting readMeetingJsonData(){
         JSONObject rawObject = jsonApi.readRaw();
-
+        //does not work
         JSONArray requestingStudentArray = (JSONArray) rawObject.get("studentRequesting"); //JSONArray
         Iterator requestingStudentIterator = requestingStudentArray.iterator();
         String rsFirstName = (String) requestingStudentIterator.next();
