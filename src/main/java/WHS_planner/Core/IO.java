@@ -53,11 +53,11 @@ public class IO {
     public void writeJsonMeetingData(Student requestingStudent, Student studentRequested, int month, int day, long year, long hour, long minute, Course course) throws IOException {
         JSONObject object = new JSONObject();
 
-        JSONArray requestingStuentJsonData = new JSONArray();
-        requestingStuentJsonData.add(requestingStudent.getFirstName());
-        requestingStuentJsonData.add(requestingStudent.getLastName());
-        requestingStuentJsonData.add(requestingStudent.getEmail());
-        requestingStuentJsonData.add(requestingStudent.getGrade());
+        JSONArray requestingStudentJsonData = new JSONArray();
+        requestingStudentJsonData.add(requestingStudent.getFirstName());
+        requestingStudentJsonData.add(requestingStudent.getLastName());
+        requestingStudentJsonData.add(requestingStudent.getEmail());
+        requestingStudentJsonData.add(requestingStudent.getGrade());
 
         JSONArray studentRequestedJsonData = new JSONArray();
         studentRequestedJsonData.add(studentRequested.getFirstName());
@@ -72,7 +72,7 @@ public class IO {
         requestedCourse.add(String.valueOf(course.getCourseLevel()));
 
 
-        object.put("studentRequesting", requestingStuentJsonData.toJSONString());
+        object.put("studentRequesting", requestingStudentJsonData.toJSONString());
         object.put("studentRequested", studentRequested);
         object.put("month", month);
         object.put("day", day);
@@ -91,29 +91,29 @@ public class IO {
         JSONObject rawObject = jsonApi.readRaw();
 
         JSONArray requestingStudentArray = (JSONArray) rawObject.get("studentRequesting"); //JSONArray
-        Iterator<String> requestingStudentIterator = requestingStudentArray.iterator();
-        String rsFirstName = requestingStudentIterator.next();
-        String rsLastName = requestingStudentIterator.next();
-        String rsEmail = requestingStudentIterator.next();
-        String rsGrade = requestingStudentIterator.next();
-        String rsTeacher = requestingStudentIterator.next();
+        Iterator requestingStudentIterator = requestingStudentArray.iterator();
+        String rsFirstName = (String) requestingStudentIterator.next();
+        String rsLastName = (String) requestingStudentIterator.next();
+        String rsEmail = (String) requestingStudentIterator.next();
+        String rsGrade = (String) requestingStudentIterator.next();
+        String rsTeacher = (String) requestingStudentIterator.next();
         Student requestingStudent = new Student(rsFirstName, rsLastName, rsEmail, Integer.parseInt(rsGrade), rsTeacher);
         System.out.println(requestingStudent.toString());
         JSONArray studentRequestedArray = (JSONArray) rawObject.get("studentRequested");
-        Iterator<String> studentRequestedIterator = studentRequestedArray.iterator();
-        String srFirstName = studentRequestedIterator.next();
-        String srLastName = studentRequestedIterator.next();
-        String srEmail = studentRequestedIterator.next();
-        String srGrade = studentRequestedIterator.next();
-        String srTeacher = studentRequestedIterator.next();
+        Iterator studentRequestedIterator = studentRequestedArray.iterator();
+        String srFirstName = (String) studentRequestedIterator.next();
+        String srLastName = (String) studentRequestedIterator.next();
+        String srEmail = (String) studentRequestedIterator.next();
+        String srGrade = (String) studentRequestedIterator.next();
+        String srTeacher = (String) studentRequestedIterator.next();
         Student studentRequested = new Student(srFirstName, srLastName, srEmail, Integer.parseInt(srGrade), srTeacher);
         System.out.println(studentRequested.toString());
         JSONArray courseArray = (JSONArray) rawObject.get("course");
-        Iterator<String> courseArrayIterator = courseArray.iterator();
-        String cName = courseArrayIterator.next();
-        String cPeriod = courseArrayIterator.next();
-        String cTeacher = courseArrayIterator.next();
-        String cCourseLevel = courseArrayIterator.next();
+        Iterator courseArrayIterator = courseArray.iterator();
+        String cName = (String) courseArrayIterator.next();
+        String cPeriod = (String) courseArrayIterator.next();
+        String cTeacher = (String) courseArrayIterator.next();
+        String cCourseLevel = (String) courseArrayIterator.next();
 
         Course course = new Course(cName, Integer.parseInt(cPeriod), cTeacher, Course.level.valueOf(cCourseLevel));
 
