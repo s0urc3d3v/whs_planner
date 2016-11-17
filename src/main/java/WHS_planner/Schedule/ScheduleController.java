@@ -109,7 +109,7 @@ public class ScheduleController implements Initializable, ActionListener
 
         if(s.length() == 1)
         {
-            s = "Today is " + s + " day!";
+            s = "Today is '" + s + "' day!";
         }
 
         //we can set the day here
@@ -198,7 +198,38 @@ public class ScheduleController implements Initializable, ActionListener
 
         double mod = 1;
 
-        if(normalDay)
+        if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == 4)
+        {
+            if(num >= 450 && num < 512)
+            {
+                mod = (512-num)/62.0;
+            }
+            else if(num >= 512 && num < 579)
+            {
+                mod = (579-num)/67.0;
+            }
+            else if(num >= 579 && num < 641)
+            {
+                mod = (641-num)/62.0;
+            }
+            else if(num >= 641 && num < 736)
+            {
+                mod = (736-num)/95.0;
+            }
+            else if(num >= 736 && num < 798)
+            {
+                mod = (798-num)/62.0;
+            }
+            else if(num >= 798 && num <= 855)
+            {
+                mod = (855-num)/57.0;
+            }
+            else
+            {
+                mod = 1;
+            }
+        }
+        else if(normalDay)
         {
             if(num >= 450 && num < 512)
             {
