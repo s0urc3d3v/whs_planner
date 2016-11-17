@@ -4,7 +4,6 @@ import WHS_planner.News.html.HTMLScanner;
 import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -41,11 +40,12 @@ public class NewsUI extends Application {
 
     private HTMLScanner HTMLScanner = new HTMLScanner();
 
-
     private double widthLength;
 
     private URL url;
 
+    //    private Group roooot = new Group();
+//    private ScrollPane rooot = new ScrollPane();
     private JFXMasonryPane root = new JFXMasonryPane();
 
 
@@ -54,7 +54,10 @@ public class NewsUI extends Application {
     }
 
     public void start(Stage stage) {
+//        rooot.setContent(root);
+//        roooot.getChildren().add(rooot);
 
+        root.setPrefSize(1440, 900);
         init();
 
 
@@ -143,17 +146,16 @@ public class NewsUI extends Application {
 
     @FXML
     public void init() {
-
+        root.setStyle("-fx-background-color: #dbdbdb;");
 
         root.getChildren().clear();
 
         //Add button
-        JFXButton refreshButton = new JFXButton("Refresh");
-        refreshButton.getStyleClass().add("button-raised");
-        refreshButton.setOnAction((event) -> updateFrame());
-        VBox r = new VBox(refreshButton);
-        root.getChildren().add(r);
-
+//        JFXButton refreshButton = new JFXButton("Refresh");
+//        refreshButton.getStyleClass().add("button-raised");
+//        refreshButton.setOnAction((event) -> updateFrame());
+//        VBox r = new VBox(refreshButton);
+//        root.getChildren().add(r);
 
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
@@ -161,12 +163,14 @@ public class NewsUI extends Application {
             //Add Hyperlink
             final int eye = i;
             Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
-            hpl.setOnAction((event) -> openLink(feedArray.size() - eye));
-            hpl.setPadding(new Insets(0, 0, 0, -1));
+            hpl.setOnAction((event) -> openLink(eye));
+            hpl.setWrapText(true);
+//            hpl.setPadding(new Insets(0, 0, 0, -1));
 
             //Add label
             Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
             description.setWrapText(true);
+            description.setMaxWidth(widthLength);
 
             //Add Image
             try {
@@ -175,7 +179,9 @@ public class NewsUI extends Application {
                 Long startTime = System.currentTimeMillis();
 
                 String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
+                System.out.println(urlString);
                 if (urlString != null) {
+                    System.out.println("There's an image.");
                     url = new URL(urlString);
                     BufferedImage bf = null;
                     try {
@@ -186,18 +192,38 @@ public class NewsUI extends Application {
                     WritableImage wr = convertImg(bf);
                     ImageView img = new ImageView(wr);
 //                    widthLength = articleListView.getPrefWidth() / 2;
-//                    img.setFitWidth(widthLength);
-//                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
+                    widthLength = 400;
+                    img.setFitWidth(widthLength);
+                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
                     img.setImage(wr);
 
                     //Add article to list
                     VBox v = new VBox(img, hpl, /*author,*/ description);
+//                    v.setPrefSize(600,400);
+//                    v.setMinSize(500,300);
+                    v.setPrefWidth(widthLength);
+                    v.setMaxWidth(widthLength);
+//                    v.setStyle("-fx-background-color: #FFFFFF;");
+                    v.getStyle();
+
 //                    v.setMaxWidth(articleListView.getPrefWidth());
+
+//                    Pane pane = (Pane) (description.getParent());
+//                    pane.setStyle("-fx-background-color:#FFFFFF;");
+                    v.setStyle("-fx-background-color: #FFFFFF;");
+
+                    System.out.println(v.getStyle());
                     root.getChildren().add(v);
+//                    root.getChildren().add(new Group(v));
+
+
                 } else {
 
+                    System.out.println("----ADDED WITHOUT IMAGE-----");
                     //Add article to list
                     VBox v = new VBox(hpl, /*author,*/ description);
+                    v.setPrefSize(400, 400);
+                    v.setStyle("-fx-background-color: #FFFFFF;");
 //                    v.setMaxWidth(articleListView.getPrefWidth());
                     root.getChildren().add(v);
                 }
@@ -228,6 +254,5 @@ public class NewsUI extends Application {
     private String escapeHTML(String string) {
         return Jsoup.parse(string).text();
     }
-
 
 }
