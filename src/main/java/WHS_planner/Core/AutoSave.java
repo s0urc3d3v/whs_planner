@@ -4,23 +4,24 @@ import java.awt.event.ActionListener;
 import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
-
+import java.util.*;
 /**
  * Created by spam on 16.09.2016.
  */
-public class AutoSave extends Thread {
-    private long tickrate = 100;
-    public AutoSave (long tickRate) {
-        tickRate = this.tickrate;
-        Timer t = new Timer();
-        t.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                save();
-            }
-        }, 0, tickrate);
-    }
+public class AutoSave extends TimerTask{
+
     public void save(){
-        //Override this with your save method if you want to use it
+        //override this method with your save code after extending this class
+    }
+    public void start(int interval){
+        //call this to start the autosave ticker
+        TimerTask timerTask = new AutoSave();
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(timerTask, 0, (interval/2)*1000);
+    }
+
+    @Override
+    public void run() {
+        save();
     }
 }
