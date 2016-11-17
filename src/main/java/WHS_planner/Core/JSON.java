@@ -179,7 +179,6 @@ public class JSON {
      * @return JSONObject object
      */
     public JSONObject readRaw(){
-        System.out.println(object.toString());
         return object;
     }
 }

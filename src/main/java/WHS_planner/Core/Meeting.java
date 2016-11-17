@@ -3,7 +3,6 @@ package WHS_planner.Core;
 import WHS_planner.Util.Course;
 import WHS_planner.Util.Student;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
