@@ -79,7 +79,7 @@ public class MainDocumentController implements Initializable {
 
         topBar.setStyle("-fx-background-color: #FF9800");
         navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");
-        navHamburger.getStyleClass().add("jfx-hamburger-icon");
+        navHamburger.getStyleClass().add("jfx-hamburger-icon"); //push
         String[] tabs = new String[]{"Calendar", "Schedule", "Today", "Tests", "Rip A Fat Vape", "George"}; //Need to find a way to get this from another class,
         //Create the VBox                                                                            //May need to be an array of classes that extend tab, so you can get an fxml file related to them and their name.
         JFXButton[] buttonArray = new JFXButton[tabs.length];
