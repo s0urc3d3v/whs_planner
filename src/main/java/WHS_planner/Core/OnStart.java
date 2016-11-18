@@ -45,14 +45,10 @@ public class OnStart {
         JSON jsonApi = new JSON();
         jsonApi.loadFile("keys" + File.separator + "keys.key.json");
         String username = (String) jsonApi.readPair("ipassUser");
-        String password = (String) jsonApi.readPair("ipassPass"); //TODO: security
+        char[] password = ((String) jsonApi.readPair("ipassPass")).toCharArray(); //TODO: security
 
         memoryCredentials.setIpassUsername(username);
         memoryCredentials.setIpassPassword(password);
-
-
-
-
 
     }
 

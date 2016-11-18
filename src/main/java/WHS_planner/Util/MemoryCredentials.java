@@ -5,9 +5,9 @@ package WHS_planner.Util;
  */
 public class MemoryCredentials {
     private String ipassUsername;
-    private String ipassPassword;
+    private char[] ipassPassword;
 
-    public MemoryCredentials(String ipassUsername, String ipassPassword) {
+    public MemoryCredentials(String ipassUsername, char[] ipassPassword) {
         this.ipassUsername = ipassUsername;
         this.ipassPassword = ipassPassword;
     }
@@ -20,11 +20,11 @@ public class MemoryCredentials {
         this.ipassUsername = ipassUsername;
     }
 
-    public String getIpassPassword() {
+    public char[] getIpassPassword() {
         return ipassPassword;
     }
 
-    public void setIpassPassword(String ipassPassword) {
+    public void setIpassPassword(char[] ipassPassword) {
         this.ipassPassword = ipassPassword;
     }
 }
