@@ -1,6 +1,7 @@
 package WHS_planner.CoreUI;
 
 import WHS_planner.Calendar.Calendar;
+import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
@@ -13,10 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -53,38 +51,111 @@ public class MainDocumentController implements Initializable {
 
     private NavigationBar main;
 
+    private Schedule schedule;
+
     private boolean sportsScheduleOpen;
 
-    public MainDocumentController(){
+    private Pane[] panes;
+
+    public MainDocumentController()
+    {
         main = new NavigationBar();
     }
 
-
     public void initialize(URL location, ResourceBundle resources) {
+
+        panes = new Pane[8];
+
         cal = new Calendar(1, 30);
         cal.setPrefHeight(anchorPane.getPrefHeight());
         cal.prefWidthProperty().bind(anchorPane.widthProperty());
+        schedule = new Schedule();
+        BorderPane schedulepane = (BorderPane) schedule.getPane();
+        BorderPane daypane = (BorderPane) schedule.getdaypane();
+
+
 
         topBar.setStyle("-fx-background-color: #FF9800");
         navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");
         navHamburger.getStyleClass().add("jfx-hamburger-icon");
-        String[] tabs = new String[]{"Calendar", "Schedule", "Homework", "Tests", "Schedule", "George"}; //Need to find a way to get this from another class,
+        String[] tabs = new String[]{"Calendar", "Schedule", "Today", "Tests", "Rip A Fat Vape", "George"}; //Need to find a way to get this from another class,
         //Create the VBox                                                                            //May need to be an array of classes that extend tab, so you can get an fxml file related to them and their name.
         JFXButton[] buttonArray = new JFXButton[tabs.length];
-        for (int i = 0; i < tabs.length; i++) {
+        for (int i = 0; i < tabs.length; i++)
+        {
             JFXButton tempButton = new JFXButton(tabs[i].toUpperCase());
             tempButton.setPrefSize(navDrawer.getDefaultDrawerSize(), (navDrawer.getPrefHeight()) / tabs.length);
             tempButton.getStylesheets().add("/CoreUI/ButtonUI.css");
             tempButton.getStyleClass().add("button-raised");
             buttonArray[i] = tempButton;
         }
-
+        System.out.println();
         buttonArray[0].setOnMouseClicked(event -> {
-            if(!anchorPane.getChildren().contains(cal)) {
-                anchorPane.getChildren().add(1, cal);
-//                anchorPane.setTopAnchor(cal, 45.0);
+            //anchorPane.getChildren().setAll(tempPane.getChildren());
+            if(!anchorPane.getChildren().contains(cal))
+            {
+                anchorPane.getChildren().add(0, cal);
+                panes[0] = cal;
+
+                for (int i = 0; i < panes.length; i++)
+                {
+                    if(i != 0)
+                    {
+                        if(panes[i] != null)
+                        {
+                            remPane(panes[i]);
+                        }
+                    }
+                }
             }
+
+//            anchorPane.setTopAnchor(cal, 45.0);
         });
+
+        buttonArray[1].setOnMouseClicked(event -> {
+            //anchorPane.getChildren().setAll(tempPane.getChildren());
+            if(!anchorPane.getChildren().contains(schedulepane))
+            {
+                anchorPane.getChildren().add(0, schedulepane);
+                panes[1] = schedulepane;
+
+                for (int i = 0; i < panes.length; i++)
+                {
+                    if(i != 1)
+                    {
+                        if(panes[i] != null)
+                        {
+                            remPane(panes[i]);
+                        }
+                    }
+                }
+            }
+
+//            anchorPane.setTopAnchor(schedulepane, 45.0);
+        });
+
+        buttonArray[2].setOnMouseClicked(event -> {
+            //anchorPane.getChildren().setAll(tempPane.getChildren());
+            if(!anchorPane.getChildren().contains(daypane))
+            {
+                anchorPane.getChildren().add(0, daypane);
+                panes[2] = daypane;
+
+                for (int i = 0; i < panes.length; i++)
+                {
+                    if(i != 2)
+                    {
+                        if(panes[i] != null)
+                        {
+                            remPane(panes[i]);
+                        }
+                    }
+                }
+            }
+
+//            anchorPane.setTopAnchor(daypane, 45.0);
+        });
+
         VBox vBox = new VBox(buttonArray);
 
         navDrawer.setSidePane(vBox);
@@ -108,6 +179,9 @@ public class MainDocumentController implements Initializable {
             }
 
         });
+
+        // tempPane = new AnchorPane();
+        // tempPane.getChildren().addAll(anchorPane.getChildren());
     }
 
     @FXML
@@ -133,7 +207,7 @@ public class MainDocumentController implements Initializable {
         loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
         // initializing the controller
         popupController popupController = new popupController();
-        //loader.setController(popupController);
+        loader.setController(popupController);
         Parent layout;
         try {
             layout = loader.load();
@@ -153,6 +227,12 @@ public class MainDocumentController implements Initializable {
             e.printStackTrace();
         }
         return popupController.getResult();
+    }
+
+
+    public void remPane(Pane p)
+    {
+        anchorPane.getChildren().remove(p);
     }
 
 

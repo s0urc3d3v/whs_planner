@@ -1,5 +1,7 @@
 package WHS_planner.Meeting;
 
+import WHS_planner.Core.IO;
+import WHS_planner.Core.Meeting;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
@@ -12,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
@@ -20,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -43,7 +47,7 @@ public class MeetingController implements Initializable{
     private ObservableList<VBox> classContents;
 
     private ObservableList<VBox> requestedContents;
-
+    //populate JFXMListViews from json
 
 
     private Stage stage = null;
@@ -55,6 +59,7 @@ public class MeetingController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("initialized");
         anchorPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
                 resize();
@@ -67,6 +72,8 @@ public class MeetingController implements Initializable{
         classListView.setItems(classContents);
         requestingListView.setItems(requestingContents);
         requestedListView.setItems(requestedContents);
+
+        addSession("Name1", "Grade1", "Level1", "Teacher1", "Class", "Time", "Date", "Name2", "Grade2", "Level2", "Teacher2");
 
         anchorPane.applyCss();
 
@@ -97,6 +104,18 @@ public class MeetingController implements Initializable{
                 }
             }
         });
+//        IO io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json.whsplannermeeting");
+//        Meeting meeting = io.readMeetingJsonData();
+//        addSession(meeting.getRequestingStudent().getFirstName() + " " + meeting.getRequestingStudent().getLastName(),
+//                String.valueOf(meeting.getRequestingStudent().getGrade()),
+//                String.valueOf(meeting.getCourse().getCourseLevel()),
+//                meeting.getRequestingStudent().getTeacher(),
+//                String.valueOf(meeting.getCourse()),
+//                meeting.getHour() + ":" + meeting.getMinute(),
+//                meeting.getStudentRequested().getFirstName() + " " + meeting.getStudentRequested().getLastName(),
+//                String.valueOf(meeting.getStudentRequested().getGrade()),
+//                String.valueOf(meeting.getCourse().getCourseLevel()),
+//                meeting.getStudentRequested().getTeacher());
 
     }
 
@@ -127,20 +146,20 @@ public class MeetingController implements Initializable{
         requestedListView.setPrefWidth((anchorPane.getWidth())/3);
     }
 
-    public void addSession(String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
-        requestingContents.add(new VBox(new Label(requestingStudentName), new Label(requestingGrade), new Label(requestingLevel), new Label(requestingTeacher)));
-        classContents.add(new VBox(new Label(className), new Label(classTime), new Label(" "), new Label(" ")));
-        requestedContents.add(new VBox(new Label(requestingStudentName), new Label(requestingGrade), new Label(requestingLevel), new Label(requestingTeacher)));
+    public void addSession(String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String meetingDate, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
+        requestingContents.add(createVBox(requestingStudentName, requestingGrade, requestingLevel, requestingTeacher));
+        classContents.add(createVBox(meetingDate ,className, classTime, " "));
+        requestedContents.add(createVBox(requestedStudentName, requestedStudentGrade, requestedStudentLevel, requestedStudentTeacher));
 
         requestingListView.setItems(requestingContents);
         classListView.setItems(classContents);
         requestedListView.setItems(requestedContents);
     }
 
-    public void changeSession(int Index,String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
-        requestingContents.set(Index, new VBox(new Label(requestingStudentName), new Label(requestingGrade), new Label(requestingLevel), new Label(requestingTeacher)));
-        classContents.set(Index, new VBox(new Label(className), new Label(classTime), new Label(" "), new Label(" ")));
-        requestedContents.set(Index, new VBox(new Label(requestingStudentName), new Label(requestingGrade), new Label(requestingLevel), new Label(requestingTeacher)));
+    public void changeSession(int Index,String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String meetingDate, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
+        requestingContents.add(createVBox(requestingStudentName, requestingGrade, requestingLevel, requestingTeacher));
+        classContents.add(createVBox(meetingDate, className, classTime, " "));
+        requestedContents.add(createVBox(requestedStudentName, requestedStudentGrade, requestedStudentLevel, requestedStudentTeacher));
 
         requestingListView.setItems(requestingContents);
         classListView.setItems(classContents);
@@ -155,5 +174,18 @@ public class MeetingController implements Initializable{
         requestingListView.setItems(requestingContents);
         classListView.setItems(classContents);
         requestedListView.setItems(requestedContents);
+    }
+
+    private VBox createVBox(String one, String two, String three, String four){
+        Label l1 = new Label(one);
+        l1.setPadding(new Insets(5));
+        Label l2 = new Label(two);
+        l2.setPadding(new Insets(5));
+        Label l3 = new Label(three);
+        l3.setPadding(new Insets(5));
+        Label l4 = new Label(four);
+        l4.setPadding(new Insets(5));
+        VBox vbox = new VBox(l1, l2, l3, l4);
+        return vbox;
     }
 }
