@@ -4,6 +4,7 @@ import WHS_planner.News.html.HTMLScanner;
 import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -45,7 +47,7 @@ public class NewsUI extends Application {
     private URL url;
 
     //    private Group roooot = new Group();
-//    private ScrollPane rooot = new ScrollPane();
+    private ScrollPane rooot = new ScrollPane();
     private JFXMasonryPane root = new JFXMasonryPane();
 
 
@@ -54,10 +56,12 @@ public class NewsUI extends Application {
     }
 
     public void start(Stage stage) {
-//        rooot.setContent(root);
+        rooot.setPrefSize(1280, 720);
+        rooot.setContent(root);
 //        roooot.getChildren().add(rooot);
 
-        root.setPrefSize(1440, 900);
+        root.setPrefSize(1280, 720);
+        root.setHSpacing(1);
         init();
 
 
@@ -151,11 +155,11 @@ public class NewsUI extends Application {
         root.getChildren().clear();
 
         //Add button
-//        JFXButton refreshButton = new JFXButton("Refresh");
-//        refreshButton.getStyleClass().add("button-raised");
-//        refreshButton.setOnAction((event) -> updateFrame());
-//        VBox r = new VBox(refreshButton);
-//        root.getChildren().add(r);
+        JFXButton refreshButton = new JFXButton("Refresh");
+        refreshButton.getStyleClass().add("button-raised");
+        refreshButton.setOnAction((event) -> updateFrame());
+        VBox r = new VBox(refreshButton);
+        root.getChildren().add(r);
 
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
@@ -198,11 +202,14 @@ public class NewsUI extends Application {
                     img.setImage(wr);
 
                     //Add article to list
+                    hpl.setMaxWidth(widthLength);
+
                     VBox v = new VBox(img, hpl, /*author,*/ description);
-//                    v.setPrefSize(600,400);
-//                    v.setMinSize(500,300);
                     v.setPrefWidth(widthLength);
                     v.setMaxWidth(widthLength);
+//                    v.setPrefSize(600,400);
+//                    v.setMinSize(500,300);
+
 //                    v.setStyle("-fx-background-color: #FFFFFF;");
                     v.getStyle();
 
