@@ -8,8 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import java.io.*;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -149,7 +151,7 @@ public class Schedule
     {
         File f = new File("output.html");
 
-        File input = new File("Keys/ipass.key");
+        File input = new File("Keys/keys.key.json");
 
         String user = null;
         String pass = null;

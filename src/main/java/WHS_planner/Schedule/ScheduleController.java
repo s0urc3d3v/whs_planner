@@ -7,9 +7,13 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,7 +21,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.ResourceBundle;
-import javax.swing.Timer;
 
 public class ScheduleController implements Initializable, ActionListener
 {
@@ -151,7 +154,7 @@ public class ScheduleController implements Initializable, ActionListener
     {
         try
         {
-            File f = new File("Keys/ipass.key");
+            File f = new File("Keys/keys.key.json");
 
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
