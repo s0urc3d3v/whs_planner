@@ -83,7 +83,6 @@ public class NewsUI extends Application {
     @FXML
     private void updateFrame() {
 
-        //TODO: text wrap, scroll bar
         Long refreshStartTime = System.currentTimeMillis();
 
         //Get new articles
@@ -200,7 +199,7 @@ public class NewsUI extends Application {
                     img.setFitWidth(widthLength);
                     img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
                     img.setImage(wr);
-//
+
                     //Add article to list
                     hpl.setMaxWidth(widthLength);
 
@@ -212,6 +211,7 @@ public class NewsUI extends Application {
 
 //                    v.setStyle("-fx-background-color: #FFFFFF;");
                     v.getStyle();
+
 
 //                    v.setMaxWidth(articleListView.getPrefWidth());
 
