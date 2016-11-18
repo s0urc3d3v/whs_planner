@@ -7,22 +7,23 @@
      -fx-font-family: 'FontAwesome Regular';
      -fx-font-size: 36px;
      -fx-padding: 10;
+
 }
 
 
 .icon-badge .badge-pane {
-	-fx-background-color:#FFC107;
+	-fx-background-color: rgb(56, 118, 237);
 	-fx-background-radius: 23;
 	-fx-pref-width: 23;
 	-fx-pref-height: 23;
 	-fx-alignment: center;
+
 }
 
 
-.icons-badge Label{
-	-fx-font-weight: BOLD;
+.icon-badge .badge-pane Label{
 	-fx-font-size: 14.0px;
-	-fx-text-fill: WHITE;
+	-fx-text-fill: #FFFFFF;
 }
 
 .box-button {
@@ -31,7 +32,8 @@
 
 
 .box-button-selected {
-	-fx-background-color: #E38262;
+	-fx-background-color:#BDBDBD;
+
 }
 
 
@@ -41,6 +43,7 @@
     -fx-alignment: center ;
     -fx-padding: 5;
     -fx-font-size: 14.0px;
+
 }
 
 .taskHBox {

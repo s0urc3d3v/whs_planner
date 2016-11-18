@@ -125,6 +125,7 @@ public class CalendarBox extends Pane{
                 //Create the badge on the Label
                 JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
                 badge.getStyleClass().add("icon-badge");
+//                badge.getChildren().get(0).getStyleClass().setAll("testsefd");
                 badge.setText("" + getTaskCount(listID)); //Set the badge number
                 icons.add(badge);
             }
