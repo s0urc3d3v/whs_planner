@@ -1,15 +1,14 @@
 package WHS_planner;
 
-
-//import WHS_planner.Core.MeetingFileHandler;
+import WHS_planner.Core.IO;
+import WHS_planner.Core.JSON;
 import WHS_planner.CoreUI.NavigationBar;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.PropertyConfigurator;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.io.File;
 
 public class Main extends Application
 {
@@ -23,6 +22,9 @@ public class Main extends Application
          */
        PropertyConfigurator.configure("log4j.properties");
        launch(args);
+        IO io = new IO("src" + File.separator + "main" + File.separator + "resources"+ File.separator + "Core" + File.separator + "util.json");
+        io.setFirstRunVar();
+
     }
 
     @Override

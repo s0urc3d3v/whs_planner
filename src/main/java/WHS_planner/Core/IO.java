@@ -2,21 +2,23 @@ package WHS_planner.Core;
 
 import WHS_planner.Schedule.ScheduleBlock;
 import WHS_planner.Util.Course;
+import WHS_planner.Util.Student;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by matthewelbing on 27.09.16.
  */
 public class IO {
     private JSON jsonApi;
+    private String fileName;
     public IO(String fileName) {
+        this.fileName = fileName;
         jsonApi = new JSON();
         jsonApi.loadFile(fileName);
     }
@@ -27,37 +29,37 @@ public class IO {
             jsonApi.writeArray(i + "", new Object[]{block.getClassName(), block.getTeacher(), block.getRoomNumber(), block.getPeriodNumber()});
             i++;
         }
-
     }
 
     public void unload()
     {
         jsonApi.unloadFile();
     }
-    void writeMeetingJsonData(Student requestingStudent, Student studentRequested, int month, int day, int year, long hour, long minute, Course course){
-        HashMap<String, Object> meeting = new HashMap<String, Object>();
-        meeting.put("requestingStudent", requestingStudent.getFirstName() + " " + requestingStudent.getLastName());
-        meeting.put("studentRequested", studentRequested.getFirstName() + " " + studentRequested.getLastName());
-        meeting.put("month", month);
-        meeting.put("day", day);
-        meeting.put("year", year);
-        meeting.put("hour", hour);
-        meeting.put("minute", minute);
-        meeting.put("course", course.toString());
-        jsonApi.writeArray("meetingKeys", meeting.entrySet().toArray()); //init with meeting.json.whsplannermeeting file of course
-        jsonApi.writeArray("meetingValues", meeting.entrySet().toArray());
-        unload();
-    }
+    //Not sure what this was for but don't think it should be deleted for now
+//    void writeMeetingJsonData(Student requestingStudent, Student studentRequested, int month, int day, int year, long hour, long minute, Course course){
+//        HashMap<String, Object> meeting = new HashMap<String, Object>();
+//        meeting.put("requestingStudent", requestingStudent.getFirstName() + " " + requestingStudent.getLastName());
+//        meeting.put("studentRequested", studentRequested.getFirstName() + " " + studentRequested.getLastName());
+//        meeting.put("month", month);
+//        meeting.put("day", day);
+//        meeting.put("year", year);
+//        meeting.put("hour", hour);
+//        meeting.put("minute", minute);
+//        meeting.put("course", course.toString());
+//        jsonApi.writeArray("meetingKeys", meeting.entrySet().toArray()); //init with meeting.json.whsplannermeeting file of course
+//        jsonApi.writeArray("meetingValues", meeting.entrySet().toArray());
+//        unload();
+//    }
 
 
-    public void writeMeeting(Student requestingStudent, Student studentRequested, int month, int day, long year, long hour, long minute, Course course) throws IOException {
+    public void writeJsonMeetingData(Student requestingStudent, Student studentRequested, long month, long day, long year, long hour, long minute, Course course) throws IOException {
         JSONObject object = new JSONObject();
-
-        JSONArray requestingStuentJsonData = new JSONArray();
-        requestingStuentJsonData.add(requestingStudent.getFirstName());
-        requestingStuentJsonData.add(requestingStudent.getLastName());
-        requestingStuentJsonData.add(requestingStudent.getEmail());
-        requestingStuentJsonData.add(requestingStudent.getGrade());
+        //THIS CREATES INVALID JSON and it breaks the read method
+        JSONArray requestingStudentJsonData = new JSONArray();
+        requestingStudentJsonData.add(requestingStudent.getFirstName());
+        requestingStudentJsonData.add(requestingStudent.getLastName());
+        requestingStudentJsonData.add(requestingStudent.getEmail());
+        requestingStudentJsonData.add(requestingStudent.getGrade());
 
         JSONArray studentRequestedJsonData = new JSONArray();
         studentRequestedJsonData.add(studentRequested.getFirstName());
@@ -69,11 +71,10 @@ public class IO {
         requestedCourse.add(course.getName());
         requestedCourse.add(course.getPeriod());
         requestedCourse.add(course.getTeacher());
-        requestedCourse.add(course.getCourseLevel());
+        requestedCourse.add(String.valueOf(course.getCourseLevel()));
 
-
-        object.put("studentRequesting", requestingStuentJsonData);
-        object.put("studentRequested", studentRequested);
+        object.put("requestingStudent", requestingStudentJsonData.toJSONString());
+        object.put("studentRequested", studentRequestedJsonData.toJSONString());
         object.put("month", month);
         object.put("day", day);
         object.put("year", year);
@@ -82,50 +83,128 @@ public class IO {
 
         object.put("course", requestedCourse);
 
-        jsonApi.loadFile("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json.whsplannermeeting");
-
         jsonApi.writeRaw(object);
-        jsonApi.unloadFile();
+        jsonApi.unloadWithoutWrite();
 
     }
 
-    public void readMeetingJsonData(){
+    public Meeting readMeetingJsonData(){
         JSONObject rawObject = jsonApi.readRaw();
+        if (rawObject.toString() == null) {
+            //These students need to be parsed
+            String requestingStudentUnparsed = (String) rawObject.get("requestingStudent");
+            String studentRequestedUnparsed = (String) rawObject.get("studentRequested");
+            long month = (long) rawObject.get("month");
+            long day = (long) rawObject.get("day");
+            long year = (long) rawObject.get("year");
+            long hour = (long) rawObject.get("hour");
+            long minute = (long) rawObject.get("minute");
+            JSONArray courseUnparsed = (JSONArray) rawObject.get("course"); //differnt parse required
+            Student requestingStudent = new Student(null, null, null, 0, null);
+            Student studentRequested = new Student(null, null, null, 0, null);
 
-        JSONArray requestingStudentArray = (JSONArray) rawObject.get("studentRequesting"); //JSONArray
-        Iterator<String> requestingStudentIterator = requestingStudentArray.iterator();
-        String rsFirstName = requestingStudentIterator.next();
-        String rsLastName = requestingStudentIterator.next();
-        String rsEmail = requestingStudentIterator.next();
-        String rsGrade = requestingStudentIterator.next();
-        String rsTeacher = requestingStudentIterator.next();
-        Student requestingStudent = new Student(rsFirstName, rsLastName, rsEmail, Integer.parseInt(rsGrade), rsTeacher);
+            //Start parsing requestingStudentUnparsed
+            int startRs = 0;
+            int endRs = 0;
+            for (startRs = 0; startRs < requestingStudentUnparsed.length(); startRs++) {
+                if (requestingStudentUnparsed.charAt(startRs) == '"') {
+                    for (int j = startRs + 1; j < requestingStudentUnparsed.length(); j++) {
+                        if (requestingStudentUnparsed.charAt(j) == '"') {
+                            requestingStudent.setFirstName(requestingStudentUnparsed.substring(startRs + 1, j));
+                            startRs = j + 2;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            for (int x = startRs; x < requestingStudentUnparsed.length(); x++) {
+                if (requestingStudentUnparsed.charAt(x) == '"' && requestingStudentUnparsed.charAt(x) != ',') {
+                    for (int j = x + 1; j < requestingStudentUnparsed.length(); j++) {
+                        if (requestingStudentUnparsed.charAt(j) == '"') {
+                            requestingStudent.setLastName(requestingStudentUnparsed.substring(x + 1, j));
+                            startRs = j + 2;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            for (int x = startRs; x < requestingStudentUnparsed.length(); x++) {
+                if (requestingStudentUnparsed.charAt(x) == '"' && requestingStudentUnparsed.charAt(x + 1) != ',') {
+                    for (int i = x + 1; i < requestingStudentUnparsed.length(); i++) {
+                        if (requestingStudentUnparsed.charAt(i) == '"') {
+                            requestingStudent.setEmail(requestingStudentUnparsed.substring(x + 1, i));
+                            startRs = i + 2;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            //This is a number so it must be parsed specially but we know where it is!
+            requestingStudent.setGrade(Integer.parseInt(requestingStudentUnparsed.substring(startRs, startRs + 2)));
 
-        JSONArray studentRequestedArray = (JSONArray) rawObject.get("studentRequested");
-        Iterator<String> studentRequestedIterator = studentRequestedArray.iterator();
-        String srFirstName = studentRequestedIterator.next();
-        String srLastName = studentRequestedIterator.next();
-        String srEmail = studentRequestedIterator.next();
-        String srGrade = studentRequestedIterator.next();
-        String srTeacher = studentRequestedIterator.next();
-        Student studentRequested = new Student(srFirstName, srLastName, srEmail, Integer.parseInt(srGrade), srTeacher);
+            //requesting student parse done!!
 
-        JSONArray courseArray = (JSONArray) rawObject.get("course");
-        Iterator<String> courseArrayIterator = courseArray.iterator();
-        String cName = courseArrayIterator.next();
-        String cPeriod = courseArrayIterator.next();
-        String cTeacher = courseArrayIterator.next();
-        String cCourseLevel = courseArrayIterator.next();
+            //studentRequesting parse start
+            int startSr = 0;
+            int endSr = 0;
+            for (startSr = 0; startSr < studentRequestedUnparsed.length(); startSr++) {
+                if (studentRequestedUnparsed.charAt(startSr) == '"') {
+                    for (int j = startSr + 1; j < studentRequestedUnparsed.length(); j++) {
+                        if (studentRequestedUnparsed.charAt(j) == '"') {
+                            studentRequested.setFirstName(studentRequestedUnparsed.substring(startSr + 1, j));
+                            startSr = j + 2;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            for (int x = startSr; x < studentRequestedUnparsed.length(); x++) {
+                if (studentRequestedUnparsed.charAt(x) == '"' && studentRequestedUnparsed.charAt(x) != ',') {
+                    for (int j = x + 1; j < studentRequestedUnparsed.length(); j++) {
+                        if (studentRequestedUnparsed.charAt(j) == '"') {
+                            studentRequested.setLastName(studentRequestedUnparsed.substring(x + 1, j));
+                            startSr = j + 2;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            for (int x = startSr; x < studentRequestedUnparsed.length(); x++) {
+                if (studentRequestedUnparsed.charAt(x) == '"' && studentRequestedUnparsed.charAt(x + 1) != ',') {
+                    for (int i = x + 1; i < studentRequestedUnparsed.length(); i++) {
+                        if (studentRequestedUnparsed.charAt(i) == '"') {
+                            studentRequested.setEmail(studentRequestedUnparsed.substring(x + 1, i));
+                            startSr = i + 2;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            //This is a number so it must be parsed specially but we know where it is!
+            studentRequested.setGrade(Integer.parseInt(studentRequestedUnparsed.substring(startSr, startSr + 2)));
 
-        Course course = new Course(cName, Integer.parseInt(cPeriod), cTeacher, Course.level.valueOf(cCourseLevel));
+            //Parse course data
+            Iterator<Object> courseUnparsedIterator = courseUnparsed.iterator();
+            Course course = new Course(null, 0, null, null);
+            course.setName((String) courseUnparsedIterator.next());
+            course.setPeriod((Long) courseUnparsedIterator.next());
+            course.setTeacher((String) courseUnparsedIterator.next());
+            course.setCourseLevel(Course.level.valueOf((String) courseUnparsedIterator.next()));
+            jsonApi.unloadWithoutWrite();
+            //TODO check if file is empty
+            return new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course, fileName);
+        }
+        else {
+            ErrorHandler.handleNoMeetingDataError();
+            return null;
+        }
 
-        int hour = Integer.parseInt(String.valueOf(rawObject.get("hour")));
-        int minute = Integer.parseInt(String.valueOf(rawObject.get("minute")));
-        int month = Integer.parseInt(String.valueOf(rawObject.get("month")));
-        int day = Integer.parseInt(String.valueOf(rawObject.get("day")));
-        long year = Integer.parseInt(String.valueOf(rawObject.get("year")));
-
-        Meeting receivedMeeting = new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course);
 
     }
 
@@ -139,4 +218,50 @@ public class IO {
             }
         return scheduleBlockArrayList;
     }
+
+    public void writeMap(Map<String, Integer> map)
+    {
+        Iterator iterator = map.keySet().iterator();
+        while(iterator.hasNext())
+        {
+            Map.Entry entry = (Map.Entry<String,Integer>)iterator.next();
+            jsonApi.writePair((String) entry.getKey(), Integer.toString( (Integer) entry.getValue()));
+            iterator.remove();
+        }
+    }
+
+    public Map<String, Integer> readMap()
+    {
+        //TODO: Write this fucking method.......eventually ~ John/Vrend
+        return null;
+    }
+
+    public void writeArray(String arrayName, Object[] objects) {
+        jsonApi.writeArray(arrayName, objects);
+    }
+
+    public Object[] readArray(String arrayName)
+    {
+        JSONArray array = jsonApi.readArray(arrayName);
+        Object[] objects = new Object[array.size()];
+
+        for (int i = 0; i < array.size(); i++)
+        {
+            objects[i] = array.get(i);
+        }
+
+        return objects;
+    }
+
+    public void setFirstRunVar(){
+        jsonApi.writePair("hasRun", String.valueOf(true));
+    }
+
+    public boolean hasRun(){
+        return (boolean) jsonApi.readPair("hasRun");
+    }
+    public JSON getJsonApi(){
+        return jsonApi;
+    }
+
 }

@@ -20,9 +20,14 @@ public class JSON {
     private FileWriter fileWriter;
     private JSONObject object = new JSONObject();
     private JSONParser parser;
+    String filePath;
 
     public JSON() {
         parser = new JSONParser();
+    }
+
+    public String getFilePath() {
+        return filePath;
     }
 
     /**
@@ -30,17 +35,21 @@ public class JSON {
      * @Param filePath
      */
     public boolean loadFile(String filePath) {
+        this.filePath = filePath;
+
         try {
             try {
-                object = (JSONObject) parser.parse(new FileReader(filePath));
-                fileWriter = new FileWriter(filePath);
+                FileReader fileReader = new FileReader(filePath);
+                object = (JSONObject) parser.parse(fileReader);
+                fileReader.close();
+                fileWriter = new FileWriter(filePath, true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } catch (ParseException e) {
             object = new JSONObject();
             try {
-                fileWriter = new FileWriter(filePath);
+                fileWriter = new FileWriter(filePath, true);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -61,6 +70,15 @@ public class JSON {
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
+            ErrorHandler.HandleIOError(e);
+        }
+    }
+
+    public void unloadWithoutWrite(){
+        try {
+            fileWriter.flush();
+            fileWriter.close();
+    } catch (IOException e) {
             ErrorHandler.HandleIOError(e);
         }
     }
