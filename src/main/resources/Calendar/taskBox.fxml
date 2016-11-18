@@ -7,7 +7,7 @@
 
 <HBox styleClass="taskBox" fx:id="textHBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXTextField fx:id="textBox" prefWidth="730" promptText="Enter Task..." />
+      <JFXTextField fx:id="textBox" promptText="Enter Task..." />
       <JFXHamburger>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

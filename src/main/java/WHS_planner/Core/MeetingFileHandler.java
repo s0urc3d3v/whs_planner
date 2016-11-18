@@ -28,6 +28,8 @@ public class MeetingFileHandler {
                             new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core");
                             f.renameTo(new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + f.getName()));
                             IO io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + "meeting.json.whsplannermeeting");
+                            PostMeeting postMeeting = new PostMeeting();
+                            postMeeting.post();
                         }
                         else {
                             ErrorHandler.handleGenericError("file was not a meeting", null);
