@@ -65,6 +65,8 @@ public class ErrorHandler {
 
     public static void handleNoIpassKeyFileError(){
         WHS_planner.CoreUI.ErrorPage.displayErrorWithMsg("You have not logged into ipass yet or your Creditials where deleated, we're sorry!");
-
+    }
+    public static void handleNoMeetingDataError(){
+        WHS_planner.CoreUI.ErrorPage.displayErrorWithMsg("There is no meeting data on file, we're sorry!");
     }
 }
