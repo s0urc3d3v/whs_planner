@@ -1,12 +1,10 @@
 package WHS_planner.CoreUI;
 
+import WHS_planner.Calendar.CalendarBox;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -39,28 +37,11 @@ public class NavigationBar extends Application {
 
         Scene scene = new Scene(root);
 
-        //this handles any keys pressed, and if the Q key is pressed, the program will close cleanly
-
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode().equals(KeyCode.Q))
-                {
-                    System.exit(0);
-                }
-            }
-        });
-
-//        Region rect = (Region)root.getChildrenUnmodifiable().get(0);
-//
-//        rect.prefWidthProperty().bind(scene.widthProperty());
-//        rect.prefHeightProperty().bind(scene.heightProperty());
-
         //Set the stylesheet
         scene.getStylesheets().add("/Calendar/MainUI.css");
 
-        stage.setMinHeight(75*5+48+10*8+25+30);
-        stage.setMinWidth(780);
+        stage.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT *5+48+10*8+30+30+10);
+        stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH *7+90);
         stage.setScene(scene);
         stage.show();
     }
@@ -72,4 +53,7 @@ public class NavigationBar extends Application {
     }
 
 
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

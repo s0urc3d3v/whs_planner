@@ -4,16 +4,26 @@ package WHS_planner.Core;
  * Created by spam on 08.10.2016.
  */
 public class Student {
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
+
     private String firstName;
     private String lastName;
     private String email;
     private int grade;
+    private String teacher;
 
-    public Student(String firstName, String lastName, String email, int grade) {
+    public Student(String firstName, String lastName, String email, int grade, String teacher) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.grade = grade;
+        this.teacher = teacher;
     }
 
     @Override

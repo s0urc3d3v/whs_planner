@@ -1,6 +1,5 @@
 package WHS_planner.News.ui;
 
-import WHS_planner.News.html.HTMLScanner;
 import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
@@ -13,229 +12,60 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
-import org.jsoup.Jsoup;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class SimpleController implements Initializable {
-
-    private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
-    private Feed feed = parser.readFeed();
-
-    //List of articles to add to display
-    private List<FeedMessage> feedArray = feed.getMessages();
-
-    //List of articles CURRENTLY ON DISPLAY
-    private List<FeedMessage> onScreenMessages = new ArrayList<>();
-
-    private HTMLScanner HTMLScanner = new HTMLScanner();
-
     @FXML
     private JFXListView<VBox> articleListView;
-    private double widthLength;
+    private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
+    private Feed feed = parser.readFeed();
+    private List<FeedMessage> feedArray = feed.getMessages();
     private ObservableList<VBox> articleList = FXCollections.observableArrayList();
-    private URL url;
-
-    public SimpleController() {
-
-    }
 
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-
-
-        init();
+        updateFrame();
     }
 
+    //?
     @FXML
     public void openLink(int index) {
         try {
-            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", parser.readFeed().getMessages().get(index).getLink()});
+            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", feedArray.get(index).getLink()});
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
     @FXML
     private void updateFrame() {
-        Long refreshStartTime = System.currentTimeMillis();
-
-//        System.out.println("ON SCREEN MESSAGES: " + onScreenMessages.size());
-//        for (int i = 0; i < onScreenMessages.size(); i++) {
-//            System.out.println(onScreenMessages.get(i).getTitle());
-//        }
-//        System.out.println();
-//
-//
-//        System.out.println("FEED ARRAY: " + feedArray.size());
-//        for (int i = 0; i < feedArray.size(); i++) {
-//            System.out.println(feedArray.get(i).getTitle());
-//        }
-//        System.out.println();
-//      kill me
-        //Get new articles
-        feedArray = parser.getNewArticles(onScreenMessages);
-
-
-
-        //Loop through all NEW articles
-        for (int i = 0; i < feedArray.size(); i++) {
-
-            //Add Hyperlink
-            final int eye = i;
-            Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
-            hpl.setOnAction((event) -> openLink(eye));
-            hpl.setPadding(new Insets(0, 0, 0, -1));
-            //Add label
-            Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
-            description.setWrapText(true);
-
-            //Add Image
-            try {
-                //Timing test
-                Long startTime = System.currentTimeMillis();
-
-                String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
-                if (urlString != null) { //Image
-                    url = new URL(urlString);
-                    BufferedImage bf = null;
-                    try {
-                        bf = ImageIO.read(url);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    WritableImage wr = convertImg(bf);
-                    ImageView img = new ImageView(wr);
-                    widthLength = articleListView.getPrefWidth() / 2;
-                    img.setFitWidth(widthLength);
-                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
-                    img.setImage(wr);
-
-                    //Add article to list
-                    VBox v = new VBox(img, hpl, /*author,*/ description);
-                    v.setMaxWidth(articleListView.getPrefWidth());
-                    articleList.add(1, v);
-                } else { //No Image!
-
-                    //Add article to list
-                    VBox v = new VBox(hpl, /*author,*/ description);
-                    v.setMaxWidth(articleListView.getPrefWidth());
-                    articleList.add(1, v);
-                }
-                //print
-                System.out.println(System.currentTimeMillis() - startTime);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            onScreenMessages.add(feedArray.get(i));
-
-        }
-        articleListView.setItems(articleList);
-        System.out.println("REFRESH FINISH: " + (System.currentTimeMillis() - refreshStartTime) + " ms");
-        System.out.println();
-        System.out.println();
-    }
-
-
-    @FXML
-    private void init() {
 
         articleList.clear();
-
-        //Add button
         JFXButton refreshButton = new JFXButton("Refresh");
         refreshButton.getStyleClass().add("button-raised");
+
         refreshButton.setOnAction((event) -> updateFrame());
         VBox r = new VBox(refreshButton);
         articleList.add(r);
-
-        //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
-
-            //Add Hyperlink
             final int eye = i;
-            Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
-            hpl.setOnAction((event) -> openLink(feedArray.size() - eye));
+            Hyperlink hpl = new Hyperlink(feedArray.get(i).getTitle());
+            hpl.setOnAction((event) -> openLink(eye));
             hpl.setPadding(new Insets(0, 0, 0, -1));
-
-            //Add label
-            Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
+            Label author = new Label(feedArray.get(i).getAuthor());
+            author.setWrapText(true);
+            Label description = new Label(feedArray.get(i).getDescription());
             description.setWrapText(true);
-
-            //Add Image
-            try {
-
-                //Timing Test
-                Long startTime = System.currentTimeMillis();
-
-                String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
-                if (urlString != null) {
-                    url = new URL(urlString);
-                    BufferedImage bf = null;
-                    try {
-                        bf = ImageIO.read(url);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    WritableImage wr = convertImg(bf);
-                    ImageView img = new ImageView(wr);
-                    widthLength = articleListView.getPrefWidth() / 2;
-                    img.setFitWidth(widthLength);
-                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
-                    img.setImage(wr);
-
-                    //Add article to list
-                    VBox v = new VBox(img, hpl, /*author,*/ description);
-                    v.setMaxWidth(articleListView.getPrefWidth());
-                    articleList.add(v);
-                } else {
-
-                    //Add article to list
-                    VBox v = new VBox(hpl, /*author,*/ description);
-                    v.setMaxWidth(articleListView.getPrefWidth());
-                    articleList.add(v);
-                }
-                //print
-                System.out.println(System.currentTimeMillis() - startTime);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            onScreenMessages.add(feedArray.get(i));
-
+            VBox v = new VBox(hpl, /*author,*/ description);
+            v.setMaxWidth(articleListView.getPrefWidth() - 45);
+            articleList.add(v);
         }
         articleListView.setItems(articleList);
     }
-
-
-    private WritableImage convertImg(BufferedImage bf) {
-        WritableImage wr = null;
-        if (bf != null) {
-            wr = new WritableImage(bf.getWidth(), bf.getHeight());
-            PixelWriter pw = wr.getPixelWriter();
-            for (int x = 0; x < bf.getWidth(); x++) {
-                for (int y = 0; y < bf.getHeight(); y++) {
-                    pw.setArgb(x, y, bf.getRGB(x, y));
-                }
-            }
-        }
-        return wr;
-    }
-
-    private String escapeHTML(String string) {
-        return Jsoup.parse(string).text();
-    }
-
-
 }
 
+//test
