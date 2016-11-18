@@ -39,15 +39,17 @@ public class JSON {
 
         try {
             try {
-                object = (JSONObject) parser.parse(new FileReader(filePath));
-                fileWriter = new FileWriter(filePath);
+                FileReader fileReader = new FileReader(filePath);
+                object = (JSONObject) parser.parse(fileReader);
+                fileReader.close();
+                fileWriter = new FileWriter(filePath, true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } catch (ParseException e) {
             object = new JSONObject();
             try {
-                fileWriter = new FileWriter(filePath);
+                fileWriter = new FileWriter(filePath, true);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

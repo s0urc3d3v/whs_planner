@@ -11,8 +11,8 @@ import java.io.IOException;
 public class Meeting {
     private Student requestingStudent;
     private Student studentRequested;
-    private int month;
-    private int day;
+    private long month;
+    private long day;
     private long year;
     private long hour;
     private long minute;
@@ -68,7 +68,7 @@ public class Meeting {
     private Course course;
     private IO io;
 
-    public Meeting(Student requestingStudent, Student studentRequested, int month, int day, long year, long hour, long minute, Course course, String path) {
+    public Meeting(Student requestingStudent, Student studentRequested, long month, long day, long year, long hour, long minute, Course course, String path) {
         String filename = path;
         io = new IO(filename);
         this.requestingStudent = requestingStudent;
@@ -81,6 +81,22 @@ public class Meeting {
         this.course = course;
 
     }
+
+    @Override
+    public String toString() {
+        return "Meeting{" +
+                "requestingStudent=" + requestingStudent +
+                ", studentRequested=" + studentRequested +
+                ", month=" + month +
+                ", day=" + day +
+                ", year=" + year +
+                ", hour=" + hour +
+                ", minute=" + minute +
+                ", course=" + course +
+                ", io=" + io +
+                '}';
+    }
+
     public void create(){
         try {
             io.writeJsonMeetingData(requestingStudent, studentRequested, month, day, year, hour, minute, course);

@@ -5,13 +5,13 @@ package WHS_planner.Util;
  */
 public class Course {
     private String name;
-    private int period;
+    private long period;
     private String teacher;
     public enum level{
         INTRO, COLLEGE, HONORS, AP
     }
     private level courseLevel;
-    public Course(String name, int period, String teacher, level courseLevel) {
+    public Course(String name, long period, String teacher, level courseLevel) {
         this.name = name;
         this.period = period;
         this.teacher = teacher;
@@ -26,11 +26,11 @@ public class Course {
         this.name = name;
     }
 
-    public int getPeriod() {
+    public long getPeriod() {
         return period;
     }
 
-    public void setPeriod(int period) {
+    public void setPeriod(long period) {
         this.period = period;
     }
 

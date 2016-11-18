@@ -1,8 +1,6 @@
 package WHS_planner.Meeting;
 
-import WHS_planner.Core.GmailApiAccess;
 import WHS_planner.Core.Meeting;
-import WHS_planner.Meeting.ReadMeetingDataTest;
 import WHS_planner.Util.Course;
 import WHS_planner.Util.Student;
 import junit.framework.TestCase;

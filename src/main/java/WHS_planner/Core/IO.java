@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
-import static java.lang.System.exit;
-
 /**
  * Created by matthewelbing on 27.09.16.
  */
 public class IO {
     private JSON jsonApi;
+    private String fileName;
     public IO(String fileName) {
+        this.fileName = fileName;
         jsonApi = new JSON();
         jsonApi.loadFile(fileName);
     }
@@ -98,8 +98,7 @@ public class IO {
         long year = (long) rawObject.get("year");
         long hour = (long) rawObject.get("hour");
         long minute = (long) rawObject.get("minute");
-        //String courseUnparsed = (String) rawObject.get("course"); differnt parse required
-        System.out.println(requestingStudentUnparsed);
+        JSONArray courseUnparsed = (JSONArray) rawObject.get("course"); //differnt parse required
         Student requestingStudent = new Student(null, null, null, 0, null);
         Student studentRequested = new Student(null, null, null, 0, null);
 
@@ -112,7 +111,6 @@ public class IO {
                     if (requestingStudentUnparsed.charAt(j) == '"'){
                         requestingStudent.setFirstName(requestingStudentUnparsed.substring(startRs + 1, j));
                         startRs = j + 2;
-                        System.out.println(requestingStudent.getFirstName());
                         break;
                     }
                 }
@@ -125,7 +123,6 @@ public class IO {
                     if (requestingStudentUnparsed.charAt(j) == '"'){
                         requestingStudent.setLastName(requestingStudentUnparsed.substring(x + 1, j));
                         startRs = j + 2;
-                        System.out.println(requestingStudent.getLastName());
                         break;
                     }
                 }
@@ -138,7 +135,6 @@ public class IO {
                     if (requestingStudentUnparsed.charAt(i) == '"'){
                         requestingStudent.setEmail(requestingStudentUnparsed.substring(x + 1, i));
                         startRs = i + 2;
-                        System.out.println(requestingStudent.getEmail());
                         break;
                     }
                 }
@@ -147,11 +143,10 @@ public class IO {
         }
         //This is a number so it must be parsed specially but we know where it is!
         requestingStudent.setGrade(Integer.parseInt(requestingStudentUnparsed.substring(startRs, startRs + 2)));
-        System.out.println(requestingStudent.getGrade());
 
         //requesting student parse done!!
 
-        //studentRequesting parse start TODO:replace startRs and requestingStudentUnparsed and studentRequestedUnparsed
+        //studentRequesting parse start
         int startSr = 0;
         int endSr = 0;
         for (startSr = 0; startSr < studentRequestedUnparsed.length(); startSr++) {
@@ -160,7 +155,6 @@ public class IO {
                     if (studentRequestedUnparsed.charAt(j) == '"'){
                         studentRequested.setFirstName(studentRequestedUnparsed.substring(startSr + 1, j));
                         startSr = j + 2;
-                        System.out.println(studentRequested.getFirstName());
                         break;
                     }
                 }
@@ -173,7 +167,6 @@ public class IO {
                     if (studentRequestedUnparsed.charAt(j) == '"'){
                         studentRequested.setLastName(studentRequestedUnparsed.substring(x + 1, j));
                         startSr = j + 2;
-                        System.out.println(studentRequested.getLastName());
                         break;
                     }
                 }
@@ -186,7 +179,6 @@ public class IO {
                     if (studentRequestedUnparsed.charAt(i) == '"'){
                         studentRequested.setEmail(studentRequestedUnparsed.substring(x + 1, i));
                         startSr = i + 2;
-                        System.out.println(studentRequested.getEmail());
                         break;
                     }
                 }
@@ -195,51 +187,18 @@ public class IO {
         }
         //This is a number so it must be parsed specially but we know where it is!
         studentRequested.setGrade(Integer.parseInt(studentRequestedUnparsed.substring(startSr, startSr + 2)));
-        System.out.println(studentRequested.getGrade());
 
+        //Parse course data
+        Iterator<Object> courseUnparsedIterator = courseUnparsed.iterator();
+        Course course = new Course(null, 0, null, null);
+        course.setName((String) courseUnparsedIterator.next());
+        course.setPeriod((Long) courseUnparsedIterator.next());
+        course.setTeacher((String) courseUnparsedIterator.next());
+        course.setCourseLevel(Course.level.valueOf((String) courseUnparsedIterator.next()));
+        jsonApi.unloadWithoutWrite();
+        //TODO check if file is empty
+        return new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course, fileName);
 
-
-
-
-
-        //does not work
-//        JSONArray requestingStudentArray = (JSONArray) rawObject.get("studentRequesting"); //JSONArray
-//        Iterator requestingStudentIterator = requestingStudentArray.iterator();
-//        String rsFirstName = (String) requestingStudentIterator.next();
-//        String rsLastName = (String) requestingStudentIterator.next();
-//        String rsEmail = (String) requestingStudentIterator.next();
-//        String rsGrade = (String) requestingStudentIterator.next();
-//        String rsTeacher = (String) requestingStudentIterator.next();
-//        Student requestingStudent = new Student(rsFirstName, rsLastName, rsEmail, Integer.parseInt(rsGrade), rsTeacher);
-//        System.out.println(requestingStudent.toString());
-//
-//        JSONArray studentRequestedArray = (JSONArray) rawObject.get("studentRequested");
-//        Iterator studentRequestedIterator = studentRequestedArray.iterator();
-//        String srFirstName = (String) studentRequestedIterator.next();
-//        String srLastName = (String) studentRequestedIterator.next();
-//        String srEmail = (String) studentRequestedIterator.next();
-//        String srGrade = (String) studentRequestedIterator.next();
-//        String srTeacher = (String) studentRequestedIterator.next();
-//        Student studentRequested = new Student(srFirstName, srLastName, srEmail, Integer.parseInt(srGrade), srTeacher);
-//        System.out.println(studentRequested.toString());
-//
-//        JSONArray courseArray = (JSONArray) rawObject.get("course");
-//        Iterator courseArrayIterator = courseArray.iterator();
-//        String cName = (String) courseArrayIterator.next();
-//        String cPeriod = (String) courseArrayIterator.next();
-//        String cTeacher = (String) courseArrayIterator.next();
-//        String cCourseLevel = (String) courseArrayIterator.next();
-//
-//        Course course = new Course(cName, Integer.parseInt(cPeriod), cTeacher, Course.level.valueOf(cCourseLevel));
-//
-//        int hour = Integer.parseInt(String.valueOf(rawObject.get("month")));
-//        int minute = Integer.parseInt(String.valueOf(rawObject.get("minute")));
-//        int month = Integer.parseInt(String.valueOf(rawObject.get("month")));
-//        int day = Integer.parseInt(String.valueOf(rawObject.get("day")));
-//        long year = Integer.parseInt(String.valueOf(rawObject.get("year")));
-//
-//        return new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course, getJsonApi().getFilePath());
-        return null;
 
     }
 
