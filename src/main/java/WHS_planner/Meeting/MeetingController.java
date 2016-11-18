@@ -11,6 +11,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,6 +33,9 @@ public class MeetingController implements Initializable{
 
     @FXML
     private AnchorPane anchorPane;
+
+    @FXML
+    private JFXButton importButton;
 
     @FXML
     private JFXListView<VBox> requestingListView;
@@ -187,5 +191,11 @@ public class MeetingController implements Initializable{
         l4.setPadding(new Insets(5));
         VBox vbox = new VBox(l1, l2, l3, l4);
         return vbox;
+    }
+
+
+    @FXML
+    void importButtonPressed(ActionEvent event) {
+        //pop your code in here elbing
     }
 }
