@@ -192,7 +192,7 @@ public class NewsUI extends Application {
                     WritableImage wr = convertImg(bf);
                     ImageView img = new ImageView(wr);
 //                    widthLength = articleListView.getPrefWidth() / 2;
-                    widthLength = 400;
+                    widthLength = 200;
                     img.setFitWidth(widthLength);
                     img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
                     img.setImage(wr);
