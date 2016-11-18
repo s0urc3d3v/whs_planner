@@ -200,7 +200,7 @@ public class NewsUI extends Application {
                     img.setFitWidth(widthLength);
                     img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
                     img.setImage(wr);
-
+//
                     //Add article to list
                     hpl.setMaxWidth(widthLength);
 
