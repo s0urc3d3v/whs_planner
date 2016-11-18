@@ -31,6 +31,7 @@ public class SimpleController implements Initializable {
         updateFrame();
     }
 
+    //?
     @FXML
     public void openLink(int index) {
         try {
