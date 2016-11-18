@@ -61,12 +61,13 @@ public class NewsUI extends Application {
 //        roooot.getChildren().add(rooot);
 
         root.setPrefSize(1280, 720);
-        root.setHSpacing(1);
+        root.setHSpacing(10);
         init();
 
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(File.separator + "News" + File.separator + "ButtonStyle.css");
+        scene.getStylesheets().add(File.separator + "News" + File.separator + "BoxShadow.css");
         stage.setScene(scene);
         stage.show();
     }
@@ -150,6 +151,8 @@ public class NewsUI extends Application {
     @FXML
     public void init() {
         root.setStyle("-fx-background-color: #dbdbdb;");
+//        root.setStyle("-fx-background-color: #FFFFFF;");
+
 
         root.getChildren().clear();
 
@@ -210,7 +213,6 @@ public class NewsUI extends Application {
 //                    v.setMinSize(500,300);
 
 //                    v.setStyle("-fx-background-color: #FFFFFF;");
-                    v.getStyle();
 
 
 //                    v.setMaxWidth(articleListView.getPrefWidth());
@@ -219,7 +221,12 @@ public class NewsUI extends Application {
 //                    pane.setStyle("-fx-background-color:#FFFFFF;");
                     v.setStyle("-fx-background-color: #FFFFFF;");
 
-                    System.out.println(v.getStyle());
+//                    v.getStyleClass().add("card-1");
+//                    v.setEffect(new DropShadow(20, Color.BLACK));
+                    v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);"
+                            + "-fx-background-color: white;");
+//                    v.setStyle("-fx-effect: dropshadgaussian, rgba(0,0,0,0.4), 10, .5, 0.0, 0.0);");
+
                     root.getChildren().add(v);
 //                    root.getChildren().add(new Group(v));
 
