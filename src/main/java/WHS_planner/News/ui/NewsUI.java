@@ -150,8 +150,11 @@ public class NewsUI extends Application {
 
     @FXML
     public void init() {
-        root.setStyle("-fx-background-color: #dbdbdb;");
+//        root.setStyle("-fx-background-color: #dbdbdb;");
 //        root.setStyle("-fx-background-color: #FFFFFF;");
+        root.setStyle("-fx-background-color: #e1e0df;");
+
+
 
 
         root.getChildren().clear();
@@ -177,6 +180,7 @@ public class NewsUI extends Application {
             Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
             description.setWrapText(true);
             description.setMaxWidth(widthLength);
+            description.setPadding(new Insets(0, 0, 0, 2));
 
             //Add Image
             try {
