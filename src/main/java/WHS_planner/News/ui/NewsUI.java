@@ -150,12 +150,8 @@ public class NewsUI extends Application {
 
     @FXML
     public void init() {
-//        root.setStyle("-fx-background-color: #dbdbdb;");
-//        root.setStyle("-fx-background-color: #FFFFFF;");
-        root.setStyle("-fx-background-color: #e1e0df;");
-
-
-
+        root.setStyle("-fx-background-color: #FFFFFF;");
+//        root.setStyle("-fx-background-color: #e1e0df;");
 
         root.getChildren().clear();
 
@@ -174,6 +170,7 @@ public class NewsUI extends Application {
             Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
             hpl.setOnAction((event) -> openLink(eye));
             hpl.setWrapText(true);
+            hpl.setMaxWidth(widthLength);
             hpl.setPadding(new Insets(0, 0, 0, 4));
 
             //Add label
@@ -188,67 +185,37 @@ public class NewsUI extends Application {
                 //Timing Test
                 Long startTime = System.currentTimeMillis();
 
+                //Add image
                 String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
                 System.out.println(urlString);
                 if (urlString != null) {
                     System.out.println("There's an image.");
                     url = new URL(urlString);
-                    BufferedImage bf = null;
+                    BufferedImage bf;
 
                     try {
                         bf = ImageIO.read(url);
-                    } catch (/*IOException ex*/ Exception e) {
-//                            e.printStackTrace();
+                    } catch (/*IOException ex*/ Exception ex) {
+//                            ex.printStackTrace();
+                        System.out.println("Error with image.");
                         addCard(hpl, description);
                         continue;
                     }
 
-
                     WritableImage wr = convertImg(bf);
                     ImageView img = new ImageView(wr);
-//                    widthLength = articleListView.getPrefWidth() / 2;
+                    //TODO WIDTHLENGTH IS HARD CODED OVER HERE
                     widthLength = 200;
                     img.setFitWidth(widthLength);
                     img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
                     img.setImage(wr);
 
                     //Add article to list
-                    hpl.setMaxWidth(widthLength);
-
-                    VBox v = new VBox(img, hpl, /*author,*/ description);
-                    v.setPrefWidth(widthLength);
-                    v.setMaxWidth(widthLength);
-//                    v.setPrefSize(600,400);
-//                    v.setMinSize(500,300);
-
-//                    v.setStyle("-fx-background-color: #FFFFFF;");
-
-
-//                    v.setMaxWidth(articleListView.getPrefWidth());
-
-//                    Pane pane = (Pane) (description.getParent());
-//                    pane.setStyle("-fx-background-color:#FFFFFF;");
-                    v.setStyle("-fx-background-color: #FFFFFF;");
-
-//                    v.getStyleClass().add("card-1");
-//                    v.setEffect(new DropShadow(20, Color.BLACK));
-                    v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);"
-                            + "-fx-background-color: white;");
-//                    v.setStyle("-fx-effect: dropshadgaussian, rgba(0,0,0,0.4), 10, .5, 0.0, 0.0);");
-
-                    root.getChildren().add(v);
-//                    root.getChildren().add(new Group(v));
-
+                    addCard(img, hpl, description);
 
                 } else {
 
-                    System.out.println("----ADDED WITHOUT IMAGE-----");
-                    //Add article to list
-                    VBox v = new VBox(hpl, /*author,*/ description);
-                    v.setPrefSize(400, 400);
-                    v.setStyle("-fx-background-color: #FFFFFF;");
-//                    v.setMaxWidth(articleListView.getPrefWidth());
-                    root.getChildren().add(v);
+                    addCard(hpl, description);
                 }
                 //print
                 System.out.println(System.currentTimeMillis() - startTime);
@@ -261,17 +228,21 @@ public class NewsUI extends Application {
     }
 
     private void addCard(Hyperlink hpl, Label desc) {
-        System.out.println("----ADDED WITHOUT IMAGE-----");
-        //Add article to list
+        System.out.println("Added without image.");
         VBox v = new VBox(hpl, /*author,*/ desc);
-        v.setPrefSize(400, 400);
-        v.setStyle("-fx-background-color: #FFFFFF;");
-//                    v.setMaxWidth(articleListView.getPrefWidth());
+        v.setPrefWidth(widthLength);
+        v.setMaxWidth(widthLength);
+        v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
         root.getChildren().add(v);
     }
 
-    private void addCard(WritableImage img, Hyperlink hpl, Label desc) {
+    private void addCard(ImageView img, Hyperlink hpl, Label desc) {
 
+        VBox v = new VBox(img, hpl, desc);
+        v.setPrefWidth(widthLength);
+        v.setMaxWidth(widthLength);
+        v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
+        root.getChildren().add(v);
     }
 
     private WritableImage convertImg(BufferedImage bf) {
