@@ -174,13 +174,13 @@ public class NewsUI extends Application {
             Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
             hpl.setOnAction((event) -> openLink(eye));
             hpl.setWrapText(true);
-//            hpl.setPadding(new Insets(0, 0, 0, -1));
+            hpl.setPadding(new Insets(0, 0, 0, 4));
 
             //Add label
             Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
             description.setWrapText(true);
             description.setMaxWidth(widthLength);
-            description.setPadding(new Insets(0, 0, 0, 2));
+            description.setPadding(new Insets(0, 0, 0, 6));
 
             //Add Image
             try {
@@ -194,11 +194,16 @@ public class NewsUI extends Application {
                     System.out.println("There's an image.");
                     url = new URL(urlString);
                     BufferedImage bf = null;
+
                     try {
                         bf = ImageIO.read(url);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
+                    } catch (/*IOException ex*/ Exception e) {
+//                            e.printStackTrace();
+                        addCard(hpl, description);
+                        continue;
                     }
+
+
                     WritableImage wr = convertImg(bf);
                     ImageView img = new ImageView(wr);
 //                    widthLength = articleListView.getPrefWidth() / 2;
@@ -253,6 +258,20 @@ public class NewsUI extends Application {
             onScreenMessages.add(feedArray.get(i));
 
         }
+    }
+
+    private void addCard(Hyperlink hpl, Label desc) {
+        System.out.println("----ADDED WITHOUT IMAGE-----");
+        //Add article to list
+        VBox v = new VBox(hpl, /*author,*/ desc);
+        v.setPrefSize(400, 400);
+        v.setStyle("-fx-background-color: #FFFFFF;");
+//                    v.setMaxWidth(articleListView.getPrefWidth());
+        root.getChildren().add(v);
+    }
+
+    private void addCard(WritableImage img, Hyperlink hpl, Label desc) {
+
     }
 
     private WritableImage convertImg(BufferedImage bf) {
