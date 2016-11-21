@@ -12,7 +12,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -42,12 +41,13 @@ public class NewsUI extends Application {
 
     private HTMLScanner HTMLScanner = new HTMLScanner();
 
-    private double widthLength;
+    //TODO WIDTHLENGTH OF IS HARDCODED AHHH
+    private double widthLength = 200;
 
     private URL url;
 
     //    private Group roooot = new Group();
-    private ScrollPane rooot = new ScrollPane();
+//    private ScrollPane rooot = new ScrollPane();
     private JFXMasonryPane root = new JFXMasonryPane();
 
 
@@ -56,14 +56,13 @@ public class NewsUI extends Application {
     }
 
     public void start(Stage stage) {
-        rooot.setPrefSize(1280, 720);
-        rooot.setContent(root);
+//        rooot.setPrefSize(1280, 720);
+//        rooot.setContent(root);
 //        roooot.getChildren().add(rooot);
 
         root.setPrefSize(1280, 720);
         root.setHSpacing(10);
         init();
-
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(File.separator + "News" + File.separator + "ButtonStyle.css");
@@ -80,15 +79,13 @@ public class NewsUI extends Application {
         }
     }
 
-
     @FXML
     private void updateFrame() {
 
         Long refreshStartTime = System.currentTimeMillis();
 
-        //Get new articles
+        //Get new articles. Pray to jesus that this works cause I got no way of testing it
         feedArray = parser.getNewArticles(onScreenMessages);
-
 
         //Loop through all NEW articles
         for (int i = 0; i < feedArray.size(); i++) {
@@ -97,43 +94,49 @@ public class NewsUI extends Application {
             final int eye = i;
             Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
             hpl.setOnAction((event) -> openLink(eye));
-            hpl.setPadding(new Insets(0, 0, 0, -1));
+            hpl.setWrapText(true);
+            hpl.setMaxWidth(widthLength);
+            hpl.setPadding(new Insets(0, 0, 0, 4));
+
             //Add label
             Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
             description.setWrapText(true);
+            description.setMaxWidth(widthLength);
+            description.setPadding(new Insets(0, 0, 0, 6));
 
             //Add Image
             try {
-                //Timing test
+                //Timing Test
                 Long startTime = System.currentTimeMillis();
 
                 String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
-                if (urlString != null) { //Image
+                System.out.println(urlString);
+                if (urlString != null) {
+                    System.out.println("There's an image.");
                     url = new URL(urlString);
-                    BufferedImage bf = null;
+                    BufferedImage bf;
+
                     try {
                         bf = ImageIO.read(url);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
+                    } catch (/*IOException ex*/ Exception ex) {
+//                            ex.printStackTrace();
+                        System.out.println("Error with image.");
+                        addCard(hpl, description);
+                        continue;
                     }
+
                     WritableImage wr = convertImg(bf);
                     ImageView img = new ImageView(wr);
-
-//                    widthLength = articleListView.getPrefWidth() / 2;
-//                    img.setFitWidth(widthLength);
-//                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
+                    img.setFitWidth(widthLength);
+                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
                     img.setImage(wr);
 
-                    //Add article to list, with image
-                    VBox v = new VBox(img, hpl, /*author,*/ description);
-//                    v.setMaxWidth(articleListView.getPrefWidth());
-                    root.getChildren().add(1, v);
-                } else { //No Image!
-
                     //Add article to list
-                    VBox v = new VBox(hpl, /*author,*/ description);
-//                    v.setMaxWidth(articleListView.getPrefWidth());
-                    root.getChildren().add(1, v);
+                    addCard(img, hpl, description);
+
+                } else {
+
+                    addCard(hpl, description);
                 }
                 //print
                 System.out.println(System.currentTimeMillis() - startTime);
@@ -181,11 +184,9 @@ public class NewsUI extends Application {
 
             //Add Image
             try {
-
                 //Timing Test
                 Long startTime = System.currentTimeMillis();
 
-                //Add image
                 String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
                 System.out.println(urlString);
                 if (urlString != null) {
@@ -204,8 +205,6 @@ public class NewsUI extends Application {
 
                     WritableImage wr = convertImg(bf);
                     ImageView img = new ImageView(wr);
-                    //TODO WIDTHLENGTH IS HARD CODED OVER HERE
-                    widthLength = 200;
                     img.setFitWidth(widthLength);
                     img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
                     img.setImage(wr);
