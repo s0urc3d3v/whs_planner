@@ -62,6 +62,7 @@ public class NewsUI extends Application {
 
         root.setPrefSize(1280, 720);
         root.setHSpacing(10);
+        root.setCellWidth(widthLength);
         init();
 
         Scene scene = new Scene(root);
@@ -153,6 +154,7 @@ public class NewsUI extends Application {
 
     @FXML
     public void init() {
+        //TODO Scrolling and Spacing
         root.setStyle("-fx-background-color: #FFFFFF;");
 //        root.setStyle("-fx-background-color: #e1e0df;");
 
