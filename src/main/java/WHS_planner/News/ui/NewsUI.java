@@ -57,14 +57,23 @@ public class NewsUI extends Application {
     }
 
     public void start(Stage stage) {
+//        rooot.setPrefSize(1280, 720);
+        rooot.setPrefWidth(1280);
         rooot.setContent(root);
         rooot.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         rooot.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         rooot.setFitToWidth(true);
 
-        root.setPrefSize(1280, 720);
+//        root.setPrefSize(1280, 720);
+        root.setPrefSize(rooot.getPrefWidth(), rooot.getPrefHeight());
         root.setHSpacing(10);
+        root.setVSpacing(10);
+
 //        root.setVSpacing(10);
+        root.setCellHeight(200);
+        //TODO^ ????????????????????????????
+
+
         root.setCellWidth(widthLength);
 //        init();
 
@@ -104,13 +113,13 @@ public class NewsUI extends Application {
                 hpl.setOnAction((event) -> openLink(eye));
                 hpl.setWrapText(true);
                 hpl.setMaxWidth(widthLength);
-                hpl.setPadding(new Insets(0, 0, 0, 4));
+                hpl.setPadding(new Insets(0, 3, 0, 4));
 
                 //Add label
                 Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
                 description.setWrapText(true);
                 description.setMaxWidth(widthLength);
-                description.setPadding(new Insets(0, 0, 0, 6));
+                description.setPadding(new Insets(0, 3, 0, 6));
 
                 //Add Image
                 try {
@@ -246,8 +255,8 @@ public class NewsUI extends Application {
         double height = hpl.getHeight() + desc.getHeight();
 
         v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
-        root.setVSpacing(10);
-        root.setCellHeight(200);
+//        root.setVSpacing(10);
+//        root.setCellHeight(200);
         root.getChildren().add(v);
     }
 
@@ -256,12 +265,10 @@ public class NewsUI extends Application {
         v.setPrefWidth(widthLength);
         v.setMaxWidth(widthLength);
         double height = img.getFitHeight() + hpl.getHeight() + desc.getHeight();
-//        v.setPrefHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
-//        v.setMaxHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
+        v.setPrefHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
+        v.setMaxHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
         v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
-        root.setVSpacing(10);
-        root.setCellHeight(200);
-        //TODO^ ???????????????????????????
+//        root.setVSpacing(10);
         root.getChildren().add(v);
 
     }
