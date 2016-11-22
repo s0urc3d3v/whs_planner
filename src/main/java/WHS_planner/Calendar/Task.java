@@ -1,5 +1,10 @@
 package WHS_planner.Calendar;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+
 /**
  * Created by geoffrey_wang on 9/20/16.
  */
@@ -20,5 +25,14 @@ public class Task {
     }
     public void changeDescription(String description1){
         Description = description1;
+    }
+
+    public Pane getPane(){
+        HBox pane = new HBox();
+        pane.setMinHeight(30);
+        pane.setStyle("-fx-background-color:#c2d7f9;");
+        pane.setAlignment(Pos.CENTER_LEFT);
+        pane.getChildren().add(new Label(Title + " " + Class + " " + Description));
+        return pane;
     }
 }

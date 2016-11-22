@@ -107,7 +107,7 @@ public class MainDocumentController implements Initializable {
             //anchorPane.getChildren().setAll(tempPane.getChildren());
             if(!anchorPane.getChildren().contains(cal))
             {
-                anchorPane.getChildren().add(0, cal);
+                anchorPane.getChildren().add(1, cal);
                 panes[0] = cal;
 
                 for (int i = 0; i < panes.length; i++)
@@ -129,7 +129,7 @@ public class MainDocumentController implements Initializable {
             //anchorPane.getChildren().setAll(tempPane.getChildren());
             if(!anchorPane.getChildren().contains(schedulepane))
             {
-                anchorPane.getChildren().add(0, schedulepane);
+                anchorPane.getChildren().add(1, schedulepane);
                 panes[1] = schedulepane;
 
                 for (int i = 0; i < panes.length; i++)
@@ -151,7 +151,7 @@ public class MainDocumentController implements Initializable {
             //anchorPane.getChildren().setAll(tempPane.getChildren());
             if(!anchorPane.getChildren().contains(daypane))
             {
-                anchorPane.getChildren().add(0, daypane);
+                anchorPane.getChildren().add(1, daypane);
                 panes[2] = daypane;
 
                 for (int i = 0; i < panes.length; i++)
