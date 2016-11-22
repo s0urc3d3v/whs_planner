@@ -3,8 +3,8 @@ package WHS_planner.CoreUI;
 import WHS_planner.Calendar.Calendar;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXML;
@@ -13,12 +13,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,17 +27,13 @@ import java.util.ResourceBundle;
 public class MainDocumentController implements Initializable {
 
     //Extra Comment
-    private Calendar cal;
-
-    private BorderPane newsCardView;
-
-    private NewsUI newsUI = new NewsUI();
+    Calendar cal;
 
     @FXML
-    private VBox anchorPane;
+    private VBox contentPane;
 
     @FXML
-    private Pane topBar;
+    private BorderPane topBar;
 
     @FXML
     private JFXHamburger navHamburger;
@@ -58,9 +53,11 @@ public class MainDocumentController implements Initializable {
 
     private Schedule schedule;
 
-    private NewsUI news;
-
     private boolean sportsScheduleOpen;
+
+    private BorderPane newsCardView;
+
+    private NewsUI newsUI = new NewsUI();
 
     private Pane[] panes;
 
@@ -69,28 +66,27 @@ public class MainDocumentController implements Initializable {
         main = new NavigationBar();
     }
 
+
     public void initialize(URL location, ResourceBundle resources) {
 
         newsCardView = newsUI.getROOOOOOOT();
-        newsCardView.prefHeightProperty().bind(anchorPane.heightProperty());
-        newsCardView.prefWidthProperty().bind(anchorPane.widthProperty());
-
+        newsCardView.prefHeightProperty().bind(contentPane.heightProperty());
+        newsCardView.prefWidthProperty().bind(contentPane.widthProperty());
 
         panes = new Pane[8];
 
         cal = new Calendar(1, 30);
-        cal.setPrefHeight(anchorPane.getPrefHeight());
-        cal.prefWidthProperty().bind(anchorPane.widthProperty());
+        cal.setPrefHeight(contentPane.getPrefHeight()-topBar.getPrefHeight());
+        cal.prefWidthProperty().bind(contentPane.widthProperty());
         schedule = new Schedule();
         BorderPane schedulepane = (BorderPane) schedule.getPane();
         BorderPane daypane = (BorderPane) schedule.getdaypane();
 
 
 
-
         topBar.setStyle("-fx-background-color: #FF9800");
         navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");
-        navHamburger.getStyleClass().add("jfx-hamburger-icon"); //push
+        navHamburger.getStyleClass().add("jfx-hamburger-icon");
         String[] tabs = new String[]{"Calendar", "Schedule", "Today", "Tests", "Rip A Fat Vape", "George"}; //Need to find a way to get this from another class,
         //Create the VBox                                                                            //May need to be an array of classes that extend tab, so you can get an fxml file related to them and their name.
         JFXButton[] buttonArray = new JFXButton[tabs.length];
@@ -102,12 +98,12 @@ public class MainDocumentController implements Initializable {
             tempButton.getStyleClass().add("button-raised");
             buttonArray[i] = tempButton;
         }
-        System.out.println();
+
         buttonArray[0].setOnMouseClicked(event -> {
-            //anchorPane.getChildren().setAll(tempPane.getChildren());
-            if(!anchorPane.getChildren().contains(cal))
+            //contentPane.getChildren().setAll(tempPane.getChildren());
+            if(!contentPane.getChildren().contains(cal))
             {
-                anchorPane.getChildren().add(1, cal);
+                contentPane.getChildren().add(1, cal);
                 panes[0] = cal;
 
                 for (int i = 0; i < panes.length; i++)
@@ -122,14 +118,14 @@ public class MainDocumentController implements Initializable {
                 }
             }
 
-//            anchorPane.setTopAnchor(cal, 45.0);
+//            contentPane.setTopAnchor(cal, 45.0);
         });
 
         buttonArray[1].setOnMouseClicked(event -> {
-            //anchorPane.getChildren().setAll(tempPane.getChildren());
-            if(!anchorPane.getChildren().contains(schedulepane))
+            //contentPane.getChildren().setAll(tempPane.getChildren());
+            if(!contentPane.getChildren().contains(schedulepane))
             {
-                anchorPane.getChildren().add(1, schedulepane);
+                contentPane.getChildren().add(1, schedulepane);
                 panes[1] = schedulepane;
 
                 for (int i = 0; i < panes.length; i++)
@@ -144,14 +140,14 @@ public class MainDocumentController implements Initializable {
                 }
             }
 
-//            anchorPane.setTopAnchor(schedulepane, 45.0);
+//            contentPane.setTopAnchor(schedulepane, 45.0);
         });
 
         buttonArray[2].setOnMouseClicked(event -> {
-            //anchorPane.getChildren().setAll(tempPane.getChildren());
-            if(!anchorPane.getChildren().contains(daypane))
+            //contentPane.getChildren().setAll(tempPane.getChildren());
+            if(!contentPane.getChildren().contains(daypane))
             {
-                anchorPane.getChildren().add(1, daypane);
+                contentPane.getChildren().add(1, daypane);
                 panes[2] = daypane;
 
                 for (int i = 0; i < panes.length; i++)
@@ -166,26 +162,29 @@ public class MainDocumentController implements Initializable {
                 }
             }
 
-
-//            anchorPane.setTopAnchor(daypane, 45.0);
+//            contentPane.setTopAnchor(daypane, 45.0);
         });
 
-        //TODO
         buttonArray[3].setOnMouseClicked(event -> {
-            //anchorPane.getChildren().setAll(tempPane.getChildren());
-            if (!anchorPane.getChildren().contains(newsCardView)) {
-                System.out.println(newsCardView.getChildren());
-                anchorPane.getChildren().add(0, newsCardView);
+            //contentPane.getChildren().setAll(tempPane.getChildren());
+            if(!contentPane.getChildren().contains(newsCardView))
+            {
+                contentPane.getChildren().add(1, newsCardView);
                 panes[3] = newsCardView;
 
-                for (int i = 0; i < panes.length; i++) {
-                    if (i != 3) {
-                        if (panes[i] != null) {
+                for (int i = 0; i < panes.length; i++)
+                {
+                    if(i != 3)
+                    {
+                        if(panes[i] != null)
+                        {
                             remPane(panes[i]);
                         }
                     }
                 }
             }
+
+//            contentPane.setTopAnchor(daypane, 45.0);
         });
 
         VBox vBox = new VBox(buttonArray);
@@ -213,7 +212,7 @@ public class MainDocumentController implements Initializable {
         });
 
         // tempPane = new AnchorPane();
-        // tempPane.getChildren().addAll(anchorPane.getChildren());
+        // tempPane.getChildren().addAll(contentPane.getChildren());
     }
 
     @FXML
@@ -233,7 +232,7 @@ public class MainDocumentController implements Initializable {
 
     @FXML
     private HashMap<String, Object> openSportsDialogue() {
-        HashMap<String, Object> resultMap = new HashMap<>();
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
@@ -249,7 +248,7 @@ public class MainDocumentController implements Initializable {
             // Giving the popup controller access to the popup stage (to allow the controller to close the stage)
             popupController.setStage(popupStage);
             if(this.main!=null) {
-                popupStage.initOwner(NavigationBar.getStage());
+                popupStage.initOwner(main.getStage());
             }
             popupStage.initModality(Modality.WINDOW_MODAL);
             popupStage.setScene(scene);
@@ -262,9 +261,9 @@ public class MainDocumentController implements Initializable {
     }
 
 
-    private void remPane(Pane p)
+    public void remPane(Pane p)
     {
-        anchorPane.getChildren().remove(p);
+        contentPane.getChildren().remove(p);
     }
 
 
