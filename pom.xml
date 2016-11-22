@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>WHS_planner</groupId>
@@ -32,7 +32,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.11</version>
     </dependency>
     <dependency>
       <!-- jsoup HTML parser library @ http://jsoup.org/ -->
@@ -44,11 +44,6 @@
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
       <version>1.1.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.jfoenix</groupId>
-      <artifactId>jfoenix</artifactId>
-      <version>1.0.0</version>
     </dependency>
     <dependency>
       <groupId>rome</groupId>
@@ -63,7 +58,7 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>2.53.1</version>
+      <version>2.45.0</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -110,8 +105,30 @@
           <artifactId>httpclient</artifactId>
           <version>4.3.5</version>
       </dependency>
-
-
-
+      <dependency>
+          <groupId>com.github.detro.ghostdriver</groupId>
+          <artifactId>phantomjsdriver</artifactId>
+          <version>1.1.0</version>
+      </dependency>
+      <dependency>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+          <version>LATEST</version>
+      </dependency>
+      <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-firefox-driver</artifactId>
+          <version>2.45.0</version>
+      </dependency>
+      <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-remote-driver</artifactId>
+          <version>2.43.1</version>
+      </dependency>
+      <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-chrome-driver</artifactId>
+          <version>2.45.0</version>
+      </dependency>
   </dependencies>
 </project>

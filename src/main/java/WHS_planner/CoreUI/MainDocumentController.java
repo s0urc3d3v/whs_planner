@@ -31,7 +31,7 @@ public class MainDocumentController implements Initializable {
     Calendar cal;
 
     @FXML
-    private AnchorPane anchorPane;
+    private VBox anchorPane;
 
     @FXML
     private Pane topBar;
@@ -63,7 +63,6 @@ public class MainDocumentController implements Initializable {
         main = new NavigationBar();
     }
 
-
     public void initialize(URL location, ResourceBundle resources) {
 
         panes = new Pane[8];
@@ -91,7 +90,7 @@ public class MainDocumentController implements Initializable {
             tempButton.getStyleClass().add("button-raised");
             buttonArray[i] = tempButton;
         }
-
+        System.out.println();
         buttonArray[0].setOnMouseClicked(event -> {
             //anchorPane.getChildren().setAll(tempPane.getChildren());
             if(!anchorPane.getChildren().contains(cal))
@@ -111,7 +110,7 @@ public class MainDocumentController implements Initializable {
                 }
             }
 
-            anchorPane.setTopAnchor(cal, 45.0);
+//            anchorPane.setTopAnchor(cal, 45.0);
         });
 
         buttonArray[1].setOnMouseClicked(event -> {
@@ -133,7 +132,7 @@ public class MainDocumentController implements Initializable {
                 }
             }
 
-            anchorPane.setTopAnchor(schedulepane, 45.0);
+//            anchorPane.setTopAnchor(schedulepane, 45.0);
         });
 
         buttonArray[2].setOnMouseClicked(event -> {
@@ -155,7 +154,7 @@ public class MainDocumentController implements Initializable {
                 }
             }
 
-            anchorPane.setTopAnchor(daypane, 45.0);
+//            anchorPane.setTopAnchor(daypane, 45.0);
         });
 
         VBox vBox = new VBox(buttonArray);
