@@ -61,7 +61,9 @@ public class NewsUI extends Application {
 //        roooot.getChildren().add(rooot);
 
         root.setPrefSize(1280, 720);
+        //the issue has something to do with the max/pref size of the scroll pane. Set it to always the window size.
         root.setHSpacing(10);
+//        root.setVSpacing(10);
         root.setCellWidth(widthLength);
         init();
 
@@ -233,17 +235,26 @@ public class NewsUI extends Application {
         VBox v = new VBox(hpl, /*author,*/ desc);
         v.setPrefWidth(widthLength);
         v.setMaxWidth(widthLength);
+        double height = hpl.getHeight() + desc.getHeight();
+
         v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
+        root.setVSpacing(10);
+        root.setCellHeight(height);
         root.getChildren().add(v);
     }
 
     private void addCard(ImageView img, Hyperlink hpl, Label desc) {
-
         VBox v = new VBox(img, hpl, desc);
         v.setPrefWidth(widthLength);
         v.setMaxWidth(widthLength);
+        double height = img.getFitHeight() + hpl.getHeight() + desc.getHeight();
+//        v.setPrefHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
+//        v.setMaxHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
         v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
+        root.setVSpacing(10);
+        root.setCellHeight(height);
         root.getChildren().add(v);
+
     }
 
     private WritableImage convertImg(BufferedImage bf) {
