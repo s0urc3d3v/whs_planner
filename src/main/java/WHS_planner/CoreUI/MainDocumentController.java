@@ -1,13 +1,11 @@
 package WHS_planner.CoreUI;
 
 import WHS_planner.Calendar.Calendar;
-import WHS_planner.News.ui.News;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +29,10 @@ public class MainDocumentController implements Initializable {
 
     //Extra Comment
     private Calendar cal;
+
+    private BorderPane newsCardView;
+
+    private NewsUI newsUI = new NewsUI();
 
     @FXML
     private VBox anchorPane;
@@ -69,6 +71,11 @@ public class MainDocumentController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
 
+        newsCardView = newsUI.getROOOOOOOT();
+        newsCardView.prefHeightProperty().bind(anchorPane.heightProperty());
+        newsCardView.prefWidthProperty().bind(anchorPane.widthProperty());
+
+
         panes = new Pane[8];
 
         cal = new Calendar(1, 30);
@@ -78,8 +85,7 @@ public class MainDocumentController implements Initializable {
         BorderPane schedulepane = (BorderPane) schedule.getPane();
         BorderPane daypane = (BorderPane) schedule.getdaypane();
 
-        News news = new News();
-        JFXMasonryPane newsView = news.getPane();
+
 
 
         topBar.setStyle("-fx-background-color: #FF9800");
@@ -165,14 +171,15 @@ public class MainDocumentController implements Initializable {
         });
 
         //TODO
-        buttonArray[4].setOnMouseClicked(event -> {
+        buttonArray[3].setOnMouseClicked(event -> {
             //anchorPane.getChildren().setAll(tempPane.getChildren());
-            if (!anchorPane.getChildren().contains(newsView)) {
-                anchorPane.getChildren().add(0, newsView);
-                panes[4] = newsView;
+            if (!anchorPane.getChildren().contains(newsCardView)) {
+                System.out.println(newsCardView.getChildren());
+                anchorPane.getChildren().add(0, newsCardView);
+                panes[3] = newsCardView;
 
                 for (int i = 0; i < panes.length; i++) {
-                    if (i != 1) {
+                    if (i != 3) {
                         if (panes[i] != null) {
                             remPane(panes[i]);
                         }

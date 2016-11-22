@@ -16,6 +16,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.jsoup.Jsoup;
@@ -48,16 +49,15 @@ public class NewsUI extends Application {
     private URL url;
     private Scene scene;
 
+    private BorderPane roooot = new BorderPane();
     private ScrollPane rooot = new ScrollPane();
     private JFXMasonryPane root = new JFXMasonryPane();
 
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    public void start(Stage stage) {
+    public NewsUI() {
+        roooot.setPrefSize(1280, 720);
         rooot.setPrefSize(1280, 720);
+
+        roooot.setCenter(rooot);
         rooot.setContent(root);
         rooot.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         rooot.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -74,9 +74,43 @@ public class NewsUI extends Application {
 
 
         root.setCellWidth(widthLength);
-//        init();
+        init();
+        System.out.println("init called");
 
-        scene = new Scene(rooot);
+        scene = new Scene(roooot);
+        scene.getStylesheets().add(File.separator + "News" + File.separator + "ButtonStyle.css");
+    }
+
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    public void start(Stage stage) {
+        roooot.setPrefSize(1280, 720);
+        rooot.setPrefSize(1280, 720);
+
+        roooot.setCenter(rooot);
+        rooot.setContent(root);
+        rooot.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        rooot.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        rooot.setFitToWidth(true);
+
+//        root.setPrefSize(1280, 720);
+        root.setPrefSize(rooot.getPrefWidth(), rooot.getPrefHeight());
+        root.setHSpacing(10);
+        root.setVSpacing(10);
+
+//        root.setVSpacing(10);
+        root.setCellHeight(200);
+        //TODO^ ????????????????????????????
+
+
+        root.setCellWidth(widthLength);
+        init();
+        System.out.println("init called");
+
+        scene = new Scene(roooot);
         scene.getStylesheets().add(File.separator + "News" + File.separator + "ButtonStyle.css");
         scene.getStylesheets().add(File.separator + "News" + File.separator + "BoxShadow.css");
         stage.setScene(scene);
@@ -168,7 +202,7 @@ public class NewsUI extends Application {
         System.out.println();
     }
 
-    @FXML
+
     public void init() {
         //TODO Scrolling and Spacing
         root.setStyle("-fx-background-color: #FFFFFF;");
@@ -183,6 +217,7 @@ public class NewsUI extends Application {
         VBox r = new VBox(refreshButton);
         root.getChildren().add(r);
 
+        System.out.println(feedArray.size() + "GEORGEISSTUPID");
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
 
@@ -261,6 +296,7 @@ public class NewsUI extends Application {
 
     private void addCard(ImageView img, Hyperlink hpl, Label desc) {
         VBox v = new VBox(img, hpl, desc);
+        System.out.println("mIT ADDED TYLER");
         v.setPrefWidth(widthLength);
         v.setMaxWidth(widthLength);
         double height = img.getFitHeight() + hpl.getHeight() + desc.getHeight();
@@ -288,6 +324,10 @@ public class NewsUI extends Application {
 
     private String escapeHTML(String string) {
         return Jsoup.parse(string).text();
+    }
+
+    public BorderPane getROOOOOOOT() {
+        return roooot;
     }
 
 
