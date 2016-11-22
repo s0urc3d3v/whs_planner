@@ -8,7 +8,10 @@ import junit.framework.TestCase;
  */
 public class EncryptionTest extends TestCase {
     public void testEncrypt() {
-        String data = EncryptPasswordWithAes.encryptPassword("test", "Abc12345Abc12345");
-        EncryptPasswordWithAes.decryptPassword(data, "Abc12345Abc12345");
+        EncryptPasswordWithAes encryptPasswordWithAes= new EncryptPasswordWithAes("Abc12345Abc12345");
+        String data = encryptPasswordWithAes.encryptPassword("test");
+        System.out.println(data);
+        String data2 = encryptPasswordWithAes.decryptPassword(data);
+        System.out.println(data2);
     }
 }
