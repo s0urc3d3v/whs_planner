@@ -1,24 +1,24 @@
 package WHS_planner.CoreUI;
 
 import WHS_planner.Calendar.Calendar;
+import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
-import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 public class MainDocumentController implements Initializable {
 
     //Extra Comment
-    Calendar cal;
+    private Calendar cal;
 
     @FXML
     private VBox anchorPane;
@@ -54,6 +54,8 @@ public class MainDocumentController implements Initializable {
 
     private Schedule schedule;
 
+    private NewsUI news;
+
     private boolean sportsScheduleOpen;
 
     private Pane[] panes;
@@ -73,7 +75,8 @@ public class MainDocumentController implements Initializable {
         schedule = new Schedule();
         BorderPane schedulepane = (BorderPane) schedule.getPane();
         BorderPane daypane = (BorderPane) schedule.getdaypane();
-
+        news = new NewsUI();
+//        BorderPane newsPane = (BorderPane) news.getPane();
 
 
         topBar.setStyle("-fx-background-color: #FF9800");
@@ -154,8 +157,30 @@ public class MainDocumentController implements Initializable {
                 }
             }
 
+
 //            anchorPane.setTopAnchor(daypane, 45.0);
         });
+
+        //TODO
+//        buttonArray[4].setOnMouseClicked(event -> {
+//            //anchorPane.getChildren().setAll(tempPane.getChildren());
+//            if(!anchorPane.getChildren().contains(newsPane))
+//            {
+//                anchorPane.getChildren().add(0, newsPane);
+//                panes[4] = newsPane;
+//
+//                for (int i = 0; i < panes.length; i++)
+//                {
+//                    if(i != 1)
+//                    {
+//                        if(panes[i] != null)
+//                        {
+//                            remPane(panes[i]);
+//                        }
+//                    }
+//                }
+//            }
+//        });
 
         VBox vBox = new VBox(buttonArray);
 
@@ -202,7 +227,7 @@ public class MainDocumentController implements Initializable {
 
     @FXML
     private HashMap<String, Object> openSportsDialogue() {
-        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        HashMap<String, Object> resultMap = new HashMap<>();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
@@ -218,7 +243,7 @@ public class MainDocumentController implements Initializable {
             // Giving the popup controller access to the popup stage (to allow the controller to close the stage)
             popupController.setStage(popupStage);
             if(this.main!=null) {
-                popupStage.initOwner(main.getStage());
+                popupStage.initOwner(NavigationBar.getStage());
             }
             popupStage.initModality(Modality.WINDOW_MODAL);
             popupStage.setScene(scene);
@@ -231,7 +256,7 @@ public class MainDocumentController implements Initializable {
     }
 
 
-    public void remPane(Pane p)
+    private void remPane(Pane p)
     {
         anchorPane.getChildren().remove(p);
     }

@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXMasonryPane;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -45,6 +46,7 @@ public class NewsUI extends Application {
     private double widthLength = 200;
 
     private URL url;
+    private Scene scene;
 
     //    private Group roooot = new Group();
 //    private ScrollPane rooot = new ScrollPane();
@@ -65,9 +67,9 @@ public class NewsUI extends Application {
         root.setHSpacing(10);
 //        root.setVSpacing(10);
         root.setCellWidth(widthLength);
-        init();
+//        init();
 
-        Scene scene = new Scene(root);
+        scene = new Scene(root);
         scene.getStylesheets().add(File.separator + "News" + File.separator + "ButtonStyle.css");
         scene.getStylesheets().add(File.separator + "News" + File.separator + "BoxShadow.css");
         stage.setScene(scene);
@@ -87,67 +89,70 @@ public class NewsUI extends Application {
 
         Long refreshStartTime = System.currentTimeMillis();
 
-        //Get new articles. Pray to jesus that this works cause I got no way of testing it
+        //get new articles
         feedArray = parser.getNewArticles(onScreenMessages);
 
         //Loop through all NEW articles
-        for (int i = 0; i < feedArray.size(); i++) {
+        if (feedArray != null) {
 
-            //Add Hyperlink
-            final int eye = i;
-            Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
-            hpl.setOnAction((event) -> openLink(eye));
-            hpl.setWrapText(true);
-            hpl.setMaxWidth(widthLength);
-            hpl.setPadding(new Insets(0, 0, 0, 4));
+            for (int i = 0; i < feedArray.size(); i++) {
 
-            //Add label
-            Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
-            description.setWrapText(true);
-            description.setMaxWidth(widthLength);
-            description.setPadding(new Insets(0, 0, 0, 6));
+                //Add Hyperlink
+                final int eye = i;
+                Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
+                hpl.setOnAction((event) -> openLink(eye));
+                hpl.setWrapText(true);
+                hpl.setMaxWidth(widthLength);
+                hpl.setPadding(new Insets(0, 0, 0, 4));
 
-            //Add Image
-            try {
-                //Timing Test
-                Long startTime = System.currentTimeMillis();
+                //Add label
+                Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
+                description.setWrapText(true);
+                description.setMaxWidth(widthLength);
+                description.setPadding(new Insets(0, 0, 0, 6));
 
-                String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
-                System.out.println(urlString);
-                if (urlString != null) {
-                    System.out.println("There's an image.");
-                    url = new URL(urlString);
-                    BufferedImage bf;
+                //Add Image
+                try {
+                    //Timing Test
+                    Long startTime = System.currentTimeMillis();
 
-                    try {
-                        bf = ImageIO.read(url);
-                    } catch (/*IOException ex*/ Exception ex) {
+                    String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
+                    System.out.println(urlString);
+                    if (urlString != null) {
+                        System.out.println("There's an image.");
+                        url = new URL(urlString);
+                        BufferedImage bf;
+
+                        try {
+                            bf = ImageIO.read(url);
+                        } catch (/*IOException ex*/ Exception ex) {
 //                            ex.printStackTrace();
-                        System.out.println("Error with image.");
+                            System.out.println("Error with image.");
+                            addCard(hpl, description);
+                            continue;
+                        }
+
+                        WritableImage wr = convertImg(bf);
+                        ImageView img = new ImageView(wr);
+                        img.setFitWidth(widthLength);
+                        img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
+                        img.setImage(wr);
+
+                        //Add article to list
+                        addCard(img, hpl, description);
+
+                    } else {
+
                         addCard(hpl, description);
-                        continue;
                     }
-
-                    WritableImage wr = convertImg(bf);
-                    ImageView img = new ImageView(wr);
-                    img.setFitWidth(widthLength);
-                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
-                    img.setImage(wr);
-
-                    //Add article to list
-                    addCard(img, hpl, description);
-
-                } else {
-
-                    addCard(hpl, description);
+                    //print
+                    System.out.println(System.currentTimeMillis() - startTime);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
                 }
-                //print
-                System.out.println(System.currentTimeMillis() - startTime);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            onScreenMessages.add(feedArray.get(i));
+                onScreenMessages.add(feedArray.get(i));
 
+            }
         }
         System.out.println("REFRESH FINISH: " + (System.currentTimeMillis() - refreshStartTime) + " ms");
         System.out.println();
@@ -228,6 +233,8 @@ public class NewsUI extends Application {
             onScreenMessages.add(feedArray.get(i));
 
         }
+        System.out.println("News loaded. f  e  e  l  s  g  o  o  d  m  a  n .");
+
     }
 
     private void addCard(Hyperlink hpl, Label desc) {
@@ -273,6 +280,10 @@ public class NewsUI extends Application {
 
     private String escapeHTML(String string) {
         return Jsoup.parse(string).text();
+    }
+
+    public Node getPane() {
+        return scene.getRoot();
     }
 
 }

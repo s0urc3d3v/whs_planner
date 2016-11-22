@@ -144,13 +144,15 @@ public class RSSFeedParser {
 
         if (oldFeed.size() == 0) {
 
-            System.out.println("Case lul");
+            System.out.println("Case lul. If it's case lul something has gone catastrophically wrong.");
             return oldFeed;
         } else if (currentFeed.get(0).getLink().equals(oldFeed.get(0).getLink())) {
             System.out.println("Case 1");
 
-            oldFeed.clear();
-            return oldFeed;
+            //this is why it clears.
+//            oldFeed.clear();
+//            return oldFeed;
+            return null;
         } else {
             ArrayList<FeedMessage> newFeed = new ArrayList<>();
             int i = 0;
