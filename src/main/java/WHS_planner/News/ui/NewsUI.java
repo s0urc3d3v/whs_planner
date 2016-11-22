@@ -57,8 +57,7 @@ public class NewsUI extends Application {
     }
 
     public void start(Stage stage) {
-//        rooot.setPrefSize(1280, 720);
-        rooot.setPrefWidth(1280);
+        rooot.setPrefSize(1280, 720);
         rooot.setContent(root);
         rooot.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         rooot.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -265,8 +264,8 @@ public class NewsUI extends Application {
         v.setPrefWidth(widthLength);
         v.setMaxWidth(widthLength);
         double height = img.getFitHeight() + hpl.getHeight() + desc.getHeight();
-        v.setPrefHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
-        v.setMaxHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
+//        v.setPrefHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
+//        v.setMaxHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
         v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
 //        root.setVSpacing(10);
         root.getChildren().add(v);
