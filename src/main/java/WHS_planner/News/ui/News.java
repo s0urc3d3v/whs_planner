@@ -6,31 +6,27 @@ import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import org.jsoup.Jsoup;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsUI extends Application {
 
+public class News {
     private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
 
@@ -40,7 +36,7 @@ public class NewsUI extends Application {
     //List of articles CURRENTLY ON DISPLAY
     private List<FeedMessage> onScreenMessages = new ArrayList<>();
 
-    private HTMLScanner HTMLScanner = new HTMLScanner();
+    private WHS_planner.News.html.HTMLScanner HTMLScanner = new HTMLScanner();
 
     //TODO WIDTHLENGTH OF IS HARDCODED AHHH
     private double widthLength = 200;
@@ -48,34 +44,27 @@ public class NewsUI extends Application {
     private URL url;
     private Scene scene;
 
-    private ScrollPane rooot = new ScrollPane();
+    //    private Group roooot = new Group();
+//    private ScrollPane rooot = new ScrollPane();
     private JFXMasonryPane root = new JFXMasonryPane();
 
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    public void start(Stage stage) {
-        rooot.setContent(root);
-        rooot.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        rooot.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        rooot.setFitToWidth(true);
+    public News() {
+        //        rooot.setPrefSize(1280, 720);
+//        rooot.setContent(root);
+//        roooot.getChildren().add(rooot);
 
         root.setPrefSize(1280, 720);
+        //the issue has something to do with the max/pref size of the scroll pane. Set it to always the window size.
         root.setHSpacing(10);
 //        root.setVSpacing(10);
         root.setCellWidth(widthLength);
-//        init();
-
-        scene = new Scene(rooot);
-        scene.getStylesheets().add(File.separator + "News" + File.separator + "ButtonStyle.css");
-        scene.getStylesheets().add(File.separator + "News" + File.separator + "BoxShadow.css");
-        stage.setScene(scene);
-        stage.show();
-
+        init();
     }
 
+    public JFXMasonryPane getPane() {
+        return root;
+    }
 
     private void openLink(int index) {
         try {
@@ -247,7 +236,7 @@ public class NewsUI extends Application {
 
         v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
         root.setVSpacing(10);
-        root.setCellHeight(200);
+        root.setCellHeight(height);
         root.getChildren().add(v);
     }
 
@@ -260,8 +249,7 @@ public class NewsUI extends Application {
 //        v.setMaxHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
         v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
         root.setVSpacing(10);
-        root.setCellHeight(200);
-        //TODO^ ???????????????????????????
+        root.setCellHeight(height);
         root.getChildren().add(v);
 
     }

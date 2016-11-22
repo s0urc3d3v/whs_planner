@@ -1,11 +1,13 @@
 package WHS_planner.CoreUI;
 
 import WHS_planner.Calendar.Calendar;
+import WHS_planner.News.ui.News;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,8 +77,9 @@ public class MainDocumentController implements Initializable {
         schedule = new Schedule();
         BorderPane schedulepane = (BorderPane) schedule.getPane();
         BorderPane daypane = (BorderPane) schedule.getdaypane();
-        news = new NewsUI();
-//        BorderPane newsPane = (BorderPane) news.getPane();
+
+        News news = new News();
+        JFXMasonryPane newsView = news.getPane();
 
 
         topBar.setStyle("-fx-background-color: #FF9800");
@@ -162,25 +165,21 @@ public class MainDocumentController implements Initializable {
         });
 
         //TODO
-//        buttonArray[4].setOnMouseClicked(event -> {
-//            //anchorPane.getChildren().setAll(tempPane.getChildren());
-//            if(!anchorPane.getChildren().contains(newsPane))
-//            {
-//                anchorPane.getChildren().add(0, newsPane);
-//                panes[4] = newsPane;
-//
-//                for (int i = 0; i < panes.length; i++)
-//                {
-//                    if(i != 1)
-//                    {
-//                        if(panes[i] != null)
-//                        {
-//                            remPane(panes[i]);
-//                        }
-//                    }
-//                }
-//            }
-//        });
+        buttonArray[4].setOnMouseClicked(event -> {
+            //anchorPane.getChildren().setAll(tempPane.getChildren());
+            if (!anchorPane.getChildren().contains(newsView)) {
+                anchorPane.getChildren().add(0, newsView);
+                panes[4] = newsView;
+
+                for (int i = 0; i < panes.length; i++) {
+                    if (i != 1) {
+                        if (panes[i] != null) {
+                            remPane(panes[i]);
+                        }
+                    }
+                }
+            }
+        });
 
         VBox vBox = new VBox(buttonArray);
 
