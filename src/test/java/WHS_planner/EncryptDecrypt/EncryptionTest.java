@@ -1,6 +1,6 @@
 package WHS_planner.EncryptDecrypt;
 
-import WHS_planner.Util.EncryptPasswordWithAes;
+import WHS_planner.Util.AesTool;
 import junit.framework.TestCase;
 
 /**
@@ -8,10 +8,15 @@ import junit.framework.TestCase;
  */
 public class EncryptionTest extends TestCase {
     public void testEncrypt() {
-        EncryptPasswordWithAes encryptPasswordWithAes= new EncryptPasswordWithAes("Abc12345Abc12345");
-        String data = encryptPasswordWithAes.encryptPassword("test");
-        System.out.println(data);
-        String data2 = encryptPasswordWithAes.decryptPassword(data);
-        System.out.println(data2);
+        try {
+            AesTool encryptPasswordWithAes = new AesTool("Hello World", "Bar12345Bar12345");
+            String data = encryptPasswordWithAes.encrypt();
+            System.out.println(data);
+
+            System.out.println(encryptPasswordWithAes.decrypt());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
