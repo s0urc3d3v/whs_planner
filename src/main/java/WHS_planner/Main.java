@@ -20,7 +20,7 @@ public class Main extends Application
         }
         MeetingFileHandler.configFileHandler(); //This must be at the top of Main() for meeting import to work
          */
-       MemoryCredentials memoryCredentials = new MemoryCredentials(null, null);
+       MemoryCredentials memoryCredentials = new MemoryCredentials(null, null, null);
        PropertyConfigurator.configure("log4j.properties");
        launch(args);
         IO io = new IO("src" + File.separator + "main" + File.separator + "resources"+ File.separator + "Core" + File.separator + "util.json");

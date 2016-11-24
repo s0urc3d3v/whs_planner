@@ -35,7 +35,7 @@ public class ErrorHandler {
      * @param e The Exception object
      */
     public static void handleGenericError(String desc, Exception e){
-        WHS_planner.CoreUI.ErrorPage.displayErrorWithMsg(desc); //TODO
+        WHS_planner.CoreUI.ErrorPage.displayErrorWithMsg(desc);
         if (e != null) { //Passing an exception is optional
             ErrorHandler.CreateErrorLog(e);
         }
