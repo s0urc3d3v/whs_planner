@@ -95,6 +95,8 @@ public class Schedule
 
             currentClass = blocks[i].getClassName();
             currentTeacher = blocks[i].getTeacher();
+            currentTeacher = currentTeacher.replace("<br>", " & ");
+
             currentPeriod = blocks[i].getPeriodNumber();
             currentRoom = blocks[i].getRoomNumber();
 
