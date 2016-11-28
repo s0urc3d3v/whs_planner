@@ -14,6 +14,31 @@ public class Meeting {
     private long month;
     private long day;
     private long year;
+
+    public long getMonth() {
+        return month;
+    }
+
+    public void setMonth(long month) {
+        this.month = month;
+    }
+
+    public long getDay() {
+        return day;
+    }
+
+    public void setDay(long day) {
+        this.day = day;
+    }
+
+    public long getYear() {
+        return year;
+    }
+
+    public void setYear(long year) {
+        this.year = year;
+    }
+
     private long hour;
     private long minute;
 

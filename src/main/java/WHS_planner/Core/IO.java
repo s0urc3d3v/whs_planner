@@ -90,7 +90,7 @@ public class IO {
 
     public Meeting readMeetingJsonData(){
         JSONObject rawObject = jsonApi.readRaw();
-        if (rawObject.toString() == null) {
+        if (rawObject.toString() != null) {
             //These students need to be parsed
             String requestingStudentUnparsed = (String) rawObject.get("requestingStudent");
             String studentRequestedUnparsed = (String) rawObject.get("studentRequested");
