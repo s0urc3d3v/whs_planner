@@ -1,113 +1,202 @@
 package WHS_planner.Core;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.concurrent.TimeUnit;
-
-import static com.thoughtworks.selenium.SeleneseTestBase.fail;
+import javax.net.ssl.HttpsURLConnection;
+import java.io.*;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * Created by matthewelbing on 23.09.16.
+ * Grabs Schedule from IPass
+ *
+ * RIP Selenium we will never forget you
  */
 public class ReadSchedule {
     private String username;
     private String password;
     private StringBuffer verificationErrors = new StringBuffer();
-    private WebDriver chromeDriver;
     private boolean acceptNextAlert = true;
     private String pageSource;
-    public ReadSchedule (){
-        try{
-            File chromeWebDriverExec = new File(System.getProperty("user.dir") + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "chromedriver");
-            System.setProperty("webdriver.chrome.driver", (System.getProperty("user.dir") + "/src/main/resources/Core/chromedriver"));
+    public ReadSchedule (){}
+
+    private HttpURLConnection connection;
+    private List<String> cookies;
+    private final String USER_AGENT = "Mozilla/5.0";
+
+    public void authAndFindTableWithIpass(String user, String pass) throws Exception {
+        String url = "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html";
+        CookieHandler.setDefault(new CookieManager());
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+        Grabber grabber = new Grabber();
+        try {
+            String page = grabber.getPageContent(url);
+            String params = grabber.getForm(page, user, pass);
+            grabber.send(url, params);
+            //String res = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html");
+            File output = new File("raw.html");
+            FileWriter fileWriter = new FileWriter(output);
+            fileWriter.write(grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?m=506&amp;pr=19&amp;dt=09261649872"));
+            connection.disconnect();
         }
-        catch (Exception e){
+        catch(Exception e)
+        {
             e.printStackTrace();
         }
     }
-    public void authAndFindTableWithIpass(String user, String pass) throws Exception {
-        //Auth and navigate to schedule
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("window-size=1024,768");
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        chromeDriver = new ChromeDriver(capabilities);
-        String baseUrl = "https://ipass.wayland.k12.ma.us";
-        chromeDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        chromeDriver.get(baseUrl + "/school/ipass/syslogin.html");
-        chromeDriver.findElement(By.name("userid")).clear();
-        chromeDriver.findElement(By.name("userid")).sendKeys(user);
-        chromeDriver.findElement(By.name("password")).clear();
-        chromeDriver.findElement(By.name("password")).sendKeys(pass);
-        //chromeDriver.findElement(By.cssSelector("img[alt=\"Login to iPass\"]")).submit();
-        chromeDriver.findElement(By.name("password")).sendKeys(Keys.TAB);
-        ((JavascriptExecutor) chromeDriver).executeScript("javascript:document.login.submit()"); //working just needed a parenthesis        ((JavascriptExecutor) chromeDriver).executeScript("javascript:document.login.submit()"); //working just needed a parenthesis
-        //chromeDriver.get(baseUrl + "https://ipass.wayland.k12.ma.us/school/ipass/index.html?dt=09261636690");
-        chromeDriver.get("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?m=506&amp;pr=19&amp;dt=09261649872");
-        pageSource = chromeDriver.getPageSource();
-        Files.write(Paths.get(System.getProperty("user.dir") + File.separator + "raw.html"), pageSource.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-        /*
-        String tableData[][] = new String[100][100];
-        WebElement scheduleTable = chromeDriver.findElement(By.className("boxHdr"));
-        List<WebElement> tableRows = scheduleTable.findElements(By.className("DATA"));
-        int row_number, collum_number;
-        row_number = 1;
-        for (WebElement tableRowElement : tableRows){
-            List<WebElement> tableCols = tableRowElement.findElements(By.xpath("td"));
-            collum_number = 1;
-            for (WebElement tableColElement : tableCols){
-                System.out.println("row # "+row_number+", col # "+collum_number+ "text="+tableColElement.getText());
-                tableData[row_number][collum_number] = tableColElement.getText();
-                collum_number++;
+
+    protected class Grabber
+    {
+        private Grabber()
+        {
+
+        }
+
+        private String getPageContent(String url) throws Exception
+        {
+            URL ipass = new URL(url);
+            connection = (HttpsURLConnection) ipass.openConnection();
+            connection.setRequestMethod("GET");
+
+            connection.setRequestProperty("User-Agent", USER_AGENT);
+
+            connection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            connection.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch, br");
+
+            if (cookies != null)
+            {
+                for (String cookie : cookies)
+                {
+                    connection.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
+                }
             }
-        row_number++;
-        }*/
 
-        chromeDriver.quit();
-        String verificationErrorString = verificationErrors.toString();
-        if (!"".equals(verificationErrorString)) {
-            fail(verificationErrorString);
-        }
-    }
-    private boolean isElementPresent(By by) {
-        try {
-            chromeDriver.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
+            int resp = connection.getResponseCode();
 
-    private boolean isAlertPresent() {
-        try {
-            chromeDriver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
+            System.out.println("\nSending GET request to " + url);
+            System.out.println("Response code is: "+resp);
 
-    private String closeAlertAndGetItsText() {
-        try {
-            Alert alert = chromeDriver.switchTo().alert();
-            String alertText = alert.getText();
-            if (acceptNextAlert) {
-                alert.accept();
-            } else {
-                alert.dismiss();
+            InputStreamReader ir = new InputStreamReader(connection.getInputStream());
+            BufferedReader br = new BufferedReader(ir);
+
+            String inLine;
+            StringBuilder response = new StringBuilder();
+
+            while((inLine = br.readLine()) != null)
+            {
+                response.append(inLine);
+                response.append("\n");
             }
-            return alertText;
-        } finally {
-            acceptNextAlert = true;
+            br.close();
+            ir.close();
+
+            return response.toString();
+        }
+
+        private String getForm(String html, String user, String pass) throws Exception
+        {
+            System.out.println("Getting form data...");
+
+            Document doc = Jsoup.parse(html);
+
+            Element loginform = doc.getElementById("login");
+            Elements inputelements = loginform.getElementsByTag("input");
+
+            ArrayList<String> params = new ArrayList<String>();
+
+            for(Element el : inputelements)
+            {
+                String key = el.attr("name");
+                String val = el.attr("value");
+
+                if(key.equals("userid"))
+                {
+                    val = user;
+                }
+                else if(key.equals("password"))
+                {
+                    val = pass;
+                }
+
+                params.add(key + "=" + URLEncoder.encode(val, "UTF-8"));
+            }
+
+            StringBuffer buffer = new StringBuffer();
+
+            for(String param : params)
+            {
+                if(buffer.length() == 0)
+                {
+                    buffer.append(param);
+                }
+                else
+                {
+                    buffer.append("&" + param);
+                }
+            }
+
+            return buffer.toString();
+        }
+
+        private void send(String url, String params) throws Exception
+        {
+            System.out.println("Attempting to send data");
+
+            URL obj = new URL(url);
+
+            connection = (HttpURLConnection) obj.openConnection();
+
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("User-Agent", USER_AGENT);
+            connection.setRequestProperty("Connection", "keep-alive");
+            connection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            connection.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch, br");
+
+
+
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+
+            DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
+
+            dos.writeBytes(params);
+            dos.flush();
+            dos.close();
+
+
+            int response = connection.getResponseCode();
+
+            System.out.println("\nSending POST request to "+url);
+            System.out.println("Parameters : " + params);
+            System.out.println("Response code:" + response);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String input;
+            StringBuffer stringbuffer = new StringBuffer();
+
+            while((input = br.readLine()) != null)
+            {
+                stringbuffer.append(input);
+            }
+            br.close();
+
+        }
+
+        private List<String> getCookies()
+        {
+            return cookies;
+        }
+
+        private void setCookies(List<String> cs)
+        {
+            cookies = cs;
         }
     }
-
 }

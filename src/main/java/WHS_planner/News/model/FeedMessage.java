@@ -1,7 +1,5 @@
 package WHS_planner.News.model;
 
-import org.jsoup.Jsoup;
-
 public class FeedMessage {
 
     private String title;
@@ -11,7 +9,6 @@ public class FeedMessage {
     private String guid;
 
     public String getTitle() {
-        escapeHTML();
         return title;
     }
 
@@ -20,7 +17,6 @@ public class FeedMessage {
     }
 
     public String getDescription() {
-        escapeHTML();
         return description;
     }
 
@@ -58,14 +54,11 @@ public class FeedMessage {
      * the title and description. This is used to remove
      * the HTML codes in the RSS feed's description and title.
      */
-    private void escapeHTML() {
-        title = Jsoup.parse(title).text();
-        description = Jsoup.parse(description).text();
-    }
+
 
     @Override
     public String toString() {
-        escapeHTML();
+//        escapeHTML();
         return "FeedMessage [title=" + title + ", description=" + description
                 + ", link=" + link + ", author=" + author + ", guid=" + guid
                 + "]";

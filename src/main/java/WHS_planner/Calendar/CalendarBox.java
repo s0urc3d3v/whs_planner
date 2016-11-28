@@ -34,7 +34,7 @@ public class CalendarBox extends Pane{
     private ArrayList<ArrayList<Task>> tasks; //List of the lists of tasks
     private Pane mainPane; //The main pane
     private Map<String,Object> map; //A map of all the objects in the FXML
-    private HBox taskBox;
+    private VBox taskBox;
 
     public CalendarBox(int date, int week, boolean active){
         this.date = date; //This box's date
@@ -125,6 +125,7 @@ public class CalendarBox extends Pane{
                 //Create the badge on the Label
                 JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
                 badge.getStyleClass().add("icon-badge");
+//                badge.getChildren().get(0).getStyleClass().setAll("testsefd");
                 badge.setText("" + getTaskCount(listID)); //Set the badge number
                 icons.add(badge);
             }
@@ -147,15 +148,16 @@ public class CalendarBox extends Pane{
             FXMLLoader loader = new FXMLLoader(); //Create a new FXML Loader
             loader.setLocation(getClass().getResource("/Calendar/taskBox.fxml")); //Set location of taskbox FXML file
 
-            taskBox = new HBox(); //Creates a return taskbox
+            taskBox = new VBox(); //Creates a return taskbox
 
             try {
                 taskBox = loader.load(); //Load from FXML
                 taskBox.prefWidthProperty().bind(widthProperty); //Set the width of the taskbox to be the same as the width passed in
 
                 //Get the JFXTextField and set the width to grow
-                JFXTextField textBox = (JFXTextField) taskBox.getChildren().get(0);
-                taskBox.setHgrow(textBox, Priority.ALWAYS);
+                HBox hBox = (HBox) taskBox.getChildren().get(0);
+                JFXTextField textBox = (JFXTextField) hBox.getChildren().get(0);
+                hBox.setHgrow(textBox, Priority.ALWAYS);
 
                 //Set pressing enter to clear the box text
                 textBox.setOnKeyPressed(event -> {
@@ -170,6 +172,7 @@ public class CalendarBox extends Pane{
                             update();
                         }
                         textBox.clear();
+                        updateTaskBox();
                     }
                 });
             } catch (IOException e) {
@@ -177,6 +180,15 @@ public class CalendarBox extends Pane{
             }
         }
         return taskBox; //return the created taskbox
+    }
+
+    public void updateTaskBox(){
+        for (int i = 0; i < taskBox.getChildren().size()-1; i++) {
+            taskBox.getChildren().remove(0);
+        }
+        for (int i = 0; i < tasks.get(0).size(); i++) {
+            taskBox.getChildren().add(0,tasks.get(0).get(i).getPane());
+        }
     }
 
     /*-----ID RELATED-----*/
