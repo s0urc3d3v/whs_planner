@@ -43,7 +43,7 @@ public class ScheduleController implements Initializable, ActionListener
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-
+        grid.setGridLinesVisible(false);
         panes = new BorderPane[82];
         int count = 0;
         //Fills Arrays
@@ -54,9 +54,9 @@ public class ScheduleController implements Initializable, ActionListener
         for (int i = 1; i < 9; i++) {
             for (int j = 2; j < 9; j++) {
                 grid.add(panes[count],i,j);
-                panes[count].setStyle("-fx-background-color: #ffc04c");
+                panes[count].setStyle("-fx-background-color: #ffffff");
                 panes[count].toBack();
-                panes[count].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+                panes[count].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
                         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
                 count++;
             }
@@ -64,18 +64,18 @@ public class ScheduleController implements Initializable, ActionListener
 
         for (int i = 2; i < 9; i++) {
             grid.add(panes[54 + i],0,i);
-            panes[54 + i].setStyle("-fx-background-color: #ffc04c");
+            panes[54 + i].setStyle("-fx-background-color: #ffffff");
             panes[54 + i].toBack();
-            panes[54 + i].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+            panes[54 + i].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         }
 
 
         for (int i = 0; i < 9; i++) {
             grid.add(panes[i + 63],i,1);
-            panes[i + 63].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+            panes[i + 63].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            panes[i + 63].setStyle("-fx-background-color: #ffa500");
+            panes[i + 63].setStyle("-fx-background-color: #ffffff");
             panes[i + 63].toBack();
         }
 
