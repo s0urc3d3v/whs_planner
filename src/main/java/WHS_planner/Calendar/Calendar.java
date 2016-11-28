@@ -13,6 +13,7 @@ import javafx.util.Duration;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+
 /**
  * Created by geoffrey_wang on 9/21/16.
  */
@@ -26,17 +27,19 @@ public class Calendar extends BorderPane {
     private int startDay;
     private int numberOfDays;
     private Node taskBox;
-
+//Tzurs code
+ private CalendarHelper dayFinder = new CalendarHelper();
+    // end tzurs code
     private VBox mainPane;
 
     private int currentTextBoxRow = -1;
     // MARK: day in foucus
     private int currentDate = -1;
 
-    public Calendar(int startDay, int numberOfDays){
+    public Calendar(){
 
-        this.startDay = startDay;
-        this.numberOfDays = numberOfDays;
+        this.startDay = dayFinder.getWeekdayMonthStarts();
+        this.numberOfDays = dayFinder.getDaysInMonth();
 
         CalendarUtility util = new CalendarUtility();
 
