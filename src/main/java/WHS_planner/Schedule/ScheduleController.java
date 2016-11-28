@@ -7,13 +7,9 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.ResourceBundle;
+import javax.swing.Timer;
 
 public class ScheduleController implements Initializable, ActionListener
 {
@@ -46,7 +43,7 @@ public class ScheduleController implements Initializable, ActionListener
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-
+        grid.setGridLinesVisible(false);
         panes = new BorderPane[82];
         int count = 0;
         //Fills Arrays
@@ -57,9 +54,9 @@ public class ScheduleController implements Initializable, ActionListener
         for (int i = 1; i < 9; i++) {
             for (int j = 2; j < 9; j++) {
                 grid.add(panes[count],i,j);
-                panes[count].setStyle("-fx-background-color: #ffc04c");
+                panes[count].setStyle("-fx-background-color: #ffffff");
                 panes[count].toBack();
-                panes[count].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+                panes[count].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
                         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
                 count++;
             }
@@ -67,18 +64,18 @@ public class ScheduleController implements Initializable, ActionListener
 
         for (int i = 2; i < 9; i++) {
             grid.add(panes[54 + i],0,i);
-            panes[54 + i].setStyle("-fx-background-color: #ffc04c");
+            panes[54 + i].setStyle("-fx-background-color: #ffffff");
             panes[54 + i].toBack();
-            panes[54 + i].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+            panes[54 + i].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         }
 
 
         for (int i = 0; i < 9; i++) {
             grid.add(panes[i + 63],i,1);
-            panes[i + 63].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+            panes[i + 63].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            panes[i + 63].setStyle("-fx-background-color: #ffa500");
+            panes[i + 63].setStyle("-fx-background-color: #ffffff");
             panes[i + 63].toBack();
         }
 
@@ -112,7 +109,7 @@ public class ScheduleController implements Initializable, ActionListener
 
         if(s.length() == 1)
         {
-            s = "Today is " + s + " day!";
+            s = "Today is '" + s + "' day!";
         }
 
         //we can set the day here
@@ -154,7 +151,7 @@ public class ScheduleController implements Initializable, ActionListener
     {
         try
         {
-            File f = new File("Keys/keys.key.json");
+            File f = new File("Keys/ipass.key");
 
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
@@ -201,7 +198,38 @@ public class ScheduleController implements Initializable, ActionListener
 
         double mod = 1;
 
-        if(normalDay)
+        if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == 4)
+        {
+            if(num >= 450 && num < 496)
+            {
+                mod = (496-num)/46.0;
+            }
+            else if(num >= 496 && num < 576)
+            {
+                mod = (576-num)/80.0;
+            }
+            else if(num >= 576 && num < 641)
+            {
+                mod = (641-num)/65.0;
+            }
+            else if(num >= 641 && num < 716)
+            {
+                mod = (716-num)/75.0;
+            }
+            else if(num >= 700 && num < 745)
+            {
+                mod = (745-num)/45.0;
+            }
+            else if(num >= 745 && num <= 785)
+            {
+                mod = (785-num)/40.0;
+            }
+            else
+            {
+                mod = 1;
+            }
+        }
+        else if(normalDay)
         {
             if(num >= 450 && num < 512)
             {

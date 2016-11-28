@@ -22,6 +22,7 @@ public class Main extends Application
          */
        MemoryCredentials memoryCredentials = new MemoryCredentials(null, null, null);
        PropertyConfigurator.configure("log4j.properties");
+
        launch(args);
         IO io = new IO("src" + File.separator + "main" + File.separator + "resources"+ File.separator + "Core" + File.separator + "util.json");
         io.setFirstRunVar();
@@ -37,3 +38,5 @@ public class Main extends Application
         bar.start(primaryStage);
     }
 }
+
+
