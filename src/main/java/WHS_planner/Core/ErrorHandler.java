@@ -35,7 +35,7 @@ public class ErrorHandler {
      * @param e The Exception object
      */
     public static void handleGenericError(String desc, Exception e){
-        WHS_planner.CoreUI.ErrorPage.displayErrorWithMsg(desc); //TODO
+        WHS_planner.CoreUI.ErrorPage.displayErrorWithMsg(desc);
         if (e != null) { //Passing an exception is optional
             ErrorHandler.CreateErrorLog(e);
         }
@@ -68,5 +68,9 @@ public class ErrorHandler {
     }
     public static void handleNoMeetingDataError(){
         WHS_planner.CoreUI.ErrorPage.displayErrorWithMsg("There is no meeting data on file, we're sorry!");
+    }
+
+    public static void handleEncryptOrDecryptError(){
+        WHS_planner.CoreUI.Error_Handler.displayErrorWithMsg("Something went wrong with file protections, please try again");
     }
 }

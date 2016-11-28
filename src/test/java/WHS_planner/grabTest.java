@@ -4,7 +4,9 @@ import WHS_planner.Schedule.GrabDay;
 import WHS_planner.Schedule.ParseCalendar;
 import junit.framework.TestCase;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.Calendar;
 
 /**
@@ -16,7 +18,7 @@ public class grabTest extends TestCase
     {
         try
         {
-            File f = new File("Keys/ipass.key");
+            File f = new File("Keys/keys.key.json");
 
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
@@ -49,7 +51,7 @@ public class grabTest extends TestCase
     {
         try
         {
-            File f = new File("Keys/ipass.key");
+            File f = new File("Keys/keys.key.json");
 
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
