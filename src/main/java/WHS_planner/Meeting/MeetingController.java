@@ -24,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
@@ -77,8 +78,6 @@ public class MeetingController implements Initializable{
         requestingListView.setItems(requestingContents);
         requestedListView.setItems(requestedContents);
 
-        addSession("Name1", "Grade1", "Level1", "Teacher1", "Class", "Time", "Date", "Name2", "Grade2", "Level2", "Teacher2");
-
         anchorPane.applyCss();
 
         requestingListView.getStylesheets().add("/CoreUI/ListView.css");
@@ -112,14 +111,14 @@ public class MeetingController implements Initializable{
         Meeting meeting = io.readMeetingJsonData();
        addSession(meeting.getRequestingStudent().getFullName(),
                String.valueOf(meeting.getRequestingStudent().getGrade()),
-               String.valueOf(meeting.getCourse().getCourseLevel()),
+               String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
                meeting.getRequestingStudent().getTeacher(),
                meeting.getCourse().getName(),
-               (String.valueOf(meeting.getHour()) + String.valueOf(meeting.getMinute())),
-               (String.valueOf(meeting.getMonth()) + String.valueOf(meeting.getDay())),
+               (String.valueOf(meeting.getHour()) + ":"  + String.valueOf(meeting.getMinute())),
+               (String.valueOf(meeting.getMonth()) + "/" + String.valueOf(meeting.getDay())),
                meeting.getStudentRequested().getFullName(),
                String.valueOf(meeting.getStudentRequested().getGrade()),
-               String.valueOf(meeting.getCourse().getCourseLevel()),
+               String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
                meeting.getStudentRequested().getTeacher());
 
 
@@ -198,6 +197,31 @@ public class MeetingController implements Initializable{
 
     @FXML
     void importButtonPressed(ActionEvent event) {
-        //pop your code in here elbing
+        JFileChooser jFileChooser = new JFileChooser();
+        JFrame frame = new JFrame();
+        frame.setVisible(true);
+        frame.setSize(500,500);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        File meetingFile = null;
+        int fileReturnVal = jFileChooser.showOpenDialog(frame);
+        if (fileReturnVal == JFileChooser.APPROVE_OPTION){ //causes problems
+            meetingFile = jFileChooser.getSelectedFile();
+            if (meetingFile != null){
+                IO io = new IO(meetingFile.getPath());
+                Meeting meeting = io.readMeetingJsonData();
+                addSession(meeting.getRequestingStudent().getFullName(),
+                        String.valueOf(meeting.getRequestingStudent().getGrade()),
+                        String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
+                        meeting.getRequestingStudent().getTeacher(),
+                        meeting.getCourse().getName(),
+                        (String.valueOf(meeting.getHour()) + ":"  + String.valueOf(meeting.getMinute())),
+                        (String.valueOf(meeting.getMonth()) + "/" + String.valueOf(meeting.getDay())),
+                        meeting.getStudentRequested().getFullName(),
+                        String.valueOf(meeting.getStudentRequested().getGrade()),
+                        String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
+                        meeting.getStudentRequested().getTeacher());
+            }
+        }
+
     }
 }

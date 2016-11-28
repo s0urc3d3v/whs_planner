@@ -53,7 +53,7 @@ public class Student {
     }
 
     public String getFullName(){
-        return getFirstName() + "_" + getLastName();
+        return getFirstName() + " " + getLastName();
     }
 
     public void setFirstName(String firstName) {
