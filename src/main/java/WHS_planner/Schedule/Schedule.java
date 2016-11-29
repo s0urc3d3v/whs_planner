@@ -20,14 +20,11 @@ public class Schedule
     @FXML
     private Pane rootLayout;
 
-    private Pane memes;
-
     private Map<String, Object> labels;
 
     private ScheduleBlock[] blocks;
 
     public static Scene schedule;
-    public static Scene day;
 
     //boolean for bell 2's which has no function at the moment
     //private boolean special = false;
@@ -54,14 +51,6 @@ public class Schedule
         generateSchedule(loader);
 
         schedule = new Scene(rootLayout);
-
-        FXMLLoader load2 = new FXMLLoader();
-
-        load2.setLocation(getClass().getResource("/Schedule/day.fxml"));
-
-        memes = load2.load();
-
-        day = new Scene(memes);
     }
 
 
@@ -244,12 +233,6 @@ public class Schedule
     public Node getPane()
     {
         Node n = schedule.getRoot();
-        return n;
-    }
-
-    public Node getdaypane()
-    {
-        Node n = day.getRoot();
         return n;
     }
 
