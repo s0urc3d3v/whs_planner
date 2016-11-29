@@ -32,27 +32,24 @@ public class SportsHandler {
     private void writeToJSON(HashMap<String, Integer> sports) {}
 
     public HashMap<String, Integer> getSports() {
-        if(siteUpdateNeeded()) {
-            Document doc = null;
-            try {
-                doc = getWebsite(sportSite);
-            } catch (IOException e) {
-                e.printStackTrace();
-                //Problem with grabbing the page
-                return new HashMap<>();
-            }
-            HashMap<String, Integer> sports = new HashMap<String, Integer>();
-            //Grab all the select elements under the change team dropdown.
-            for(Element element: doc.getElementById("change_team_sb_0").children()) {
-                //Store all the sports names in a list with their indexes.
-                sports.put(element.text(), Integer.valueOf(element.val()));
-            }
-            //Write this to a JSON File for later.
-            writeToJSON(sports);
-            return sports;
+
+        Document doc = null;
+        try {
+            doc = getWebsite(sportSite);
+        } catch (IOException e) {
+            e.printStackTrace();
+            //Problem with grabbing the page
+            return new HashMap<>();
         }
-        //Otherwise it is in a file already.
-        return getSportsFromFile();
+        HashMap<String, Integer> sports = new HashMap<String, Integer>();
+        //Grab all the select elements under the change team dropdown.
+        for(Element element: doc.getElementById("change_team_sb_0").children()) {
+            //Store all the sports names in a list with their indexes.
+            sports.put(element.text(), Integer.valueOf(element.val()));
+        }
+        //Write this to a JSON File for later.
+        writeToJSON(sports);
+        return sports;
     }
 
     private Document getWebsite(String siteURL) throws IOException {
@@ -69,10 +66,6 @@ public class SportsHandler {
             site += line;
         }
         return Jsoup.parse(site);
-    }
-
-    private HashMap<String, Integer> getSportsFromFile() {
-        return null;
     }
 
     public List<String> getEvents(int sportIndex) {
