@@ -91,9 +91,9 @@ public class IO {
     public Meeting readMeetingJsonData(){
         JSONObject rawObject = jsonApi.readRaw();
         if (rawObject.toString() != null) {
-            //These students need to be parsed
             String requestingStudentUnparsed = (String) rawObject.get("requestingStudent");
             String studentRequestedUnparsed = (String) rawObject.get("studentRequested");
+            System.out.println(rawObject.toJSONString());
             long month = (long) rawObject.get("month");
             long day = (long) rawObject.get("day");
             long year = (long) rawObject.get("year");

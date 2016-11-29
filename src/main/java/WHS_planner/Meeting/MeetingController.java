@@ -22,15 +22,17 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class MeetingController implements Initializable{
+public class MeetingController implements Initializable {
 
     @FXML
     private AnchorPane anchorPane;
@@ -58,7 +60,7 @@ public class MeetingController implements Initializable{
     private Stage stage = null;
     private HashMap<String, Object> result = new HashMap<String, Object>();
 
-    public MeetingController(){
+    public MeetingController() {
 
     }
 
@@ -66,7 +68,8 @@ public class MeetingController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("initialized");
         anchorPane.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
                 resize();
             }
         });
@@ -97,7 +100,7 @@ public class MeetingController implements Initializable{
                     if (n2 instanceof ScrollBar) {
                         final ScrollBar bar2 = (ScrollBar) n2;
                         Node n3 = requestedListView.lookup(".scroll-bar");
-                        if (n3 instanceof  ScrollBar) {
+                        if (n3 instanceof ScrollBar) {
                             final ScrollBar bar3 = (ScrollBar) n3;
                             bar1.valueProperty().bindBidirectional(bar2.valueProperty());
                             bar2.valueProperty().bindBidirectional(bar3.valueProperty());
@@ -109,17 +112,17 @@ public class MeetingController implements Initializable{
         });
         IO io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json.whsplannermeeting");
         Meeting meeting = io.readMeetingJsonData();
-       addSession(meeting.getRequestingStudent().getFullName(),
-               String.valueOf(meeting.getRequestingStudent().getGrade()),
-               String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
-               meeting.getRequestingStudent().getTeacher(),
-               meeting.getCourse().getName(),
-               (String.valueOf(meeting.getHour()) + ":"  + String.valueOf(meeting.getMinute())),
-               (String.valueOf(meeting.getMonth()) + "/" + String.valueOf(meeting.getDay())),
-               meeting.getStudentRequested().getFullName(),
-               String.valueOf(meeting.getStudentRequested().getGrade()),
-               String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
-               meeting.getStudentRequested().getTeacher());
+        addSession(meeting.getRequestingStudent().getFullName(),
+                String.valueOf(meeting.getRequestingStudent().getGrade()),
+                String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
+                meeting.getRequestingStudent().getTeacher(),
+                meeting.getCourse().getName(),
+                (String.valueOf(meeting.getHour()) + ":" + String.valueOf(meeting.getMinute())),
+                (String.valueOf(meeting.getMonth()) + "/" + String.valueOf(meeting.getDay())),
+                meeting.getStudentRequested().getFullName(),
+                String.valueOf(meeting.getStudentRequested().getGrade()),
+                String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
+                meeting.getStudentRequested().getTeacher());
 
 
     }
@@ -130,6 +133,7 @@ public class MeetingController implements Initializable{
 
     /**
      * setting the stage of this view
+     *
      * @param stage
      */
     public void setStage(Stage stage) {
@@ -140,20 +144,20 @@ public class MeetingController implements Initializable{
      * Closes the stage of this view
      */
     private void closeStage() {
-        if(stage!=null) {
+        if (stage != null) {
             stage.close();
         }
     }
 
-    private void resize(){
-        requestingListView.setPrefWidth((anchorPane.getWidth())/3);
-        classListView.setPrefWidth((anchorPane.getWidth())/3);
-        requestedListView.setPrefWidth((anchorPane.getWidth())/3);
+    private void resize() {
+        requestingListView.setPrefWidth((anchorPane.getWidth()) / 3);
+        classListView.setPrefWidth((anchorPane.getWidth()) / 3);
+        requestedListView.setPrefWidth((anchorPane.getWidth()) / 3);
     }
 
-    public void addSession(String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String meetingDate, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
+    public void addSession(String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String meetingDate, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher) {
         requestingContents.add(createVBox(requestingStudentName, requestingGrade, requestingLevel, requestingTeacher));
-        classContents.add(createVBox(meetingDate ,className, classTime, " "));
+        classContents.add(createVBox(meetingDate, className, classTime, " "));
         requestedContents.add(createVBox(requestedStudentName, requestedStudentGrade, requestedStudentLevel, requestedStudentTeacher));
 
         requestingListView.setItems(requestingContents);
@@ -161,7 +165,7 @@ public class MeetingController implements Initializable{
         requestedListView.setItems(requestedContents);
     }
 
-    public void changeSession(int Index,String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String meetingDate, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
+    public void changeSession(int Index, String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String meetingDate, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher) {
         requestingContents.add(createVBox(requestingStudentName, requestingGrade, requestingLevel, requestingTeacher));
         classContents.add(createVBox(meetingDate, className, classTime, " "));
         requestedContents.add(createVBox(requestedStudentName, requestedStudentGrade, requestedStudentLevel, requestedStudentTeacher));
@@ -181,7 +185,7 @@ public class MeetingController implements Initializable{
         requestedListView.setItems(requestedContents);
     }
 
-    private VBox createVBox(String one, String two, String three, String four){
+    private VBox createVBox(String one, String two, String three, String four) {
         Label l1 = new Label(one);
         l1.setPadding(new Insets(5));
         Label l2 = new Label(two);
@@ -197,31 +201,23 @@ public class MeetingController implements Initializable{
 
     @FXML
     void importButtonPressed(ActionEvent event) {
-        JFileChooser jFileChooser = new JFileChooser();
-        JFrame frame = new JFrame();
-        frame.setVisible(true);
-        frame.setSize(500,500);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        File meetingFile = null;
-        int fileReturnVal = jFileChooser.showOpenDialog(frame);
-        if (fileReturnVal == JFileChooser.APPROVE_OPTION){ //causes problems
-            meetingFile = jFileChooser.getSelectedFile();
-            if (meetingFile != null){
-                IO io = new IO(meetingFile.getPath());
-                Meeting meeting = io.readMeetingJsonData();
-                addSession(meeting.getRequestingStudent().getFullName(),
-                        String.valueOf(meeting.getRequestingStudent().getGrade()),
-                        String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
-                        meeting.getRequestingStudent().getTeacher(),
-                        meeting.getCourse().getName(),
-                        (String.valueOf(meeting.getHour()) + ":"  + String.valueOf(meeting.getMinute())),
-                        (String.valueOf(meeting.getMonth()) + "/" + String.valueOf(meeting.getDay())),
-                        meeting.getStudentRequested().getFullName(),
-                        String.valueOf(meeting.getStudentRequested().getGrade()),
-                        String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
-                        meeting.getStudentRequested().getTeacher());
-            }
-        }
-
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select a Metting.whsplannermeeting.json file!");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + File.separator + "Downloads"));
+        File meetingFile = fileChooser.showOpenDialog(null);
+        IO importIO = new IO(meetingFile.getAbsolutePath());
+        Meeting meeting = importIO.readMeetingJsonData();
+        addSession(meeting.getRequestingStudent().getFullName(),
+                String.valueOf(meeting.getRequestingStudent().getGrade()),
+                String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
+                meeting.getRequestingStudent().getTeacher(),
+                meeting.getCourse().getName(),
+                (String.valueOf(meeting.getHour()) + ":" + String.valueOf(meeting.getMinute())),
+                (String.valueOf(meeting.getMonth()) + "/" + String.valueOf(meeting.getDay())),
+                meeting.getStudentRequested().getFullName(),
+                String.valueOf(meeting.getStudentRequested().getGrade()),
+                String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
+                meeting.getStudentRequested().getTeacher());
     }
+
 }
