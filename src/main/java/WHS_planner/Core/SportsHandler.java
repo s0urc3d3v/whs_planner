@@ -6,6 +6,7 @@ import org.jsoup.nodes.Element;
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -23,11 +24,6 @@ public class SportsHandler {
     private String sportSite = "http://miaa.net/athletics/calendar/schedule.php?school_id=1424&team_type_ids=0&PRINT_PREVIEW=1";
 
     public SportsHandler() {}
-
-    private boolean siteUpdateNeeded() {
-        //Eventually we will need to check if we have written the sports to a JSON file.
-        return true;
-    }
 
     private void writeToJSON(HashMap<String, Integer> sports) {}
 
