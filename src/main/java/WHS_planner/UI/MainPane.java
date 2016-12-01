@@ -28,6 +28,8 @@ public class MainPane extends Pane {
 
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
+        navBar.getStyleClass().setAll("navBar");
+        navBar.getChildren().get(0).getStyleClass().setAll("jfx-hamburger-icon");
         content = new Pane(); //Creates an empty main content pane
         contentPanes = new ArrayList<>(); //Makes an empty list for all the content panes
         generatePanes(); //Loads in all the different panes
@@ -65,7 +67,7 @@ public class MainPane extends Pane {
         VBox vBox = new VBox(); //Create a vBox for the base pane
 
         //Make a stack pane with the drawer and content in it
-        StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),200,48));
+        StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),175,48));
 
         //Set the content the base pane to have the nav bar on top and content under it
         vBox.getChildren().setAll(navBar,stackPane);
@@ -88,6 +90,7 @@ public class MainPane extends Pane {
 
         //Set drawer preferences
         JFXDrawer drawer = new JFXDrawer();
+        drawer.setDefaultDrawerSize(width);
         drawer.setSidePane(tabsVBox);
         drawer.setPickOnBounds(false);
         drawer.setMouseTransparent(true);

@@ -173,9 +173,9 @@ public class CalendarBox extends Pane{
                         String textBoxText = textBox.getText();
                         if (textBoxText.trim().length() > 0){
                             if(textBoxText.contains("test")) {
-                                addTask(TESTS, new Task("English","", textBoxText));
+                                addTask(TESTS, new Task("","", textBoxText));
                             }else{
-                                addTask(HOMEWORK, new Task("English","", textBoxText));
+                                addTask(HOMEWORK, new Task("","", textBoxText));
                             }
                             update();
                         }
