@@ -42,13 +42,15 @@ public class Main extends Application {
         Scene scene = new Scene(mainPane); //Put the mainPane into a scene
 
         //Binds the size of the mainPane to be equal to the scene
-        mainPane.getContent().prefWidthProperty().bind(scene.widthProperty());
-        mainPane.getContent().prefHeightProperty().bind(scene.heightProperty());
+        mainPane.prefWidthProperty().bind(scene.widthProperty());
+        mainPane.prefHeightProperty().bind(scene.heightProperty());
 
         stage.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT*5+198); //Set the minimum height of the window
         stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90); //Set the minimum width of the window
         stage.setTitle("WHS Planner"); //Set the title of the window
         stage.setScene(scene); //Set the window (stage) to display things in the scene
+
+        scene.getStylesheets().add("/Calendar/MainUI.css");
 
         stage.show(); //Display the window
     }

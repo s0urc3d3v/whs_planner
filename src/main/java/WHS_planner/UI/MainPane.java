@@ -10,6 +10,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -30,7 +31,10 @@ public class MainPane extends Pane {
         content = new Pane(); //Creates an empty main content pane
         contentPanes = new ArrayList<>(); //Makes an empty list for all the content panes
         generatePanes(); //Loads in all the different panes
-        this.getChildren().setAll(createPane()); //Set the main pane as the pane generated
+        VBox mainPane = createPane();
+        mainPane.prefWidthProperty().bind(this.widthProperty());
+        mainPane.prefHeightProperty().bind(this.heightProperty());
+        this.getChildren().setAll(mainPane); //Set the main pane as the pane generated
     }
 
     /**
@@ -65,6 +69,8 @@ public class MainPane extends Pane {
 
         //Set the content the base pane to have the nav bar on top and content under it
         vBox.getChildren().setAll(navBar,stackPane);
+        vBox.setVgrow(stackPane, Priority.ALWAYS);
+        vBox.setVgrow(navBar, Priority.NEVER);
 
         return vBox;
     }
@@ -158,9 +164,5 @@ public class MainPane extends Pane {
         pane.prefHeightProperty().bind(content.heightProperty());
         pane.prefWidthProperty().bind(content.widthProperty());
         contentPanes.add(pane);
-    }
-
-    public Pane getContent(){
-        return content;
     }
 }

@@ -35,6 +35,7 @@ public class CalendarBox extends Pane{
     private Pane mainPane; //The main pane
     private Map<String,Object> map; //A map of all the objects in the FXML
     private VBox taskBox;
+    private VBox tasksPane;
 
     public CalendarBox(int date, int week, boolean active){
         this.date = date; //This box's date
@@ -154,6 +155,13 @@ public class CalendarBox extends Pane{
                 taskBox = loader.load(); //Load from FXML
                 taskBox.prefWidthProperty().bind(widthProperty); //Set the width of the taskbox to be the same as the width passed in
 
+                tasksPane = new VBox();
+                tasksPane.prefWidthProperty().bind(widthProperty);
+
+                if(taskBox.getChildren().size() != 2){
+                    taskBox.getChildren().add(1,tasksPane);
+                }
+
                 //Get the JFXTextField and set the width to grow
                 HBox hBox = (HBox) taskBox.getChildren().get(0);
                 JFXTextField textBox = (JFXTextField) hBox.getChildren().get(0);
@@ -174,20 +182,21 @@ public class CalendarBox extends Pane{
                         textBox.clear();
                         updateTaskBox();
                     }
+                    if (event.getCode() == KeyCode.SHIFT){
+                        System.out.println(tasks);
+                    }
                 });
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return taskBox; //return the created taskbox
+        return taskBox;
     }
 
     public void updateTaskBox(){
-        for (int i = 0; i < taskBox.getChildren().size()-1; i++) {
-            taskBox.getChildren().remove(0);
-        }
+        tasksPane.getChildren().clear();
         for (int i = 0; i < tasks.get(0).size(); i++) {
-            taskBox.getChildren().add(0,tasks.get(0).get(i).getPane());
+            tasksPane.getChildren().add(0,tasks.get(0).get(i).getPane());
         }
     }
 
