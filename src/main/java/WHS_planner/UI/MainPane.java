@@ -1,12 +1,14 @@
 package WHS_planner.UI;
 
 import WHS_planner.Calendar.Calendar;
+import WHS_planner.Meeting.MeetingPane;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import javafx.animation.Animation;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -16,6 +18,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Created by geoffrey_wang on 11/22/16.
@@ -86,7 +89,7 @@ public class MainPane extends Pane {
      */
     public JFXDrawer createDrawer(JFXHamburger hamburger, double width, double buttonHeight){
         //Put the buttons generated into a vBox
-        VBox tabsVBox = new VBox(generateButtons(new String[]{"Calendar", "Schedule", "Today", "News"}, width, buttonHeight));
+        VBox tabsVBox = new VBox(generateButtons(new String[]{"Calendar", "News", "Schedule", "Today", "Meetings"}, width, buttonHeight));
 
         //Set drawer preferences
         JFXDrawer drawer = new JFXDrawer();
@@ -96,34 +99,34 @@ public class MainPane extends Pane {
         drawer.setMouseTransparent(true);
 
         //Hamburger animation
-        HamburgerBackArrowBasicTransition burgerTransition = new HamburgerBackArrowBasicTransition(hamburger);
-        burgerTransition.setRate(-1);
+        hamburger.setAnimation(new HamburgerBackArrowBasicTransition(hamburger));
+        hamburger.getAnimation().setRate(-1);
 
         //Hamburger function to open an close the drawer
         hamburger.setOnMouseClicked(event -> {
             if (drawer.isShown()) {
                 drawer.setMouseTransparent(true);
-                burgerTransition.setRate(-1); //Switches the transition between forward and backwards.
+                hamburger.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
                 drawer.close();
             } else {
                 drawer.setMouseTransparent(false);
-                burgerTransition.setRate(1);
+                hamburger.getAnimation().setRate(1);
                 drawer.open();
             }
 
-            burgerTransition.play(); //Plays the transition
+            hamburger.getAnimation().play(); //Plays the transition
         });
 
         //More functions to oepn and close the drawer
         drawer.setOnMouseClicked(event -> {
             if (drawer.isShown()) {
                 drawer.setMouseTransparent(false);
-                burgerTransition.setRate(1); //Switches the transition between forward and backwards.
-                burgerTransition.play(); //Plays the transition
+                hamburger.getAnimation().setRate(1); //Switches the transition between forward and backwards.
+                hamburger.getAnimation().play(); //Plays the transition
             }else{
                 drawer.setMouseTransparent(true);
-                burgerTransition.setRate(-1);
-                burgerTransition.play(); //Plays the transition
+                hamburger.getAnimation().setRate(-1);
+                hamburger.getAnimation().play(); //Plays the transition
 
             }
         });
@@ -135,9 +138,10 @@ public class MainPane extends Pane {
         Schedule schedule = new Schedule();
 
         addPane(new Calendar(1,30));
+        addPane(new NewsUI().getROOOOOOOT());
         addPane((Pane)schedule.getPane());
         addPane((Pane)schedule.getdaypane());
-        addPane(new NewsUI().getROOOOOOOT());
+        addPane(new MeetingPane());
     }
 
     public Node[] generateButtons(String[] text, double width, double buttonHeight){
@@ -160,6 +164,12 @@ public class MainPane extends Pane {
                 content.getChildren().clear();
                 content.getChildren().add(contentPanes.get(id));
             }
+            JFXDrawer drawer = (JFXDrawer)button.getParent().getParent().getParent();
+            JFXHamburger hamburger =  (JFXHamburger)navBar.getChildren().get(0);
+            hamburger.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
+            hamburger.getAnimation().play(); //Plays the transition
+            drawer.close();
+
         });
     }
 
