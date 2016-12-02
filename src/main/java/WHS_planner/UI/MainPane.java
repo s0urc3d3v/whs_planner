@@ -173,4 +173,5 @@ public class MainPane extends Pane {
         pane.prefWidthProperty().bind(content.widthProperty());
         contentPanes.add(pane);
     }
+
 }
