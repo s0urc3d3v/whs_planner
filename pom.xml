@@ -23,13 +23,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.whs_planner_team.WHS_planner</mainClass>
-                        </manifest>
-                    </archive>
                 </configuration>
             </plugin>
         </plugins>
