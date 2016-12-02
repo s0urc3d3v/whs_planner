@@ -1,1 +1,1 @@
-{"@test":["test0: Hello","test1: Bonjour","test2: 123","test3: Worked"]}
+{"month":8,"hour":11,"year":10,"course":["English",5,"Mrs. Johnson","COLLEGE"],"studentRequested":Student{firstName='Bob', lastName='Robert', email='john_robert@test.com', grade=11},"day":9,"studentRequesting":"[\"John\",\"Smith\",\"john_smith@test.com\",11]","minute":12}{}

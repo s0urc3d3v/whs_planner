@@ -25,7 +25,7 @@ public class ScheduleParser
         Element rawClass;
         Elements classesRaw = new Elements();
 
-        File input = new File("raw.html");
+        File input = new File("output.html");
         Document doc = Jsoup.parse(input,"UTF-8","");
         Elements tables  = doc.select("table");
 
@@ -122,8 +122,8 @@ public class ScheduleParser
         {
             try
             {
-                ReadSchedule r = new ReadSchedule();
-                r.authAndFindTableWithIpass(u, p); //replace user and pass with credentials
+                GrabDay gd = new GrabDay(u, p);
+                gd.grabSchedule("output.html");
             }
             catch(Exception e)
             {
