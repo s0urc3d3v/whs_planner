@@ -20,6 +20,9 @@ public class Schedule
     @FXML
     private Pane rootLayout;
 
+    @FXML
+    private Pane login;
+
     private Map<String, Object> labels;
 
     private ScheduleBlock[] blocks;
@@ -48,9 +51,25 @@ public class Schedule
         loader.setLocation(getClass().getResource("/Schedule/wankTest.fxml"));
 
         rootLayout = loader.load();
-        generateSchedule(loader);
 
-        schedule = new Scene(rootLayout);
+
+        FXMLLoader loader2 = new FXMLLoader();
+        loader2.setLocation(getClass().getResource("/Schedule/ipass login.fxml"));
+
+        login = loader2.load();
+
+        File f = new File("Keys/ipass.key");
+
+        if(!f.exists())
+        {
+            schedule = new Scene(login);
+        }
+        else
+        {
+            generateSchedule(loader);
+
+            schedule = new Scene(rootLayout);
+        }
     }
 
 
@@ -154,10 +173,7 @@ public class Schedule
             {
                 s = "Period "+i+"\nStart: "+"\n"+wens[i-1]+"\nEnd:\n"+wene[i-1];
             }
-//            else if(special)              Requires functionality for bell 2's
-//            {
-//                s = "Period "+i+"\nStart: "+"\n"+bells[i-1]+"\nEnd:\n"+belle[i-1];
-//            }
+
             else
             {
                 s = "Period "+i+"\nStart: "+"\n"+start[i-1]+"\nEnd:\n"+end[i-1];
@@ -204,20 +220,37 @@ public class Schedule
         if(!f.exists() && user != null && pass != null )
         {
             parse.grabwebpage(user, pass);
+            try
+            {
+                parse.getClasses();
+            }
+            catch(IOException ie)
+            {
+                ie.printStackTrace();
+            }
         }
-        try
-        {
-            parse.getClasses();
-        }
-        catch(IOException ie)
-        {
-            ie.printStackTrace();
-        }
+
     }
 
     public ScheduleBlock[] getData()
     {
         parseSchedule();
+
+        File schedulefile = new File("Schedule.json");
+
+        if(!schedulefile.exists())
+        {
+            try
+            {
+                schedulefile.createNewFile();
+
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
         IO dotaIo = new IO("Schedule.json");
         ArrayList<ScheduleBlock> array = dotaIo.readScheduleArray();
         dotaIo.unload();
