@@ -20,7 +20,7 @@ public class JSON {
     private FileWriter fileWriter;
     private JSONObject object = new JSONObject();
     private JSONParser parser;
-    String filePath;
+    private String filePath = "";
 
     public JSON() {
         parser = new JSONParser();
@@ -95,6 +95,15 @@ public class JSON {
      */
     public Object readObject(String key) {
         return object.get(key);
+    }
+
+    public void deleteFile(){
+        try {
+            FileWriter writer = new FileWriter(filePath);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
