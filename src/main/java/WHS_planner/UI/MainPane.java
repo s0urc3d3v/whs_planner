@@ -89,7 +89,7 @@ public class MainPane extends Pane {
      */
     public JFXDrawer createDrawer(JFXHamburger hamburger, double width, double buttonHeight){
         //Put the buttons generated into a vBox
-        VBox tabsVBox = new VBox(generateButtons(new String[]{"Calendar", "News", "Schedule", "Today", "Meetings"}, width, buttonHeight));
+        VBox tabsVBox = new VBox(generateButtons(new String[]{"Calendar", "News", "Schedule", "Meetings"}, width, buttonHeight));
 
         //Set drawer preferences
         JFXDrawer drawer = new JFXDrawer();
@@ -140,7 +140,6 @@ public class MainPane extends Pane {
         addPane(new Calendar(1,30));
         addPane(new NewsUI().getROOOOOOOT());
         addPane((Pane)schedule.getPane());
-        addPane((Pane)schedule.getdaypane());
         addPane(new MeetingPane());
     }
 
