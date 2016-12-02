@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import javafx.animation.Animation;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -18,7 +17,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Stack;
 
 /**
  * Created by geoffrey_wang on 11/22/16.
@@ -113,7 +111,6 @@ public class MainPane extends Pane {
                 hamburger.getAnimation().setRate(1);
                 drawer.open();
             }
-
             hamburger.getAnimation().play(); //Plays the transition
         });
 
@@ -127,7 +124,6 @@ public class MainPane extends Pane {
                 drawer.setMouseTransparent(true);
                 hamburger.getAnimation().setRate(-1);
                 hamburger.getAnimation().play(); //Plays the transition
-
             }
         });
 

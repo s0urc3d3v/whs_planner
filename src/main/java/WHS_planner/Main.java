@@ -55,6 +55,13 @@ public class Main extends Application {
 
         stage.show(); //Display the window
 
+    }
+
+    /**
+     * Exits the program fully when it is closed. Put save functions here!
+     */
+    @Override
+    public void stop(){
         System.exit(0);
     }
 }
