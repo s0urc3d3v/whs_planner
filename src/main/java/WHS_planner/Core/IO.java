@@ -2,14 +2,14 @@ package WHS_planner.Core;
 
 import WHS_planner.Schedule.ScheduleBlock;
 import WHS_planner.Util.Course;
+import WHS_planner.Util.Student;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by matthewelbing on 27.09.16.
@@ -27,30 +27,30 @@ public class IO {
             jsonApi.writeArray(i + "", new Object[]{block.getClassName(), block.getTeacher(), block.getRoomNumber(), block.getPeriodNumber()});
             i++;
         }
-
     }
 
     public void unload()
     {
         jsonApi.unloadFile();
     }
-    void writeMeetingJsonData(Student requestingStudent, Student studentRequested, int month, int day, int year, long hour, long minute, Course course){
-        HashMap<String, Object> meeting = new HashMap<String, Object>();
-        meeting.put("requestingStudent", requestingStudent.getFirstName() + " " + requestingStudent.getLastName());
-        meeting.put("studentRequested", studentRequested.getFirstName() + " " + studentRequested.getLastName());
-        meeting.put("month", month);
-        meeting.put("day", day);
-        meeting.put("year", year);
-        meeting.put("hour", hour);
-        meeting.put("minute", minute);
-        meeting.put("course", course.toString());
-        jsonApi.writeArray("meetingKeys", meeting.entrySet().toArray()); //init with meeting.json.whsplannermeeting file of course
-        jsonApi.writeArray("meetingValues", meeting.entrySet().toArray());
-        unload();
-    }
+    //Not sure what this was for but don't think it should be deleted for now
+//    void writeMeetingJsonData(Student requestingStudent, Student studentRequested, int month, int day, int year, long hour, long minute, Course course){
+//        HashMap<String, Object> meeting = new HashMap<String, Object>();
+//        meeting.put("requestingStudent", requestingStudent.getFirstName() + " " + requestingStudent.getLastName());
+//        meeting.put("studentRequested", studentRequested.getFirstName() + " " + studentRequested.getLastName());
+//        meeting.put("month", month);
+//        meeting.put("day", day);
+//        meeting.put("year", year);
+//        meeting.put("hour", hour);
+//        meeting.put("minute", minute);
+//        meeting.put("course", course.toString());
+//        jsonApi.writeArray("meetingKeys", meeting.entrySet().toArray()); //init with meeting.json.whsplannermeeting file of course
+//        jsonApi.writeArray("meetingValues", meeting.entrySet().toArray());
+//        unload();
+//    }
 
 
-    public void writeMeeting(Student requestingStudent, Student studentRequested, int month, int day, long year, long hour, long minute, Course course) throws IOException {
+    public void writeJsonMeetingData(Student requestingStudent, Student studentRequested, int month, int day, long year, long hour, long minute, Course course) throws IOException {
         JSONObject object = new JSONObject();
 
         JSONArray requestingStuentJsonData = new JSONArray();
@@ -69,10 +69,10 @@ public class IO {
         requestedCourse.add(course.getName());
         requestedCourse.add(course.getPeriod());
         requestedCourse.add(course.getTeacher());
-        requestedCourse.add(course.getCourseLevel());
+        requestedCourse.add(String.valueOf(course.getCourseLevel()));
 
 
-        object.put("studentRequesting", requestingStuentJsonData);
+        object.put("studentRequesting", requestingStuentJsonData.toJSONString());
         object.put("studentRequested", studentRequested);
         object.put("month", month);
         object.put("day", day);
@@ -82,14 +82,12 @@ public class IO {
 
         object.put("course", requestedCourse);
 
-        jsonApi.loadFile("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json.whsplannermeeting");
-
         jsonApi.writeRaw(object);
         jsonApi.unloadFile();
 
     }
 
-    public void readMeetingJsonData(){
+    public Meeting readMeetingJsonData(){
         JSONObject rawObject = jsonApi.readRaw();
 
         JSONArray requestingStudentArray = (JSONArray) rawObject.get("studentRequesting"); //JSONArray
@@ -100,7 +98,7 @@ public class IO {
         String rsGrade = requestingStudentIterator.next();
         String rsTeacher = requestingStudentIterator.next();
         Student requestingStudent = new Student(rsFirstName, rsLastName, rsEmail, Integer.parseInt(rsGrade), rsTeacher);
-
+        System.out.println(requestingStudent.toString());
         JSONArray studentRequestedArray = (JSONArray) rawObject.get("studentRequested");
         Iterator<String> studentRequestedIterator = studentRequestedArray.iterator();
         String srFirstName = studentRequestedIterator.next();
@@ -109,7 +107,7 @@ public class IO {
         String srGrade = studentRequestedIterator.next();
         String srTeacher = studentRequestedIterator.next();
         Student studentRequested = new Student(srFirstName, srLastName, srEmail, Integer.parseInt(srGrade), srTeacher);
-
+        System.out.println(studentRequested.toString());
         JSONArray courseArray = (JSONArray) rawObject.get("course");
         Iterator<String> courseArrayIterator = courseArray.iterator();
         String cName = courseArrayIterator.next();
@@ -119,13 +117,13 @@ public class IO {
 
         Course course = new Course(cName, Integer.parseInt(cPeriod), cTeacher, Course.level.valueOf(cCourseLevel));
 
-        int hour = Integer.parseInt(String.valueOf(rawObject.get("hour")));
+        int hour = Integer.parseInt(String.valueOf(rawObject.get("month")));
         int minute = Integer.parseInt(String.valueOf(rawObject.get("minute")));
         int month = Integer.parseInt(String.valueOf(rawObject.get("month")));
         int day = Integer.parseInt(String.valueOf(rawObject.get("day")));
         long year = Integer.parseInt(String.valueOf(rawObject.get("year")));
 
-        Meeting receivedMeeting = new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course);
+        return new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course);
 
     }
 
@@ -139,4 +137,39 @@ public class IO {
             }
         return scheduleBlockArrayList;
     }
+
+    public void writeMap(Map<String, Integer> map)
+    {
+        Iterator iterator = map.keySet().iterator();
+        while(iterator.hasNext())
+        {
+            Map.Entry entry = (Map.Entry<String,Integer>)iterator.next();
+            jsonApi.writePair((String) entry.getKey(), Integer.toString( (Integer) entry.getValue()));
+            iterator.remove();
+        }
+    }
+
+    public Map<String, Integer> readMap()
+    {
+        //TODO: Write this fucking method.......eventually ~ John/Vrend
+        return null;
+    }
+
+    public void writeArray(String arrayName, Object[] objects) {
+        jsonApi.writeArray(arrayName, objects);
+    }
+
+    public Object[] readArray(String arrayName)
+    {
+        JSONArray array = jsonApi.readArray(arrayName);
+        Object[] objects = new Object[array.size()];
+
+        for (int i = 0; i < array.size(); i++)
+        {
+            objects[i] = array.get(i);
+        }
+
+        return objects;
+    }
+
 }

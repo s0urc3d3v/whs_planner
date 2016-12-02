@@ -1,10 +1,10 @@
 package WHS_planner.Core;
 
 import WHS_planner.Util.Course;
+import WHS_planner.Util.Student;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 
 /**
  * Created by matthewelbing on 07.10.16.
@@ -84,7 +84,7 @@ public class Meeting {
     }
     public void create(){
         try {
-            io.writeMeeting(requestingStudent, studentRequested, month, day, year, hour, minute, course);
+            io.writeJsonMeetingData(requestingStudent, studentRequested, month, day, year, hour, minute, course);
         } catch (IOException e) {
             e.printStackTrace();
         }
