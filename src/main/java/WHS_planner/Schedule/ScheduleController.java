@@ -80,45 +80,70 @@ public class ScheduleController implements Initializable, ActionListener
         }
 
 
-        String s;
+        File ipass = new File("Keys/ipass.key");
 
-        BufferedReader br;
-        try
+        if(ipass.exists())
         {
-            File f = new File("DayArray.json");
-
-            if(!f.exists())
+            try
             {
-                f.createNewFile();
+                BufferedReader bri = new BufferedReader(new FileReader(ipass));
+                String user = bri.readLine();
+                String pass = bri.readLine();
+                bri.close();
+
+                if(user == null || pass == null || user.equals("") || pass.equals(""))
+                {
+                    System.out.println("No ipass data found");
+                }
+                else
+                {
+                    String s;
+
+                    BufferedReader br;
+                    try
+                    {
+                        File f = new File("DayArray.json");
+
+                        if(!f.exists())
+                        {
+                            f.createNewFile();
+                        }
+
+                        br = new BufferedReader(new FileReader("DayArray.json"));
+
+                        if (br.readLine() == null)
+                        {
+                            buildLetterDays();
+                        }
+                        br.close();
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                    s = getletterday();
+
+                    if(s.length() == 1)
+                    {
+                        s = "Today is '" + s + "' day!";
+                    }
+
+                    //we can set the day here
+                    Title3.setText(s);
+                }
             }
-
-            br = new BufferedReader(new FileReader("DayArray.json"));
-
-            if (br.readLine() == null)
+            catch(Exception e)
             {
-                buildLetterDays();
+                System.out.println("Error in ScheduleController\n data couldn't be found in ipass.key");
             }
-            br.close();
         }
-        catch (Exception e)
+        else
         {
-            e.printStackTrace();
+            System.out.println("No ipass file, try logging in");
         }
-
-        s = getletterday();
-
-        if(s.length() == 1)
-        {
-            s = "Today is '" + s + "' day!";
-        }
-
-        //we can set the day here
-        Title3.setText(s);
-
 
         normalDay = true;
-
-
 
         progressbartimer = new Timer(1000, this);
         progressbartimer.start();
