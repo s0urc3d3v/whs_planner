@@ -46,7 +46,8 @@ class GeoffreyNewsUI extends Pane {
         mainPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         mainPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         mainPane.setFitToWidth(true);
-        mainPane.setStyle("-fx-focus-color: transparent;");
+//        mainPane.setStyle("-fx-focus-color: transparent;");
+        mainPane.setStyle("-fx-background-color: #FFFFFF;");
         mainPane.getStyleClass().setAll("scroll-bar");
 
         masonryPane.setHSpacing(10);
@@ -75,7 +76,7 @@ class GeoffreyNewsUI extends Pane {
     private void init() {
         masonryPane.getChildren().clear();
 
-        System.out.println("Number of feeds: " + feedArray.size());
+//        System.out.println("Number of feeds: " + feedArray.size());
 
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {

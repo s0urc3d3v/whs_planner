@@ -120,7 +120,6 @@ public class MainPane extends Pane {
                 drawer.setMouseTransparent(false);
                 hamburger.getAnimation().setRate(1); //Switches the transition between forward and backwards.
                 hamburger.getAnimation().play(); //Plays the transition
-                navBar.toFront();
             }else{
                 drawer.setMouseTransparent(true);
                 hamburger.getAnimation().setRate(-1);
