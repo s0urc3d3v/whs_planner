@@ -44,6 +44,7 @@ public class ScheduleController implements Initializable, ActionListener
     public void initialize(URL location, ResourceBundle resources)
     {
         grid.setGridLinesVisible(false);
+        grid.setStyle("-fx-background-color: #F1F1F1;");
         panes = new BorderPane[82];
         int count = 0;
         //Fills Arrays
@@ -57,7 +58,7 @@ public class ScheduleController implements Initializable, ActionListener
                 panes[count].setStyle("-fx-background-color: #ffffff");
                 panes[count].toBack();
                 panes[count].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
-                        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                        BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderStroke.THIN)));
                 count++;
             }
         }
@@ -67,58 +68,83 @@ public class ScheduleController implements Initializable, ActionListener
             panes[54 + i].setStyle("-fx-background-color: #ffffff");
             panes[54 + i].toBack();
             panes[54 + i].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.THIN)));
         }
 
 
         for (int i = 0; i < 9; i++) {
             grid.add(panes[i + 63],i,1);
             panes[i + 63].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.THIN)));
             panes[i + 63].setStyle("-fx-background-color: #ffffff");
             panes[i + 63].toBack();
         }
 
 
-        String s;
+        File ipass = new File("Keys/ipass.key");
 
-        BufferedReader br;
-        try
+        if(ipass.exists())
         {
-            File f = new File("DayArray.json");
-
-            if(!f.exists())
+            try
             {
-                f.createNewFile();
+                BufferedReader bri = new BufferedReader(new FileReader(ipass));
+                String user = bri.readLine();
+                String pass = bri.readLine();
+                bri.close();
+
+                if(user == null || pass == null || user.equals("") || pass.equals(""))
+                {
+                    System.out.println("No ipass data found");
+                }
+                else
+                {
+                    String s;
+
+                    BufferedReader br;
+                    try
+                    {
+                        File f = new File("DayArray.json");
+
+                        if(!f.exists())
+                        {
+                            f.createNewFile();
+                        }
+
+                        br = new BufferedReader(new FileReader("DayArray.json"));
+
+                        if (br.readLine() == null)
+                        {
+                            buildLetterDays();
+                        }
+                        br.close();
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                    s = getletterday();
+
+                    if(s.length() == 1)
+                    {
+                        s = "Today is '" + s + "' day!";
+                    }
+
+                    //we can set the day here
+                    Title3.setText(s);
+                }
             }
-
-            br = new BufferedReader(new FileReader("DayArray.json"));
-
-            if (br.readLine() == null)
+            catch(Exception e)
             {
-                buildLetterDays();
+                System.out.println("Error in ScheduleController\n data couldn't be found in ipass.key");
             }
-            br.close();
         }
-        catch (Exception e)
+        else
         {
-            e.printStackTrace();
+            System.out.println("No ipass file, try logging in");
         }
-
-        s = getletterday();
-
-        if(s.length() == 1)
-        {
-            s = "Today is '" + s + "' day!";
-        }
-
-        //we can set the day here
-        Title3.setText(s);
-
 
         normalDay = true;
-
-
 
         progressbartimer = new Timer(1000, this);
         progressbartimer.start();

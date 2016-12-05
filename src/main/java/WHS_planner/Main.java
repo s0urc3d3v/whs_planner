@@ -18,6 +18,14 @@ public class Main extends Application
 
        MemoryCredentials memoryCredentials = new MemoryCredentials(null, null, null);
 
+       File keys = new File("Keys");
+
+       if(!keys.exists())
+       {
+           keys.mkdir();
+       }
+
+
        launch(args);
         IO io = new IO("src" + File.separator + "main" + File.separator + "resources"+ File.separator + "Core" + File.separator + "util.json");
         io.setFirstRunVar();
