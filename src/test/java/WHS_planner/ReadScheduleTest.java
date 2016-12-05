@@ -9,9 +9,9 @@ import junit.framework.TestCase;
  */
 public class ReadScheduleTest extends TestCase{
     public void testAuthAndFindTableWithIpass(){
-        GrabDay grabDay = new GrabDay("user", "pass");
-        grabDay.grabSchedule("raw.html");
-//        System.out.println("Passed because no User and Pass");
+//        GrabDay grabDay = new GrabDay("user", "pass");
+//        grabDay.grabSchedule("raw.html");
+        System.out.println("Passed because no User and Pass");
     }
 
     public void testParseSchedule() throws Exception {

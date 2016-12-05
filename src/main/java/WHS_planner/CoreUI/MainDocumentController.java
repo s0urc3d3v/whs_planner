@@ -71,8 +71,6 @@ public class MainDocumentController implements Initializable {
         cal.prefWidthProperty().bind(anchorPane.widthProperty());
         schedule = new Schedule();
         BorderPane schedulepane = (BorderPane) schedule.getPane();
-        BorderPane daypane = (BorderPane) schedule.getdaypane();
-
 
 
         topBar.setStyle("-fx-background-color: #FF9800");
@@ -134,27 +132,6 @@ public class MainDocumentController implements Initializable {
 //            anchorPane.setTopAnchor(schedulepane, 45.0);
         });
 
-        buttonArray[2].setOnMouseClicked(event -> {
-            //anchorPane.getChildren().setAll(tempPane.getChildren());
-            if(!anchorPane.getChildren().contains(daypane))
-            {
-                anchorPane.getChildren().add(0, daypane);
-                panes[2] = daypane;
-
-                for (int i = 0; i < panes.length; i++)
-                {
-                    if(i != 2)
-                    {
-                        if(panes[i] != null)
-                        {
-                            remPane(panes[i]);
-                        }
-                    }
-                }
-            }
-
-//            anchorPane.setTopAnchor(daypane, 45.0);
-        });
 
         VBox vBox = new VBox(buttonArray);
 

@@ -20,14 +20,14 @@ public class Schedule
     @FXML
     private Pane rootLayout;
 
-    private Pane memes;
+    @FXML
+    private Pane login;
 
     private Map<String, Object> labels;
 
     private ScheduleBlock[] blocks;
 
     public static Scene schedule;
-    public static Scene day;
 
     //boolean for bell 2's which has no function at the moment
     //private boolean special = false;
@@ -51,17 +51,25 @@ public class Schedule
         loader.setLocation(getClass().getResource("/Schedule/wankTest.fxml"));
 
         rootLayout = loader.load();
-        generateSchedule(loader);
 
-        schedule = new Scene(rootLayout);
 
-        FXMLLoader load2 = new FXMLLoader();
+        FXMLLoader loader2 = new FXMLLoader();
+        loader2.setLocation(getClass().getResource("/Schedule/ipass login.fxml"));
 
-        load2.setLocation(getClass().getResource("/Schedule/day.fxml"));
+        login = loader2.load();
 
-        memes = load2.load();
+        File f = new File("Keys/ipass.key");
 
-        day = new Scene(memes);
+        if(!f.exists())
+        {
+            schedule = new Scene(login);
+        }
+        else
+        {
+            generateSchedule(loader);
+
+            schedule = new Scene(rootLayout);
+        }
     }
 
 
@@ -95,6 +103,8 @@ public class Schedule
 
             currentClass = blocks[i].getClassName();
             currentTeacher = blocks[i].getTeacher();
+            currentTeacher = currentTeacher.replace("<br>", " & ");
+
             currentPeriod = blocks[i].getPeriodNumber();
             currentRoom = blocks[i].getRoomNumber();
 
@@ -163,10 +173,7 @@ public class Schedule
             {
                 s = "Period "+i+"\nStart: "+"\n"+wens[i-1]+"\nEnd:\n"+wene[i-1];
             }
-//            else if(special)              Requires functionality for bell 2's
-//            {
-//                s = "Period "+i+"\nStart: "+"\n"+bells[i-1]+"\nEnd:\n"+belle[i-1];
-//            }
+
             else
             {
                 s = "Period "+i+"\nStart: "+"\n"+start[i-1]+"\nEnd:\n"+end[i-1];
@@ -213,20 +220,37 @@ public class Schedule
         if(!f.exists() && user != null && pass != null )
         {
             parse.grabwebpage(user, pass);
+            try
+            {
+                parse.getClasses();
+            }
+            catch(IOException ie)
+            {
+                ie.printStackTrace();
+            }
         }
-        try
-        {
-            parse.getClasses();
-        }
-        catch(IOException ie)
-        {
-            ie.printStackTrace();
-        }
+
     }
 
     public ScheduleBlock[] getData()
     {
         parseSchedule();
+
+        File schedulefile = new File("Schedule.json");
+
+        if(!schedulefile.exists())
+        {
+            try
+            {
+                schedulefile.createNewFile();
+
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
         IO dotaIo = new IO("Schedule.json");
         ArrayList<ScheduleBlock> array = dotaIo.readScheduleArray();
         dotaIo.unload();
@@ -242,12 +266,6 @@ public class Schedule
     public Node getPane()
     {
         Node n = schedule.getRoot();
-        return n;
-    }
-
-    public Node getdaypane()
-    {
-        Node n = day.getRoot();
         return n;
     }
 

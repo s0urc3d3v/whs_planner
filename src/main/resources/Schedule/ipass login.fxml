@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WHS_planner.Schedule.loginController">
    <center>
       <BorderPane prefHeight="384.0" prefWidth="266.0" BorderPane.alignment="CENTER">
          <top>
@@ -26,7 +27,7 @@
                   <Label text="Password: " BorderPane.alignment="CENTER" />
                </left>
                <center>
-                  <PasswordField prefHeight="26.0" prefWidth="178.0" BorderPane.alignment="CENTER" />
+                  <PasswordField fx:id="password" prefHeight="26.0" prefWidth="178.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </center>
@@ -38,9 +39,6 @@
    <right>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </right>
-   <bottom>
-      <Pane prefHeight="155.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-   </bottom>
    <top>
       <BorderPane prefHeight="122.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <bottom>
@@ -57,4 +55,14 @@
          </top>
       </BorderPane>
    </top>
+   <bottom>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <JFXButton fx:id="button" onAction="#submit" text="Submit" BorderPane.alignment="CENTER" />
+         </center>
+         <bottom>
+            <Label fx:id="error" prefHeight="50.0" prefWidth="479.0" text=" " BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </bottom>
 </BorderPane>
