@@ -1,124 +1,193 @@
-//package WHS_planner.News.ui;
-//
-//import WHS_planner.News.model.Feed;
-//import WHS_planner.News.model.FeedMessage;
-//import WHS_planner.News.read.RSSFeedParser;
-//import javafx.application.Application;
-//import javafx.fxml.FXMLLoader;
-//import javafx.scene.Parent;
-//import javafx.scene.Scene;
-//import javafx.stage.Stage;
-//
-//import java.net.URL;
-//import java.util.List;
-//
-//public class NewsUI extends Application {
-//    public static void main(String[] args) {
-//        launch(args);
-//    }
-//
-//    public void start(Stage stage) throws Exception{
-//
-//        String sceneFile = "/resources/News/news1_5.fxml";
-//        Parent root;
-//        URL url  = null;
-//
-//        RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
-//        Feed feed = parser.readFeed();
-//        List<FeedMessage> feedArray = feed.getMessages();
-//
-//        try {
-//            url = getClass().getResource("/News/news1_5.fxml");
-//            FXMLLoader fxmlLoader = new FXMLLoader(url);
-//            root = fxmlLoader.load();
-////            ObservableMap<String, Object> hashMap = fxmlLoader.getNamespace();
-////            Hyperlink Title1 = (Hyperlink)hashMap.get("Title1");
-////            Title1.setText(feedArray.get(0).getTitle());
-////            Label Author1 = (Label)hashMap.get("AuthorOne");
-////            Author1.setText(feedArray.get(0).getAuthor());
-////            Label Description1 = (Label)hashMap.get("DescriptionOne");
-////            Description1.setText(feedArray.get(0).getDescription());
-////
-////            Hyperlink Title2 = (Hyperlink)hashMap.get("Title2");
-////            Title2.setText(feedArray.get(1).getTitle());
-////            Label Author2 = (Label)hashMap.get("AuthorTwo");
-////            Author2.setText(feedArray.get(1).getAuthor());
-////            Label Description2 = (Label)hashMap.get("DescriptionTwo");
-////            Description2.setText(feedArray.get(1).getDescription());
-////
-////            Hyperlink Title3 = (Hyperlink)hashMap.get("Title3");
-////            Title3.setText(feedArray.get(2).getTitle());
-////            Label Author3 = (Label)hashMap.get("AuthorThree");
-////            Author3.setText(feedArray.get(2).getAuthor());
-////            Label Description3 = (Label)hashMap.get("DescriptionThree");
-////            Description3.setText(feedArray.get(2).getDescription());
-////
-////            Hyperlink Title4 = (Hyperlink)hashMap.get("Title4");
-////            Title4.setText(feedArray.get(3).getTitle());
-////            Label Author4 = (Label)hashMap.get("AuthorFour");
-////            Author4.setText(feedArray.get(3).getAuthor());
-////            Label Description4 = (Label)hashMap.get("DescriptionFour");
-////            Description4.setText(feedArray.get(3).getDescription());
-////
-////            Hyperlink Title5 = (Hyperlink)hashMap.get("Title5");
-////            Title5.setText(feedArray.get(4).getTitle());
-////            Label Author5 = (Label)hashMap.get("AuthorFive");
-////            Author5.setText(feedArray.get(4).getAuthor());
-////            Label Description5 = (Label)hashMap.get("DescriptionFive");
-////            Description5.setText(feedArray.get(4).getDescription());
-////
-////            Hyperlink Title6 = (Hyperlink)hashMap.get("Title6");
-////            Title6.setText(feedArray.get(5).getTitle());
-////            Label Author6 = (Label)hashMap.get("AuthorSix");
-////            Author6.setText(feedArray.get(5).getAuthor());
-////            Label Description6 = (Label)hashMap.get("DescriptionSix");
-////            Description6.setText(feedArray.get(5).getDescription());
-////
-////            Hyperlink Title7 = (Hyperlink)hashMap.get("Title7");
-////            Title7.setText(feedArray.get(6).getTitle());
-////            Label Author7 = (Label)hashMap.get("AuthorSeven");
-////            Author7.setText(feedArray.get(6).getAuthor());
-////            Label Description7 = (Label)hashMap.get("DescriptionSeven");
-////            Description7.setText(feedArray.get(6).getDescription());
-////
-////            Hyperlink Title8 = (Hyperlink)hashMap.get("Title8");
-////            Title8.setText(feedArray.get(7).getTitle());
-////            Label Author8 = (Label)hashMap.get("AuthorEight");
-////            Author8.setText(feedArray.get(7).getAuthor());
-////            Label Description8 = (Label)hashMap.get("DescriptionEight");
-////            Description8.setText(feedArray.get(7).getDescription());
-////
-////            Hyperlink Title9 = (Hyperlink)hashMap.get("Title9");
-////            Title9.setText(feedArray.get(8).getTitle());
-////            Label Author9 = (Label)hashMap.get("AuthorNine");
-////            Author9.setText(feedArray.get(8).getAuthor());
-////            Label Description9 = (Label)hashMap.get("DescriptionNine");
-////            Description9.setText(feedArray.get(8).getDescription());
-////
-////            Hyperlink Title10 = (Hyperlink)hashMap.get("Title10");
-////            Title10.setText(feedArray.get(9).getTitle());
-////            Label Author10 = (Label)hashMap.get("AuthorTen");
-////            Author10.setText(feedArray.get(9).getAuthor());
-////            Label Description10 = (Label)hashMap.get("DescriptionTen");
-////            Description10.setText(feedArray.get(9).getDescription());
-//
-//            System.out.println( "  fxmlResource = " + sceneFile );
-//        }
-//        catch ( Exception ex )
-//        {
-//            System.out.println( "Exception on FXMLLoader.load()" );
-//            System.out.println( "  * url: " + url );
-//            System.out.println( "  * " + ex );
-//            System.out.println( "    ----------------------------------------\n" );
-//            throw ex;
-//        }
-//
-//        //solved Issues: RSS reader isn't getting author, WSPN feed uses dc:creator instead of author
-//
-//
-//        Scene scene = new Scene(root);
-//
-//        stage.setScene(scene);
-//        stage.show();
-//    }
-//}
+package WHS_planner.News.ui;
+
+import WHS_planner.News.model.Feed;
+import WHS_planner.News.model.FeedMessage;
+import WHS_planner.News.read.RSSFeedParser;
+import com.jfoenix.controls.JFXMasonryPane;
+import javafx.geometry.Insets;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import org.jsoup.Jsoup;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+public class NewsUI {
+
+    private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
+    private Feed feed = parser.readFeed();
+    List<FeedMessage> feedArray = feed.getMessages();
+    //List of articles to be added to display
+    private List<FeedMessage> meme = feed.getMessages();
+    //List of articles CURRENTLY ON DISPLAY
+    private List<FeedMessage> onScreenMessages = new ArrayList<>();
+    //width of cards in masonry pane
+    private double widthLength = 200;
+    private URL url;
+    /**/private BorderPane roooot = new BorderPane();
+    /**/private ScrollPane rooot = new ScrollPane();
+    private JFXMasonryPane root = new JFXMasonryPane();
+
+
+    public NewsUI() {
+
+
+        roooot.setPrefSize(1280, 720);
+
+        roooot.setCenter(rooot);
+        rooot.setContent(root);
+        rooot.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        rooot.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        rooot.setFitToWidth(true);
+
+        rooot.prefHeightProperty().bind(roooot.heightProperty());
+        rooot.prefWidthProperty().bind(roooot.widthProperty());
+
+        root.setPrefSize(rooot.getPrefWidth(), rooot.getPrefHeight());
+        root.setHSpacing(10);
+        root.setVSpacing(10);
+
+        root.setCellHeight(150);
+
+        root.setCellWidth(widthLength);
+
+        init();
+
+    }
+
+
+
+    private void openLink(int index) {
+        try {
+            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", parser.readFeed().getMessages().get(index).getLink()});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void init() {
+
+        root.getChildren().clear();
+
+        root.setStyle("-fx-background-color: #FFFFFF;");
+
+        //Loop through all articles
+        for (int i = 0; i < feedArray.size(); i++) {
+
+            //Add Hyperlink
+            final int eye = i;
+            Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
+            hpl.setOnAction((event) -> openLink(eye));
+            hpl.setWrapText(true);
+            hpl.setMaxWidth(widthLength);
+            hpl.setPadding(new Insets(0, 0, 0, 4));
+
+            //Add label
+            Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
+            description.setWrapText(true);
+            description.setMaxWidth(widthLength);
+            description.setPadding(new Insets(0, 0, 0, 6));
+
+            //Add Image
+            try {
+
+                String urlString = scanDescription(feedArray.get(i).getDescription());
+                if (urlString != null) {
+                    url = new URL(urlString);
+                    BufferedImage bf;
+
+                    try {
+                        bf = ImageIO.read(url);
+                    } catch (Exception ex) {
+                        System.out.println("Error with image.");
+                        addCard(hpl, description);
+                        continue;
+                    }
+
+                    WritableImage wr = convertImg(bf);
+                    ImageView img = new ImageView(wr);
+                    img.setFitWidth(widthLength);
+                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
+                    img.setImage(wr);
+
+                    //Add article to list
+                    addCard(img, hpl, description);
+
+                } else {
+
+                    addCard(hpl, description);
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            onScreenMessages.add(feedArray.get(i));
+
+        }
+        System.out.println("News loaded. f  e  e  l  s  g  o  o  d  m  a  n .");
+
+    }
+
+
+    private void addCard(Hyperlink hpl, Label desc) {
+        System.out.println("Added without image.");
+        VBox v = new VBox(hpl, /*author,*/ desc);
+        v.setPrefWidth(widthLength);
+        v.setMaxWidth(widthLength);
+
+        v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
+        root.getChildren().add(v);
+    }
+
+    private void addCard(ImageView img, Hyperlink hpl, Label desc) {
+        VBox v = new VBox(img, hpl, desc);
+        v.setPrefWidth(widthLength);
+        v.setMaxWidth(widthLength);
+        v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
+        root.getChildren().add(v);
+    }
+
+    private WritableImage convertImg(BufferedImage bf) {
+        WritableImage wr = null;
+        if (bf != null) {
+            wr = new WritableImage(bf.getWidth(), bf.getHeight());
+            PixelWriter pw = wr.getPixelWriter();
+            for (int x = 0; x < bf.getWidth(); x++) {
+                for (int y = 0; y < bf.getHeight(); y++) {
+                    pw.setArgb(x, y, bf.getRGB(x, y));
+                }
+            }
+        }
+        return wr;
+    }
+
+    private String escapeHTML(String string) {
+        return Jsoup.parse(string).text();
+    }
+
+    public BorderPane getROOOOOOOT() {
+        return roooot;
+    }
+
+    private String scanDescription(String content) {
+        String link;
+        if (content.contains("src")) {
+            content = content.substring(content.indexOf("src=") + 5, content.length());
+            link = content.substring(0, content.indexOf("\""));
+            return link;
+        } else {
+            return null;
+        }
+    }
+
+}

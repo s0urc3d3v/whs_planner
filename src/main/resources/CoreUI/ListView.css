@@ -1,0 +1,20 @@
+.list-views .scroll-bar:vertical .increment-arrow,
+.list-views .scroll-bar:vertical .decrement-arrow,
+.list-views .scroll-bar:vertical .increment-button,
+.list-views .scroll-bar:vertical .decrement-button {
+    -fx-padding:0;
+}
+
+.list-views .scroll-bar:horizontal .increment-arrow,
+.list-views .scroll-bar:horizontal .decrement-arrow,
+.list-views .scroll-bar:horizontal .increment-button,
+.list-views .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}
+
+.list-viewvert .scroll-bar:horizontal .increment-arrow,
+.list-viewvert .scroll-bar:horizontal .decrement-arrow,
+.list-viewvert .scroll-bar:horizontal .increment-button,
+.list-viewvert .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}

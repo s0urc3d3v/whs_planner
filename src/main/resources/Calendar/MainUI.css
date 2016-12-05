@@ -1,0 +1,51 @@
+.date-label {
+    -fx-font-size: 14px;
+    -fx-padding:2;
+}
+
+.icon {
+     -fx-font-family: 'FontAwesome Regular';
+     -fx-font-size: 36px;
+     -fx-padding: 10;
+
+}
+
+
+.icon-badge .badge-pane {
+	-fx-background-color: rgb(56, 118, 237);
+	-fx-background-radius: 23;
+	-fx-pref-width: 23;
+	-fx-pref-height: 23;
+	-fx-alignment: center;
+
+}
+
+
+.icon-badge .badge-pane Label{
+	-fx-font-size: 14.0px;
+	-fx-text-fill: #FFFFFF;
+}
+
+.box-button {
+	-fx-background-color: #FFFFFF;
+}
+
+
+.box-button-selected {
+	-fx-background-color:#BDBDBD;
+
+}
+
+
+.weekday {
+    -fx-font-weight: BOLD;
+    -fx-underline: true;
+    -fx-alignment: center ;
+    -fx-padding: 5;
+    -fx-font-size: 14.0px;
+
+}
+
+.taskHBox {
+    -fx-background-color:#FFFFFF;
+}

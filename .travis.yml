@@ -1,13 +1,17 @@
+sudo: required
 language: java
 jdk: oraclejdk8
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
-script: mvn clean validate
+before-install: 
+  - sudo apt-add-repository ppa:webupd8team/java
+  - sudo apt-get update
+  - sudo apt-get install oracle-java8-installer
+script: mvn clean validate; mvn test
 after_success:
   ./on_success.sh
 after_failure:
   ./on_failure.sh
 notifications:
   email: false
+branches:
+  except:
+    - master
