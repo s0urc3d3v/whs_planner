@@ -11,7 +11,6 @@ import java.util.Arrays;
 public class SportsHandlerTest extends TestCase {
     public void testSportsHandler() {
         SportsHandler sportsHandler = new SportsHandler();
-        System.out.println(Arrays.toString(sportsHandler.getSports()));
-        //sportsHandler.close();
+        sportsHandler.getEvents(0).forEach(System.out::println);
     }
 }
