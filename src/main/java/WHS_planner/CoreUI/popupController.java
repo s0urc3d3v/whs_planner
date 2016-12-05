@@ -1,5 +1,6 @@
 package WHS_planner.CoreUI;
 
+import WHS_planner.Core.SportsHandler;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.skins.JFXDatePickerContent;
@@ -27,9 +28,7 @@ import java.net.URL;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class popupController implements Initializable{
 
@@ -40,22 +39,13 @@ public class popupController implements Initializable{
     private JFXButton addListButton;
 
     @FXML
-    private JFXListView<JFXTextField> nameListView;
-
-    @FXML
-    private JFXListView<JFXDatePicker> dateListView;
-
-    @FXML
-    private JFXListView<JFXDatePicker> timeListView;
+    private JFXListView<JFXComboBox> nameListView;
 
     @FXML
     private JFXListView<JFXButton> minusListView;
 
-    private ObservableList<JFXTextField> nameContents;
+    private ObservableList<JFXComboBox> nameContents;
 
-    private ObservableList<JFXDatePicker> dateContents;
-
-    private ObservableList<JFXDatePicker> timeContents;
 
     private ObservableList<JFXButton> minusContents;
 
@@ -75,23 +65,15 @@ public class popupController implements Initializable{
             }
         });
         nameContents = FXCollections.observableArrayList();
-        dateContents = FXCollections.observableArrayList();
-        timeContents = FXCollections.observableArrayList();
         minusContents = FXCollections.observableArrayList();
 
         nameListView.setItems(nameContents);
-        dateListView.setItems(dateContents);
-        timeListView.setItems(timeContents);
         minusListView.setItems(minusContents);
 
         sportsPopupAnchorPane.applyCss();
 
         nameListView.getStylesheets().add("/CoreUI/ListView.css");
         nameListView.getStyleClass().add("list-views");
-        dateListView.getStylesheets().add("/CoreUI/ListView.css");
-        dateListView.getStyleClass().add("list-views");
-        timeListView.getStylesheets().add("/CoreUI/ListView.css");
-        timeListView.getStyleClass().add("list-views");
         minusListView.getStylesheets().add("/CoreUI/ListView.css");
         minusListView.getStyleClass().add("list-viewvert"); //Only removes the horizontal scrollbar
 
@@ -101,23 +83,13 @@ public class popupController implements Initializable{
                 Node n1 = nameListView.lookup(".scroll-bar");
                 if (n1 instanceof ScrollBar) {
                     final ScrollBar bar1 = (ScrollBar) n1;
-                    Node n2 = dateListView.lookup(".scroll-bar");
-                    if (n2 instanceof ScrollBar) {
-                        final ScrollBar bar2 = (ScrollBar) n2;
-                        Node n3 = timeListView.lookup(".scroll-bar");
-                        if (n3 instanceof  ScrollBar) {
-                            final ScrollBar bar3 = (ScrollBar) n3;
-                            Node n4 = minusListView.lookup(".scroll-bar");
-                            if (n4 instanceof ScrollBar) {
-                                final ScrollBar bar4 = (ScrollBar) n4;
-                                bar1.valueProperty().bindBidirectional(bar2.valueProperty());
-                                bar2.valueProperty().bindBidirectional(bar3.valueProperty());
-                                bar3.valueProperty().bindBidirectional(bar4.valueProperty());
-                                bar4.valueProperty().bindBidirectional(bar1.valueProperty());
-                            }
 
-                        }
+                    Node n4 = minusListView.lookup(".scroll-bar");
+                    if (n4 instanceof ScrollBar) {
+                        final ScrollBar bar4 = (ScrollBar) n4;
+                        bar1.valueProperty().bindBidirectional(bar4.valueProperty());
                     }
+
                 }
             }
         });
@@ -128,22 +100,20 @@ public class popupController implements Initializable{
     void plusButtonPressed(MouseEvent event) {
         resize();
 
-        JFXTextField tempText = new JFXTextField();
-        tempText.setPromptText("Name of Event");
-        nameContents.add(tempText);
+        JFXComboBox tempCombo = new JFXComboBox();
+        tempCombo.setPromptText("Sport");
+        SportsHandler sportsHandler = new SportsHandler();
+        HashMap<String, Integer> sports = sportsHandler.getSports();
+        Label[] label = new Label[sports.size()];
+        Set<String> keySet = sports.keySet();
+        int i = 0;
+        while(keySet.iterator().hasNext()) {
+            label[i].setText(keySet.iterator().next());
+            i++;
+        }
+        tempCombo.getItems().addAll(label);
+        nameContents.add(tempCombo);
         nameListView.setItems(nameContents);
-
-        JFXDatePicker tempDate = new JFXDatePicker();
-        tempDate.setPromptText("MM/DD/YYYY");
-        dateContents.add(tempDate);
-        dateListView.setItems(dateContents);
-
-        JFXDatePicker tempTime = new JFXDatePicker();
-        tempTime.setShowTime(true);
-        tempTime.setPromptText("HH/MM AM/PM");
-        System.out.println(tempTime.getPrefHeight());
-        timeContents.add(tempTime);
-        timeListView.setItems(timeContents);
 
         JFXButton tempMinusButton = new JFXButton("-");
         tempMinusButton.setPrefSize(31, 31);
@@ -158,13 +128,9 @@ public class popupController implements Initializable{
                         break;
                     }
                 }
-                timeContents.remove(index);
                 nameContents.remove(index);
-                dateContents.remove(index);
                 minusContents.remove(index);
 
-                timeListView.setItems(timeContents);
-                dateListView.setItems(dateContents);
                 nameListView.setItems(nameContents);
                 minusListView.setItems(minusContents);
 
@@ -196,7 +162,5 @@ public class popupController implements Initializable{
 
     private void resize(){
         nameListView.setPrefWidth((sportsPopupAnchorPane.getWidth()-75)/3);
-        dateListView.setPrefWidth((sportsPopupAnchorPane.getWidth()-75)/3);
-        timeListView.setPrefWidth((sportsPopupAnchorPane.getWidth()-75)/3);
     }
 }
