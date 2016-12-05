@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.log4j.PropertyConfigurator;
 
+import java.io.File;
+
 public class Main extends Application {
 
 
@@ -28,14 +30,13 @@ public class Main extends Application {
         PropertyConfigurator.configure("log4j.properties");
 
         /*----------START OF PROGRAM----------*/
-        launch(args); //Runs the program
+
        File keys = new File("Keys");
 
        if(!keys.exists())
        {
            keys.mkdir();
        }
-
 
        launch(args);
     }
