@@ -2,7 +2,6 @@ package WHS_planner.UI;
 
 import WHS_planner.Calendar.Calendar;
 import WHS_planner.Meeting.MeetingPane;
-import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
@@ -18,9 +17,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Created by geoffrey_wang on 11/22/16.
- */
+
 public class MainPane extends Pane {
 
     private Pane navBar;
@@ -31,6 +28,7 @@ public class MainPane extends Pane {
         navBar = loadNavBar(); //Loads the navBar from the FXML
         navBar.getStyleClass().setAll("navBar");
         navBar.getChildren().get(0).getStyleClass().setAll("jfx-hamburger-icon");
+        navBar.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);");
         content = new Pane(); //Creates an empty main content pane
         contentPanes = new ArrayList<>(); //Makes an empty list for all the content panes
         generatePanes(); //Loads in all the different panes
@@ -44,7 +42,7 @@ public class MainPane extends Pane {
      * Loads in the NavBar from the FXML file.
      * @return NavBarPane
      */
-    public Pane loadNavBar(){
+    private Pane loadNavBar() {
         String location = "/UI/NavBar.fxml"; //Location of the FXML in the resources folder
 
         //Tries to load in the FXML and if it fails it returns an error message
@@ -64,7 +62,7 @@ public class MainPane extends Pane {
      * Generates the Pane from all the data given
      * @return vBox
      */
-    public VBox createPane(){
+    private VBox createPane() {
         VBox vBox = new VBox(); //Create a vBox for the base pane
 
         //Make a stack pane with the drawer and content in it
@@ -72,8 +70,8 @@ public class MainPane extends Pane {
 
         //Set the content the base pane to have the nav bar on top and content under it
         vBox.getChildren().setAll(navBar,stackPane);
-        vBox.setVgrow(stackPane, Priority.ALWAYS);
-        vBox.setVgrow(navBar, Priority.NEVER);
+        VBox.setVgrow(stackPane, Priority.ALWAYS);
+        VBox.setVgrow(navBar, Priority.NEVER);
 
         return vBox;
     }
@@ -85,7 +83,7 @@ public class MainPane extends Pane {
      * @param buttonHeight
      * @return drawer
      */
-    public JFXDrawer createDrawer(JFXHamburger hamburger, double width, double buttonHeight){
+    private JFXDrawer createDrawer(JFXHamburger hamburger, double width, double buttonHeight) {
         //Put the buttons generated into a vBox
         VBox tabsVBox = new VBox(generateButtons(new String[]{"Calendar", "News", "Schedule", "Meetings"}, width, buttonHeight));
 
@@ -94,7 +92,9 @@ public class MainPane extends Pane {
         drawer.setDefaultDrawerSize(width);
         drawer.setSidePane(tabsVBox);
         drawer.setPickOnBounds(false);
-        drawer.setMouseTransparent(true);
+        drawer.setMouseTransparent(true);                                                //vertical, higher = lower
+        drawer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 5, 0);");
+
 
         //Hamburger animation
         hamburger.setAnimation(new HamburgerBackArrowBasicTransition(hamburger));
@@ -114,12 +114,13 @@ public class MainPane extends Pane {
             hamburger.getAnimation().play(); //Plays the transition
         });
 
-        //More functions to oepn and close the drawer
+        //More functions to open and close the drawer
         drawer.setOnMouseClicked(event -> {
             if (drawer.isShown()) {
                 drawer.setMouseTransparent(false);
                 hamburger.getAnimation().setRate(1); //Switches the transition between forward and backwards.
                 hamburger.getAnimation().play(); //Plays the transition
+                navBar.toFront();
             }else{
                 drawer.setMouseTransparent(true);
                 hamburger.getAnimation().setRate(-1);
@@ -130,7 +131,7 @@ public class MainPane extends Pane {
         return drawer;
     }
 
-    public void generatePanes(){
+    private void generatePanes() {
         Schedule schedule = new Schedule();
 
         addPane(new Calendar(1,30));
@@ -139,7 +140,7 @@ public class MainPane extends Pane {
         addPane(new MeetingPane());
     }
 
-    public Node[] generateButtons(String[] text, double width, double buttonHeight){
+    private Node[] generateButtons(String[] text, double width, double buttonHeight) {
         JFXButton[] buttonArray = new JFXButton[text.length];
         for (int i = 0; i < text.length; i++) {
             JFXButton button = new JFXButton(text[i].toUpperCase());
@@ -150,7 +151,7 @@ public class MainPane extends Pane {
         return buttonArray;
     }
 
-    public void setMouseClickedEvent(JFXButton button, final int id){
+    private void setMouseClickedEvent(JFXButton button, final int id) {
         button.setOnMouseClicked(event -> {
             if(!content.getChildren().contains(contentPanes.get(id))) {
                 content.getChildren().clear();
@@ -164,7 +165,7 @@ public class MainPane extends Pane {
         });
     }
 
-    public void addPane(Pane pane){
+    private void addPane(Pane pane) {
         pane.prefHeightProperty().bind(content.heightProperty());
         pane.prefWidthProperty().bind(content.widthProperty());
         contentPanes.add(pane);

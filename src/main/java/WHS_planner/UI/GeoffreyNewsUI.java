@@ -1,11 +1,9 @@
 package WHS_planner.UI;
 
-import WHS_planner.News.html.HTMLScanner;
 import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
 import com.jfoenix.controls.JFXMasonryPane;
-import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Hyperlink;
@@ -26,31 +24,24 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeoffreyNewsUI extends Pane {
+class GeoffreyNewsUI extends Pane {
 
+    private static final double BOX_WIDTH = 250;
+    private static final double IMAGE_WIDTH = 200;
+    private static final double IMAGE_HEIGHT = 200;
+    private static final double BOX_HEIGHT = 300;
     private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
-
     //List of articles to add to display
     private List<FeedMessage> feedArray = feed.getMessages();
-
     //List of articles CURRENTLY ON DISPLAY
     private List<FeedMessage> onScreenMessages = new ArrayList<>();
-
-    private HTMLScanner HTMLScanner = new HTMLScanner();
-
-    //TODO WIDTHLENGTH OF IS HARDCODED AHHH
-    public static final double BOX_WIDTH = 250;
-    public static final double IMAGE_WIDTH = 200;
-    public static final double IMAGE_HEIGHT = 200;
-    public static final double BOX_HEIGHT = 300;
-
     private URL url;
 
     private ScrollPane mainPane = new ScrollPane();
     private JFXMasonryPane masonryPane = new JFXMasonryPane();
 
-    public GeoffreyNewsUI() {
+    GeoffreyNewsUI() {
         mainPane.setContent(masonryPane);
         mainPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         mainPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -80,84 +71,8 @@ public class GeoffreyNewsUI extends Pane {
         }
     }
 
-    @FXML
-    private void updateFrame() {
-//
-//        Long refreshStartTime = System.currentTimeMillis();
-//
-//        //get new articles
-//        feedArray = parser.getNewArticles(onScreenMessages);
-//
-//        //Loop through all NEW articles
-//        if (feedArray != null) {
-//
-//            for (int i = 0; i < feedArray.size(); i++) {
-//
-//                //Add Hyperlink
-//                final int eye = i;
-//                Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
-//                hpl.setOnAction((event) -> openLink(eye));
-//                hpl.setWrapText(true);
-//                hpl.setMaxWidth(BOX_WIDTH);
-//                hpl.setPadding(new Insets(0, 3, 0, 4));
-//
-//                //Add label
-//                Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
-//                description.setWrapText(true);
-//                description.setMaxWidth(BOX_WIDTH);
-//                description.setPadding(new Insets(0, 3, 0, 6));
-//
-//                //Add Image
-//                try {
-//                    //Timing Test
-//                    Long startTime = System.currentTimeMillis();
-//
-//                    String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
-//                    System.out.println(urlString);
-//                    if (urlString != null) {
-//                        System.out.println("There's an image.");
-//                        url = new URL(urlString);
-//                        BufferedImage bf;
-//
-//                        try {
-//                            bf = ImageIO.read(url);
-//                        } catch (/*IOException ex*/ Exception ex) {
-////                            ex.printStackTrace();
-//                            System.out.println("Error with image.");
-//                            addCard(description, hpl);
-//                            continue;
-//                        }
-//
-//                        WritableImage wr = convertImg(bf);
-//                        ImageView img = new ImageView(wr);
-//                        img.setFitWidth(WIDTH);
-//                        img.setFitHeight(wr.getHeight() / (wr.getWidth() / WIDTH));
-//                        img.setImage(wr);
-//
-//                        //Add article to list
-//                        addCard(description, hpl, img);
-//
-//                    } else {
-//
-//                        addCard(description, hpl);
-//                    }
-//                    //print
-//                    System.out.println(System.currentTimeMillis() - startTime);
-//                } catch (MalformedURLException e) {
-//                    e.printStackTrace();
-//                }
-//                onScreenMessages.add(feedArray.get(i));
-//
-//            }
-//        }
-//        System.out.println("REFRESH FINISH: " + (System.currentTimeMillis() - refreshStartTime) + " ms");
-//        System.out.println();
-//        System.out.println();
-    }
 
-
-    public void init() {
-//        masonryPane.setStyle("-fx-background-color: #FFFFFF;");
+    private void init() {
         masonryPane.getChildren().clear();
 
         System.out.println("Number of feeds: " + feedArray.size());
@@ -181,21 +96,13 @@ public class GeoffreyNewsUI extends Pane {
 
             //Add Image
             try {
-                //Timing Test
-                Long startTime = System.currentTimeMillis();
-
-                String urlString = HTMLScanner.scanDescription(feedArray.get(i).getDescription());
-//                System.out.println(urlString);
+                String urlString = scanDescription(feedArray.get(i).getDescription());
                 if (urlString != null) {
-//                    System.out.println("There's an image.");
                     url = new URL(urlString);
                     BufferedImage bf;
-
                     try {
                         bf = ImageIO.read(url);
-                    } catch (/*IOException ex*/ Exception ex) {
-//                            ex.printStackTrace();
-//                        System.out.println("Error with image.");
+                    } catch (Exception ex) {
                         addCard(description,hpl);
                         continue;
                     }
@@ -205,11 +112,10 @@ public class GeoffreyNewsUI extends Pane {
                     if(wr.getHeight()<wr.getWidth()){
                         img.setFitWidth(IMAGE_WIDTH);
                         img.setFitHeight(wr.getHeight() / (wr.getWidth() / (IMAGE_WIDTH)));
-                    }else{
+                    } else {
                         img.setFitHeight(IMAGE_HEIGHT);
                         img.setFitWidth(wr.getWidth() / (wr.getHeight() / (IMAGE_HEIGHT)));
                     }
-
                     img.setImage(wr);
 
                     //Add article to list
@@ -219,8 +125,7 @@ public class GeoffreyNewsUI extends Pane {
 
                     addCard(description, hpl);
                 }
-                //print
-//                System.out.println("Time taken to load image: "+System.currentTimeMillis() - startTime);
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -264,6 +169,17 @@ public class GeoffreyNewsUI extends Pane {
 
     private String escapeHTML(String string) {
         return Jsoup.parse(string).text();
+    }
+
+    private String scanDescription(String content) {
+        String link;
+        if (content.contains("src")) {
+            content = content.substring(content.indexOf("src=") + 5, content.length());
+            link = content.substring(0, content.indexOf("\""));
+            return link;
+        } else {
+            return null;
+        }
     }
 
 }
