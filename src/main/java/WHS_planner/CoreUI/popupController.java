@@ -28,9 +28,7 @@ import java.net.URL;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class popupController implements Initializable{
 
@@ -105,10 +103,13 @@ public class popupController implements Initializable{
         JFXComboBox tempCombo = new JFXComboBox();
         tempCombo.setPromptText("Sport");
         SportsHandler sportsHandler = new SportsHandler();
-        String[] sports = sportsHandler.getSports();
-        Label[] label = new Label[sports.length];
-        for (int i = 0; i < sports.length; i++) {
-            label[i].setText(sports[i]);
+        HashMap<String, Integer> sports = sportsHandler.getSports();
+        Label[] label = new Label[sports.size()];
+        Set<String> keySet = sports.keySet();
+        int i = 0;
+        while(keySet.iterator().hasNext()) {
+            label[i].setText(keySet.iterator().next());
+            i++;
         }
         tempCombo.getItems().addAll(label);
         nameContents.add(tempCombo);
