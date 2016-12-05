@@ -29,6 +29,15 @@ public class Main extends Application {
 
         /*----------START OF PROGRAM----------*/
         launch(args); //Runs the program
+       File keys = new File("Keys");
+
+       if(!keys.exists())
+       {
+           keys.mkdir();
+       }
+
+
+       launch(args);
     }
 
     /**

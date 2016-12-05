@@ -63,7 +63,7 @@ public class ScheduleParser
             }
             catch(Exception e)
             {
-                e.printStackTrace();
+                System.out.println("Errors occurred in the creation of schedule data. Continue normally....");
             }
             schedule[i] = new ScheduleBlock(holder[0],holder[1],holder[2],holder[3]);
         }
