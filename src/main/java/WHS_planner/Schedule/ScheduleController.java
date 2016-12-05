@@ -32,7 +32,6 @@ public class ScheduleController implements Initializable, ActionListener
     private ProgressBar progressBar;
 
     private BorderPane[] panes;
-    private BorderPane[] bPanes;
 
     private Timer progressbartimer;
 
@@ -44,24 +43,20 @@ public class ScheduleController implements Initializable, ActionListener
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        //labels = Schedule.loader.getNamespace();
-
-        panes = new BorderPane[72];
-        bPanes = new BorderPane[10];
+        grid.setGridLinesVisible(false);
+        panes = new BorderPane[82];
         int count = 0;
         //Fills Arrays
-        for (int i = 0; i < 72; i++) {
+        for (int i = 0; i < 82; i++) {
             panes[i] = new BorderPane();
         }
-        for (int i = 0; i < 10; i++) {
-            bPanes[i] = new BorderPane();
-        }
+
         for (int i = 1; i < 9; i++) {
             for (int j = 2; j < 9; j++) {
                 grid.add(panes[count],i,j);
-                panes[count].setStyle("-fx-background-color: #ffc04c");
+                panes[count].setStyle("-fx-background-color: #ffffff");
                 panes[count].toBack();
-                panes[count].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+                panes[count].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
                         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
                 count++;
             }
@@ -69,62 +64,86 @@ public class ScheduleController implements Initializable, ActionListener
 
         for (int i = 2; i < 9; i++) {
             grid.add(panes[54 + i],0,i);
-            panes[54 + i].setStyle("-fx-background-color: #ffc04c");
+            panes[54 + i].setStyle("-fx-background-color: #ffffff");
             panes[54 + i].toBack();
-            panes[54 + i].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+            panes[54 + i].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         }
 
 
         for (int i = 0; i < 9; i++) {
-            grid.add(bPanes[i],i,1);
-            bPanes[i].setBorder(new Border(new BorderStroke(new Color(1,1,1,1),
+            grid.add(panes[i + 63],i,1);
+            panes[i + 63].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
-            bPanes[i].setStyle("-fx-background-color: #ffa500");
-            bPanes[i].toBack();
+            panes[i + 63].setStyle("-fx-background-color: #ffffff");
+            panes[i + 63].toBack();
         }
 
 
-        String s;
+        File ipass = new File("Keys/ipass.key");
 
-        BufferedReader br;
-        try
+        if(ipass.exists())
         {
-            File f = new File("DayArray.json");
-
-            if(!f.exists())
+            try
             {
-                f.createNewFile();
+                BufferedReader bri = new BufferedReader(new FileReader(ipass));
+                String user = bri.readLine();
+                String pass = bri.readLine();
+                bri.close();
+
+                if(user == null || pass == null || user.equals("") || pass.equals(""))
+                {
+                    System.out.println("No ipass data found");
+                }
+                else
+                {
+                    String s;
+
+                    BufferedReader br;
+                    try
+                    {
+                        File f = new File("DayArray.json");
+
+                        if(!f.exists())
+                        {
+                            f.createNewFile();
+                        }
+
+                        br = new BufferedReader(new FileReader("DayArray.json"));
+
+                        if (br.readLine() == null)
+                        {
+                            buildLetterDays();
+                        }
+                        br.close();
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                    s = getletterday();
+
+                    if(s.length() == 1)
+                    {
+                        s = "Today is '" + s + "' day!";
+                    }
+
+                    //we can set the day here
+                    Title3.setText(s);
+                }
             }
-
-            br = new BufferedReader(new FileReader("DayArray.json"));
-
-            if (br.readLine() == null)
+            catch(Exception e)
             {
-                buildLetterDays();
+                System.out.println("Error in ScheduleController\n data couldn't be found in ipass.key");
             }
-            br.close();
         }
-        catch (Exception e)
+        else
         {
-            e.printStackTrace();
+            System.out.println("No ipass file, try logging in");
         }
-
-        s = getletterday();
-
-        if(s.length() == 1)
-        {
-            s = "Today is " + s + " day!";
-        }
-
-        //we can set the day here
-        Title3.setText(s);
-
 
         normalDay = true;
-
-
 
         progressbartimer = new Timer(1000, this);
         progressbartimer.start();
@@ -157,7 +176,7 @@ public class ScheduleController implements Initializable, ActionListener
     {
         try
         {
-            File f = new File("user.key");
+            File f = new File("Keys/ipass.key");
 
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
@@ -204,7 +223,38 @@ public class ScheduleController implements Initializable, ActionListener
 
         double mod = 1;
 
-        if(normalDay)
+        if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == 4)
+        {
+            if(num >= 450 && num < 496)
+            {
+                mod = (496-num)/46.0;
+            }
+            else if(num >= 496 && num < 576)
+            {
+                mod = (576-num)/80.0;
+            }
+            else if(num >= 576 && num < 641)
+            {
+                mod = (641-num)/65.0;
+            }
+            else if(num >= 641 && num < 716)
+            {
+                mod = (716-num)/75.0;
+            }
+            else if(num >= 700 && num < 745)
+            {
+                mod = (745-num)/45.0;
+            }
+            else if(num >= 745 && num <= 785)
+            {
+                mod = (785-num)/40.0;
+            }
+            else
+            {
+                mod = 1;
+            }
+        }
+        else if(normalDay)
         {
             if(num >= 450 && num < 512)
             {

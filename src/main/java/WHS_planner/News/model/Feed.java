@@ -23,6 +23,17 @@ public class Feed {
         this.pubDate = pubDate;
     }
 
+    public Feed() {
+        this.title = null;
+        this.link = null;
+        this.description = null;
+        this.language = null;
+        this.copyright = null;
+        this.pubDate = null;
+
+    }
+
+
     public List<FeedMessage> getMessages() {
         return entries;
     }

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RSSFeedParser {
     private static final String TITLE = "title";
@@ -42,7 +44,7 @@ public class RSSFeedParser {
         Feed feed = null;
         try {
             boolean isFeedHeader = true;
-            // Set header values intial to the empty string
+            // Set header values initial to the empty string
             String description = "";
             String title = "";
             String link = "";
@@ -53,53 +55,50 @@ public class RSSFeedParser {
             String guid = "";
 
             // First create a new XMLInputFactory
-            //noinspection Since15,Since15
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
             inputFactory.setProperty("javax.xml.stream.isCoalescing", true);
 
             // Setup a new eventReader
             InputStream in = read();
-            //noinspection Since15,Since15
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
             // read the XML document
             while (eventReader.hasNext()) {
-                //noinspection Since15,Since15
                 XMLEvent event = eventReader.nextEvent();
                 if (event.isStartElement()) {
-                    //noinspection Since15
                     String localPart = event.asStartElement().getName()
                             .getLocalPart();
-                    if (localPart.equals(ITEM)) {
-                        if (isFeedHeader) {
-                            isFeedHeader = false;
-                            feed = new Feed(title, link, description, language,
-                                    copyright, pubdate);
+                    switch (localPart) {
+                        case ITEM:
+                            if (isFeedHeader) {
+                                isFeedHeader = false;
+                                feed = new Feed(title, link, description, language,
+                                        copyright, pubdate);
                         }
-//                        event = eventReader.nextEvent();
-
-                    } else if (localPart.equals(TITLE)) {
-                        title = getCharacterData(event, eventReader);
-
-                    } else if (localPart.equals(DESCRIPTION)) {
-                        description = getCharacterData(event, eventReader);
-
-                    } else if (localPart.equals(LINK)) {
-                        link = getCharacterData(event, eventReader);
-
-                    } else if (localPart.equals(GUID)) {
-                        guid = getCharacterData(event, eventReader);
-
-                    } else if (localPart.equals(LANGUAGE)) {
-                        language = getCharacterData(event, eventReader);
-
-                    } else if (localPart.equals(AUTHOR)) {
-                        author = getCharacterData(event, eventReader);
-
-                    } else if (localPart.equals(PUB_DATE)) {
-                        pubdate = getCharacterData(event, eventReader);
-                    } else if (localPart.equals(COPYRIGHT)) {
-                        copyright = getCharacterData(event, eventReader);
-
+                            break;
+                        case TITLE:
+                            title = getCharacterData(eventReader);
+                            break;
+                        case DESCRIPTION:
+                            description = getCharacterData(eventReader);
+                            break;
+                        case LINK:
+                            link = getCharacterData(eventReader);
+                            break;
+                        case GUID:
+                            guid = getCharacterData(eventReader);
+                            break;
+                        case LANGUAGE:
+                            language = getCharacterData(eventReader);
+                            break;
+                        case AUTHOR:
+                            author = getCharacterData(eventReader);
+                            break;
+                        case PUB_DATE:
+                            pubdate = getCharacterData(eventReader);
+                            break;
+                        case COPYRIGHT:
+                            copyright = getCharacterData(eventReader);
+                            break;
                     }
 
                 } else if (event.isEndElement()) {
@@ -111,7 +110,6 @@ public class RSSFeedParser {
                         message.setLink(link);
                         message.setTitle(title);
                         feed.getMessages().add(message);
-//                        event = eventReader.nextEvent();
                     }
                 }
             }
@@ -121,10 +119,10 @@ public class RSSFeedParser {
         return feed;
     }
 
-    private String getCharacterData(XMLEvent event, XMLEventReader eventReader)
+    private String getCharacterData(XMLEventReader eventReader)
             throws XMLStreamException {
         String result = "";
-        event = eventReader.nextEvent();
+        XMLEvent event = eventReader.nextEvent();
         if (event instanceof Characters) {
             result = event.asCharacters().getData();
         }
@@ -136,6 +134,35 @@ public class RSSFeedParser {
             return url.openStream();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+
+    public List getNewArticles(List<FeedMessage> oldFeed) {
+
+        List<FeedMessage> currentFeed = readFeed().getMessages();
+
+        if (oldFeed.size() == 0) {
+
+            System.out.println("Case lul. If it's case lul something has gone catastrophically wrong.");
+            return oldFeed;
+        } else if (currentFeed.get(0).getLink().equals(oldFeed.get(0).getLink())) {
+            System.out.println("Case 1");
+
+            //this is why it clears.
+//            oldFeed.clear();
+//            return oldFeed;
+            return null;
+        } else {
+            ArrayList<FeedMessage> newFeed = new ArrayList<>();
+            int i = 0;
+            while (!(currentFeed.get(i).getLink().equals(oldFeed.get(0).getLink()))) {
+//                System.out.println(i);
+                newFeed.add(0, currentFeed.get(i));
+                i++;
+            }
+            System.out.println("Case 2");
+            return newFeed;
         }
     }
 }

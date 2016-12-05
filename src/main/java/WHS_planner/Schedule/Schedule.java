@@ -12,25 +12,25 @@ import java.io.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Map;
 
 public class Schedule
 {
-
-    public static Stage MainStage;
-
     @FXML
     private Pane rootLayout;
 
-    private Pane memes;
+    @FXML
+    private Pane login;
 
     private Map<String, Object> labels;
 
     private ScheduleBlock[] blocks;
 
     public static Scene schedule;
-    public static Scene day;
 
+    //boolean for bell 2's which has no function at the moment
+    //private boolean special = false;
 
     public Schedule()
     {
@@ -42,7 +42,6 @@ public class Schedule
         {
             e.printStackTrace();
         }
-
     }
 
     public void buildSchedule() throws Exception
@@ -52,17 +51,25 @@ public class Schedule
         loader.setLocation(getClass().getResource("/Schedule/wankTest.fxml"));
 
         rootLayout = loader.load();
-        generateSchedule(loader);
 
-        schedule = new Scene(rootLayout);
 
-        FXMLLoader load2 = new FXMLLoader();
+        FXMLLoader loader2 = new FXMLLoader();
+        loader2.setLocation(getClass().getResource("/Schedule/ipass login.fxml"));
 
-        load2.setLocation(getClass().getResource("/Schedule/day.fxml"));
+        login = loader2.load();
 
-        memes = load2.load();
+        File f = new File("Keys/ipass.key");
 
-        day = new Scene(memes);
+        if(!f.exists())
+        {
+            schedule = new Scene(login);
+        }
+        else
+        {
+            generateSchedule(loader);
+
+            schedule = new Scene(rootLayout);
+        }
     }
 
 
@@ -72,6 +79,15 @@ public class Schedule
 
         blocks = getData();
 
+
+        String[] start = {"7:30", "8:32", "9:39", "10:41", "12:16", "1:18", "0:00"};
+        String[] end = {"8:27", "9:29", "10:36", "12:11", "1:13", "2:15", "0:00"};
+
+        String[] wens = {"7:30", "8:15", "9:35", "10:20", "11:40", "12:25", "0:00"};
+        String[] wene = {"8:10", "8:55", "10:15", "11:35", "12:20", "1:05", "0:00"};
+
+//        String[] bells = {"7:30", "8:26", "9:58", "10:55", "12:26", "1:23", "0:00"};    If we ever make functionality for the bell 2's
+//        String[] belle = {"8:21", "9:18", "10:50", "12:21", "1:18", "2:15", "0:00"};
 
         String currentClass;
         String currentTeacher;
@@ -87,6 +103,8 @@ public class Schedule
 
             currentClass = blocks[i].getClassName();
             currentTeacher = blocks[i].getTeacher();
+            currentTeacher = currentTeacher.replace("<br>", " & ");
+
             currentPeriod = blocks[i].getPeriodNumber();
             currentRoom = blocks[i].getRoomNumber();
 
@@ -143,13 +161,34 @@ public class Schedule
                 incr2++;
             }
         }
+
+        for (int i = 1; i <= 7; i++)
+        {
+            Label l = (Label) labels.get("Time"+i);
+
+
+            String s;
+
+            if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == 4)
+            {
+                s = "Period "+i+"\nStart: "+"\n"+wens[i-1]+"\nEnd:\n"+wene[i-1];
+            }
+
+            else
+            {
+                s = "Period "+i+"\nStart: "+"\n"+start[i-1]+"\nEnd:\n"+end[i-1];
+            }
+
+            l.setText(s);
+            l.setWrapText(true);
+        }
     }
 
     public void parseSchedule()
     {
         File f = new File("output.html");
 
-        File input = new File("user.key");
+        File input = new File("Keys/ipass.key");
 
         String user = null;
         String pass = null;
@@ -181,20 +220,37 @@ public class Schedule
         if(!f.exists() && user != null && pass != null )
         {
             parse.grabwebpage(user, pass);
+            try
+            {
+                parse.getClasses();
+            }
+            catch(IOException ie)
+            {
+                ie.printStackTrace();
+            }
         }
-        try
-        {
-            parse.getClasses();
-        }
-        catch(IOException ie)
-        {
-            ie.printStackTrace();
-        }
+
     }
 
     public ScheduleBlock[] getData()
     {
         parseSchedule();
+
+        File schedulefile = new File("Schedule.json");
+
+        if(!schedulefile.exists())
+        {
+            try
+            {
+                schedulefile.createNewFile();
+
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
         IO dotaIo = new IO("Schedule.json");
         ArrayList<ScheduleBlock> array = dotaIo.readScheduleArray();
         dotaIo.unload();
@@ -210,12 +266,6 @@ public class Schedule
     public Node getPane()
     {
         Node n = schedule.getRoot();
-        return n;
-    }
-
-    public Node getdaypane()
-    {
-        Node n = day.getRoot();
         return n;
     }
 

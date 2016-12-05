@@ -25,11 +25,46 @@ public class GrabDay
 
     private List<String> cookies;
 
+
+    private String error;
+
     public GrabDay(String user, String pass)
     {
         this.user = user;
         this.pass = pass;
     }
+
+
+    public boolean testConn() throws Exception
+    {
+
+        String url = "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html";
+
+
+        CookieHandler.setDefault(new CookieManager());
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+
+        Grabber grab = new Grabber();
+
+        String page = grab.getPageContent(url);
+        String params = grab.getForm(page, user, pass);
+
+        grab.send(url, params);
+
+        connection.disconnect();
+
+        if(error.contains("Invalid"))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+
 
     public void grabData()
     {
@@ -333,6 +368,8 @@ public class GrabDay
             {
                 stringbuffer.append(input);
             }
+
+            error = stringbuffer.toString();
             br.close();
 
         }

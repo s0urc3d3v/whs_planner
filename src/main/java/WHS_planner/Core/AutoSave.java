@@ -14,7 +14,7 @@ public class AutoSave extends TimerTask{
         //override this method with your save code after extending this class
     }
     public void start(int interval){
-        //call this to start the autosave ticker
+        //call this to start the auto save ticker
         TimerTask timerTask = new AutoSave();
         Timer timer = new Timer(true);
         timer.scheduleAtFixedRate(timerTask, 0, (interval/2)*1000);

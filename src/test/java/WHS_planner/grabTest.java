@@ -16,7 +16,7 @@ public class grabTest extends TestCase
     {
         try
         {
-            File f = new File("user.key");
+            File f = new File("Keys/ipass.key");
 
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
@@ -49,7 +49,7 @@ public class grabTest extends TestCase
     {
         try
         {
-            File f = new File("user.key");
+            File f = new File("Keys/ipass.key");
 
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);

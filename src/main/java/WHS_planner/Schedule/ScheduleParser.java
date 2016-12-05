@@ -68,6 +68,13 @@ public class ScheduleParser
             schedule[i] = new ScheduleBlock(holder[0],holder[1],holder[2],holder[3]);
         }
 
+        File schedf = new File("Schedule.json");
+
+        if(!schedf.exists())
+        {
+            schedf.createNewFile();
+        }
+
         IO io = new IO("Schedule.json");
         io.writeScheduleArray(schedule);
         io.unload();
@@ -122,8 +129,8 @@ public class ScheduleParser
         {
             try
             {
-                ReadSchedule r = new ReadSchedule();
-                r.authAndFindTableWithIpass(u, p); //replace user and pass with credentials
+                GrabDay gd = new GrabDay(u, p);
+                gd.grabSchedule("output.html");
             }
             catch(Exception e)
             {
