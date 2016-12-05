@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.log4j.PropertyConfigurator;
 
+import java.io.File;
+
 public class Main extends Application {
 
 
