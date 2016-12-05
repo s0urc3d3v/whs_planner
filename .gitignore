@@ -18,3 +18,5 @@ target/
 lib/
 *.key
 *.iml
+*.json
+*.html

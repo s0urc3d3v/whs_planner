@@ -27,8 +27,15 @@ public class Main extends Application {
 
         PropertyConfigurator.configure("log4j.properties");
 
-        /*----------START OF PROGRAM----------*/
-        launch(args); //Runs the program
+       File keys = new File("Keys");
+
+       if(!keys.exists())
+       {
+           keys.mkdir();
+       }
+
+
+       launch(args);
     }
 
     /**
