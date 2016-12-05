@@ -211,11 +211,11 @@ public class NewsUI extends Application {
         root.getChildren().clear();
 
         //Add button
-        JFXButton refreshButton = new JFXButton("Refresh");
-        refreshButton.getStyleClass().add("button-raised");
-        refreshButton.setOnAction((event) -> updateFrame());
-        VBox r = new VBox(refreshButton);
-        root.getChildren().add(r);
+//        JFXButton refreshButton = new JFXButton("Refresh");
+//        refreshButton.getStyleClass().add("button-raised");
+//        refreshButton.setOnAction((event) -> updateFrame());
+//        VBox r = new VBox(refreshButton);
+//        root.getChildren().add(r);
 
         System.out.println(feedArray.size() + "GEORGEISSTUPID");
         //Loop through all articles
@@ -285,7 +285,7 @@ public class NewsUI extends Application {
         System.out.println("Added without image.");
         VBox v = new VBox(hpl, /*author,*/ desc);
         v.setPrefWidth(widthLength);
-        v.setMaxWidth(widthLength);
+//        v.setMaxWidth(WIDTH);
         double height = hpl.getHeight() + desc.getHeight();
 
         v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
@@ -298,11 +298,11 @@ public class NewsUI extends Application {
         VBox v = new VBox(img, hpl, desc);
         System.out.println("mIT ADDED TYLER");
         v.setPrefWidth(widthLength);
-        v.setMaxWidth(widthLength);
+//        v.setMaxWidth(WIDTH);
         double height = img.getFitHeight() + hpl.getHeight() + desc.getHeight();
 //        v.setPrefHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
 //        v.setMaxHeight(img.getFitHeight()+hpl.getHeight()+desc.getHeight());
-        v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
+        v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;" + "-fx-padding: 10;");
 //        root.setVSpacing(10);
         root.getChildren().add(v);
 

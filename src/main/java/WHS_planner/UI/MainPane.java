@@ -134,7 +134,7 @@ public class MainPane extends Pane {
         Schedule schedule = new Schedule();
 
         addPane(new Calendar(1,30));
-        addPane(new NewsUI().getROOOOOOOT());
+        addPane(new GeoffreyNewsUI());
         addPane((Pane)schedule.getPane());
         addPane(new MeetingPane());
     }
@@ -145,16 +145,13 @@ public class MainPane extends Pane {
             JFXButton button = new JFXButton(text[i].toUpperCase());
             button.setPrefSize(width, buttonHeight);
             buttonArray[i] = button;
-
             setMouseClickedEvent(button, i);
-
         }
         return buttonArray;
     }
 
     public void setMouseClickedEvent(JFXButton button, final int id){
         button.setOnMouseClicked(event -> {
-            System.out.println(contentPanes.get(id));
             if(!content.getChildren().contains(contentPanes.get(id))) {
                 content.getChildren().clear();
                 content.getChildren().add(contentPanes.get(id));
@@ -164,7 +161,6 @@ public class MainPane extends Pane {
             hamburger.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
             hamburger.getAnimation().play(); //Plays the transition
             drawer.close();
-
         });
     }
 
@@ -173,5 +169,5 @@ public class MainPane extends Pane {
         pane.prefWidthProperty().bind(content.widthProperty());
         contentPanes.add(pane);
     }
-
+    
 }

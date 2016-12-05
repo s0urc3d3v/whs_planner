@@ -22,7 +22,7 @@ public class MeetingPane extends Pane {
         try {
             url = getClass().getResource("/Meeting/meeting.fxml");
             root = FXMLLoader.load(url);
-            System.out.println("  fxmlResource = " + sceneFile);
+//            System.out.println("  fxmlResource = " + sceneFile);
         } catch (Exception ex) {
             System.out.println("Exception on FXMLLoader.load()");
             System.out.println("  * url: " + url);
