@@ -44,6 +44,7 @@ public class ScheduleController implements Initializable, ActionListener
     public void initialize(URL location, ResourceBundle resources)
     {
         grid.setGridLinesVisible(false);
+        grid.setStyle("-fx-background-color: #F1F1F1;");
         panes = new BorderPane[82];
         int count = 0;
         //Fills Arrays
@@ -57,7 +58,7 @@ public class ScheduleController implements Initializable, ActionListener
                 panes[count].setStyle("-fx-background-color: #ffffff");
                 panes[count].toBack();
                 panes[count].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
-                        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                        BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderStroke.THIN)));
                 count++;
             }
         }
@@ -67,14 +68,14 @@ public class ScheduleController implements Initializable, ActionListener
             panes[54 + i].setStyle("-fx-background-color: #ffffff");
             panes[54 + i].toBack();
             panes[54 + i].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.THIN)));
         }
 
 
         for (int i = 0; i < 9; i++) {
             grid.add(panes[i + 63],i,1);
             panes[i + 63].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.THIN)));
             panes[i + 63].setStyle("-fx-background-color: #ffffff");
             panes[i + 63].toBack();
         }
