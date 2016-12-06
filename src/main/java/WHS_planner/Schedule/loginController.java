@@ -1,5 +1,6 @@
 package WHS_planner.Schedule;
 
+import WHS_planner.Util.AesTool;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,10 +8,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.net.URL;
+import java.security.SecureRandom;
 import java.util.ResourceBundle;
 
 public class loginController implements Initializable
@@ -52,6 +56,12 @@ public class loginController implements Initializable
                         f.createNewFile();
                     }
                     BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+                    KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+                    keyGenerator.init(128);
+                    SecretKey aesKey = keyGenerator.generateKey();
+                    AesTool usernameAesTool = new AesTool(username, aesKey.getEncoded().toString());
+
+
                     bw.write(username);
                     bw.newLine();
                     bw.write(pass);
