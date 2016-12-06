@@ -26,7 +26,8 @@ class Home extends BorderPane {
 
 
         setBottom(new Label("Progress bar here!"));
-        news.setPrefWidth(270);
+        news.setPrefWidth(280);
+        news.setMaxWidth(280);
         news.setPrefHeight(this.getPrefHeight());
         this.setRight(news);
 
