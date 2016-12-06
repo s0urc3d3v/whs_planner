@@ -85,7 +85,7 @@ public class MainPane extends Pane {
      */
     private JFXDrawer createDrawer(JFXHamburger hamburger, double width, double buttonHeight) {
         //Put the buttons generated into a vBox
-        VBox tabsVBox = new VBox(generateButtons(new String[]{"Calendar", "News", "Schedule", "Meetings"}, width, buttonHeight));
+        VBox tabsVBox = new VBox(generateButtons(new String[]{"Schedule", "Calendar", "News", "Meetings"}, width, buttonHeight));
 
         //Set drawer preferences
         JFXDrawer drawer = new JFXDrawer();
@@ -133,9 +133,9 @@ public class MainPane extends Pane {
     private void generatePanes() {
         Schedule schedule = new Schedule();
 
+        addPane((Pane) schedule.getPane());
         addPane(new Calendar(1,30));
         addPane(new GeoffreyNewsUI());
-        addPane((Pane)schedule.getPane());
         addPane(new MeetingPane());
     }
 
@@ -158,9 +158,8 @@ public class MainPane extends Pane {
             }
             JFXDrawer drawer = (JFXDrawer)button.getParent().getParent().getParent();
             JFXHamburger hamburger =  (JFXHamburger)navBar.getChildren().get(0);
-            hamburger.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
-            hamburger.getAnimation().play(); //Plays the transition
-            drawer.close();
+
+            closeDrawer(drawer, hamburger);
         });
     }
 
@@ -168,6 +167,13 @@ public class MainPane extends Pane {
         pane.prefHeightProperty().bind(content.heightProperty());
         pane.prefWidthProperty().bind(content.widthProperty());
         contentPanes.add(pane);
+    }
+
+    private void closeDrawer(JFXDrawer drawer, JFXHamburger hamburg) {
+        drawer.setMouseTransparent(true);
+        hamburg.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
+        hamburg.getAnimation().play(); //Plays the transition
+        drawer.close();
     }
     
 }

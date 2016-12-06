@@ -23,13 +23,6 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
 
-        /*----------INITIALIZATION----------*/
-        /*
-        if (System.getProperty("os.name").toLowerCase().contains("mac") || System.getProperty("os.name").toLowerCase().contains("os x")){
-        }
-        MeetingFileHandler.configFileHandler(); //This must be at the top of Main() for meeting import to work
-        */
-
         PropertyConfigurator.configure("log4j.properties");
 
        File keys = new File("Keys");
