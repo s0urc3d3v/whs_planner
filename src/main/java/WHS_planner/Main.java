@@ -5,7 +5,10 @@ package WHS_planner;
 import WHS_planner.Calendar.CalendarBox;
 import WHS_planner.UI.MainPane;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -49,6 +52,17 @@ public class Main extends Application {
         MainPane mainPane = new MainPane(); //Create the mainPane (pane with all the content)
 
         Scene scene = new Scene(mainPane); //Put the mainPane into a scene
+
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.Q)
+                {
+                    System.exit(0);
+                }
+            }
+        });
+
 
         //Binds the size of the mainPane to be equal to the scene
         mainPane.prefWidthProperty().bind(scene.widthProperty());
