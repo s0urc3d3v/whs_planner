@@ -132,11 +132,19 @@ public class MainPane extends Pane {
 
     private void generatePanes() {
         Schedule schedule = new Schedule();
+        Pane Schedule = (Pane) schedule.getPane();
+        Pane Calendar = new Calendar(1, 30);
+        Pane News = new GeoffreyNewsUI();
+        Pane Meeting = new MeetingPane();
 
-        addPane((Pane) schedule.getPane());
-        addPane(new Calendar(1,30));
-        addPane(new GeoffreyNewsUI());
-        addPane(new MeetingPane());
+        Home Home = new Home(Calendar, News, Schedule);
+
+        addPane(Home);
+        addPane(Schedule);
+        addPane(Calendar);
+        addPane(News);
+        addPane(Meeting);
+
     }
 
     private Node[] generateButtons(String[] text, double width, double buttonHeight) {
