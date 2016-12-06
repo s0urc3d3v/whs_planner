@@ -35,10 +35,6 @@ public class ScheduleController implements Initializable, ActionListener
 
     private Timer progressbartimer;
 
-    private boolean normalDay;
-
-    private Map<String, Object> labels;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -143,8 +139,6 @@ public class ScheduleController implements Initializable, ActionListener
         {
             System.out.println("No ipass file, try logging in");
         }
-
-        normalDay = true;
 
         progressbartimer = new Timer(1000, this);
         progressbartimer.start();
@@ -255,7 +249,7 @@ public class ScheduleController implements Initializable, ActionListener
                 mod = 1;
             }
         }
-        else if(normalDay)
+        else
         {
             if(num >= 450 && num < 512)
             {
