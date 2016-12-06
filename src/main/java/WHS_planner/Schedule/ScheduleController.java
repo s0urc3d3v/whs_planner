@@ -1,5 +1,6 @@
 package WHS_planner.Schedule;
 
+import WHS_planner.Util.AesTool;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -90,6 +91,10 @@ public class ScheduleController implements Initializable, ActionListener
                 BufferedReader bri = new BufferedReader(new FileReader(ipass));
                 String user = bri.readLine();
                 String pass = bri.readLine();
+                //TODO json read aes key from keys.key.json
+                AesTool usernameTool = new AesTool(user, );
+                AesTool passwordTool = new AesTool(pass);
+
                 bri.close();
 
                 if(user == null || pass == null || user.equals("") || pass.equals(""))

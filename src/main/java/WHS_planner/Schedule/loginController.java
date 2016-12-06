@@ -60,7 +60,7 @@ public class loginController implements Initializable
                     keyGenerator.init(128);
                     SecretKey aesKey = keyGenerator.generateKey();
                     AesTool usernameAesTool = new AesTool(username, aesKey.getEncoded().toString());
-
+                    //TODO add passwordAesTool too
 
                     bw.write(username);
                     bw.newLine();
