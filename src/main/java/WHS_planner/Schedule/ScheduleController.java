@@ -92,8 +92,8 @@ public class ScheduleController implements Initializable, ActionListener
                 String user = bri.readLine();
                 String pass = bri.readLine();
                 //TODO json read aes key from keys.key.json
-                AesTool usernameTool = new AesTool(user, );
-                AesTool passwordTool = new AesTool(pass);
+                AesTool usernameTool = new AesTool(user, null);
+                AesTool passwordTool = new AesTool(pass, null);
 
                 bri.close();
 
