@@ -158,9 +158,8 @@ public class MainPane extends Pane {
             }
             JFXDrawer drawer = (JFXDrawer)button.getParent().getParent().getParent();
             JFXHamburger hamburger =  (JFXHamburger)navBar.getChildren().get(0);
-            hamburger.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
-            hamburger.getAnimation().play(); //Plays the transition
-            drawer.close();
+
+            closeDrawer(drawer, hamburger);
         });
     }
 
@@ -168,6 +167,13 @@ public class MainPane extends Pane {
         pane.prefHeightProperty().bind(content.heightProperty());
         pane.prefWidthProperty().bind(content.widthProperty());
         contentPanes.add(pane);
+    }
+
+    private void closeDrawer(JFXDrawer drawer, JFXHamburger hamburg) {
+        drawer.setMouseTransparent(true);
+        hamburg.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
+        hamburg.getAnimation().play(); //Plays the transition
+        drawer.close();
     }
     
 }
