@@ -9,10 +9,7 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -85,7 +82,7 @@ public class MainPane extends Pane {
      */
     private JFXDrawer createDrawer(JFXHamburger hamburger, double width, double buttonHeight) {
         //Put the buttons generated into a vBox
-        VBox tabsVBox = new VBox(generateButtons(new String[]{"Schedule", "Calendar", "News", "Meetings"}, width, buttonHeight));
+        VBox tabsVBox = new VBox(generateButtons(new String[]{"Home", "Schedule", "Calendar", "News", "Meetings"}, width, buttonHeight));
 
         //Set drawer preferences
         JFXDrawer drawer = new JFXDrawer();
@@ -132,11 +129,19 @@ public class MainPane extends Pane {
 
     private void generatePanes() {
         Schedule schedule = new Schedule();
+        Pane schedulePane = (Pane) schedule.getPane();
+        Pane calendar = new Calendar(1, 30);
+        Pane news = new GeoffreyNewsUI();
+        Pane meeting = new MeetingPane();
 
-        addPane((Pane) schedule.getPane());
-        addPane(new Calendar(1,30));
-        addPane(new GeoffreyNewsUI());
-        addPane(new MeetingPane());
+//        Home Home = new Home(calendar, news, schedule.getProgressBar());
+
+        addPane(new AnchorPane());
+        addPane(schedulePane);
+        addPane(calendar);
+        addPane(news);
+        addPane(meeting);
+
     }
 
     private Node[] generateButtons(String[] text, double width, double buttonHeight) {
