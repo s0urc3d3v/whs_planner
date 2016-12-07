@@ -73,8 +73,6 @@ public class MeetingController implements Initializable{
         requestingListView.setItems(requestingContents);
         requestedListView.setItems(requestedContents);
 
-        addSession("Name1", "Grade1", "Level1", "Teacher1", "Class", "Time", "Date", "Name2", "Grade2", "Level2", "Teacher2");
-
         anchorPane.applyCss();
 
         requestingListView.getStylesheets().add("/CoreUI/ListView.css");
