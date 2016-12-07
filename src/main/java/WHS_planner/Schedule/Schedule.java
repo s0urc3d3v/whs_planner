@@ -7,9 +7,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import java.io.*;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,17 +18,14 @@ import java.util.Map;
 
 public class Schedule
 {
+    public static Scene schedule;
     @FXML
     private Pane rootLayout;
-
     @FXML
     private Pane login;
-
     private Map<String, Object> labels;
-
     private ScheduleBlock[] blocks;
-
-    public static Scene schedule;
+    private ScheduleController control;
 
     public Schedule()
     {
@@ -41,13 +39,20 @@ public class Schedule
         }
     }
 
-    public void buildSchedule() throws Exception
+//    public Pane getProgressBar() {
+//
+//        return control.getBar();
+//    }
+
+    private void buildSchedule() throws Exception
     {
         FXMLLoader loader = new FXMLLoader();
 
         loader.setLocation(getClass().getResource("/Schedule/wankTest.fxml"));
 
         rootLayout = loader.load();
+        control = loader.getController();
+
 
 
         FXMLLoader loader2 = new FXMLLoader();
@@ -181,7 +186,7 @@ public class Schedule
         }
     }
 
-    public void parseSchedule()
+    private void parseSchedule()
     {
         File f = new File("output.html");
 
@@ -262,8 +267,7 @@ public class Schedule
 
     public Node getPane()
     {
-        Node n = schedule.getRoot();
-        return n;
+        return schedule.getRoot();
     }
 
 }

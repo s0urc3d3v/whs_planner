@@ -1,5 +1,7 @@
 package WHS_planner.Schedule;
 
+import WHS_planner.Core.JSON;
+import WHS_planner.Util.AesTool;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -7,17 +9,23 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
+import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 import java.util.ResourceBundle;
-import javax.swing.Timer;
 
 public class ScheduleController implements Initializable, ActionListener
 {
@@ -35,10 +43,21 @@ public class ScheduleController implements Initializable, ActionListener
 
     private Timer progressbartimer;
 
+//    Pane getBar() {
+//        BorderPane anchor = new BorderPane();
+////        HBox anchor = new HBox();
+////        AnchorPane anchor = new AnchorPane();
+//
+////        anchor.getChildren().add(progressBar);
+//        anchor.setCenter(progressBar);
+//        return anchor;
+//    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        System.out.println("Schedule controller init called");
         grid.setGridLinesVisible(false);
         grid.setStyle("-fx-background-color: #F1F1F1;");
         panes = new BorderPane[82];
@@ -77,7 +96,7 @@ public class ScheduleController implements Initializable, ActionListener
         }
 
 
-        File ipass = new File("Keys/ipass.key");
+        File ipass = new File("Keys" + File.separator + "ipass.key");
 
         if(ipass.exists())
         {
@@ -86,6 +105,25 @@ public class ScheduleController implements Initializable, ActionListener
                 BufferedReader bri = new BufferedReader(new FileReader(ipass));
                 String user = bri.readLine();
                 String pass = bri.readLine();
+//                //TODO json read aes key from keys.key.json
+//                not needed for now
+//
+//                JSON jsonApi = new JSON();
+//                jsonApi.loadFile("keys" + File.separator + "keys.key.json");
+//                String encodedkey = (String) jsonApi.readPair("aesKey");
+//
+//                try {
+//                    byte[] decodedKey = Base64.getDecoder().decode(encodedkey);
+//                    SecretKey aeskey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+//                    AesTool usernameTool = new AesTool(user, aeskey);
+//                    AesTool passwordTool = new AesTool(pass, aeskey);
+//                    user = usernameTool.decrypt();
+//                    pass = passwordTool.decrypt();
+//                }
+//                catch (Exception e){
+//                    e.printStackTrace();
+//                }
+
                 bri.close();
 
                 if(user == null || pass == null || user.equals("") || pass.equals(""))
@@ -145,7 +183,7 @@ public class ScheduleController implements Initializable, ActionListener
     }
 
 
-    public String getletterday()
+    private String getletterday()
     {
         String result = "error";
 
@@ -167,7 +205,7 @@ public class ScheduleController implements Initializable, ActionListener
         return result;
     }
 
-    public void buildLetterDays()
+    private void buildLetterDays()
     {
         try
         {
@@ -206,7 +244,7 @@ public class ScheduleController implements Initializable, ActionListener
     }
 
 
-    public double progressVal()
+    private double progressVal()
     {
         Date date = new Date();
 
@@ -216,7 +254,7 @@ public class ScheduleController implements Initializable, ActionListener
 
         int num = parseDate(dateS);
 
-        double mod = 1;
+        double mod;
 
         if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == 4)
         {
@@ -284,7 +322,7 @@ public class ScheduleController implements Initializable, ActionListener
         return mod;
     }
 
-    public int parseDate(String date)
+    private int parseDate(String date)
     {
         String hour = date.substring(0, date.indexOf(":"));
         String minute = date.substring(date.indexOf(":")+1);
