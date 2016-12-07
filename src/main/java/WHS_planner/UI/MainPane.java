@@ -118,10 +118,13 @@ public class MainPane extends Pane {
 
         //More functions to open and close the drawer
         drawer.setOnMouseClicked(event -> {
+            System.out.println(event.getSceneX());
             if (drawer.isShown()) {
-                drawer.setMouseTransparent(false);
-                hamburger.getAnimation().setRate(1); //Switches the transition between forward and backwards.
-                hamburger.getAnimation().play(); //Plays the transition
+                if (event.getSceneX() >= 175) {
+                    drawer.setMouseTransparent(false);
+                    hamburger.getAnimation().setRate(1); //Switches the transition between forward and backwards.
+                    hamburger.getAnimation().play(); //Plays the transition
+                }
             }else{
                 drawer.setMouseTransparent(true);
                 hamburger.getAnimation().setRate(-1);
