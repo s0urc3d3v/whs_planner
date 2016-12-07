@@ -141,10 +141,10 @@ public class MainPane extends Pane {
     private void generatePanes() {
         schedule = new Schedule();
         Pane calendar = new Calendar(1, 30);
-        Pane news = new GeoffreyNewsUI();
+        GeoffreyNewsUI news = new GeoffreyNewsUI();
         Pane meeting = new MeetingPane();
 
-        Home Home = new Home(calendar, news, schedule.getProgressBar());
+        Home Home = new Home(calendar, news.getMasonryPane(), schedule.getProgressBar());
 
         addPane(Home);
         addPane((Pane) schedule.getPane());
@@ -153,7 +153,7 @@ public class MainPane extends Pane {
         addPane(meeting);
 
 
-//        content.getChildren().add(contentPanes.get(0));
+        content.getChildren().add(contentPanes.get(0));
 
     }
 
