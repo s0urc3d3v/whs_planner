@@ -10,9 +10,6 @@ import javafx.scene.layout.Pane;
 class Home extends BorderPane {
 
 
-
-
-
     Home(Pane calendar, Pane newsUI, ProgressBar schedule) {
         this.setPrefWidth(1100);
         //TODO ^
