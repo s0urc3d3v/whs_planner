@@ -12,7 +12,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.jsoup.Jsoup;
 
@@ -24,7 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-class GeoffreyNewsUI extends Pane {
+class GeoffreyNewsUI extends ContentPane {
 
     private static final double BOX_WIDTH = 250;
     private static final double IMAGE_WIDTH = 200;

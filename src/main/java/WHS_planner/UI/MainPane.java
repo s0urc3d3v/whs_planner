@@ -9,7 +9,10 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -141,13 +144,16 @@ public class MainPane extends Pane {
         Pane news = new GeoffreyNewsUI();
         Pane meeting = new MeetingPane();
 
-//        Home Home = new Home(calendar, news, schedule.getProgressBar());
+        Home Home = new Home(calendar, news, schedule.getProgressBar());
 
-        addPane(new AnchorPane());
+        addPane(Home);
         addPane((Pane) schedule.getPane());
         addPane(calendar);
         addPane(news);
         addPane(meeting);
+
+
+//        content.getChildren().add(contentPanes.get(0));
 
     }
 
