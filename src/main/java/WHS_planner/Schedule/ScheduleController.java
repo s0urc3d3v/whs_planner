@@ -1,5 +1,6 @@
 package WHS_planner.Schedule;
 
+import WHS_planner.Core.JSON;
 import WHS_planner.Util.AesTool;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -84,7 +85,7 @@ public class ScheduleController implements Initializable, ActionListener
         }
 
 
-        File ipass = new File("Keys/ipass.key");
+        File ipass = new File("Keys" + File.separator + "ipass.key");
 
         if(ipass.exists())
         {
@@ -94,8 +95,20 @@ public class ScheduleController implements Initializable, ActionListener
                 String user = bri.readLine();
                 String pass = bri.readLine();
                 //TODO json read aes key from keys.key.json
-                AesTool usernameTool = new AesTool(user, null);
-                AesTool passwordTool = new AesTool(pass, null);
+
+                JSON jsonApi = new JSON();
+                jsonApi.loadFile("keys" + File.separator + "keys.key.json");
+                char[] hexKey = (char[]) jsonApi.readPair("aesKey");
+
+                try {
+                    AesTool usernameTool = new AesTool(user, hexKey.toString());
+                    AesTool passwordTool = new AesTool(pass, hexKey.toString());
+                    user = usernameTool.decrypt();
+                    pass = passwordTool.decrypt();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
 
                 bri.close();
 

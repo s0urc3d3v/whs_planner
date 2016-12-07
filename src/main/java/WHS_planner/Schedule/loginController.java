@@ -58,8 +58,18 @@ public class loginController implements Initializable
                     BufferedWriter bw = new BufferedWriter(new FileWriter(f));
                     KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
                     keyGenerator.init(128);
-                    SecretKey aesKey = keyGenerator.generateKey();
-                    AesTool usernameAesTool = new AesTool(username, aesKey.getEncoded().toString());
+                    try {
+                        SecretKey aesKey = keyGenerator.generateKey();
+                        AesTool usernameAesTool = new AesTool(username, aesKey.getEncoded().toString());
+                        AesTool passwordAesTool = new AesTool(pass, aesKey.getEncoded().toString());
+                        username = usernameAesTool.encrypt();
+                        usernameAesTool.done();
+                        pass = passwordAesTool.encrypt();
+                        passwordAesTool.done();
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
                     //TODO add passwordAesTool too
 
                     bw.write(username);
