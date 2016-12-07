@@ -58,7 +58,6 @@ public class JSON {
     public void unloadFile() {
         try {
             fileWriter.write(object.toJSONString());
-            fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
             ErrorHandler.HandleIOError(e);
