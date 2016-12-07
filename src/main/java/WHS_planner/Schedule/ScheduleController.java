@@ -38,11 +38,15 @@ public class ScheduleController implements Initializable, ActionListener
 
     private Timer progressbartimer;
 
-    Pane getBar() {
-        AnchorPane anchor = new AnchorPane();
-        anchor.getChildren().add(progressBar);
-        return anchor;
-    }
+//    Pane getBar() {
+//        BorderPane anchor = new BorderPane();
+////        HBox anchor = new HBox();
+////        AnchorPane anchor = new AnchorPane();
+//
+////        anchor.getChildren().add(progressBar);
+//        anchor.setCenter(progressBar);
+//        return anchor;
+//    }
 
 
     @Override
