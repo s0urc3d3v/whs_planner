@@ -30,6 +30,9 @@ public class MeetingPane extends Pane {
             System.out.println("    ----------------------------------------\n");
         }
 
+        Pane pane = (Pane) root;
+        pane.prefHeightProperty().bind(this.prefHeightProperty());
+        pane.prefWidthProperty().bind(this.prefWidthProperty());
         this.getChildren().setAll(root);
     }
 }

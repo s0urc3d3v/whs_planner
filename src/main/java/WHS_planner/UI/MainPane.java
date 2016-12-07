@@ -160,17 +160,11 @@ public class MainPane extends Pane {
 
     public void resetSchedule() throws Exception
     {
-        System.out.println("a");
         remPane((Pane)schedule.getPane());
-        System.out.println("b");
         schedule = new Schedule();
-        System.out.println("c");
         addPane((Pane) schedule.getPane(), 1);
-        System.out.println("d");
         content.getChildren().clear();
-        System.out.println("e");
         content.getChildren().add(contentPanes.get(1));
-        System.out.println("f");
     }
 
     private Node[] generateButtons(String[] text, double width, double buttonHeight) {

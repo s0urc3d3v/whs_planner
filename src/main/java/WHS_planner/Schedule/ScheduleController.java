@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -98,24 +99,25 @@ public class ScheduleController implements Initializable, ActionListener
                 BufferedReader bri = new BufferedReader(new FileReader(ipass));
                 String user = bri.readLine();
                 String pass = bri.readLine();
-//                //TODO json read aes key from keys.key.json
-//                not needed for now
-//
-//                JSON jsonApi = new JSON();
-//                jsonApi.loadFile("keys" + File.separator + "keys.key.json");
-//                String encodedkey = (String) jsonApi.readPair("aesKey");
-//
-//                try {
-//                    byte[] decodedKey = Base64.getDecoder().decode(encodedkey);
-//                    SecretKey aeskey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
-//                    AesTool usernameTool = new AesTool(user, aeskey);
-//                    AesTool passwordTool = new AesTool(pass, aeskey);
-//                    user = usernameTool.decrypt();
-//                    pass = passwordTool.decrypt();
-//                }
-//                catch (Exception e){
-//                    e.printStackTrace();
-//                }
+                //TODO json read aes key from keys.key.json
+
+                JSON jsonApi = new JSON();
+                jsonApi.loadFile("keys" + File.separator + "keys.key.json");
+                String encodedKey = (String) jsonApi.readPair("aesKey");
+
+                try {
+                    byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
+                    SecretKey aeskey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+                    AesTool usernameTool = new AesTool(user, aeskey);
+                    System.out.println("encrypting username");
+                    AesTool passwordTool = new AesTool(pass, aeskey);
+                    System.out.println("encryption password");
+                    user = usernameTool.decrypt();
+                    pass = passwordTool.decrypt();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
 
                 bri.close();
 
@@ -125,40 +127,50 @@ public class ScheduleController implements Initializable, ActionListener
                 }
                 else
                 {
-                    String s;
+                    Title3.setText("");
 
-                    BufferedReader br;
-                    try
+                    Thread t = new Thread()
                     {
-                        File f = new File("DayArray.json");
-
-                        if(!f.exists())
+                        public void run()
                         {
-                            f.createNewFile();
+                            String s;
+                            BufferedReader br;
+                            try
+                            {
+                                File f = new File("DayArray.json");
+
+                                if(!f.exists())
+                                {
+                                    f.createNewFile();
+                                }
+
+                                br = new BufferedReader(new FileReader("DayArray.json"));
+
+                                if (br.readLine() == null)
+                                {
+                                    buildLetterDays();
+                                }
+                                br.close();
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+
+                            s = getletterday();
+
+                            if(s.length() == 1)
+                            {
+                                s = "Today is '" + s + "' day!";
+                            }
+
+                            //we can set the day here
+                            Title3.setText(s);
                         }
+                    };
+                    t.start();
 
-                        br = new BufferedReader(new FileReader("DayArray.json"));
 
-                        if (br.readLine() == null)
-                        {
-                            buildLetterDays();
-                        }
-                        br.close();
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-
-                    s = getletterday();
-
-                    if(s.length() == 1)
-                    {
-                        s = "Today is '" + s + "' day!";
-                    }
-
-                    //we can set the day here
-                    Title3.setText(s);
                 }
             }
             catch(Exception e)
@@ -217,7 +229,7 @@ public class ScheduleController implements Initializable, ActionListener
 
             if(!tmp.exists() || tmp.listFiles().length == 0)
             {
-                System.out.println("User: "+user+" : Password: "+pass);
+                //System.out.println("User: "+user+" : Password: "+pass);
 
                 GrabDay gd = new GrabDay(user, pass);
                 gd.grabData();

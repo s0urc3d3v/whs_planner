@@ -32,6 +32,7 @@ public class Schedule
     {
         try
         {
+            //replaced with threading...
             buildSchedule();
         }
         catch(Exception e)
@@ -270,5 +271,4 @@ public class Schedule
     {
         return schedule.getRoot();
     }
-
 }

@@ -59,22 +59,15 @@ public class loginController implements Initializable
                     }
                     BufferedWriter bw = new BufferedWriter(new FileWriter(f));
                     //TODO
-//                    KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-//                    keyGenerator.init(128);
-//                    SecretKey aesKey = keyGenerator.generateKey();
-//                    try {
-//                        String encodedKey = Base64.getEncoder().encodeToString(aesKey.getEncoded());
-//                        AesTool usernameAesTool = new AesTool(username, encodedKey);
-//                        AesTool passwordAesTool = new AesTool(pass, encodedKey);
-//                        username = usernameAesTool.encrypt();
-//                        usernameAesTool.done();
-//                        pass = passwordAesTool.encrypt();
-//                        passwordAesTool.done();
-//                    }
-//                    catch (Exception e){
-//                        e.printStackTrace();
-//                    }
-//                    //TODO add passwordAesTool too
+                    KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+                    keyGenerator.init(128);
+                    SecretKey aesKey = keyGenerator.generateKey();
+                    AesTool usernameAesTool = new AesTool(username, aesKey);
+                    AesTool passwordAesTool = new AesTool(pass, aesKey);
+                    username = usernameAesTool.encrypt();
+                    pass = passwordAesTool.encrypt();
+                    usernameAesTool.done();
+                    //TODO add passwordAesTool too
 
                     bw.write(username);
                     bw.newLine();
@@ -82,7 +75,15 @@ public class loginController implements Initializable
                     bw.close();
 
                     error.setText("Login successful! Please wait....");
-
+                    try
+                    {
+                        MainPane mp = (MainPane) Main.getMainPane();
+                        mp.resetSchedule();
+                    }
+                    catch(Exception e)
+                    {
+                        System.out.println("Error in refreshing schedule pane...");
+                    }
                 }
                 else
                 {
@@ -95,15 +96,7 @@ public class loginController implements Initializable
             }
 
 
-            try
-            {
-                MainPane mp = (MainPane) Main.getMainPane();
-                mp.resetSchedule();
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+
 
         }
 
