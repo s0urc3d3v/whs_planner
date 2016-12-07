@@ -9,6 +9,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,8 +19,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -101,21 +105,24 @@ public class ScheduleController implements Initializable, ActionListener
                 BufferedReader bri = new BufferedReader(new FileReader(ipass));
                 String user = bri.readLine();
                 String pass = bri.readLine();
-                //TODO json read aes key from keys.key.json
-
-                JSON jsonApi = new JSON();
-                jsonApi.loadFile("keys" + File.separator + "keys.key.json");
-                char[] hexKey = (char[]) jsonApi.readPair("aesKey");
-
-                try {
-                    AesTool usernameTool = new AesTool(user, hexKey.toString());
-                    AesTool passwordTool = new AesTool(pass, hexKey.toString());
-                    user = usernameTool.decrypt();
-                    pass = passwordTool.decrypt();
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
+//                //TODO json read aes key from keys.key.json
+//                not needed for now
+//
+//                JSON jsonApi = new JSON();
+//                jsonApi.loadFile("keys" + File.separator + "keys.key.json");
+//                String encodedkey = (String) jsonApi.readPair("aesKey");
+//
+//                try {
+//                    byte[] decodedKey = Base64.getDecoder().decode(encodedkey);
+//                    SecretKey aeskey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+//                    AesTool usernameTool = new AesTool(user, aeskey);
+//                    AesTool passwordTool = new AesTool(pass, aeskey);
+//                    user = usernameTool.decrypt();
+//                    pass = passwordTool.decrypt();
+//                }
+//                catch (Exception e){
+//                    e.printStackTrace();
+//                }
 
                 bri.close();
 
