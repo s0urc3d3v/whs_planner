@@ -138,7 +138,8 @@ public class MeetingController implements Initializable{
         }
     }
 
-    private void resize(){
+    public void resize(){
+        System.out.println("resized");
         requestingListView.setPrefWidth((anchorPane.getWidth())/3);
         classListView.setPrefWidth((anchorPane.getWidth())/3);
         requestedListView.setPrefWidth((anchorPane.getWidth())/3);
