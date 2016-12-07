@@ -106,10 +106,16 @@ public class ScheduleController implements Initializable, ActionListener
                 JSON jsonApi = new JSON();
                 jsonApi.loadFile("keys" + File.separator + "keys.key.json");
                 char[] hexKey = (char[]) jsonApi.readPair("aesKey");
-                AesTool usernameTool = new AesTool(user, hexKey.toString());
-                AesTool passwordTool = new AesTool(pass, hexKey.toString());
-                user = usernameTool.decrypt();
-                pass = passwordTool.decrypt();
+
+                try {
+                    AesTool usernameTool = new AesTool(user, hexKey.toString());
+                    AesTool passwordTool = new AesTool(pass, hexKey.toString());
+                    user = usernameTool.decrypt();
+                    pass = passwordTool.decrypt();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
 
                 bri.close();
 
