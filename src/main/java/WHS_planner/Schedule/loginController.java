@@ -82,7 +82,15 @@ public class loginController implements Initializable
                     bw.close();
 
                     error.setText("Login successful! Please wait....");
-
+                    try
+                    {
+                        MainPane mp = (MainPane) Main.getMainPane();
+                        mp.resetSchedule();
+                    }
+                    catch(Exception e)
+                    {
+                        System.out.println("Error in refreshing schedule pane...");
+                    }
                 }
                 else
                 {
@@ -95,15 +103,7 @@ public class loginController implements Initializable
             }
 
 
-            try
-            {
-                MainPane mp = (MainPane) Main.getMainPane();
-                mp.resetSchedule();
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+
 
         }
 
