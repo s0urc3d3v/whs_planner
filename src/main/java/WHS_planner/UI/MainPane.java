@@ -9,7 +9,10 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ public class MainPane extends Pane {
     private Pane navBar;
     private Pane content;
     private ArrayList<Pane> contentPanes;
+    private Home homePane;
 
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
@@ -131,12 +135,18 @@ public class MainPane extends Pane {
         Schedule schedule = new Schedule();
         Pane schedulePane = (Pane) schedule.getPane();
         Pane calendar = new Calendar(1, 30);
-        Pane news = new GeoffreyNewsUI();
+
         Pane meeting = new MeetingPane();
 
-//        Home Home = new Home(calendar, news, schedule.getProgressBar());
+//        Pane news = new GeoffreyNewsUI();
 
-        addPane(new AnchorPane());
+        GeoffreyNewsUI news = new GeoffreyNewsUI();
+
+
+        homePane = new Home(calendar, news.getMasonryPane(), schedule.getProgressBar());
+
+//        addPane(new AnchorPane());
+        addPane(homePane);
         addPane(schedulePane);
         addPane(calendar);
         addPane(news);
@@ -157,7 +167,23 @@ public class MainPane extends Pane {
 
     private void setMouseClickedEvent(JFXButton button, final int id) {
         button.setOnMouseClicked(event -> {
-            if(!content.getChildren().contains(contentPanes.get(id))) {
+
+
+            //if we're NOT on home and click to home
+            if ((id == 0) && !content.getChildren().contains(contentPanes.get(0))) {
+                System.out.println("case 1");
+                content.getChildren().clear();
+                content.getChildren().add(homePane);
+            }
+            //if we're on home and we click somewhere else
+            else if ((id != 0) && content.getChildren().contains(contentPanes.get(0))) {
+                System.out.println("case 2");
+                content.getChildren().clear();
+                content.getChildren().add(contentPanes.get(id));
+            }
+            //not home -> also not home
+            else if ((id != 0) && !content.getChildren().contains(contentPanes.get(id))) {
+                System.out.println("case 3");
                 content.getChildren().clear();
                 content.getChildren().add(contentPanes.get(id));
             }

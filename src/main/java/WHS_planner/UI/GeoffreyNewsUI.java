@@ -175,6 +175,7 @@ class GeoffreyNewsUI extends Pane {
     private String scanDescription(String content) {
         String link;
         if (content.contains("src")) {
+
             content = content.substring(content.indexOf("src=") + 5, content.length());
             link = content.substring(0, content.indexOf("\""));
             return link;
@@ -182,5 +183,33 @@ class GeoffreyNewsUI extends Pane {
             return null;
         }
     }
+
+    JFXMasonryPane getMasonryPane() {
+        return masonryPane;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

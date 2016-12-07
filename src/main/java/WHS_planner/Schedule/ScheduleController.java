@@ -38,21 +38,20 @@ public class ScheduleController implements Initializable, ActionListener
 
     private Timer progressbartimer;
 
-//    Pane getBar() {
-//        BorderPane anchor = new BorderPane();
-////        HBox anchor = new HBox();
-////        AnchorPane anchor = new AnchorPane();
-//
-////        anchor.getChildren().add(progressBar);
-//        anchor.setCenter(progressBar);
-//        return anchor;
-//    }
+    Pane getBar() {
+        BorderPane anchor = new BorderPane();
+//        HBox anchor = new HBox();
+//        AnchorPane anchor = new AnchorPane();
+
+//        anchor.getChildren().add(progressBar);
+        anchor.setCenter(progressBar);
+        return anchor;
+    }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        System.out.println("Schedule controller init called");
         grid.setGridLinesVisible(false);
         grid.setStyle("-fx-background-color: #F1F1F1;");
         panes = new BorderPane[82];

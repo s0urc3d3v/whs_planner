@@ -43,10 +43,10 @@ public class Schedule
         }
     }
 
-//    public Pane getProgressBar() {
-//
-//        return control.getBar();
-//    }
+    public Pane getProgressBar() {
+
+        return control.getBar();
+    }
 
     private void buildSchedule() throws Exception
     {
