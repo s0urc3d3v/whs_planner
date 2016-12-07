@@ -134,40 +134,50 @@ public class ScheduleController implements Initializable, ActionListener
                 }
                 else
                 {
-                    String s;
+                    Title3.setText("");
 
-                    BufferedReader br;
-                    try
+                    Thread t = new Thread()
                     {
-                        File f = new File("DayArray.json");
-
-                        if(!f.exists())
+                        public void run()
                         {
-                            f.createNewFile();
+                            String s;
+                            BufferedReader br;
+                            try
+                            {
+                                File f = new File("DayArray.json");
+
+                                if(!f.exists())
+                                {
+                                    f.createNewFile();
+                                }
+
+                                br = new BufferedReader(new FileReader("DayArray.json"));
+
+                                if (br.readLine() == null)
+                                {
+                                    buildLetterDays();
+                                }
+                                br.close();
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+
+                            s = getletterday();
+
+                            if(s.length() == 1)
+                            {
+                                s = "Today is '" + s + "' day!";
+                            }
+
+                            //we can set the day here
+                            Title3.setText(s);
                         }
+                    };
+                    t.start();
 
-                        br = new BufferedReader(new FileReader("DayArray.json"));
 
-                        if (br.readLine() == null)
-                        {
-                            buildLetterDays();
-                        }
-                        br.close();
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-
-                    s = getletterday();
-
-                    if(s.length() == 1)
-                    {
-                        s = "Today is '" + s + "' day!";
-                    }
-
-                    //we can set the day here
-                    Title3.setText(s);
                 }
             }
             catch(Exception e)
@@ -226,7 +236,7 @@ public class ScheduleController implements Initializable, ActionListener
 
             if(!tmp.exists() || tmp.listFiles().length == 0)
             {
-                System.out.println("User: "+user+" : Password: "+pass);
+                //System.out.println("User: "+user+" : Password: "+pass);
 
                 GrabDay gd = new GrabDay(user, pass);
                 gd.grabData();

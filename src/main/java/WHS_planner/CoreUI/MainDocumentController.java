@@ -144,10 +144,12 @@ public class MainDocumentController implements Initializable {
         navDrawer.setOnMouseClicked(event -> {
             System.out.println("Test");
             if (navDrawer.isShown()) {
-                navDrawer.setMouseTransparent(false);
-                burgerTransition.setRate(1); //Switches the transition between forward and backwards.
-                burgerTransition.play(); //Plays the transition
+                if (event.getSceneX() < 100) {
+                    navDrawer.setMouseTransparent(false);
+                    burgerTransition.setRate(1); //Switches the transition between forward and backwards.
+                    burgerTransition.play(); //Plays the transition
 //                navDrawer.close();
+                }
             } else {
                 navDrawer.setMouseTransparent(true);
                 burgerTransition.setRate(-1);

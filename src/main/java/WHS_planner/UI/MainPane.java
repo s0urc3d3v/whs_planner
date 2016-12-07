@@ -118,10 +118,13 @@ public class MainPane extends Pane {
 
         //More functions to open and close the drawer
         drawer.setOnMouseClicked(event -> {
+            System.out.println(event.getSceneX());
             if (drawer.isShown()) {
-                drawer.setMouseTransparent(false);
-                hamburger.getAnimation().setRate(1); //Switches the transition between forward and backwards.
-                hamburger.getAnimation().play(); //Plays the transition
+                if (event.getSceneX() >= 175) {
+                    drawer.setMouseTransparent(false);
+                    hamburger.getAnimation().setRate(1); //Switches the transition between forward and backwards.
+                    hamburger.getAnimation().play(); //Plays the transition
+                }
             }else{
                 drawer.setMouseTransparent(true);
                 hamburger.getAnimation().setRate(-1);
@@ -151,17 +154,11 @@ public class MainPane extends Pane {
 
     public void resetSchedule() throws Exception
     {
-        System.out.println("a");
         remPane((Pane)schedule.getPane());
-        System.out.println("b");
         schedule = new Schedule();
-        System.out.println("c");
         addPane((Pane) schedule.getPane(), 1);
-        System.out.println("d");
         content.getChildren().clear();
-        System.out.println("e");
         content.getChildren().add(contentPanes.get(1));
-        System.out.println("f");
     }
 
     private Node[] generateButtons(String[] text, double width, double buttonHeight) {
