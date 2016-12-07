@@ -27,7 +27,9 @@ public class MainPane extends Pane {
 
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
+        assert navBar != null;
         navBar.getStyleClass().setAll("navBar");
+
         navBar.getChildren().get(0).getStyleClass().setAll("jfx-hamburger-icon");
         navBar.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);");
         content = new Pane(); //Creates an empty main content pane
@@ -135,16 +137,12 @@ public class MainPane extends Pane {
         Schedule schedule = new Schedule();
         Pane schedulePane = (Pane) schedule.getPane();
         Pane calendar = new Calendar(1, 30);
-
+        GeoffreyNewsUI news = new GeoffreyNewsUI();
         Pane meeting = new MeetingPane();
 
-//        Pane news = new GeoffreyNewsUI();
-
-        GeoffreyNewsUI news = new GeoffreyNewsUI();
 
         homePane = new Home(calendar, news.getMasonryPane(), schedule.getProgressBar());
 
-//        addPane(new AnchorPane());
         addPane(homePane);
         addPane(schedulePane);
         addPane(calendar);

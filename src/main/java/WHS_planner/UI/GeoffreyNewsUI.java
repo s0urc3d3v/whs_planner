@@ -76,8 +76,6 @@ class GeoffreyNewsUI extends Pane {
     private void init() {
         masonryPane.getChildren().clear();
 
-//        System.out.println("Number of feeds: " + feedArray.size());
-
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
 

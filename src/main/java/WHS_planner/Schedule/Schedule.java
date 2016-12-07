@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 
 import java.io.BufferedReader;
@@ -43,7 +44,7 @@ public class Schedule
         }
     }
 
-    public Pane getProgressBar() {
+    public ProgressBar getProgressBar() {
 
         return control.getBar();
     }
