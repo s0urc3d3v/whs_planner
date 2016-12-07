@@ -8,17 +8,19 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 import java.util.ResourceBundle;
-import javax.swing.Timer;
 
 public class ScheduleController implements Initializable, ActionListener
 {
@@ -36,10 +38,17 @@ public class ScheduleController implements Initializable, ActionListener
 
     private Timer progressbartimer;
 
+    Pane getBar() {
+        AnchorPane anchor = new AnchorPane();
+        anchor.getChildren().add(progressBar);
+        return anchor;
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        System.out.println("Schedule controller init called");
         grid.setGridLinesVisible(false);
         grid.setStyle("-fx-background-color: #F1F1F1;");
         panes = new BorderPane[82];
@@ -150,7 +159,7 @@ public class ScheduleController implements Initializable, ActionListener
     }
 
 
-    public String getletterday()
+    private String getletterday()
     {
         String result = "error";
 
@@ -172,7 +181,7 @@ public class ScheduleController implements Initializable, ActionListener
         return result;
     }
 
-    public void buildLetterDays()
+    private void buildLetterDays()
     {
         try
         {
@@ -211,7 +220,7 @@ public class ScheduleController implements Initializable, ActionListener
     }
 
 
-    public double progressVal()
+    private double progressVal()
     {
         Date date = new Date();
 
@@ -221,7 +230,7 @@ public class ScheduleController implements Initializable, ActionListener
 
         int num = parseDate(dateS);
 
-        double mod = 1;
+        double mod;
 
         if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == 4)
         {
@@ -289,7 +298,7 @@ public class ScheduleController implements Initializable, ActionListener
         return mod;
     }
 
-    public int parseDate(String date)
+    private int parseDate(String date)
     {
         String hour = date.substring(0, date.indexOf(":"));
         String minute = date.substring(date.indexOf(":")+1);

@@ -132,18 +132,18 @@ public class MainPane extends Pane {
 
     private void generatePanes() {
         Schedule schedule = new Schedule();
-        Pane Schedule = (Pane) schedule.getPane();
-        Pane Calendar = new Calendar(1, 30);
-        Pane News = new GeoffreyNewsUI();
-        Pane Meeting = new MeetingPane();
+        Pane schedulePane = (Pane) schedule.getPane();
+        Pane calendar = new Calendar(1, 30);
+        Pane news = new GeoffreyNewsUI();
+        Pane meeting = new MeetingPane();
 
-        Home Home = new Home(Calendar, News, Schedule);
+        Home Home = new Home(calendar, news, schedule.getProgressBar());
 
         addPane(Home);
-        addPane(Schedule);
-        addPane(Calendar);
-        addPane(News);
-        addPane(Meeting);
+        addPane(schedulePane);
+        addPane(calendar);
+        addPane(news);
+        addPane(meeting);
 
     }
 
