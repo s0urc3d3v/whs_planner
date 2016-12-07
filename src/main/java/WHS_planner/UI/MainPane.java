@@ -142,7 +142,6 @@ public class MainPane extends Pane {
 
         GeoffreyNewsUI news = new GeoffreyNewsUI();
 
-
         homePane = new Home(calendar, news.getMasonryPane(), schedule.getProgressBar());
 
 //        addPane(new AnchorPane());
@@ -174,6 +173,8 @@ public class MainPane extends Pane {
                 System.out.println("case 1");
                 content.getChildren().clear();
                 content.getChildren().add(homePane);
+
+
             }
             //if we're on home and we click somewhere else
             else if ((id != 0) && content.getChildren().contains(contentPanes.get(0))) {

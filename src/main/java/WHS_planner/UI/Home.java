@@ -8,14 +8,21 @@ import javafx.scene.layout.Pane;
 
 class Home extends BorderPane {
 
+    private Pane newsUI;
+
+
     private Pane cal;
     private ScrollPane news;
     private Pane bar;
+    private ScrollPane newsScroll;
 
 
     Home(Pane calendar, Pane newsUI, Pane schedule) {
         cal = calendar;
-        ScrollPane newsScroll = new ScrollPane();
+
+
+        this.newsUI = newsUI;
+        newsScroll = new ScrollPane();
         newsScroll.setContent(newsUI);
         newsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         newsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -49,9 +56,9 @@ class Home extends BorderPane {
         news.setMaxWidth(280);
         news.setPrefHeight(this.getPrefHeight());
         this.setRight(news);
-
-
     }
+
+
 
 
 }
