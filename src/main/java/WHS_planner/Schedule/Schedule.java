@@ -29,9 +29,6 @@ public class Schedule
 
     public static Scene schedule;
 
-    //boolean for bell 2's which has no function at the moment
-    //private boolean special = false;
-
     public Schedule()
     {
         try

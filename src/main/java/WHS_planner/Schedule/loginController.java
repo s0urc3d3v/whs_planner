@@ -1,5 +1,7 @@
 package WHS_planner.Schedule;
 
+import WHS_planner.Main;
+import WHS_planner.UI.MainPane;
 import WHS_planner.Util.AesTool;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
@@ -61,13 +63,15 @@ public class loginController implements Initializable
                     SecretKey aesKey = keyGenerator.generateKey();
                     AesTool usernameAesTool = new AesTool(username, aesKey.getEncoded().toString());
 
-
                     bw.write(username);
                     bw.newLine();
                     bw.write(pass);
                     bw.close();
 
                     error.setText("Login successful! Please restart to see schedule");
+
+                    MainPane mp = (MainPane) Main.getMainPane();
+                    mp.resetSchedule();
 
                 }
                 else

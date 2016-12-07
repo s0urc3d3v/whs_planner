@@ -24,6 +24,10 @@ public class MainPane extends Pane {
     private Pane content;
     private ArrayList<Pane> contentPanes;
 
+    private VBox mainPane;
+
+    private Schedule schedule;
+
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
         navBar.getStyleClass().setAll("navBar");
@@ -32,7 +36,7 @@ public class MainPane extends Pane {
         content = new Pane(); //Creates an empty main content pane
         contentPanes = new ArrayList<>(); //Makes an empty list for all the content panes
         generatePanes(); //Loads in all the different panes
-        VBox mainPane = createPane();
+        mainPane = createPane();
         mainPane.prefWidthProperty().bind(this.widthProperty());
         mainPane.prefHeightProperty().bind(this.heightProperty());
         this.getChildren().setAll(mainPane); //Set the main pane as the pane generated
@@ -130,13 +134,23 @@ public class MainPane extends Pane {
         return drawer;
     }
 
-    private void generatePanes() {
-        Schedule schedule = new Schedule();
-
+    private void generatePanes()
+    {
+        schedule = new Schedule();
         addPane((Pane) schedule.getPane());
         addPane(new Calendar(1,30));
         addPane(new GeoffreyNewsUI());
         addPane(new MeetingPane());
+    }
+
+
+    public void resetSchedule() throws Exception
+    {
+        remPane((Pane)schedule.getPane());
+        schedule = new Schedule();
+        addPane((Pane) schedule.getPane(), 0);
+        content.getChildren().clear();
+        content.getChildren().add(contentPanes.get(0));
     }
 
     private Node[] generateButtons(String[] text, double width, double buttonHeight) {
@@ -167,6 +181,17 @@ public class MainPane extends Pane {
         pane.prefHeightProperty().bind(content.heightProperty());
         pane.prefWidthProperty().bind(content.widthProperty());
         contentPanes.add(pane);
+    }
+
+    private void addPane(Pane pane, int i) {
+        pane.prefHeightProperty().bind(content.heightProperty());
+        pane.prefWidthProperty().bind(content.widthProperty());
+        contentPanes.add(i, pane);
+    }
+
+    private void remPane(Pane pane)
+    {
+        contentPanes.remove(pane);
     }
 
     private void closeDrawer(JFXDrawer drawer, JFXHamburger hamburg) {
