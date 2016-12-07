@@ -23,6 +23,7 @@ public class MainPane extends Pane {
 
     private VBox mainPane;
 
+
     private Schedule schedule;
 
     public MainPane(){
@@ -132,8 +133,7 @@ public class MainPane extends Pane {
     }
 
     private void generatePanes() {
-        Schedule schedule = new Schedule();
-        Pane schedulePane = (Pane) schedule.getPane();
+        schedule = new Schedule();
         Pane calendar = new Calendar(1, 30);
         Pane news = new GeoffreyNewsUI();
         Pane meeting = new MeetingPane();
@@ -141,7 +141,7 @@ public class MainPane extends Pane {
 //        Home Home = new Home(calendar, news, schedule.getProgressBar());
 
         addPane(new AnchorPane());
-        addPane(schedulePane);
+        addPane((Pane) schedule.getPane());
         addPane(calendar);
         addPane(news);
         addPane(meeting);
@@ -151,11 +151,17 @@ public class MainPane extends Pane {
 
     public void resetSchedule() throws Exception
     {
+        System.out.println("a");
         remPane((Pane)schedule.getPane());
+        System.out.println("b");
         schedule = new Schedule();
-        addPane((Pane) schedule.getPane(), 0);
+        System.out.println("c");
+        addPane((Pane) schedule.getPane(), 1);
+        System.out.println("d");
         content.getChildren().clear();
-        content.getChildren().add(contentPanes.get(0));
+        System.out.println("e");
+        content.getChildren().add(contentPanes.get(1));
+        System.out.println("f");
     }
 
     private Node[] generateButtons(String[] text, double width, double buttonHeight) {

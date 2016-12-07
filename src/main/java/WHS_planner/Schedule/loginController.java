@@ -81,10 +81,7 @@ public class loginController implements Initializable
                     bw.write(pass);
                     bw.close();
 
-                    error.setText("Login successful! Please restart to see schedule");
-
-                    MainPane mp = (MainPane) Main.getMainPane();
-                    mp.resetSchedule();
+                    error.setText("Login successful! Please wait....");
 
                 }
                 else
@@ -95,6 +92,17 @@ public class loginController implements Initializable
             catch(Exception e)
             {
                 System.out.println("Error occurred during login");
+            }
+
+
+            try
+            {
+                MainPane mp = (MainPane) Main.getMainPane();
+                mp.resetSchedule();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
             }
 
         }
