@@ -9,10 +9,7 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,19 +20,21 @@ public class MainPane extends Pane {
     private Pane navBar;
     private Pane content;
     private ArrayList<Pane> contentPanes;
-    private Home homePane;
+
+    private VBox mainPane;
+
+
+    private Schedule schedule;
 
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
-        assert navBar != null;
         navBar.getStyleClass().setAll("navBar");
-
         navBar.getChildren().get(0).getStyleClass().setAll("jfx-hamburger-icon");
         navBar.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);");
         content = new Pane(); //Creates an empty main content pane
         contentPanes = new ArrayList<>(); //Makes an empty list for all the content panes
         generatePanes(); //Loads in all the different panes
-        VBox mainPane = createPane();
+        mainPane = createPane();
         mainPane.prefWidthProperty().bind(this.widthProperty());
         mainPane.prefHeightProperty().bind(this.heightProperty());
         this.getChildren().setAll(mainPane); //Set the main pane as the pane generated
@@ -134,21 +133,35 @@ public class MainPane extends Pane {
     }
 
     private void generatePanes() {
-        Schedule schedule = new Schedule();
-        Pane schedulePane = (Pane) schedule.getPane();
+        schedule = new Schedule();
         Pane calendar = new Calendar(1, 30);
-        GeoffreyNewsUI news = new GeoffreyNewsUI();
+        Pane news = new GeoffreyNewsUI();
         Pane meeting = new MeetingPane();
 
+//        Home Home = new Home(calendar, news, schedule.getProgressBar());
 
-        homePane = new Home(calendar, news.getMasonryPane(), schedule.getProgressBar());
-
-        addPane(homePane);
-        addPane(schedulePane);
+        addPane(new AnchorPane());
+        addPane((Pane) schedule.getPane());
         addPane(calendar);
         addPane(news);
         addPane(meeting);
 
+    }
+
+
+    public void resetSchedule() throws Exception
+    {
+        System.out.println("a");
+        remPane((Pane)schedule.getPane());
+        System.out.println("b");
+        schedule = new Schedule();
+        System.out.println("c");
+        addPane((Pane) schedule.getPane(), 1);
+        System.out.println("d");
+        content.getChildren().clear();
+        System.out.println("e");
+        content.getChildren().add(contentPanes.get(1));
+        System.out.println("f");
     }
 
     private Node[] generateButtons(String[] text, double width, double buttonHeight) {
@@ -164,25 +177,7 @@ public class MainPane extends Pane {
 
     private void setMouseClickedEvent(JFXButton button, final int id) {
         button.setOnMouseClicked(event -> {
-
-
-            //if we're NOT on home and click to home
-            if ((id == 0) && !content.getChildren().contains(contentPanes.get(0))) {
-                System.out.println("case 1");
-                content.getChildren().clear();
-                content.getChildren().add(homePane);
-
-
-            }
-            //if we're on home and we click somewhere else
-            else if ((id != 0) && content.getChildren().contains(contentPanes.get(0))) {
-                System.out.println("case 2");
-                content.getChildren().clear();
-                content.getChildren().add(contentPanes.get(id));
-            }
-            //not home -> also not home
-            else if ((id != 0) && !content.getChildren().contains(contentPanes.get(id))) {
-                System.out.println("case 3");
+            if(!content.getChildren().contains(contentPanes.get(id))) {
                 content.getChildren().clear();
                 content.getChildren().add(contentPanes.get(id));
             }
@@ -197,6 +192,17 @@ public class MainPane extends Pane {
         pane.prefHeightProperty().bind(content.heightProperty());
         pane.prefWidthProperty().bind(content.widthProperty());
         contentPanes.add(pane);
+    }
+
+    private void addPane(Pane pane, int i) {
+        pane.prefHeightProperty().bind(content.heightProperty());
+        pane.prefWidthProperty().bind(content.widthProperty());
+        contentPanes.add(i, pane);
+    }
+
+    private void remPane(Pane pane)
+    {
+        contentPanes.remove(pane);
     }
 
     private void closeDrawer(JFXDrawer drawer, JFXHamburger hamburg) {
