@@ -2,6 +2,7 @@ package WHS_planner.Schedule;
 
 import WHS_planner.Core.JSON;
 import WHS_planner.Util.AesTool;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -44,6 +45,18 @@ public class ScheduleController implements Initializable, ActionListener
 
     private Timer progressbartimer;
 
+    private String s;
+
+
+//    Pane getBar() {
+//        BorderPane anchor = new BorderPane();
+////        HBox anchor = new HBox();
+////        AnchorPane anchor = new AnchorPane();
+//
+////        anchor.getChildren().add(progressBar);
+//        anchor.setCenter(progressBar);
+//        return anchor;
+//    }
     ProgressBar getBar() {
         return progressBar;
     }
@@ -99,25 +112,7 @@ public class ScheduleController implements Initializable, ActionListener
                 BufferedReader bri = new BufferedReader(new FileReader(ipass));
                 String user = bri.readLine();
                 String pass = bri.readLine();
-                //TODO json read aes key from keys.key.json
 
-                JSON jsonApi = new JSON();
-                jsonApi.loadFile("keys" + File.separator + "keys.key.json");
-                String encodedKey = (String) jsonApi.readPair("aesKey");
-
-                try {
-                    byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
-                    SecretKey aeskey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
-                    AesTool usernameTool = new AesTool(user, aeskey);
-                    System.out.println("encrypting username");
-                    AesTool passwordTool = new AesTool(pass, aeskey);
-                    System.out.println("encryption password");
-                    user = usernameTool.decrypt();
-                    pass = passwordTool.decrypt();
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
 
                 bri.close();
 
@@ -133,7 +128,6 @@ public class ScheduleController implements Initializable, ActionListener
                     {
                         public void run()
                         {
-                            String s;
                             BufferedReader br;
                             try
                             {
@@ -150,6 +144,7 @@ public class ScheduleController implements Initializable, ActionListener
                                 {
                                     buildLetterDays();
                                 }
+
                                 br.close();
                             }
                             catch (Exception e)
@@ -164,8 +159,17 @@ public class ScheduleController implements Initializable, ActionListener
                                 s = "Today is '" + s + "' day!";
                             }
 
+                            //you can't do javafx stuff on other threads
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run()
+                                {
+                                    Title3.setText(s);
+                                }
+                            });
+
                             //we can set the day here
-                            Title3.setText(s);
+                            //Title3.setText(s);
                         }
                     };
                     t.start();

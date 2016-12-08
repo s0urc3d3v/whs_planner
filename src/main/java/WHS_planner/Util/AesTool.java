@@ -7,10 +7,12 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.security.Key;
 import java.util.Base64;
 
+import static java.lang.System.exit;
 import static org.apache.commons.codec.binary.Hex.encodeHex;
 
 
@@ -38,7 +40,7 @@ public class AesTool {
         try {
 
             cipher.init(Cipher.DECRYPT_MODE, AES_KEY);
-            String dec = new String(cipher.doFinal(enc));
+            String dec = new String(cipher.doFinal(AES_KEY.getEncoded()));
             return dec;
         } catch (Exception e){
             e.printStackTrace();
@@ -46,17 +48,15 @@ public class AesTool {
         }
     }
 
-    public void done(){
-        JSON jsonApi = new JSON();
-        jsonApi.loadFile("Keys" + File.separator + "keys.key.json");
-        JSONObject obj = new JSONObject();
+    public void done() {
         String encodedKey = Base64.getEncoder().encodeToString(AES_KEY.getEncoded());
-        obj.put("aesKey", encodedKey);
         try {
-            jsonApi.writeRaw(obj);
+            FileWriter fileWriter = new FileWriter("Keys" + File.separator + "aes.key");
+            fileWriter.write(encodedKey);
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        jsonApi.unloadFile();
     }
+
 }

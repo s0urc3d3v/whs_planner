@@ -59,15 +59,7 @@ public class loginController implements Initializable
                     }
                     BufferedWriter bw = new BufferedWriter(new FileWriter(f));
                     //TODO
-                    KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-                    keyGenerator.init(128);
-                    SecretKey aesKey = keyGenerator.generateKey();
-                    AesTool usernameAesTool = new AesTool(username, aesKey);
-                    AesTool passwordAesTool = new AesTool(pass, aesKey);
-                    username = usernameAesTool.encrypt();
-                    pass = passwordAesTool.encrypt();
-                    usernameAesTool.done();
-                    //TODO add passwordAesTool too
+
 
                     bw.write(username);
                     bw.newLine();
