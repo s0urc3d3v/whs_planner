@@ -100,10 +100,8 @@ public class ScheduleController implements Initializable, ActionListener
                 String user = bri.readLine();
                 String pass = bri.readLine();
                 //TODO json read aes key from keys.key.json
-
-                JSON jsonApi = new JSON();
-                jsonApi.loadFile("keys" + File.separator + "keys.key.json");
-                String encodedKey = (String) jsonApi.readPair("aesKey");
+                BufferedReader fileReader = new BufferedReader(new FileReader("keys" + File.separator + "aes.key"));
+                String encodedKey = fileReader.readLine();
 
                 try {
                     byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
@@ -116,6 +114,7 @@ public class ScheduleController implements Initializable, ActionListener
                     pass = passwordTool.decrypt();
                 }
                 catch (Exception e){
+                    System.out.println("heir");
                     e.printStackTrace();
                 }
 

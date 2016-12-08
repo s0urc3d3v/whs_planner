@@ -63,6 +63,13 @@ public class JSON {
             ErrorHandler.HandleIOError(e);
         }
     }
+    public void unloadWithoutWrite(){
+        try{
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /*
     READING METHODS
