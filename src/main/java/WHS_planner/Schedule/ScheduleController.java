@@ -2,6 +2,7 @@ package WHS_planner.Schedule;
 
 import WHS_planner.Core.JSON;
 import WHS_planner.Util.AesTool;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -44,6 +45,18 @@ public class ScheduleController implements Initializable, ActionListener
 
     private Timer progressbartimer;
 
+    private String s;
+
+
+//    Pane getBar() {
+//        BorderPane anchor = new BorderPane();
+////        HBox anchor = new HBox();
+////        AnchorPane anchor = new AnchorPane();
+//
+////        anchor.getChildren().add(progressBar);
+//        anchor.setCenter(progressBar);
+//        return anchor;
+//    }
     ProgressBar getBar() {
         return progressBar;
     }
@@ -115,7 +128,6 @@ public class ScheduleController implements Initializable, ActionListener
                     {
                         public void run()
                         {
-                            String s;
                             BufferedReader br;
                             try
                             {
@@ -132,6 +144,7 @@ public class ScheduleController implements Initializable, ActionListener
                                 {
                                     buildLetterDays();
                                 }
+
                                 br.close();
                             }
                             catch (Exception e)
@@ -146,8 +159,17 @@ public class ScheduleController implements Initializable, ActionListener
                                 s = "Today is '" + s + "' day!";
                             }
 
+                            //you can't do javafx stuff on other threads
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run()
+                                {
+                                    Title3.setText(s);
+                                }
+                            });
+
                             //we can set the day here
-                            Title3.setText(s);
+                            //Title3.setText(s);
                         }
                     };
                     t.start();

@@ -227,6 +227,7 @@ public class Schedule
             try
             {
                 parse.getClasses();
+                f.delete();
             }
             catch(IOException ie)
             {
@@ -238,21 +239,11 @@ public class Schedule
 
     public ScheduleBlock[] getData()
     {
-        parseSchedule();
-
         File schedulefile = new File("Schedule.json");
 
         if(!schedulefile.exists())
         {
-            try
-            {
-                schedulefile.createNewFile();
-
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            parseSchedule();
         }
 
         IO dotaIo = new IO("Schedule.json");
