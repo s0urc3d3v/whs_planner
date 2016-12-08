@@ -13,6 +13,11 @@ import javafx.stage.Stage;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.io.File;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Random;
 
 public class Main extends Application {
 
@@ -24,7 +29,6 @@ public class Main extends Application {
      * It initializes and runs the application!
      */
     public static void main(String[] args) {
-
         PropertyConfigurator.configure("log4j.properties");
 
        File keys = new File("Keys");
@@ -32,6 +36,13 @@ public class Main extends Application {
        if(!keys.exists())
        {
            keys.mkdir();
+       }
+       File encKey = new File("Keys" + File.separator + "xor.key");
+       if (!encKey.exists()){
+           Random r = new Random();
+           int key = r.nextInt();
+           Files.write(Paths.get("Keys" + File.separator + "xor.key"), String.valueOf(key).getBytes(), Charset.forName("UTF-8"), StandardOpenOption.CREATE);
+
        }
 
 
