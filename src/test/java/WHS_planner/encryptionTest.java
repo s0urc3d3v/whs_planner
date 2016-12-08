@@ -11,4 +11,8 @@ import java.security.NoSuchAlgorithmException;
  * Created by matthewelbing on 07.12.16.
  */
 public class encryptionTest extends TestCase {
+    public void testEncryption() throws Exception {
+        String username = "Dank_user";
+        String password = "DankPassword";
+    }
 }
