@@ -10,5 +10,3 @@ Remember to make and run tests BEFORE pushing to your branch.
 Also please do not merge until Travis says that your branch is working.
 
 [**Github Emojis to Spice up our commits!**](http://www.webpagefx.com/tools/emoji-cheat-sheet/)
-
-<img src=http://i.imgur.com/1ZVRQkc.jpg>
