@@ -223,4 +223,9 @@ public class Calendar extends ContentPane {
     public CalendarBox GetCurrentCalendarBox(){
         return getCalendarBox(currentDate);
     }
+
+    @Override
+    public String getName() {
+        return "Calendar";
+    }
 }
