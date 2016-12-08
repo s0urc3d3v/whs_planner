@@ -153,7 +153,7 @@ public class MainPane extends Pane {
         addPane(meeting);
 
 
-        content.getChildren().add(contentPanes.get(0));
+        content.getChildren().add(contentPanes.get(0)); //Sets home tab as default
 
     }
 

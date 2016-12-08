@@ -12,10 +12,14 @@ class Home extends BorderPane {
 
     Home(Pane calendar, Pane newsUI, ProgressBar schedule) {
         this.setPrefWidth(1100);
+        this.setMinWidth(1100);
         //TODO ^
 
+        //Calendar
         this.setCenter(calendar);
 
+
+        //News
         ScrollPane newsScroll = new ScrollPane();
         newsScroll.setContent(newsUI);
         newsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -29,7 +33,7 @@ class Home extends BorderPane {
         newsScroll.setPrefHeight(this.getPrefHeight());
         this.setRight(newsScroll);
 
-
+        //Progress bar
         BorderPane barPane = new BorderPane();
         barPane.setCenter(schedule);
         setBottom(barPane);

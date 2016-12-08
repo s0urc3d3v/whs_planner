@@ -1,22 +1,24 @@
 package WHS_planner.Calendar;
 
+import WHS_planner.UI.ContentPane;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 
-/**
- * Created by geoffrey_wang on 9/21/16.
- */
-public class Calendar extends BorderPane {
+
+public class Calendar extends ContentPane {
 
     //Days of the week
     private String[] daysOfTheWeek = new String[]{"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
@@ -67,32 +69,32 @@ public class Calendar extends BorderPane {
             Label dayLabel = new Label(daysOfTheWeek[dayIndex]);
             dayLabel.getStyleClass().add("weekday");
             firstRow.add(dayLabel,dayIndex,0);
-            firstRow.setHgrow(dayLabel,Priority.ALWAYS);
+            GridPane.setHgrow(dayLabel, Priority.ALWAYS);
             dayLabel.prefWidthProperty().bind(this.getCalendarBox(1).widthProperty());
         }
 
         //Fill in rest of the calendar
-        for (int r = 0; r < calendar.length ; r++) {
+        for (CalendarBox[] aCalendar : calendar) {
             GridPane row = new GridPane();
             row.setAlignment(Pos.CENTER);
             row.setHgap(10);
-            row.setPadding(new Insets(5,5,5,5));
-            for (int c = 0; c < calendar[r].length; c++) {
+            row.setPadding(new Insets(5, 5, 5, 5));
+            for (int c = 0; c < aCalendar.length; c++) {
                 CalendarBox tempCalendarBox;
-                if (calendar[r][c] != null) {
-                    tempCalendarBox = calendar[r][c];
-                }else{
-                    tempCalendarBox = new CalendarBox(0,0,false);
+                if (aCalendar[c] != null) {
+                    tempCalendarBox = aCalendar[c];
+                } else {
+                    tempCalendarBox = new CalendarBox(0, 0, false);
                 }
                 tempCalendarBox.prefHeightProperty().bind(row.heightProperty());
-                row.add(tempCalendarBox,c,0);
-                row.setHgrow(tempCalendarBox,Priority.ALWAYS);
+                row.add(tempCalendarBox, c, 0);
+                GridPane.setHgrow(tempCalendarBox, Priority.ALWAYS);
             }
             rows.add(row);
         }
 
         for (Node row:rows) {
-            mainPane.setVgrow(row,Priority.ALWAYS);
+            VBox.setVgrow(row, Priority.ALWAYS);
             GridPane tempGridPane = (GridPane)row;
             tempGridPane.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT +10);
             tempGridPane.setMinWidth(7*CalendarBox.CALENDAR_BOX_MIN_WIDTH +10);
@@ -101,13 +103,13 @@ public class Calendar extends BorderPane {
 
         mainPane.getChildren().setAll(rows);
 
-        this.setCenter(mainPane);
+        this.getChildren().addAll(mainPane);
 
         LayoutAnimator animator = new LayoutAnimator();
 //        animator.observe(mainPane.getChildren());
     }
 
-    public void update(int row, int date){
+    void update(int row, int date) {
 
         int[] rowIDs = new int[]{1,2,3,4,5};
         GridPane tempPane = (GridPane) mainPane.getChildren().get(1);
@@ -141,7 +143,7 @@ public class Calendar extends BorderPane {
         taskBox = getCalendarBox(date).getTaskBox(tempPane.widthProperty());
     }
 
-    public void changeButtonColor(JFXButton button,boolean selected){
+    private void changeButtonColor(JFXButton button, boolean selected) {
         if(selected){
             button.getStyleClass().setAll("box-button-selected");
         }else{
@@ -149,27 +151,25 @@ public class Calendar extends BorderPane {
         }
     }
 
-    public CalendarBox getCalendarBox(int date){
+    private CalendarBox getCalendarBox(int date) {
         CalendarBox currentBox = null;
 
-        for (int rowIndex = 0; rowIndex < calendar.length; rowIndex++) {
-            for (int colIndex = 0; colIndex < calendar[rowIndex].length; colIndex++) {
-                CalendarBox box = calendar[rowIndex][colIndex];
-                if(box != null) {
-                    if (Integer.valueOf(box.getDate()) == date) {
-                        currentBox = calendar[rowIndex][colIndex];
-                        break;
-                    }
+        for (CalendarBox[] aCalendar : calendar) {
+            for (int colIndex = 0; colIndex < aCalendar.length; colIndex++) {
+                CalendarBox box = aCalendar[colIndex];
+                if (box != null) if (Integer.valueOf(box.getDate()) == date) {
+                    currentBox = aCalendar[colIndex];
+                    break;
                 }
             }
-            if(currentBox != null){
+            if (currentBox != null) {
                 break;
             }
         }
         return currentBox;
     }
 
-    public void addTaskBox(int row, Node taskBoxInstance){
+    private void addTaskBox(int row, Node taskBoxInstance) {
         mainPane.getChildren().add(row+1, taskBoxInstance);
         FadeTransition fadeIn = new FadeTransition(Duration.millis(1750));
         fadeIn.setNode(taskBoxInstance);
@@ -181,7 +181,7 @@ public class Calendar extends BorderPane {
         fadeIn.playFromStart();
     }
 
-    public void removeTaskBox(Node taskBoxInstance){
+    private void removeTaskBox(Node taskBoxInstance) {
         FadeTransition fadeOut = new FadeTransition(Duration.millis(1750));
         fadeOut.setNode(taskBoxInstance);
 
