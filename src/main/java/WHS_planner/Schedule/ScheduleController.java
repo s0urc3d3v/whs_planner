@@ -100,23 +100,21 @@ public class ScheduleController implements Initializable, ActionListener
                 String user = bri.readLine();
                 String pass = bri.readLine();
                 //TODO json read aes key from keys.key.json
-                BufferedReader fileReader = new BufferedReader(new FileReader("keys" + File.separator + "aes.key"));
-                String encodedKey = fileReader.readLine();
-
-                try {
-                    byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
-                    SecretKey aeskey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
-                    AesTool usernameTool = new AesTool(user, aeskey);
-                    System.out.println("encrypting username");
-                    AesTool passwordTool = new AesTool(pass, aeskey);
-                    System.out.println("encryption password");
-                    user = usernameTool.decrypt();
-                    pass = passwordTool.decrypt();
-                }
-                catch (Exception e){
-                    System.out.println("heir");
-                    e.printStackTrace();
-                }
+//                BufferedReader fileReader = new BufferedReader(new FileReader("keys" + File.separator + "aes.key"));
+//                String encodedKey = fileReader.readLine();
+//
+//                try {
+//                    byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
+//                    SecretKey aeskey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+//                    AesTool usernameTool = new AesTool(user, aeskey);
+//                    AesTool passwordTool = new AesTool(pass, aeskey);
+//                    user = usernameTool.decrypt();
+//                    pass = passwordTool.decrypt();
+//                }
+//                catch (Exception e){
+//                    System.out.println("heir");
+//                    e.printStackTrace();
+//                }
 
                 bri.close();
 
