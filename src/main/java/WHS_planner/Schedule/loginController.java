@@ -3,6 +3,7 @@ package WHS_planner.Schedule;
 import WHS_planner.Main;
 import WHS_planner.UI.MainPane;
 import WHS_planner.Util.AesTool;
+import WHS_planner.Util.XorTool;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -58,8 +59,12 @@ public class loginController implements Initializable
                         f.createNewFile();
                     }
                     BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-                    //TODO
+                    String xorKey = Main.getXorKey();
+                    username = XorTool.encode(username, xorKey);
+                    pass = XorTool.encode(pass, xorKey);
 
+                    System.out.println(username);
+                    System.out.println(pass);
 
                     bw.write(username);
                     bw.newLine();

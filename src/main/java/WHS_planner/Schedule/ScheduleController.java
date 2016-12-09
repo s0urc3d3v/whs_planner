@@ -1,7 +1,9 @@
 package WHS_planner.Schedule;
 
 import WHS_planner.Core.JSON;
+import WHS_planner.Main;
 import WHS_planner.Util.AesTool;
+import WHS_planner.Util.XorTool;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -113,6 +115,11 @@ public class ScheduleController implements Initializable, ActionListener
                 String user = bri.readLine();
                 String pass = bri.readLine();
 
+                user = XorTool.decode(user, Main.getXorKey());
+                pass = XorTool.decode(pass, Main.getXorKey());
+
+                System.out.println(user);
+                System.out.println(pass);
 
                 bri.close();
 

@@ -12,19 +12,30 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.apache.log4j.PropertyConfigurator;
 
-import java.io.File;
+
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Random;
 
 public class Main extends Application {
-
-
+    private static String readKey = null;
     private static MainPane mainPane;
+
+    public static String getXorKey() {
+        if (readKey != null) {
+            return readKey;
+        }
+        return null;
+    }
 
     /**
      * The main method of the program.
      * It initializes and runs the application!
      */
     public static void main(String[] args) {
-
         PropertyConfigurator.configure("log4j.properties");
 
        File keys = new File("Keys");
@@ -33,9 +44,30 @@ public class Main extends Application {
        {
            keys.mkdir();
        }
+       File encKey = new File("Keys" + File.separator + "xor.key");
+       if (!encKey.exists()) {
+           Random r = new Random();
+           int key = r.nextInt();
+           try {
+               BufferedWriter writer = new BufferedWriter(new FileWriter("Keys" + File.separator + "xor.key"));
+               writer.write(String.valueOf(key));
+               writer.close();
+               System.out.println("Key Written");
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+       }
+       else {
+           try {
+               BufferedReader reader = new BufferedReader(new FileReader("keys" + File.separator + "xor.key"));
+               readKey = reader.readLine();
+               System.out.println(readKey);
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+       }
 
-
-       launch(args);
+        launch(args);
     }
 
     /**
