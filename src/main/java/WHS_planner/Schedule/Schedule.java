@@ -258,6 +258,11 @@ public class Schedule
 
         if(!schedulefile.exists())
         {
+            try {
+                schedulefile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             parseSchedule();
         }
 
