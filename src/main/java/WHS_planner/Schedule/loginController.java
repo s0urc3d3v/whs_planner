@@ -89,7 +89,6 @@ public class loginController implements Initializable
             }
             catch(Exception e)
             {
-                e.printStackTrace();
                 System.out.println("Error occurred during login");
             }
 

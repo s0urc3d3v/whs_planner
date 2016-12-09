@@ -37,7 +37,7 @@ public class Main extends Application {
      * The main method of the program.
      * It initializes and runs the application!
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         PropertyConfigurator.configure("log4j.properties");
 
        File keys = new File("Keys");
@@ -46,6 +46,15 @@ public class Main extends Application {
        {
            keys.mkdir();
        }
+
+       File jsonkeyring = new File("Keys"+File.separator+"keys.key.json");
+
+       if(!jsonkeyring.exists())
+       {
+           jsonkeyring.createNewFile();
+       }
+
+
        File encKey = new File("Keys" + File.separator + "xor.key");
        if (!encKey.exists()) {
            Random r = new Random();

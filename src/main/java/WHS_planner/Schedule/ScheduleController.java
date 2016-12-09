@@ -18,11 +18,9 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.nio.Buffer;
 import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,6 +31,8 @@ import java.util.ResourceBundle;
 
 public class ScheduleController implements Initializable, ActionListener
 {
+
+    private boolean write = false;
 
     @FXML
     private GridPane grid;
@@ -175,8 +175,6 @@ public class ScheduleController implements Initializable, ActionListener
                                 }
                             });
 
-                            //we can set the day here
-                            //Title3.setText(s);
                         }
                     };
                     t.start();
@@ -239,21 +237,66 @@ public class ScheduleController implements Initializable, ActionListener
             br.close();
             fr.close();
 
-            File tmp = new File("tmp");
+            File downloadcache = new File("Keys"+File.separator+"DLCache.key");
 
-            if(!tmp.exists() || tmp.listFiles().length == 0)
+            BufferedWriter dlcw;
+
+            if(!downloadcache.exists())
             {
-                //System.out.println("User: "+user+" : Password: "+pass);
-
+                downloadcache.createNewFile();
+                dlcw = new BufferedWriter(new FileWriter(downloadcache));
+                dlcw.write("false");
+                dlcw.close();
                 GrabDay gd = new GrabDay(user, pass);
                 gd.grabData();
+                write = true;
+            }
+            else
+            {
+                BufferedReader dlc = new BufferedReader(new FileReader(downloadcache));
+                String val = dlc.readLine();
+                dlc.close();
+                if(val != null)
+                {
+                    if(val.equals("false"))
+                    {
+                        File tmpf = new File("tmp");
+                        dlcw = new BufferedWriter(new FileWriter(downloadcache));
+                        dlcw.write("false");
+                        dlcw.close();
+                        try
+                        {
+                            delete(tmpf);
+                        }
+                        catch(Exception e)
+                        {
+                        }
+
+                        GrabDay gd = new GrabDay(user, pass);
+                        gd.grabData();
+                        downloadcache.delete();
+                        downloadcache.createNewFile();
+                        dlcw = new BufferedWriter(new FileWriter(downloadcache));
+                        dlcw.write("true");
+                        write = true;
+                        dlcw.close();
+                    }
+                }
+
+
             }
 
-            ParseCalendar pc = new ParseCalendar();
-            pc.setData();
-            pc.writeData();
 
-            delete(tmp);
+            File tmp = new File("tmp");
+
+            if(write)
+            {
+                ParseCalendar pc = new ParseCalendar();
+                pc.setData();
+                pc.writeData();
+                delete(tmp);
+            }
+
 
         }
         catch(Exception e)
