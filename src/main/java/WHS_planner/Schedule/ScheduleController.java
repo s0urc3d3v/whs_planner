@@ -233,6 +233,9 @@ public class ScheduleController implements Initializable, ActionListener
             String user = br.readLine();
             String pass = br.readLine();
 
+            user = XorTool.decode(user, Main.getXorKey());
+            pass = XorTool.decode(pass, Main.getXorKey());
+
             br.close();
             fr.close();
 

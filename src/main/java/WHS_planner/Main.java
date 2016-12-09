@@ -48,6 +48,7 @@ public class Main extends Application {
        if (!encKey.exists()) {
            Random r = new Random();
            int key = r.nextInt();
+           readKey = String.valueOf(key);
            try {
                BufferedWriter writer = new BufferedWriter(new FileWriter("Keys" + File.separator + "xor.key"));
                writer.write(String.valueOf(key));
