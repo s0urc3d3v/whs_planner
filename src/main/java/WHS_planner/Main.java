@@ -24,8 +24,10 @@ public class Main extends Application {
     private static String readKey = null;
     private static MainPane mainPane;
 
-    public static String getXorKey() {
-        if (readKey != null) {
+    public static String getXorKey()
+    {
+        if (readKey != null)
+        {
             return readKey;
         }
         return null;
@@ -62,6 +64,7 @@ public class Main extends Application {
            try {
                BufferedReader reader = new BufferedReader(new FileReader("keys" + File.separator + "xor.key"));
                readKey = reader.readLine();
+               reader.close();
                System.out.println(readKey);
            } catch (IOException e) {
                e.printStackTrace();
