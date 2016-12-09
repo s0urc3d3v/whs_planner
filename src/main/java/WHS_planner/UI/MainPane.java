@@ -140,7 +140,7 @@ public class MainPane extends Pane {
 
     private void generatePanes() {
         schedule = new Schedule();
-        Pane calendar = new Calendar(1, 30);
+        ContentPane calendar = new Calendar(1, 30);
         GeoffreyNewsUI news = new GeoffreyNewsUI();
         Pane meeting = new MeetingPane();
 

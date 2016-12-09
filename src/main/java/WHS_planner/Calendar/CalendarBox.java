@@ -6,12 +6,15 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -36,6 +39,7 @@ public class CalendarBox extends Pane{
     private Map<String,Object> map; //A map of all the objects in the FXML
     private VBox taskBox;
     private VBox tasksPane;
+    private Circle dayCircle;
 
     public CalendarBox(int date, int week, boolean active){
         this.date = date; //This box's date
@@ -72,6 +76,7 @@ public class CalendarBox extends Pane{
 
     //Initializes this box
     public void initFXMLBox(){
+        dayCircle = (Circle)map.get("dayCircle");
         String dateString = date + ""; //Creates a string version of the date value
         getDateLabel().setText(dateString); //Set the dateLabel text = to the date
 
@@ -83,6 +88,19 @@ public class CalendarBox extends Pane{
                 calendar.update(week,date);
             }
         }));
+        if (java.util.Calendar.getInstance().getTime().getDay() == this.getDate()) {
+            dayCircle.setFill(new Color(255/255, 152/255.0, 0, 100/100));
+        } else {
+            dayCircle.setFill(new Color(255/255, 152/255, 0, 0));
+        }
+
+        if (this.getDate() >= 10) {
+            StackPane sp = (StackPane)map.get("circleStackPane");
+            sp.setMargin(dayCircle, new Insets(0,0,0,4.5));
+        }
+//        else {
+//            this.setStyle("-fx-background-color: #FFFFFF");
+//        }
 
         //Set the size of the mainPane
         mainPane.prefWidthProperty().bind(this.widthProperty());

@@ -3,20 +3,18 @@ package WHS_planner.UI;
 import javafx.geometry.Insets;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+
+import java.util.ArrayList;
 
 
-class Home extends BorderPane {
+public class Home extends ContentPane {
 
+    HBox outsidePane = new HBox();
+    VBox insidePane = new VBox();
 
-    Home(Pane calendar, Pane newsUI, ProgressBar schedule) {
-        this.setPrefWidth(1100);
-        this.setMinWidth(1100);
-        //TODO ^
+    public Home(ContentPane calendar, Pane newsUI, ProgressBar progressBar) {
 
-        //Calendar
-        this.setCenter(calendar);
 
 
         //News
@@ -28,22 +26,46 @@ class Home extends BorderPane {
         newsScroll.setStyle("-fx-focus-color: transparent;");
         newsScroll.getStyleClass().setAll("scroll-bar");
         newsScroll.getStylesheets().add("/UI/NewsUI.css");
-        newsScroll.setPrefWidth(280);
+        newsScroll.setMinWidth(280);
         newsScroll.setMaxWidth(280);
         newsScroll.setPrefHeight(this.getPrefHeight());
-        this.setRight(newsScroll);
 
         //Progress bar
         BorderPane barPane = new BorderPane();
-        barPane.setCenter(schedule);
-        setBottom(barPane);
+        barPane.setCenter(progressBar);
         barPane.setMaxHeight(30);
         barPane.setPadding(new Insets(5, 0, 5, 0));
 
+        //Calendar
+        insidePane.getChildren().addAll(calendar,barPane);
+        outsidePane.getChildren().addAll(insidePane,newsScroll);
+
+        calendar.prefHeightProperty().bind(insidePane.heightProperty());
+        barPane.prefHeightProperty().bind(insidePane.heightProperty());
+        insidePane.setVgrow(calendar, Priority.ALWAYS);
+        insidePane.setVgrow(barPane, Priority.NEVER);
+
+        calendar.prefWidthProperty().bind(insidePane.widthProperty());
+        barPane.prefWidthProperty().bind(insidePane.widthProperty());
+
+        insidePane.prefHeightProperty().bind(outsidePane.heightProperty());
+        insidePane.prefWidthProperty().bind(outsidePane.widthProperty());
+
+        newsScroll.prefHeightProperty().bind(outsidePane.heightProperty());
+        newsScroll.prefWidthProperty().bind(outsidePane.widthProperty());
+
+        outsidePane.setHgrow(newsScroll, Priority.NEVER);
+        outsidePane.setHgrow(insidePane, Priority.ALWAYS);
+
+        outsidePane.prefHeightProperty().bind(this.heightProperty());
+        outsidePane.prefWidthProperty().bind(this.widthProperty());
+
+        this.getChildren().setAll(outsidePane);
     }
 
 
-
-
-
+    @Override
+    public String getName() {
+        return "Home";
+    }
 }

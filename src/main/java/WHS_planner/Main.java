@@ -95,8 +95,15 @@ public class Main extends Application {
         mainPane.prefWidthProperty().bind(scene.widthProperty());
         mainPane.prefHeightProperty().bind(scene.heightProperty());
 
+        //Original (without HOME)
+//        stage.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT*5+198); //Set the minimum height of the window
+//        stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90); //Set the minimum width of the window
+
+        //WITH HOME
         stage.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT*5+198); //Set the minimum height of the window
-        stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90); //Set the minimum width of the window
+        stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90+280); //Set the minimum width of the window
+
+
         stage.setTitle("WHS Planner"); //Set the title of the window
         stage.setScene(scene); //Set the window (stage) to display things in the scene
 

@@ -1,12 +1,15 @@
 package WHS_planner.Schedule;
 
 import WHS_planner.Core.IO;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 import java.io.BufferedReader;
@@ -61,6 +64,18 @@ public class Schedule
         loader2.setLocation(getClass().getResource("/Schedule/ipass login.fxml"));
 
         login = loader2.load();
+
+        loginController control2 = loader2.getController();
+
+        login.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.ENTER)
+                {
+                    control2.submit();
+                }
+            }
+        });
 
         File f = new File("Keys/ipass.key");
 
