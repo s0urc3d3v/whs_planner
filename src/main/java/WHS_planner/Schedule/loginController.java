@@ -63,6 +63,9 @@ public class loginController implements Initializable
                     username = XorTool.encode(username, xorKey);
                     pass = XorTool.encode(pass, xorKey);
 
+                    System.out.println(username);
+                    System.out.println(pass);
+
                     bw.write(username);
                     bw.newLine();
                     bw.write(pass);
