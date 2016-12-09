@@ -185,28 +185,8 @@ class GeoffreyNewsUI extends ContentPane {
         return masonryPane;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public String getName() {
+        return "News";
+    }
 }
