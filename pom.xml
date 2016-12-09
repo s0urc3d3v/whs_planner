@@ -26,8 +26,32 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <!-- Dies heir müsst, Ich kennt!! -->
+        <!--<plugin>-->
+            <!--<artifactId>maven-assembly-plugin</artifactId>-->
+            <!--<configuration>-->
+                <!--<archive>-->
+                    <!--<manifest>-->
+                        <!--<mainClass>WHS_planner.Main</mainClass>-->
+                    <!--</manifest>-->
+                <!--</archive>-->
+                <!--<descriptorRefs>-->
+                    <!--<descriptorRef>WHS_Planner</descriptorRef>-->
+                <!--</descriptorRefs>-->
+            <!--</configuration>-->
+            <!--<executions>-->
+                <!--<execution>-->
+                    <!--<id>make-assembly</id>-->
+                    <!--<phase>package</phase>-->
+                    <!--<goals>-->
+                        <!--<goal>single</goal>-->
+                    <!--</goals>-->
+                <!--</execution>-->
+            <!--</executions>-->
+        <!--</plugin>-->
         </plugins>
     </build>
+
 
     <dependencies>
         <dependency>
