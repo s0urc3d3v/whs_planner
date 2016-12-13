@@ -21,6 +21,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.Random;
 
 public class Main extends Application {
+    //ON first run move jfoenix to a place it can be referance on a remote system
     private static String readKey = null;
     private static MainPane mainPane;
 
