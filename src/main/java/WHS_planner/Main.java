@@ -37,7 +37,7 @@ public class Main extends Application {
      * The main method of the program.
      * It initializes and runs the application!
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         PropertyConfigurator.configure("log4j.properties");
 
        File keys = new File("Keys");
@@ -69,9 +69,14 @@ public class Main extends Application {
                e.printStackTrace();
            }
        }
+        try {
+            launch(args);
+        }
+        catch (Exception e){
+           e.printStackTrace();
+        }
+       }
 
-        launch(args);
-    }
 
     /**
      * This method is where JavaFX creates the UI and displays the window.
