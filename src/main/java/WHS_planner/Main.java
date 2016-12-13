@@ -56,7 +56,6 @@ public class Main extends Application {
                BufferedWriter writer = new BufferedWriter(new FileWriter("Keys" + File.separator + "xor.key"));
                writer.write(String.valueOf(key));
                writer.close();
-               System.out.println("Key Written");
            } catch (IOException e) {
                e.printStackTrace();
            }
@@ -66,7 +65,6 @@ public class Main extends Application {
                BufferedReader reader = new BufferedReader(new FileReader("keys" + File.separator + "xor.key"));
                readKey = reader.readLine();
                reader.close();
-               System.out.println(readKey);
            } catch (IOException e) {
                e.printStackTrace();
            }
