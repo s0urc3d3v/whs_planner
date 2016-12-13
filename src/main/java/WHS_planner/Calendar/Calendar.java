@@ -1,16 +1,12 @@
 package WHS_planner.Calendar;
 
-import WHS_planner.UI.ContentPane;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
@@ -18,7 +14,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 
-public class Calendar extends ContentPane {
+public class Calendar extends BorderPane {
 
     //Days of the week
     private String[] daysOfTheWeek = new String[]{"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
@@ -103,7 +99,7 @@ public class Calendar extends ContentPane {
 
         mainPane.getChildren().setAll(rows);
 
-        this.getChildren().addAll(mainPane);
+        this.setCenter(mainPane);
 
         LayoutAnimator animator = new LayoutAnimator();
 //        animator.observe(mainPane.getChildren());
@@ -224,8 +220,4 @@ public class Calendar extends ContentPane {
         return getCalendarBox(currentDate);
     }
 
-    @Override
-    public String getName() {
-        return "Calendar";
-    }
 }
