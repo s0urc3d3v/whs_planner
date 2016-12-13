@@ -47,14 +47,6 @@ public class Main extends Application {
            keys.mkdir();
        }
 
-       File jsonkeyring = new File("Keys"+File.separator+"keys.key.json");
-
-       if(!jsonkeyring.exists())
-       {
-           jsonkeyring.createNewFile();
-       }
-
-
        File encKey = new File("Keys" + File.separator + "xor.key");
        if (!encKey.exists()) {
            Random r = new Random();
