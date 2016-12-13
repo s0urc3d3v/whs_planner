@@ -6,12 +6,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 
 
-public class Home extends ContentPane {
+class Home extends ContentPane {
 
     private HBox outsidePane = new HBox();
     private VBox insidePane = new VBox();
 
-    public Home(ContentPane calendar, Pane newsUI, ProgressBar progressBar) {
+    Home(ContentPane calendar, Pane newsUI, ProgressBar progressBar) {
+
 
         //News
         ScrollPane newsScroll = new ScrollPane();

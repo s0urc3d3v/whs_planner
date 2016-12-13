@@ -1,8 +1,6 @@
 package WHS_planner.Schedule;
 
-import WHS_planner.Core.JSON;
 import WHS_planner.Main;
-import WHS_planner.Util.AesTool;
 import WHS_planner.Util.XorTool;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -12,19 +10,13 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.URL;
-import java.nio.Buffer;
-import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -118,12 +110,10 @@ public class ScheduleController implements Initializable, ActionListener
                 user = XorTool.decode(user, Main.getXorKey());
                 pass = XorTool.decode(pass, Main.getXorKey());
 
-                System.out.println(user);
-                System.out.println(pass);
 
                 bri.close();
 
-                if(user == null || pass == null || user.equals("") || pass.equals(""))
+                if (pass == null || user.equals("") || pass.equals(""))
                 {
                     System.out.println("No ipass data found");
                 }
@@ -167,13 +157,7 @@ public class ScheduleController implements Initializable, ActionListener
                             }
 
                             //you can't do javafx stuff on other threads
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run()
-                                {
-                                    Title3.setText(s);
-                                }
-                            });
+                            Platform.runLater(() -> Title3.setText(s));
 
                         }
                     };
@@ -270,6 +254,7 @@ public class ScheduleController implements Initializable, ActionListener
                         }
                         catch(Exception e)
                         {
+
                         }
 
                         GrabDay gd = new GrabDay(user, pass);
