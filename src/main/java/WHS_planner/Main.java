@@ -93,7 +93,7 @@ public class Main extends Application {
             public void handle(KeyEvent event) {
                 if(event.getCode() == KeyCode.Q)
                 {
-                    System.exit(0);
+                    stop();
                 }
             }
         });
