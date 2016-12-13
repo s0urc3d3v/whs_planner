@@ -11,7 +11,7 @@ class Home extends ContentPane {
     private HBox outsidePane = new HBox();
     private VBox insidePane = new VBox();
 
-    Home(ContentPane calendar, Pane newsUI, ProgressBar progressBar) {
+    Home(BorderPane calendar, Pane newsUI, ProgressBar progressBar) {
 
 
         //News
