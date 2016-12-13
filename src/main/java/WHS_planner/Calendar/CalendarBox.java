@@ -190,18 +190,11 @@ public class CalendarBox extends Pane{
                     if (event.getCode() == KeyCode.ENTER) {
                         String textBoxText = textBox.getText();
                         if (textBoxText.trim().length() > 0){
-                            if(textBoxText.contains("test")) {
-                                addTask(TESTS, new Task("","", textBoxText));
-                            }else{
-                                addTask(HOMEWORK, new Task("","", textBoxText));
-                            }
+                            addTask(HOMEWORK, new Task("","", textBoxText));
                             update();
                         }
                         textBox.clear();
                         updateTaskBox();
-                    }
-                    if (event.getCode() == KeyCode.SHIFT){
-                        System.out.println(tasks);
                     }
                 });
             } catch (IOException e) {
@@ -214,7 +207,9 @@ public class CalendarBox extends Pane{
     public void updateTaskBox(){
         tasksPane.getChildren().clear();
         for (int i = 0; i < tasks.get(0).size(); i++) {
-            tasksPane.getChildren().add(0,tasks.get(0).get(i).getPane());
+            if (tasks.get(0).get(i).doesExist()){
+                tasksPane.getChildren().add(0, tasks.get(0).get(i).getPane());
+            }
         }
     }
 
@@ -232,7 +227,13 @@ public class CalendarBox extends Pane{
     /*-----TASK RELATED-----*/
     //Used to get the number of tasks in a certain list
     public int getTaskCount(int listID){
-        return tasks.get(listID).size();
+        int returnValue = 0;
+        for (int i = 0; i < tasks.get(listID).size(); i++) {
+            if (tasks.get(listID).get(i).doesExist()) {
+                returnValue++;
+            }
+        }
+        return returnValue;
     }
 
     //Adds a task in a certain list based on the listID
