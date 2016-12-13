@@ -100,7 +100,6 @@ public class MainPane extends Pane {
         drawer.setMouseTransparent(true);                                                //vertical, higher = lower
         drawer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 5, 0);");
 
-
         //Hamburger animation
         hamburger.setAnimation(new HamburgerBackArrowBasicTransition(hamburger));
         hamburger.getAnimation().setRate(-1);
@@ -143,10 +142,9 @@ public class MainPane extends Pane {
         ContentPane calendar = new Calendar(1, 30);
         GeoffreyNewsUI news = new GeoffreyNewsUI();
         Pane meeting = new MeetingPane();
+        Home homePane = new Home(calendar, news.getMasonryPane(), schedule.getProgressBar());
 
-        Home Home = new Home(calendar, news.getMasonryPane(), schedule.getProgressBar());
-
-        addPane(Home);
+        addPane(homePane);
         addPane((Pane) schedule.getPane());
         addPane(meeting);
 

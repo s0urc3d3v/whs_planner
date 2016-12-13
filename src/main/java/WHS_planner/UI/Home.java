@@ -5,17 +5,13 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 
-import java.util.ArrayList;
-
 
 public class Home extends ContentPane {
 
-    HBox outsidePane = new HBox();
-    VBox insidePane = new VBox();
+    private HBox outsidePane = new HBox();
+    private VBox insidePane = new VBox();
 
     public Home(ContentPane calendar, Pane newsUI, ProgressBar progressBar) {
-
-
 
         //News
         ScrollPane newsScroll = new ScrollPane();
@@ -36,17 +32,19 @@ public class Home extends ContentPane {
         barPane.setMaxHeight(30);
         barPane.setPadding(new Insets(5, 0, 5, 0));
 
-        //Calendar
+        //Calendar + add stuff to H/VBoxes
         insidePane.getChildren().addAll(calendar,barPane);
         outsidePane.getChildren().addAll(insidePane,newsScroll);
 
+        //Resizing stuff
         calendar.prefHeightProperty().bind(insidePane.heightProperty());
-        barPane.prefHeightProperty().bind(insidePane.heightProperty());
-        insidePane.setVgrow(calendar, Priority.ALWAYS);
-        insidePane.setVgrow(barPane, Priority.NEVER);
-
         calendar.prefWidthProperty().bind(insidePane.widthProperty());
+
+        barPane.prefHeightProperty().bind(insidePane.heightProperty());
         barPane.prefWidthProperty().bind(insidePane.widthProperty());
+
+        VBox.setVgrow(calendar, Priority.ALWAYS);
+        VBox.setVgrow(barPane, Priority.NEVER);
 
         insidePane.prefHeightProperty().bind(outsidePane.heightProperty());
         insidePane.prefWidthProperty().bind(outsidePane.widthProperty());
@@ -54,8 +52,8 @@ public class Home extends ContentPane {
         newsScroll.prefHeightProperty().bind(outsidePane.heightProperty());
         newsScroll.prefWidthProperty().bind(outsidePane.widthProperty());
 
-        outsidePane.setHgrow(newsScroll, Priority.NEVER);
-        outsidePane.setHgrow(insidePane, Priority.ALWAYS);
+        HBox.setHgrow(newsScroll, Priority.NEVER);
+        HBox.setHgrow(insidePane, Priority.ALWAYS);
 
         outsidePane.prefHeightProperty().bind(this.heightProperty());
         outsidePane.prefWidthProperty().bind(this.widthProperty());

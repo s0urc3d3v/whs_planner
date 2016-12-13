@@ -45,7 +45,6 @@ class GeoffreyNewsUI extends ContentPane {
         mainPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         mainPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         mainPane.setFitToWidth(true);
-//        mainPane.setStyle("-fx-focus-color: transparent;");
         mainPane.setStyle("-fx-background-color: #FFFFFF;");
         mainPane.getStyleClass().setAll("scroll-bar");
 
