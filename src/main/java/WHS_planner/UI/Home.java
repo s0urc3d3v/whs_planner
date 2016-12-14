@@ -5,8 +5,10 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 
+import java.io.File;
 
-class Home extends ContentPane {
+
+class Home extends Pane {
 
     private HBox outsidePane = new HBox();
     private VBox insidePane = new VBox();
@@ -22,7 +24,7 @@ class Home extends ContentPane {
         newsScroll.setFitToWidth(true);
         newsScroll.setStyle("-fx-focus-color: transparent;");
         newsScroll.getStyleClass().setAll("scroll-bar");
-        newsScroll.getStylesheets().add("/UI/NewsUI.css");
+        newsScroll.getStylesheets().add("UI" + File.separator + "NewsUI.css");
         newsScroll.setMinWidth(280);
         newsScroll.setMaxWidth(280);
         newsScroll.setPrefHeight(this.getPrefHeight());
@@ -60,11 +62,5 @@ class Home extends ContentPane {
         outsidePane.prefWidthProperty().bind(this.widthProperty());
 
         this.getChildren().setAll(outsidePane);
-    }
-
-
-    @Override
-    public String getName() {
-        return "Home";
     }
 }
