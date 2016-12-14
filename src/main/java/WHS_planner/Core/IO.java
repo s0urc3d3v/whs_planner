@@ -27,6 +27,7 @@ public class IO {
             jsonApi.writeArray(i + "", new Object[]{block.getClassName(), block.getTeacher(), block.getRoomNumber(), block.getPeriodNumber()});
             i++;
         }
+
     }
 
     public void unload()
@@ -136,6 +137,10 @@ public class IO {
                 }
             }
         return scheduleBlockArrayList;
+    }
+
+    public JSON getJsonApi() {
+        return jsonApi;
     }
 
     public void writeMap(Map<String, Integer> map)

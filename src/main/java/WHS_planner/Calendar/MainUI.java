@@ -13,7 +13,9 @@ public class MainUI extends Application{
     @Override
     public void start(Stage stage) throws Exception {
 //------------------------Calendar Pane Implementation---------------------------------------
-        Calendar cal = new Calendar(CalendarUtility.TUESDAY, 30);
+        Calendar cal = new Calendar();
+
+
         cal.setId("MainCalendar");
 
         Scene scene = new Scene(cal);
