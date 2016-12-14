@@ -258,4 +258,11 @@ public class CalendarBox extends Pane{
         Label date = (Label)map.get("dateLabel");
         return date;
     }
+
+    // Tzurs Code
+    // Restart related
+
+    public ArrayList<ArrayList<Task>> getTasks() {
+        return tasks;
+    }
 }

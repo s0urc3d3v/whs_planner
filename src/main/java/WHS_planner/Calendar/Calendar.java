@@ -1,5 +1,8 @@
 package WHS_planner.Calendar;
 
+import WHS_planner.Core.IO;
+import WHS_planner.Core.JSON;
+import com.google.api.client.json.Json;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
@@ -9,11 +12,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import org.json.JSONObject;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 
 
+/**
+ * Created by geoffrey_wang on 9/21/16.
+ */
 public class Calendar extends BorderPane {
 
     //Days of the week
@@ -24,17 +32,22 @@ public class Calendar extends BorderPane {
     private int startDay;
     private int numberOfDays;
     private Node taskBox;
+//Tzurs code
+ private CalendarHelper dayFinder = new CalendarHelper();
 
+    private IO io = new IO("calendarHolder.json");
+     private JSON json = io.getJsonApi();
+    // end tzurs code
     private VBox mainPane;
 
     private int currentTextBoxRow = -1;
     // MARK: day in foucus
     private int currentDate = -1;
 
-    public Calendar(int startDay, int numberOfDays){
+    public Calendar(){
 
-        this.startDay = startDay;
-        this.numberOfDays = numberOfDays;
+        this.startDay = dayFinder.getWeekdayMonthStarts();
+        this.numberOfDays = dayFinder.getDaysInMonth();
 
         CalendarUtility util = new CalendarUtility();
 
@@ -42,11 +55,12 @@ public class Calendar extends BorderPane {
         InputStream font = MainUI.class.getResourceAsStream("/FontAwesome/fontawesome.ttf");
         Font.loadFont(font,10);
 
-        try {
-            calendar = util.fillInCalendar(startDay, numberOfDays,new UIController());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
+            try {
+                calendar = util.fillInCalendar(startDay, numberOfDays, new UIController());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         mainPane = new VBox();
         mainPane.setId("vbox");//Replace this ID
@@ -65,32 +79,32 @@ public class Calendar extends BorderPane {
             Label dayLabel = new Label(daysOfTheWeek[dayIndex]);
             dayLabel.getStyleClass().add("weekday");
             firstRow.add(dayLabel,dayIndex,0);
-            GridPane.setHgrow(dayLabel, Priority.ALWAYS);
+            firstRow.setHgrow(dayLabel,Priority.ALWAYS);
             dayLabel.prefWidthProperty().bind(this.getCalendarBox(1).widthProperty());
         }
 
         //Fill in rest of the calendar
-        for (CalendarBox[] aCalendar : calendar) {
+        for (int r = 0; r < calendar.length ; r++) {
             GridPane row = new GridPane();
             row.setAlignment(Pos.CENTER);
             row.setHgap(10);
-            row.setPadding(new Insets(5, 5, 5, 5));
-            for (int c = 0; c < aCalendar.length; c++) {
+            row.setPadding(new Insets(5,5,5,5));
+            for (int c = 0; c < calendar[r].length; c++) {
                 CalendarBox tempCalendarBox;
-                if (aCalendar[c] != null) {
-                    tempCalendarBox = aCalendar[c];
-                } else {
-                    tempCalendarBox = new CalendarBox(0, 0, false);
+                if (calendar[r][c] != null) {
+                    tempCalendarBox = calendar[r][c];
+                }else{
+                    tempCalendarBox = new CalendarBox(0,0,false);
                 }
                 tempCalendarBox.prefHeightProperty().bind(row.heightProperty());
-                row.add(tempCalendarBox, c, 0);
-                GridPane.setHgrow(tempCalendarBox, Priority.ALWAYS);
+                row.add(tempCalendarBox,c,0);
+                row.setHgrow(tempCalendarBox,Priority.ALWAYS);
             }
             rows.add(row);
         }
 
         for (Node row:rows) {
-            VBox.setVgrow(row, Priority.ALWAYS);
+            mainPane.setVgrow(row,Priority.ALWAYS);
             GridPane tempGridPane = (GridPane)row;
             tempGridPane.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT +10);
             tempGridPane.setMinWidth(7*CalendarBox.CALENDAR_BOX_MIN_WIDTH +10);
@@ -105,7 +119,7 @@ public class Calendar extends BorderPane {
 //        animator.observe(mainPane.getChildren());
     }
 
-    void update(int row, int date) {
+    public void update(int row, int date){
 
         int[] rowIDs = new int[]{1,2,3,4,5};
         GridPane tempPane = (GridPane) mainPane.getChildren().get(1);
@@ -137,9 +151,10 @@ public class Calendar extends BorderPane {
             changeButtonColor(getCalendarBox(date).getButtonNode(),true);
         }
         taskBox = getCalendarBox(date).getTaskBox(tempPane.widthProperty());
+        
     }
 
-    private void changeButtonColor(JFXButton button, boolean selected) {
+    public void changeButtonColor(JFXButton button,boolean selected){
         if(selected){
             button.getStyleClass().setAll("box-button-selected");
         }else{
@@ -147,25 +162,27 @@ public class Calendar extends BorderPane {
         }
     }
 
-    private CalendarBox getCalendarBox(int date) {
+    public CalendarBox getCalendarBox(int date){
         CalendarBox currentBox = null;
 
-        for (CalendarBox[] aCalendar : calendar) {
-            for (int colIndex = 0; colIndex < aCalendar.length; colIndex++) {
-                CalendarBox box = aCalendar[colIndex];
-                if (box != null) if (Integer.valueOf(box.getDate()) == date) {
-                    currentBox = aCalendar[colIndex];
-                    break;
+        for (int rowIndex = 0; rowIndex < calendar.length; rowIndex++) {
+            for (int colIndex = 0; colIndex < calendar[rowIndex].length; colIndex++) {
+                CalendarBox box = calendar[rowIndex][colIndex];
+                if(box != null) {
+                    if (Integer.valueOf(box.getDate()) == date) {
+                        currentBox = calendar[rowIndex][colIndex];
+                        break;
+                    }
                 }
             }
-            if (currentBox != null) {
+            if(currentBox != null){
                 break;
             }
         }
         return currentBox;
     }
 
-    private void addTaskBox(int row, Node taskBoxInstance) {
+    public void addTaskBox(int row, Node taskBoxInstance){
         mainPane.getChildren().add(row+1, taskBoxInstance);
         FadeTransition fadeIn = new FadeTransition(Duration.millis(1750));
         fadeIn.setNode(taskBoxInstance);
@@ -177,7 +194,7 @@ public class Calendar extends BorderPane {
         fadeIn.playFromStart();
     }
 
-    private void removeTaskBox(Node taskBoxInstance) {
+    public void removeTaskBox(Node taskBoxInstance){
         FadeTransition fadeOut = new FadeTransition(Duration.millis(1750));
         fadeOut.setNode(taskBoxInstance);
 
@@ -220,4 +237,77 @@ public class Calendar extends BorderPane {
         return getCalendarBox(currentDate);
     }
 
+    // saves calendar array as a json file at calendarHolder
+    public void saveCalendar(){
+        try{
+
+        System.out.println("WRITE K");
+        //Grabs all the caledar days
+        for (int i = 0; i <numberOfDays ; i++) {
+                // Gets the active calendar day
+                CalendarBox current = calendar[i / 7][i % 7];
+            // finds out is the day exisits
+            if (current != null) {
+
+                // gets the week and the date of the object
+                int currentWeek = current.getWeek();
+
+                int currentDate = current.getDate();
+                //gets the tasks in the calendar box
+                ArrayList<ArrayList<Task>> currentTaskArrayUnparsedSquared = current.getTasks();
+                int sizeOfTasksSquared = currentTaskArrayUnparsedSquared.size();
+                for (int j = 0; j < sizeOfTasksSquared; j++) {
+
+                    ArrayList<Task> currentTaskArrayUnparsed = currentTaskArrayUnparsedSquared.get(j);
+                    int sizeOfTasks = currentTaskArrayUnparsed.size();
+
+                    for (int k = 0; k < sizeOfTasks; k++) {
+
+
+                        Task currentTask = currentTaskArrayUnparsed.get(k);
+                        String currentTaskTitle = currentTask.Title;
+                        System.out.println("currentTaskTitle ="+currentTaskTitle);
+                        String currentTaskClass = currentTask.Class;
+
+                        System.out.println("currentTaskClass ="+currentTaskClass);
+
+                        // checks if class = null
+                        if (currentTaskClass == null){
+                            currentTaskClass = " ";
+                        }
+                        String currentTaskDescription = currentTask.Description;
+                        System.out.println("currentTaskDescription ="+currentTaskDescription);
+
+                        // checks if taskDescription = null
+                        if (currentTaskDescription == null){
+                            currentTaskDescription = " ";
+                        }
+                        ArrayList<String> currentTaskArray = new ArrayList<>();
+                        currentTaskArray.add(currentTaskTitle);
+                        currentTaskArray.add(currentTaskClass);
+                        currentTaskArray.add(currentTaskDescription);
+                        json.writeArray("CalendarSaver" + i + ":" + j + ":" + k, currentTaskArray.toArray());
+                    }
+                }
+                // make an array of values to save from the current calendarbox
+                ArrayList<Integer> currentBoxArray = new ArrayList<>();
+                currentBoxArray.add(currentDate);
+                currentBoxArray.add(currentWeek);
+
+                json.writeArray("CalendarSaver" + i, currentBoxArray.toArray());
+
+            }
+        }
+        json.unloadFile();
+    }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        saveCalendar();
+    }
 }
