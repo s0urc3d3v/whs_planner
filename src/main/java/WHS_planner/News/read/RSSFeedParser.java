@@ -120,7 +120,6 @@ public class RSSFeedParser {
                         "", "");
             }
         } catch (XMLStreamException e) {
-            System.out.println("XMLStreamException.");
             throw new RuntimeException(e);
         }
         return feed;
@@ -140,8 +139,6 @@ public class RSSFeedParser {
         try {
             return url.openStream();
         } catch (IOException e) {
-            System.out.println("News connection error.");
-//            throw new RuntimeException(e);
             return null;
         }
 
