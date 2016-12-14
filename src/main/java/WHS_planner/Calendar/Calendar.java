@@ -1,5 +1,6 @@
 package WHS_planner.Calendar;
 
+import WHS_planner.Core.AutoSave;
 import WHS_planner.Core.IO;
 import WHS_planner.Core.JSON;
 import com.google.api.client.json.Json;
@@ -32,8 +33,9 @@ public class Calendar extends BorderPane {
     private int startDay;
     private int numberOfDays;
     private Node taskBox;
+    private AutoSave autoSave;
 //Tzurs code
- private CalendarHelper dayFinder = new CalendarHelper();
+    private CalendarHelper dayFinder = new CalendarHelper();
 
     private IO io = new IO("calendarHolder.json");
      private JSON json = io.getJsonApi();
@@ -151,7 +153,7 @@ public class Calendar extends BorderPane {
             changeButtonColor(getCalendarBox(date).getButtonNode(),true);
         }
         taskBox = getCalendarBox(date).getTaskBox(tempPane.widthProperty());
-        
+        saveCalendar();
     }
 
     public void changeButtonColor(JFXButton button,boolean selected){
