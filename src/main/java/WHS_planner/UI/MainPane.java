@@ -138,7 +138,7 @@ public class MainPane extends Pane {
 
     private void generatePanes() {
         schedule = new Schedule();
-        BorderPane calendar = new Calendar(1, 30);
+        BorderPane calendar = new Calendar();
         NewsUI news = new NewsUI();
         Pane meeting = new MeetingPane();
         Home homePane = new Home(calendar, news.getCardView(), schedule.getProgressBar());
