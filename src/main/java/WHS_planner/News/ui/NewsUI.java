@@ -5,13 +5,14 @@ import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.jsoup.Jsoup;
 
@@ -23,50 +24,52 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsUI {
+public class NewsUI extends Pane {
 
+    private static final double BOX_WIDTH = 250;
+    private static final double IMAGE_WIDTH = 200;
+    private static final double IMAGE_HEIGHT = 200;
+    private static final double BOX_HEIGHT = 300;
     private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
-    List<FeedMessage> feedArray = feed.getMessages();
-    //List of articles to be added to display
-    private List<FeedMessage> meme = feed.getMessages();
+    //List of articles to add to display
+    private List<FeedMessage> feedArray = feed.getMessages();
     //List of articles CURRENTLY ON DISPLAY
     private List<FeedMessage> onScreenMessages = new ArrayList<>();
-    //width of cards in masonry pane
-    private double widthLength = 200;
     private URL url;
-    /**/private BorderPane roooot = new BorderPane();
-    /**/private ScrollPane rooot = new ScrollPane();
-    private JFXMasonryPane root = new JFXMasonryPane();
 
+    private ScrollPane mainPane = new ScrollPane();
+    private JFXMasonryPane masonryPane = new JFXMasonryPane();
 
     public NewsUI() {
+        mainPane.setContent(masonryPane);
+        mainPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        mainPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        mainPane.setFitToWidth(true);
+        mainPane.setStyle("-fx-background-color: #FFFFFF;");
+        mainPane.getStyleClass().setAll("scroll-bar");
+
+        masonryPane.setHSpacing(10);
+        masonryPane.setVSpacing(10);
+
+        masonryPane.setCellHeight(BOX_HEIGHT + 30);
+        masonryPane.setCellWidth(BOX_WIDTH);
+        masonryPane.prefHeightProperty().bind(mainPane.heightProperty());
 
 
-        roooot.setPrefSize(1280, 720);
+        //Checks if feed sends back a connection error. If it doesn't, initialize cards as normal.
+        if (feed.getTitle().equals("badNet")) {
+            addCard(new Label("Error with Connection!"), new Hyperlink("https://www.google.com/"));
+        } else {
+            init();
+        }
 
-        roooot.setCenter(rooot);
-        rooot.setContent(root);
-        rooot.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        rooot.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        rooot.setFitToWidth(true);
-
-        rooot.prefHeightProperty().bind(roooot.heightProperty());
-        rooot.prefWidthProperty().bind(roooot.widthProperty());
-
-        root.setPrefSize(rooot.getPrefWidth(), rooot.getPrefHeight());
-        root.setHSpacing(10);
-        root.setVSpacing(10);
-
-        root.setCellHeight(150);
-
-        root.setCellWidth(widthLength);
-
-        init();
+        this.getChildren().setAll(mainPane);
+        mainPane.prefWidthProperty().bind(this.widthProperty());
+        mainPane.prefHeightProperty().bind(this.heightProperty());
+        mainPane.getStylesheets().add("/UI/NewsUI.css");
 
     }
-
-
 
     private void openLink(int index) {
         try {
@@ -76,11 +79,9 @@ public class NewsUI {
         }
     }
 
+
     private void init() {
-
-        root.getChildren().clear();
-
-        root.setStyle("-fx-background-color: #FFFFFF;");
+        masonryPane.getChildren().clear();
 
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
@@ -90,71 +91,72 @@ public class NewsUI {
             Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
             hpl.setOnAction((event) -> openLink(eye));
             hpl.setWrapText(true);
-            hpl.setMaxWidth(widthLength);
+            hpl.setMaxWidth(BOX_WIDTH);
             hpl.setPadding(new Insets(0, 0, 0, 4));
 
             //Add label
             Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
             description.setWrapText(true);
-            description.setMaxWidth(widthLength);
+            description.setMaxWidth(BOX_WIDTH);
             description.setPadding(new Insets(0, 0, 0, 6));
 
             //Add Image
             try {
-
                 String urlString = scanDescription(feedArray.get(i).getDescription());
                 if (urlString != null) {
                     url = new URL(urlString);
                     BufferedImage bf;
-
                     try {
                         bf = ImageIO.read(url);
                     } catch (Exception ex) {
-                        System.out.println("Error with image.");
-                        addCard(hpl, description);
+                        addCard(description, hpl);
                         continue;
                     }
 
                     WritableImage wr = convertImg(bf);
                     ImageView img = new ImageView(wr);
-                    img.setFitWidth(widthLength);
-                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / widthLength));
+                    if (wr.getHeight() < wr.getWidth()) {
+                        img.setFitWidth(IMAGE_WIDTH);
+                        img.setFitHeight(wr.getHeight() / (wr.getWidth() / (IMAGE_WIDTH)));
+                    } else {
+                        img.setFitHeight(IMAGE_HEIGHT);
+                        img.setFitWidth(wr.getWidth() / (wr.getHeight() / (IMAGE_HEIGHT)));
+                    }
                     img.setImage(wr);
 
                     //Add article to list
-                    addCard(img, hpl, description);
+                    addCard(description, hpl, img);
 
                 } else {
 
-                    addCard(hpl, description);
+                    addCard(description, hpl);
                 }
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
             onScreenMessages.add(feedArray.get(i));
 
         }
-        System.out.println("News loaded. f  e  e  l  s  g  o  o  d  m  a  n .");
-
     }
 
-
-    private void addCard(Hyperlink hpl, Label desc) {
-        System.out.println("Added without image.");
-        VBox v = new VBox(hpl, /*author,*/ desc);
-        v.setPrefWidth(widthLength);
-        v.setMaxWidth(widthLength);
-
-        v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
-        root.getChildren().add(v);
+    private void addCard(Label description, Hyperlink hyperlink) {
+        addCard(description, hyperlink, null);
     }
 
-    private void addCard(ImageView img, Hyperlink hpl, Label desc) {
-        VBox v = new VBox(img, hpl, desc);
-        v.setPrefWidth(widthLength);
-        v.setMaxWidth(widthLength);
-        v.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;");
-        root.getChildren().add(v);
+    private void addCard(Label description, Hyperlink hyperlink, ImageView image) {
+        VBox vBox;
+        if (image == null) {
+            vBox = new VBox(hyperlink, description);
+        } else {
+            vBox = new VBox(image, hyperlink, description);
+        }
+        vBox.setAlignment(Pos.TOP_CENTER);
+        vBox.setPrefWidth(BOX_WIDTH);
+        vBox.setPrefHeight(BOX_HEIGHT);
+        vBox.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;" + "-fx-padding: 10;");
+        masonryPane.getChildren().add(vBox);
+
     }
 
     private WritableImage convertImg(BufferedImage bf) {
@@ -175,13 +177,10 @@ public class NewsUI {
         return Jsoup.parse(string).text();
     }
 
-    public BorderPane getROOOOOOOT() {
-        return roooot;
-    }
-
     private String scanDescription(String content) {
         String link;
         if (content.contains("src")) {
+
             content = content.substring(content.indexOf("src=") + 5, content.length());
             link = content.substring(0, content.indexOf("\""));
             return link;
@@ -189,5 +188,10 @@ public class NewsUI {
             return null;
         }
     }
+
+    public JFXMasonryPane getMasonryPane() {
+        return masonryPane;
+    }
+
 
 }

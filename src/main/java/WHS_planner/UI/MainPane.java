@@ -2,6 +2,7 @@ package WHS_planner.UI;
 
 import WHS_planner.Calendar.Calendar;
 import WHS_planner.Meeting.MeetingPane;
+import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
@@ -45,7 +46,8 @@ public class MainPane extends Pane {
      * @return NavBarPane
      */
     private Pane loadNavBar() {
-        String location = "/UI/NavBar.fxml"; //Location of the FXML in the resources folder
+        String location = "/UI/NavBar.fxml"; //Location of the FXML in the resources folder //TODO make absolute
+
 
         //Tries to load in the FXML and if it fails it returns an error message
         try {
@@ -137,7 +139,7 @@ public class MainPane extends Pane {
     private void generatePanes() {
         schedule = new Schedule();
         BorderPane calendar = new Calendar(1, 30);
-        GeoffreyNewsUI news = new GeoffreyNewsUI();
+        NewsUI news = new NewsUI();
         Pane meeting = new MeetingPane();
         Home homePane = new Home(calendar, news.getMasonryPane(), schedule.getProgressBar());
 

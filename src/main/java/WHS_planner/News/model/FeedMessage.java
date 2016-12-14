@@ -48,17 +48,8 @@ public class FeedMessage {
         this.guid = guid;
     }
 
-    /**
-     * Changes all normally unprintable characters (Such as "...")
-     * into their respective appropriate characters in
-     * the title and description. This is used to remove
-     * the HTML codes in the RSS feed's description and title.
-     */
-
-
     @Override
     public String toString() {
-//        escapeHTML();
         return "FeedMessage [title=" + title + ", description=" + description
                 + ", link=" + link + ", author=" + author + ", guid=" + guid
                 + "]";
