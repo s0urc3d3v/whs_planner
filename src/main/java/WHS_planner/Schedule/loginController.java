@@ -2,7 +2,6 @@ package WHS_planner.Schedule;
 
 import WHS_planner.Main;
 import WHS_planner.UI.MainPane;
-import WHS_planner.Util.AesTool;
 import WHS_planner.Util.XorTool;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
@@ -10,14 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.net.URL;
-import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.ResourceBundle;
 
 public class loginController implements Initializable
@@ -53,7 +49,7 @@ public class loginController implements Initializable
                 GrabDay gd = new GrabDay(username, pass);
                 if(gd.testConn())
                 {
-                    File f = new File("Keys/ipass.key");
+                    File f = new File("Keys/ipass.key"); //TODO File.seperator?
                     if(!f.exists())
                     {
                         f.createNewFile();

@@ -141,7 +141,7 @@ public class MainPane extends Pane {
         BorderPane calendar = new Calendar(1, 30);
         NewsUI news = new NewsUI();
         Pane meeting = new MeetingPane();
-        Home homePane = new Home(calendar, news.getMasonryPane(), schedule.getProgressBar());
+        Home homePane = new Home(calendar, news.getCardView(), schedule.getProgressBar());
 
         addPane(homePane);
         addPane((Pane) schedule.getPane());

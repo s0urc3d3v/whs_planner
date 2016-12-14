@@ -38,11 +38,11 @@ import java.util.Properties;
 public class GmailApiAccess {
     private static final String APPLICATION_NAME = "whs_planner";
     private static final java.io.File DATA_STORE_DIR = new java.io.File(System.getProperty("user.home"), ".credentials/whs_planner");
-    private static FileDataStoreFactory DATA_STORE_FACTORY;
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final List<String> SCOPES = Arrays.asList(GmailScopes.GMAIL_COMPOSE, GmailScopes.GMAIL_SEND, GmailScopes.GMAIL_READONLY);
+    private static FileDataStoreFactory DATA_STORE_FACTORY;
     private static HttpTransport HTTP_TRANSPORT;
 
-    private static final List<String> SCOPES = Arrays.asList(GmailScopes.GMAIL_COMPOSE, GmailScopes.GMAIL_SEND, GmailScopes.GMAIL_READONLY);
     static {
         try {
             HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -62,7 +62,7 @@ public class GmailApiAccess {
                 .build();
         Credential credential = new AuthorizationCodeInstalledApp(
                 flow, new LocalServerReceiver()).authorize("user");
-        System.out.println("Creditials saved to: " + DATA_STORE_DIR.getAbsolutePath());
+        System.out.println("Credentials saved to: " + DATA_STORE_DIR.getAbsolutePath());
         return credential;
 
     }

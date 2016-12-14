@@ -3,7 +3,6 @@ package WHS_planner.Calendar;
 import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import javafx.animation.FadeTransition;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -15,10 +14,11 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * Created by geoffrey_wang on 9/20/16.
@@ -96,7 +96,7 @@ public class CalendarBox extends Pane{
 
         if (this.getDate() >= 10) {
             StackPane sp = (StackPane)map.get("circleStackPane");
-            sp.setMargin(dayCircle, new Insets(0,0,0,4.5));
+            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 4.5));
         }
 //        else {
 //            this.setStyle("-fx-background-color: #FFFFFF");
@@ -183,7 +183,7 @@ public class CalendarBox extends Pane{
                 //Get the JFXTextField and set the width to grow
                 HBox hBox = (HBox) taskBox.getChildren().get(0);
                 JFXTextField textBox = (JFXTextField) hBox.getChildren().get(0);
-                hBox.setHgrow(textBox, Priority.ALWAYS);
+                HBox.setHgrow(textBox, Priority.ALWAYS);
 
                 //Set pressing enter to clear the box text
                 textBox.setOnKeyPressed(event -> {

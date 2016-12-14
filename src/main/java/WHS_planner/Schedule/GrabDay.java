@@ -4,10 +4,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by John on 10/24/2016.
@@ -18,7 +21,7 @@ public class GrabDay
 
     private HttpURLConnection connection;
 
-    private String calurl = "https://ipass.wayland.k12.ma.us/school/ipass/hello.html";
+    private String calURL = "https://ipass.wayland.k12.ma.us/school/ipass/hello.html";
 
     private String user;
     private String pass;
@@ -54,14 +57,7 @@ public class GrabDay
 
         connection.disconnect();
 
-        if(error.contains("Invalid"))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return !error.contains("Invalid");
     }
 
 
@@ -194,7 +190,7 @@ public class GrabDay
 
                 String filename = childs+"/"+(j+1);
                 String supp = "?month="+(i+1)+"&day="+(j+1)+"&year="+year;
-                String res = g.getPageContent(calurl+supp);
+                String res = g.getPageContent(calURL + supp);
                 parseHtml(res, filename);
             }
         }

@@ -2,6 +2,7 @@ package WHS_planner;
 
 
 //import WHS_planner.Core.MeetingFileHandler;
+
 import WHS_planner.Calendar.CalendarBox;
 import WHS_planner.UI.MainPane;
 import javafx.application.Application;
@@ -12,16 +13,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.apache.log4j.PropertyConfigurator;
 
-
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.Random;
 
 public class Main extends Application {
-    //ON first run move jfoenix to a place it can be referance on a remote system
+    //ON first run move jfoenix to a place it can be referenced on a remote system
     private static String readKey = null;
     private static MainPane mainPane;
 
@@ -78,6 +74,9 @@ public class Main extends Application {
         }
        }
 
+    public static Object getMainPane() {
+        return mainPane;
+    }
 
     /**
      * This method is where JavaFX creates the UI and displays the window.
@@ -129,11 +128,5 @@ public class Main extends Application {
     @Override
     public void stop(){
         System.exit(0);
-    }
-
-
-    public static Object getMainPane()
-    {
-        return mainPane;
     }
 }

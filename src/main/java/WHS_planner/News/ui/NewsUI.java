@@ -3,7 +3,6 @@ package WHS_planner.News.ui;
 import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
-import com.jfoenix.controls.JFXMasonryPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Hyperlink;
@@ -18,6 +17,7 @@ import org.jsoup.Jsoup;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -39,22 +39,17 @@ public class NewsUI extends Pane {
     private URL url;
 
     private ScrollPane mainPane = new ScrollPane();
-    private JFXMasonryPane masonryPane = new JFXMasonryPane();
+    //    private JFXMasonryPane masonryPane = new JFXMasonryPane();
+    private VBox cardView = new VBox();
 
     public NewsUI() {
-        mainPane.setContent(masonryPane);
+        mainPane.setContent(cardView);
         mainPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         mainPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         mainPane.setFitToWidth(true);
         mainPane.setStyle("-fx-background-color: #FFFFFF;");
         mainPane.getStyleClass().setAll("scroll-bar");
 
-        masonryPane.setHSpacing(10);
-        masonryPane.setVSpacing(10);
-
-        masonryPane.setCellHeight(BOX_HEIGHT + 30);
-        masonryPane.setCellWidth(BOX_WIDTH);
-        masonryPane.prefHeightProperty().bind(mainPane.heightProperty());
 
 
         //Checks if feed sends back a connection error. If it doesn't, initialize cards as normal.
@@ -63,11 +58,18 @@ public class NewsUI extends Pane {
         } else {
             init();
         }
+//        masonryPane.setHSpacing(10);
+//        masonryPane.setVSpacing(10);
+
+
+//        masonryPane.setCellHeight(BOX_HEIGHT + 30);
+//        masonryPane.setCellWidth(BOX_WIDTH);
+//        masonryPane.prefHeightProperty().bind(mainPane.heightProperty());
 
         this.getChildren().setAll(mainPane);
         mainPane.prefWidthProperty().bind(this.widthProperty());
         mainPane.prefHeightProperty().bind(this.heightProperty());
-        mainPane.getStylesheets().add("/UI/NewsUI.css");
+        mainPane.getStylesheets().add("News" + File.separator + "NewsUI.css");
 
     }
 
@@ -81,7 +83,7 @@ public class NewsUI extends Pane {
 
 
     private void init() {
-        masonryPane.getChildren().clear();
+        cardView.getChildren().clear();
 
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
@@ -153,9 +155,12 @@ public class NewsUI extends Pane {
         }
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setPrefWidth(BOX_WIDTH);
-        vBox.setPrefHeight(BOX_HEIGHT);
+//        vBox.setPrefHeight();
         vBox.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;" + "-fx-padding: 10;");
-        masonryPane.getChildren().add(vBox);
+        cardView.getChildren().add(vBox);
+        VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
+
+//        masonryPane.getChildren().add(vBox);
 
     }
 
@@ -189,8 +194,8 @@ public class NewsUI extends Pane {
         }
     }
 
-    public JFXMasonryPane getMasonryPane() {
-        return masonryPane;
+    public VBox getCardView() {
+        return cardView;
     }
 
 

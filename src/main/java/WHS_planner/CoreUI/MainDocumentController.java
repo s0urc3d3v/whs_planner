@@ -2,24 +2,24 @@ package WHS_planner.CoreUI;
 
 import WHS_planner.Calendar.Calendar;
 import WHS_planner.Schedule.Schedule;
-import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -74,7 +74,7 @@ public class MainDocumentController implements Initializable {
 
 
         topBar.setStyle("-fx-background-color: #FF9800");
-        navHamburger.getStylesheets().add("/CoreUI/ButtonUI.css");
+        navHamburger.getStylesheets().add("CoreUI" + File.separator + "ButtonUI.css");
         navHamburger.getStyleClass().add("jfx-hamburger-icon");
         String[] tabs = new String[]{"Calendar", "Schedule", "Today", "Tests", "Rip A Fat Vape", "George"}; //Need to find a way to get this from another class,
         //Create the VBox                                                                            //May need to be an array of classes that extend tab, so you can get an fxml file related to them and their name.
@@ -83,7 +83,7 @@ public class MainDocumentController implements Initializable {
         {
             JFXButton tempButton = new JFXButton(tabs[i].toUpperCase());
             tempButton.setPrefSize(navDrawer.getDefaultDrawerSize(), (navDrawer.getPrefHeight()) / tabs.length);
-            tempButton.getStylesheets().add("/CoreUI/ButtonUI.css");
+            tempButton.getStylesheets().add("CoreUI" + File.separator + "ButtonUI.css");
             tempButton.getStyleClass().add("button-raised");
             buttonArray[i] = tempButton;
         }
@@ -183,7 +183,7 @@ public class MainDocumentController implements Initializable {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/CoreUI/SportsPopup.fxml"));
+        loader.setLocation(getClass().getResource("CoreUI" + File.separator + "SportsPopup.fxml"));
         // initializing the controller
         popupController popupController = new popupController();
         loader.setController(popupController);
@@ -196,7 +196,7 @@ public class MainDocumentController implements Initializable {
             // Giving the popup controller access to the popup stage (to allow the controller to close the stage)
             popupController.setStage(popupStage);
             if(this.main!=null) {
-                popupStage.initOwner(main.getStage());
+                popupStage.initOwner(NavigationBar.getStage());
             }
             popupStage.initModality(Modality.WINDOW_MODAL);
             popupStage.setScene(scene);

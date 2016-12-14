@@ -4,15 +4,18 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 
 
 public class MeetingTest extends Application{
     private static MeetingController controller = new MeetingController();
 
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     public void start(Stage stage) throws Exception{
 
@@ -43,17 +46,9 @@ public class MeetingTest extends Application{
 //        rect.prefHeightProperty().bind(scene.heightProperty());
 
         //Set the stylesheet
-        scene.getStylesheets().add("/Calendar/MainUI.css");
+        scene.getStylesheets().add("Calendar" + File.separator + "MainUI.css");
 
         stage.setScene(scene);
         stage.show();
-    }
-
-
-
-
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

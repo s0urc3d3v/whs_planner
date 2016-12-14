@@ -24,7 +24,7 @@ class Home extends Pane {
         newsScroll.setFitToWidth(true);
         newsScroll.setStyle("-fx-focus-color: transparent;");
         newsScroll.getStyleClass().setAll("scroll-bar");
-        newsScroll.getStylesheets().add("UI" + File.separator + "NewsUI.css");
+        newsScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
         newsScroll.setMinWidth(280);
         newsScroll.setMaxWidth(280);
         newsScroll.setPrefHeight(this.getPrefHeight());

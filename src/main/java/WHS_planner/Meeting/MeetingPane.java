@@ -1,12 +1,8 @@
 package WHS_planner.Meeting;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.net.URL;
 
@@ -15,7 +11,7 @@ public class MeetingPane extends Pane {
     private static MeetingController controller = new MeetingController();
 
     public MeetingPane(){
-        String sceneFile = "/Meeting/meeting.fxml";
+        String sceneFile = "Meeting/meeting.fxml";
         Parent root = null;
         URL url = null;
 

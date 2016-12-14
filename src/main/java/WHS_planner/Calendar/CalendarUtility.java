@@ -1,12 +1,8 @@
 package WHS_planner.Calendar;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 
 import java.io.IOException;
-import java.util.ResourceBundle;
 
 public class CalendarUtility {
 
@@ -16,7 +12,7 @@ public class CalendarUtility {
     //Generates a calendar array with the correct amount of days and starting on the start day
     public CalendarBox[][] fillInCalendar(int startDay, int numberOfDays, UIController controller) throws IOException {
 
-        //Intitialize a general calendar array size
+        //Initialize a general calendar array size
         CalendarBox[][] calendar = new CalendarBox[5][7];
 
         int dayInMonth = 1;
