@@ -1,5 +1,8 @@
 package WHS_planner.Calendar;
 
+import WHS_planner.Core.IO;
+import WHS_planner.Core.JSON;
+import com.google.api.client.json.Json;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
@@ -9,7 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import org.json.JSONObject;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -29,6 +34,9 @@ public class Calendar extends BorderPane {
     private Node taskBox;
 //Tzurs code
  private CalendarHelper dayFinder = new CalendarHelper();
+
+    private IO io = new IO("calendarHolder.json");
+     private JSON json = io.getJsonApi();
     // end tzurs code
     private VBox mainPane;
 
@@ -47,11 +55,12 @@ public class Calendar extends BorderPane {
         InputStream font = MainUI.class.getResourceAsStream("/FontAwesome/fontawesome.ttf");
         Font.loadFont(font,10);
 
-        try {
-            calendar = util.fillInCalendar(startDay, numberOfDays,new UIController());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
+            try {
+                calendar = util.fillInCalendar(startDay, numberOfDays, new UIController());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         mainPane = new VBox();
         mainPane.setId("vbox");//Replace this ID
@@ -142,6 +151,7 @@ public class Calendar extends BorderPane {
             changeButtonColor(getCalendarBox(date).getButtonNode(),true);
         }
         taskBox = getCalendarBox(date).getTaskBox(tempPane.widthProperty());
+        
     }
 
     public void changeButtonColor(JFXButton button,boolean selected){
@@ -225,5 +235,79 @@ public class Calendar extends BorderPane {
 //    }
     public CalendarBox GetCurrentCalendarBox(){
         return getCalendarBox(currentDate);
+    }
+
+    // saves calendar array as a json file at calendarHolder
+    public void saveCalendar(){
+        try{
+
+        System.out.println("WRITE K");
+        //Grabs all the caledar days
+        for (int i = 0; i <numberOfDays ; i++) {
+                // Gets the active calendar day
+                CalendarBox current = calendar[i / 7][i % 7];
+            // finds out is the day exisits
+            if (current != null) {
+
+                // gets the week and the date of the object
+                int currentWeek = current.getWeek();
+
+                int currentDate = current.getDate();
+                //gets the tasks in the calendar box
+                ArrayList<ArrayList<Task>> currentTaskArrayUnparsedSquared = current.getTasks();
+                int sizeOfTasksSquared = currentTaskArrayUnparsedSquared.size();
+                for (int j = 0; j < sizeOfTasksSquared; j++) {
+
+                    ArrayList<Task> currentTaskArrayUnparsed = currentTaskArrayUnparsedSquared.get(j);
+                    int sizeOfTasks = currentTaskArrayUnparsed.size();
+
+                    for (int k = 0; k < sizeOfTasks; k++) {
+
+
+                        Task currentTask = currentTaskArrayUnparsed.get(k);
+                        String currentTaskTitle = currentTask.Title;
+                        System.out.println("currentTaskTitle ="+currentTaskTitle);
+                        String currentTaskClass = currentTask.Class;
+
+                        System.out.println("currentTaskClass ="+currentTaskClass);
+
+                        // checks if class = null
+                        if (currentTaskClass == null){
+                            currentTaskClass = " ";
+                        }
+                        String currentTaskDescription = currentTask.Description;
+                        System.out.println("currentTaskDescription ="+currentTaskDescription);
+
+                        // checks if taskDescription = null
+                        if (currentTaskDescription == null){
+                            currentTaskDescription = " ";
+                        }
+                        ArrayList<String> currentTaskArray = new ArrayList<>();
+                        currentTaskArray.add(currentTaskTitle);
+                        currentTaskArray.add(currentTaskClass);
+                        currentTaskArray.add(currentTaskDescription);
+                        json.writeArray("CalendarSaver" + i + ":" + j + ":" + k, currentTaskArray.toArray());
+                    }
+                }
+                // make an array of values to save from the current calendarbox
+                ArrayList<Integer> currentBoxArray = new ArrayList<>();
+                currentBoxArray.add(currentDate);
+                currentBoxArray.add(currentWeek);
+
+                json.writeArray("CalendarSaver" + i, currentBoxArray.toArray());
+
+            }
+        }
+        json.unloadFile();
+    }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        saveCalendar();
     }
 }

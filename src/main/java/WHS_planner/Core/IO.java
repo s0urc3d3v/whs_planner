@@ -139,4 +139,8 @@ public class IO {
             }
         return scheduleBlockArrayList;
     }
+
+    public JSON getJsonApi() {
+        return jsonApi;
+    }
 }

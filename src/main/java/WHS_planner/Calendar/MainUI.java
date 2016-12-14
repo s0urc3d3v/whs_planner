@@ -21,6 +21,8 @@ public class MainUI extends Application{
     public void start(Stage stage) throws Exception {
 //------------------------Calendar Pane Implementation---------------------------------------
         Calendar cal = new Calendar();
+
+
         cal.setId("MainCalendar");
 
         Scene scene = new Scene(cal);
