@@ -54,12 +54,21 @@ class GeoffreyNewsUI extends ContentPane {
         masonryPane.setCellHeight(BOX_HEIGHT+30);
         masonryPane.setCellWidth(BOX_WIDTH);
         masonryPane.prefHeightProperty().bind(mainPane.heightProperty());
-        init();
+
+
+        //Checks if feed sends back a connection error. If it doesn't, initialize cards as normal.
+        if (feed.getTitle().equals("badNet")) {
+            addCard(new Label("Error with Connection!"), new Hyperlink("https://www.google.com/"));
+        } else {
+            init();
+        }
 
         this.getChildren().setAll(mainPane);
         mainPane.prefWidthProperty().bind(this.widthProperty());
         mainPane.prefHeightProperty().bind(this.heightProperty());
         mainPane.getStylesheets().add("/UI/NewsUI.css");
+
+
     }
 
     private void openLink(int index) {

@@ -60,60 +60,67 @@ public class RSSFeedParser {
 
             // Setup a new eventReader
             InputStream in = read();
-            XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
-            // read the XML document
-            while (eventReader.hasNext()) {
-                XMLEvent event = eventReader.nextEvent();
-                if (event.isStartElement()) {
-                    String localPart = event.asStartElement().getName()
-                            .getLocalPart();
-                    switch (localPart) {
-                        case ITEM:
-                            if (isFeedHeader) {
-                                isFeedHeader = false;
-                                feed = new Feed(title, link, description, language,
-                                        copyright, pubdate);
-                        }
-                            break;
-                        case TITLE:
-                            title = getCharacterData(eventReader);
-                            break;
-                        case DESCRIPTION:
-                            description = getCharacterData(eventReader);
-                            break;
-                        case LINK:
-                            link = getCharacterData(eventReader);
-                            break;
-                        case GUID:
-                            guid = getCharacterData(eventReader);
-                            break;
-                        case LANGUAGE:
-                            language = getCharacterData(eventReader);
-                            break;
-                        case AUTHOR:
-                            author = getCharacterData(eventReader);
-                            break;
-                        case PUB_DATE:
-                            pubdate = getCharacterData(eventReader);
-                            break;
-                        case COPYRIGHT:
-                            copyright = getCharacterData(eventReader);
-                            break;
-                    }
+            if (in != null) {
+                XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
 
-                } else if (event.isEndElement()) {
-                    if (event.asEndElement().getName().getLocalPart().equals(ITEM)) {
-                        FeedMessage message = new FeedMessage();
-                        message.setAuthor(author);
-                        message.setDescription(description);
-                        message.setGuid(guid);
-                        message.setLink(link);
-                        message.setTitle(title);
-                        feed.getMessages().add(message);
+                // read the XML document
+                while (eventReader.hasNext()) {
+                    XMLEvent event = eventReader.nextEvent();
+                    if (event.isStartElement()) {
+                        String localPart = event.asStartElement().getName()
+                                .getLocalPart();
+                        switch (localPart) {
+                            case ITEM:
+                                if (isFeedHeader) {
+                                    isFeedHeader = false;
+                                    feed = new Feed(title, link, description, language,
+                                            copyright, pubdate);
+                                }
+                                break;
+                            case TITLE:
+                                title = getCharacterData(eventReader);
+                                break;
+                            case DESCRIPTION:
+                                description = getCharacterData(eventReader);
+                                break;
+                            case LINK:
+                                link = getCharacterData(eventReader);
+                                break;
+                            case GUID:
+                                guid = getCharacterData(eventReader);
+                                break;
+                            case LANGUAGE:
+                                language = getCharacterData(eventReader);
+                                break;
+                            case AUTHOR:
+                                author = getCharacterData(eventReader);
+                                break;
+                            case PUB_DATE:
+                                pubdate = getCharacterData(eventReader);
+                                break;
+                            case COPYRIGHT:
+                                copyright = getCharacterData(eventReader);
+                                break;
+                        }
+
+                    } else if (event.isEndElement()) {
+                        if (event.asEndElement().getName().getLocalPart().equals(ITEM)) {
+                            FeedMessage message = new FeedMessage();
+                            message.setAuthor(author);
+                            message.setDescription(description);
+                            message.setGuid(guid);
+                            message.setLink(link);
+                            message.setTitle(title);
+                            feed.getMessages().add(message);
+                        }
                     }
                 }
+            } else {
+                feed = new Feed("badNet", "", "", "",
+                        "", "");
             }
         } catch (XMLStreamException e) {
+            System.out.println("XMLStreamException.");
             throw new RuntimeException(e);
         }
         return feed;
@@ -133,8 +140,11 @@ public class RSSFeedParser {
         try {
             return url.openStream();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("News connection error.");
+//            throw new RuntimeException(e);
+            return null;
         }
+
     }
 
 
