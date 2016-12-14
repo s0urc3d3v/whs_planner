@@ -47,6 +47,7 @@
                     <jrePath>/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk</jrePath>
                     <mainClass>WHS_planner.Main</mainClass>
                     <generateDiskImageFile>true</generateDiskImageFile>
+                <iconFile>[here]</iconFile>
             </configuration>
             <executions>
                 <execution>
