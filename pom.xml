@@ -17,6 +17,7 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
@@ -30,6 +31,33 @@
                     </descriptorRefs>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.2.0</version>
+                <configuration>
+                    <mainClass>WHS_planner.Main</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+            <groupId>sh.tak.appbundler</groupId>
+            <artifactId>appbundle-maven-plugin</artifactId>
+            <version>1.2.0</version>
+            <configuration>
+                    <jrePath>/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk</jrePath>
+                    <mainClass>WHS_planner.Main</mainClass>
+                    <generateDiskImageFile>true</generateDiskImageFile>
+                <iconFile>[here]</iconFile>
+            </configuration>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>bundle</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
