@@ -305,21 +305,21 @@ public class ScheduleController implements Initializable, ActionListener
 
         if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == 4)
         {
-            if(num >= 450 && num < 496)
+            if(num >= 450 && num < 495)
             {
-                mod = (496-num)/46.0;
+                mod = (495-num)/45.0;
             }
-            else if(num >= 496 && num < 576)
+            else if(num >= 495 && num < 575)
             {
-                mod = (576-num)/80.0;
+                mod = (575-num)/80.0;
             }
-            else if(num >= 576 && num < 641)
+            else if(num >= 575 && num < 620)
             {
-                mod = (641-num)/65.0;
+                mod = (620-num)/45.0;
             }
-            else if(num >= 641 && num < 716)
+            else if(num >= 620 && num < 700)
             {
-                mod = (716-num)/75.0;
+                mod = (700-num)/80.0;
             }
             else if(num >= 700 && num < 745)
             {
