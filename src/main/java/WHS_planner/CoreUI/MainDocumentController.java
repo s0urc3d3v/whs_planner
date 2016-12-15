@@ -66,7 +66,7 @@ public class MainDocumentController implements Initializable {
 
         panes = new Pane[8];
 
-        cal = new Calendar(1, 30);
+        cal = new Calendar();
         cal.setPrefHeight(anchorPane.getPrefHeight());
         cal.prefWidthProperty().bind(anchorPane.widthProperty());
         schedule = new Schedule();
