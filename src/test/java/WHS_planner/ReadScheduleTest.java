@@ -3,6 +3,8 @@ package WHS_planner;
 import WHS_planner.Schedule.GrabDay;
 import junit.framework.TestCase;
 
+import java.util.Calendar;
+
 /**
  * Created by matthewelbing on 24.09.16.
  * Tests for the ReadSchedule Class
@@ -18,4 +20,11 @@ public class ReadScheduleTest extends TestCase{
 //        ScheduleParser scheduleParser = new ScheduleParser();
 //        scheduleParser.getClasses();
     }
+
+
+    public void testday()
+    {
+        System.out.println(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+    }
+
 }
