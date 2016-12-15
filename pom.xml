@@ -47,7 +47,7 @@
                     <jrePath>/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk</jrePath>
                     <mainClass>WHS_planner.Main</mainClass>
                     <generateDiskImageFile>true</generateDiskImageFile>
-                    <iconFile>${project.basedir}/src/main/resources/UI/icon.png</iconFile>
+                    <iconFile>icon.icns</iconFile>
             </configuration>
             <executions>
                 <execution>
@@ -182,21 +182,6 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>LATEST</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-firefox-driver</artifactId>
-            <version>2.45.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-remote-driver</artifactId>
-            <version>2.43.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-chrome-driver</artifactId>
-            <version>2.45.0</version>
         </dependency>
     </dependencies>
 </project>
