@@ -7,7 +7,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>whs_planner_app</name>
+    <name>WHS Planner</name>
     <url>http://maven.apache.org</url>
 
 
@@ -17,7 +17,6 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
