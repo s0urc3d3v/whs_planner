@@ -121,10 +121,10 @@ public class ScheduleController implements Initializable, ActionListener
                 {
                     Title3.setText("");
 
-                    Thread t = new Thread()
-                    {
-                        public void run()
-                        {
+                    Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
                             BufferedReader br;
                             try
                             {
@@ -160,7 +160,7 @@ public class ScheduleController implements Initializable, ActionListener
                             Platform.runLater(() -> Title3.setText(s));
 
                         }
-                    };
+                    });
                     t.start();
 
 
