@@ -43,7 +43,7 @@
             <artifactId>appbundle-maven-plugin</artifactId>
             <version>1.2.0</version>
             <configuration>
-                    <jrePath>/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk</jrePath>
+                    <jrePath>${java.home}</jrePath>
                     <mainClass>WHS_planner.Main</mainClass>
                     <generateDiskImageFile>true</generateDiskImageFile>
                     <iconFile>icon.icns</iconFile>
