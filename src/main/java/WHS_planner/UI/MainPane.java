@@ -31,7 +31,7 @@ public class MainPane extends Pane {
         navBar = loadNavBar(); //Loads the navBar from the FXML
         navBar.getStyleClass().setAll("navBar");
         navBar.getChildren().get(0).getStyleClass().setAll("jfx-hamburger-icon");
-        navBar.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);");
+//        navBar.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);");
         content = new Pane(); //Creates an empty main content pane
         contentPanes = new ArrayList<>(); //Makes an empty list for all the content panes
         generatePanes(); //Loads in all the different panes
@@ -97,7 +97,7 @@ public class MainPane extends Pane {
         drawer.setSidePane(tabsVBox);
         drawer.setPickOnBounds(false);
         drawer.setMouseTransparent(true);                                                //vertical, higher = lower
-        drawer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 5, 0);");
+//        drawer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 5, 0);");
 
         //Hamburger animation
         hamburger.setAnimation(new HamburgerBackArrowBasicTransition(hamburger));
