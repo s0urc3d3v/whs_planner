@@ -66,7 +66,11 @@ public class MainDocumentController implements Initializable {
 
         panes = new Pane[8];
 
+<<<<<<< HEAD
         cal = new Calendar();
+=======
+        cal = new Calendar(1, 30);
+>>>>>>> parent of 0546a05... Calendar Circle works again :kissing_cat:
         cal.setPrefHeight(anchorPane.getPrefHeight());
         cal.prefWidthProperty().bind(anchorPane.widthProperty());
         schedule = new Schedule();

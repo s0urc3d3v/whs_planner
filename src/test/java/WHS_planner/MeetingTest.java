@@ -14,7 +14,7 @@ public class MeetingTest extends TestCase {
         Course english = new Course("English", 4, "Teacher", Course.level.COLLEGE);
         Student requestingStudent = new Student("John", "Smith", "test@test.com", 12, "teacher1");
         Student studentRequested = new Student("Smith", "John", "matthewelbing@gmail.com", 12, "teacher2");
-        Meeting m = new Meeting(requestingStudent, studentRequested, 11, 13, 10, 12, 16, english);
+        Meeting m = new Meeting(requestingStudent, studentRequested, 11, 13, 10, 12, 16, english, null);
         m.create();
         ReadMeetingDataTest readMeetingDataTest = new ReadMeetingDataTest();
         readMeetingDataTest.testReadMeetingData();

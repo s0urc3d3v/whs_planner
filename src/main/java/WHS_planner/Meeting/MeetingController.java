@@ -1,6 +1,7 @@
 package WHS_planner.Meeting;
 
 import WHS_planner.Core.IO;
+import WHS_planner.Core.Meeting;
 import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
