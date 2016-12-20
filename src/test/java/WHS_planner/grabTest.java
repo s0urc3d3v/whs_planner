@@ -4,7 +4,9 @@ import WHS_planner.Schedule.GrabDay;
 import WHS_planner.Schedule.ParseCalendar;
 import junit.framework.TestCase;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.Calendar;
 
 /**
@@ -27,7 +29,6 @@ public class grabTest extends TestCase
             br.close();
             fr.close();
 
-            System.out.println("User: "+user+" : Password: "+pass);
 
             GrabDay gd = new GrabDay(user, pass);
             gd.grabData();

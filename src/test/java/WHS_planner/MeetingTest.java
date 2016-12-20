@@ -1,12 +1,13 @@
-/*package WHS_planner;
+package WHS_planner;
 
+import WHS_planner.Core.GmailApiAccess;
 import WHS_planner.Core.Meeting;
-import WHS_planner.Core.Student;
 import WHS_planner.Util.Course;
+import WHS_planner.Util.Student;
 import junit.framework.TestCase;
 
-/**
- * Created by spam on 08.10.2016.
+
+ /* Created by spam on 08.10.2016. */
 
 public class MeetingTest extends TestCase {
     public void testMeetingCreation(){
@@ -24,4 +25,3 @@ public class MeetingTest extends TestCase {
         }
     }
 }
-*/
