@@ -89,7 +89,7 @@ public class MainPane extends Pane {
      */
     private JFXDrawer createDrawer(JFXHamburger hamburger, double width, double buttonHeight) {
         //Put the buttons generated into a vBox
-        VBox tabsVBox = new VBox(generateButtons(new String[]{"Home", "Schedule", "Meetings"}, width, buttonHeight));
+        VBox tabsVBox = new VBox(generateButtons(new String[]{"Home", "Schedule"}, width, buttonHeight));
 
         //Set drawer preferences
         JFXDrawer drawer = new JFXDrawer();
@@ -140,12 +140,12 @@ public class MainPane extends Pane {
         schedule = new Schedule();
         BorderPane calendar = new Calendar();
         NewsUI news = new NewsUI();
-        Pane meeting = new MeetingPane();
+        //Pane meeting = new MeetingPane();
         Home homePane = new Home(calendar, news.getCardView(), schedule.getProgressBar());
 
         addPane(homePane);
         addPane((Pane) schedule.getPane());
-        addPane(meeting);
+        //addPane(meeting);
 
 
         content.getChildren().add(contentPanes.get(0)); //Sets home tab as default
