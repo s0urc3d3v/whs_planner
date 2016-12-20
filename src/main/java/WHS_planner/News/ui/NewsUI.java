@@ -156,7 +156,7 @@ public class NewsUI extends Pane {
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setPrefWidth(BOX_WIDTH);
 //        vBox.setPrefHeight();
-//        vBox.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;" + "-fx-padding: 10;");
+        vBox.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;" + "-fx-padding: 10;");
         cardView.getChildren().add(vBox);
         VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
 

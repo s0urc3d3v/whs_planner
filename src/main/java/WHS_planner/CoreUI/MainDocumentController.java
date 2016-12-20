@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class MainDocumentController implements Initializable {
 
-    Calendar cal;
+    private Calendar cal;
 
     @FXML
     private VBox anchorPane;
@@ -70,7 +70,7 @@ public class MainDocumentController implements Initializable {
         cal.setPrefHeight(anchorPane.getPrefHeight());
         cal.prefWidthProperty().bind(anchorPane.widthProperty());
         schedule = new Schedule();
-        BorderPane schedulepane = (BorderPane) schedule.getPane();
+        BorderPane schedulePane = (BorderPane) schedule.getPane();
 
 
         topBar.setStyle("-fx-background-color: #FF9800");
@@ -112,10 +112,10 @@ public class MainDocumentController implements Initializable {
 
         buttonArray[1].setOnMouseClicked(event -> {
             //anchorPane.getChildren().setAll(tempPane.getChildren());
-            if(!anchorPane.getChildren().contains(schedulepane))
+            if (!anchorPane.getChildren().contains(schedulePane))
             {
-                anchorPane.getChildren().add(0, schedulepane);
-                panes[1] = schedulepane;
+                anchorPane.getChildren().add(0, schedulePane);
+                panes[1] = schedulePane;
 
                 for (int i = 0; i < panes.length; i++)
                 {
@@ -180,7 +180,7 @@ public class MainDocumentController implements Initializable {
 
     @FXML
     private HashMap<String, Object> openSportsDialogue() {
-        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        HashMap<String, Object> resultMap = new HashMap<>();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("CoreUI" + File.separator + "SportsPopup.fxml"));
@@ -209,7 +209,7 @@ public class MainDocumentController implements Initializable {
     }
 
 
-    public void remPane(Pane p)
+    private void remPane(Pane p)
     {
         anchorPane.getChildren().remove(p);
     }
