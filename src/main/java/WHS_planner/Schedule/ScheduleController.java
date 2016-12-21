@@ -458,4 +458,16 @@ public class ScheduleController implements Initializable, ActionListener
     }
 
 
+    public ScheduleBlock[] getCurrentSchedule()
+    {
+        MainPane mp = (MainPane) Main.getMainPane();
+        Schedule sch = mp.getSchedule();
+
+        String s = getletterday();
+
+        ScheduleBlock[] sb = sch.getToday(s);
+
+        return sb;
+    }
+
 }

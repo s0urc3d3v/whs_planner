@@ -220,5 +220,11 @@ public class MainPane extends Pane {
         hamburg.getAnimation().play(); //Plays the transition
         drawer.close();
     }
+
+    public Schedule getSchedule()
+    {
+        return schedule;
+    }
+
     
 }

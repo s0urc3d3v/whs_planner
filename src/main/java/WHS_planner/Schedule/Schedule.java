@@ -13,6 +13,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import sun.font.FontRunIterator;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -286,5 +287,40 @@ public class Schedule
     public Node getPane()
     {
         return schedule.getRoot();
+    }
+
+
+    public ScheduleBlock[] getToday(String letter)
+    {
+        ScheduleBlock b[] = new ScheduleBlock[6];
+        int x;
+        switch(letter)
+        {
+            case "A": x = 0;
+                break;
+            case "B": x = 1;
+                break;
+            case "C": x = 2;
+                break;
+            case "D": x = 3;
+                break;
+            case "E": x = 4;
+                break;
+            case "F": x = 5;
+                break;
+            case "G": x = 6;
+                break;
+            case "H": x = 7;
+                break;
+            default:  x = -1;
+                break;
+        }
+
+        for (int i = 0; i < 6; i++)
+        {
+            b[i] = blocks[x+(i*8)];
+        }
+
+        return b;
     }
 }
