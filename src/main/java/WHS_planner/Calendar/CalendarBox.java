@@ -88,7 +88,9 @@ public class CalendarBox extends Pane{
                 calendar.update(week,date);
             }
         }));
-        if (java.util.Calendar.getInstance().getTime().getDay() == this.getDate()) {
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+        if (day == this.getDate()) {
             dayCircle.setFill(new Color(255/255, 152/255.0, 0, 100/100));
         } else {
             dayCircle.setFill(new Color(255/255, 152/255, 0, 0));
