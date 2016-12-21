@@ -1,6 +1,8 @@
 package WHS_planner.Schedule;
 
 import WHS_planner.Core.IO;
+import WHS_planner.Main;
+import WHS_planner.Util.XorTool;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -224,6 +226,9 @@ public class Schedule
 
             user = br.readLine();
             pass = br.readLine();
+
+            user = XorTool.decode(user, Main.getXorKey());
+            pass = XorTool.decode(pass, Main.getXorKey());
 
             br.close();
             fr.close();
