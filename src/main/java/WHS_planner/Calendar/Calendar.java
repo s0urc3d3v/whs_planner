@@ -3,7 +3,6 @@ package WHS_planner.Calendar;
 import WHS_planner.Core.AutoSave;
 import WHS_planner.Core.IO;
 import WHS_planner.Core.JSON;
-import com.google.api.client.json.Json;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
@@ -13,9 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-import org.json.JSONObject;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -81,7 +78,7 @@ public class Calendar extends BorderPane {
             Label dayLabel = new Label(daysOfTheWeek[dayIndex]);
             dayLabel.getStyleClass().add("weekday");
             firstRow.add(dayLabel,dayIndex,0);
-            firstRow.setHgrow(dayLabel,Priority.ALWAYS);
+            GridPane.setHgrow(dayLabel, Priority.ALWAYS);
             dayLabel.prefWidthProperty().bind(this.getCalendarBox(1).widthProperty());
         }
 
@@ -100,13 +97,13 @@ public class Calendar extends BorderPane {
                 }
                 tempCalendarBox.prefHeightProperty().bind(row.heightProperty());
                 row.add(tempCalendarBox,c,0);
-                row.setHgrow(tempCalendarBox,Priority.ALWAYS);
+                GridPane.setHgrow(tempCalendarBox, Priority.ALWAYS);
             }
             rows.add(row);
         }
 
         for (Node row:rows) {
-            mainPane.setVgrow(row,Priority.ALWAYS);
+            VBox.setVgrow(row, Priority.ALWAYS);
             GridPane tempGridPane = (GridPane)row;
             tempGridPane.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT +10);
             tempGridPane.setMinWidth(7*CalendarBox.CALENDAR_BOX_MIN_WIDTH +10);
@@ -122,7 +119,6 @@ public class Calendar extends BorderPane {
     }
 
     public void update(int row, int date){
-
         int[] rowIDs = new int[]{1,2,3,4,5};
         GridPane tempPane = (GridPane) mainPane.getChildren().get(1);
 

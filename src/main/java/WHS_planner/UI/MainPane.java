@@ -3,13 +3,17 @@ package WHS_planner.UI;
 import WHS_planner.Calendar.Calendar;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
+import WHS_planner.Schedule.ScheduleBlock;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -88,12 +92,20 @@ public class MainPane extends Pane {
      */
     private JFXDrawer createDrawer(JFXHamburger hamburger, double width, double buttonHeight) {
         //Put the buttons generated into a vBox
-        VBox tabsVBox = new VBox(generateButtons(new String[]{"Home", "Schedule"}, width, buttonHeight));
+//        ScheduleBlock[] scheduleBlocks = new ScheduleBlock[7]; //TODO: Get from schedule
+//        VBox tabsVBox = new VBox();
+//        for (int i = 0; i < scheduleBlocks.length; i++) {
+//            Label l = new Label();
+//            l.setPadding(new Insets(20, 5, 20, 5));
+//            l.setText(scheduleBlocks[i].getClassName());
+//            tabsVBox.getChildren().add(l);
+//        }
+//        generateButtons(new String[]{"Home", "Schedule"}, width, buttonHeight);
 
         //Set drawer preferences
         JFXDrawer drawer = new JFXDrawer();
         drawer.setDefaultDrawerSize(width);
-        drawer.setSidePane(tabsVBox);
+//        drawer.setSidePane(tabsVBox);
         drawer.setPickOnBounds(false);
         drawer.setMouseTransparent(true);                                                //vertical, higher = lower
         drawer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 5, 0);");
