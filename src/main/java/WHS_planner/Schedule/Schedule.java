@@ -116,70 +116,70 @@ public class Schedule
         int incr = 0;
         int incr2 = 1;
 
-//        for (int i = 0; i < 56; i++)
-//        {
-//            String s;
-//
-//            currentClass = blocks[i].getClassName();
-//            currentTeacher = blocks[i].getTeacher();
-//            currentTeacher = currentTeacher.replace("<br>", " & ");
-//            currentClass = currentClass.replace("&amp;", "&");
-//            currentPeriod = blocks[i].getPeriodNumber();
-//            currentRoom = blocks[i].getRoomNumber();
-//
-//            if(blocks[i].getClassName().trim().equals("free"))
-//            {
-//                s = "free";
-//            }
-//            else
-//            {
-//                s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+ "Block:" + currentPeriod;
-//            }
-//
-//            //System.out.println(s);
-//
-//            String letter;
-//
-//            switch(incr)
-//            {
-//                case 0: letter = "A";
-//                    break;
-//                case 1: letter = "B";
-//                    break;
-//                case 2: letter = "C";
-//                    break;
-//                case 3: letter = "D";
-//                    break;
-//                case 4: letter = "E";
-//                    break;
-//                case 5: letter = "F";
-//                    break;
-//                case 6: letter = "G";
-//                    break;
-//                case 7: letter = "H";
-//                    break;
-//                default: letter = "Time";
-//                    break;
-//            }
-//
-//            try
-//            {
-//                Label l = (Label) labels.get(letter+incr2);
-//                l.setText(s);
-//                l.setWrapText(true);
-//            }
-//            catch(Exception e)
-//            {
-//                //e.printStackTrace();
-//            }
-//
-//            incr++;
-//            if(incr == 8)
-//            {
-//                incr = 0;
-//                incr2++;
-//            }
-//        }
+        for (int i = 0; i < 56; i++)
+        {
+            String s;
+
+            currentClass = blocks[i].getClassName();
+            currentTeacher = blocks[i].getTeacher();
+            currentTeacher = currentTeacher.replace("<br>", " & ");
+            currentClass = currentClass.replace("&amp;", "&");
+            currentPeriod = blocks[i].getPeriodNumber();
+            currentRoom = blocks[i].getRoomNumber();
+
+            if(blocks[i].getClassName().trim().equals("free"))
+            {
+                s = "free";
+            }
+            else
+            {
+                s = currentClass+"\n"+currentTeacher+"\n"+currentRoom+"\n"+ "Block:" + currentPeriod;
+            }
+
+            //System.out.println(s);
+
+            String letter;
+
+            switch(incr)
+            {
+                case 0: letter = "A";
+                    break;
+                case 1: letter = "B";
+                    break;
+                case 2: letter = "C";
+                    break;
+                case 3: letter = "D";
+                    break;
+                case 4: letter = "E";
+                    break;
+                case 5: letter = "F";
+                    break;
+                case 6: letter = "G";
+                    break;
+                case 7: letter = "H";
+                    break;
+                default: letter = "Time";
+                    break;
+            }
+
+            try
+            {
+                Label l = (Label) labels.get(letter+incr2);
+                l.setText(s);
+                l.setWrapText(true);
+            }
+            catch(Exception e)
+            {
+                //e.printStackTrace();
+            }
+
+            incr++;
+            if(incr == 8)
+            {
+                incr = 0;
+                incr2++;
+            }
+        }
 
         for (int i = 1; i <= 7; i++)
         {

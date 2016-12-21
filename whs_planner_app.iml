@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library name="Maven: javax.sql:jdbc-stdext:2.0">
         <CLASSES>
-          <root url="jar://C:/Program Files/Java/jdk1.8.0_101/jre/lib/rt.jar!/" />
+          <root url="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -96,6 +96,6 @@
     <orderEntry type="library" name="Maven: org.seleniumhq.selenium:jetty-repacked:7.6.1" level="project" />
     <orderEntry type="library" name="Maven: net.jcip:jcip-annotations:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.8" level="project" />
-    <orderEntry type="library" name="Maven: com.google.guava:guava:20.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:21.0-rc1" level="project" />
   </component>
 </module>

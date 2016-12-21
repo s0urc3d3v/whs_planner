@@ -1,6 +1,7 @@
 package WHS_planner.Schedule;
 
 import WHS_planner.Main;
+import WHS_planner.UI.MainPane;
 import WHS_planner.Util.XorTool;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -415,4 +416,29 @@ public class ScheduleController implements Initializable, ActionListener
             throw new IOException();
         }
     }
+
+    public void updateSchedule() throws Exception
+    {
+        File keys = new File("Keys");
+
+        File[] files = keys.listFiles();
+
+        for(File f : files)
+        {
+            if(f.getName().equals("ipass.key") || f.getName().equals("xor.key"))
+            {
+
+            }
+            else
+            {
+                f.delete();
+            }
+        }
+
+        MainPane mp = (MainPane) Main.getMainPane();
+        mp.resetSchedule();
+
+    }
+
+
 }
