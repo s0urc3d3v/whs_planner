@@ -119,8 +119,11 @@ public class RSSFeedParser {
                 feed = new Feed("badNet", "", "", "",
                         "", "");
             }
+            in.close();
         } catch (XMLStreamException e) {
             throw new RuntimeException(e);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return feed;
     }
