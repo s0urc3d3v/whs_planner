@@ -35,7 +35,7 @@ public class Calendar extends BorderPane {
     private CalendarHelper dayFinder = new CalendarHelper();
 
     private IO io = new IO("calendarHolder.json");
-     private JSON json = io.getJsonApi();
+     private JSON json;
     // end tzurs code
     private VBox mainPane;
 
@@ -44,7 +44,7 @@ public class Calendar extends BorderPane {
     private int currentDate = -1;
 
     public Calendar(){
-
+        json = io.getJsonApi();
         this.startDay = dayFinder.getWeekdayMonthStarts();
         this.numberOfDays = dayFinder.getDaysInMonth();
 
@@ -56,7 +56,7 @@ public class Calendar extends BorderPane {
 
 
             try {
-                calendar = util.fillInCalendar(startDay, numberOfDays, new UIController());
+                calendar = util.CalendarLoad(startDay, numberOfDays, json);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -149,7 +149,7 @@ public class Calendar extends BorderPane {
             changeButtonColor(getCalendarBox(date).getButtonNode(),true);
         }
         taskBox = getCalendarBox(date).getTaskBox(tempPane.widthProperty());
-        saveCalendar();
+//        saveCalendar();
     }
 
     public void changeButtonColor(JFXButton button,boolean selected){
@@ -285,6 +285,7 @@ public class Calendar extends BorderPane {
                         currentTaskArray.add(currentTaskClass);
                         currentTaskArray.add(currentTaskDescription);
                         json.writeArray("CalendarSaver" + i + ":" + j + ":" + k, currentTaskArray.toArray());
+                        System.out.println("CalendarSaver" + i + ":" + j + ":" + k);
                     }
                 }
                 // make an array of values to save from the current calendarbox

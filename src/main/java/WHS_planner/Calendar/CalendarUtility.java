@@ -70,21 +70,36 @@ public class CalendarUtility {
                 break;
             }
         }
-json.loadFile("calendarHolder");
+
+        //json.loadFile("calendarHolder.json");  //redundant??
         for (int i = 0; i < numberOfDays ; i++) {
-            for (int j = 0; j <2 ; j++) {
+//            for (int j = 0; j < 2 ; j++) {
                 boolean listIsFull = true;
-                int k= 0;
-//                while(listIsFull == true){
-//                    json.readArray("@CalendarSaver" + i + "" + j + ""+k )
-//
-//                    else{
-//                        listIsFull = false;
-//                    }
-//
+                for (int k = 0; listIsFull == true ; k++) {
+                   // System.out.println("For is working");
+                    try {
+                        //TODO: PRINT WHAT IS THIS ARRAY
+                        if(json.readArray("@CalendarSaver" + i + ":" + 0 + ":"+k) == null) {
+                            System.out.println("@CalendarSaver" + i + ":" + 0 + ":"+k);
+                        }
+                        Object[] steve = json.readArray("@CalendarSaver" + i + ":" + 0 + ":"+k ).toArray();
+                        if(calendar[i/7][i%7] != null) {
+                            calendar[i / 7][i % 7].addTask(0, new Task(steve[0].toString().substring(20), steve[1].toString().substring(20), steve[2].toString().substring(20)));
+                            System.out.println("" + steve[0].toString());
+                            System.out.println("" + steve[1].toString());
+                            System.out.println("" + steve[2].toString());
+                        }
+
+                    } catch (Exception e) {
+                        listIsFull = false;
+                        System.out.println(e);
+                    }
+
 //                }
+
             }
         }
+        //json.unloadFile();
 
 
 

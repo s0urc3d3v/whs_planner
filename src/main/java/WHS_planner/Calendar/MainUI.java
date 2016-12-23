@@ -10,10 +10,12 @@ import java.io.File;
  * Created by geoffrey_wang on 9/17/16.
  */
 public class MainUI extends Application{
+
+    private Calendar cal;
     @Override
     public void start(Stage stage) throws Exception {
 //------------------------Calendar Pane Implementation---------------------------------------
-        Calendar cal = new Calendar();
+         cal = new Calendar();
 
 
         cal.setId("MainCalendar");
@@ -29,5 +31,11 @@ public class MainUI extends Application{
         stage.setTitle("Calendar");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        cal.saveCalendar();
     }
 }

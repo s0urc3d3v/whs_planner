@@ -70,6 +70,7 @@ public class CalendarBox extends Pane{
         if(!active){
             setInactive();
         }
+        update();
     }
 
     /*-----METHODS-----*/
