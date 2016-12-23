@@ -400,7 +400,7 @@ public class ScheduleController implements Initializable, ActionListener
 
             if (childFile.isDirectory())
             {
-                delete(childFile);
+                delete(childFile);  //IS THIS RECURSION NECESSARY
             }
             else
             {
