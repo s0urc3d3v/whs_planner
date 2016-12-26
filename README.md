@@ -9,4 +9,6 @@ Remember to make and run tests BEFORE pushing to your branch.
 
 Also please do not merge until Travis says that your branch is working.
 
+**This program does not work with java 9 ea!**
+
 [**Github Emojis to Spice up our commits!**](http://www.webpagefx.com/tools/emoji-cheat-sheet/)
