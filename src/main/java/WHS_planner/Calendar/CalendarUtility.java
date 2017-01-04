@@ -84,7 +84,7 @@ public class CalendarUtility {
                         }
                         Object[] steve = json.readArray("@CalendarSaver" + i + ":" + 0 + ":"+k ).toArray();
                         if(calendar[i/7][i%7] != null) {
-                            calendar[i / 7][i % 7].addTask(0, new Task(steve[0].toString().substring(20), steve[1].toString().substring(20), steve[2].toString().substring(20)));
+                            calendar[i / 7][i % 7].addTask(0, new Task(steve[0].toString().substring(21), steve[1].toString().substring(21), steve[2].toString().substring(21)));
                             System.out.println("" + steve[0].toString());
                             System.out.println("" + steve[1].toString());
                             System.out.println("" + steve[2].toString());
