@@ -35,6 +35,7 @@ public class Main extends Application {
      * It initializes and runs the application!
      */
     public static void main(String[] args) throws Exception {
+        System.setProperty("http.agent", "Chrome");
         PropertyConfigurator.configure("log4j.properties");
 
        File keys = new File("Keys");
