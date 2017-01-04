@@ -239,7 +239,6 @@ public class Calendar extends BorderPane {
     public void saveCalendar(){
         try{
 
-        System.out.println("WRITE K");
         //Grabs all the caledar days
         for (int i = 0; i <numberOfDays ; i++) {
                 // Gets the active calendar day

@@ -44,7 +44,7 @@ public class CalendarBox extends Pane{
     private Label dateLabel;
     private HBox iconContainer;
 
-    public CalendarBox(int date, int week, boolean active, ArrayList<ArrayList<Task>> tasks){
+    public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks){
         this.date = date; //This box's date
         this.week = week; //The week (row) this box is in
 
@@ -56,7 +56,9 @@ public class CalendarBox extends Pane{
                 this.tasks.add(new ArrayList<>()); //Create a new list
             }
         }else{
-            this.tasks = tasks;
+            this.tasks = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
+
+            this.tasks.add(tasks);
         }
 
         //Creates the entire pane
@@ -141,6 +143,7 @@ public class CalendarBox extends Pane{
                 update();
                 Calendar calendar = (Calendar)this.getParent().getParent().getParent();
                 calendar.update(week,date);
+                updateTaskBox();
             }
         }));
         java.util.Calendar calendar = java.util.Calendar.getInstance();
