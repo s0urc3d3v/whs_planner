@@ -29,6 +29,7 @@ public class MainPane extends Pane {
 
 
     private Schedule schedule;
+    private Calendar calendar;
 
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
@@ -149,8 +150,13 @@ public class MainPane extends Pane {
 
     private void generatePanes() {
         schedule = new Schedule();
-        BorderPane calendar = new Calendar();
-        NewsUI news = new NewsUI();
+        calendar = new Calendar();
+        NewsUI news = null;
+        try {
+            news = new NewsUI();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         //Pane meeting = new MeetingPane();
         Home homePane = new Home(calendar, news.getCardView(), schedule.getProgressBar());
 
@@ -226,5 +232,7 @@ public class MainPane extends Pane {
         return schedule;
     }
 
-    
+    public void saveCalendar(){
+        calendar.saveCalendar();
+    }
 }

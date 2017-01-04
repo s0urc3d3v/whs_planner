@@ -45,6 +45,17 @@ public class Task {
             }
         }));
 
+//        pane.setOnMouseEntered((event -> {
+//            if (event.getButton() == MouseButton.PRIMARY) {
+//                label.setStrikethrough(true);
+//            }
+//        }));
+//        pane.setOnMouseExited((event -> {
+//            if (event.getButton() == MouseButton.PRIMARY) {
+//                label.setStrikethrough(true);
+//            }
+//        }));
+
         return pane;
     }
 

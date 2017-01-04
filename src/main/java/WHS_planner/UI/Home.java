@@ -1,5 +1,6 @@
 package WHS_planner.UI;
 
+import WHS_planner.Calendar.Calendar;
 import javafx.geometry.Insets;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
@@ -13,8 +14,7 @@ class Home extends Pane {
     private HBox outsidePane = new HBox();
     private VBox insidePane = new VBox();
 
-    Home(BorderPane calendar, Pane newsUI, ProgressBar progressBar) {
-
+    Home(Calendar calendar, Pane newsUI, ProgressBar progressBar) {
 
         //News
         ScrollPane newsScroll = new ScrollPane();

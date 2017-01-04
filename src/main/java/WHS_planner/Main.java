@@ -127,6 +127,7 @@ public class Main extends Application {
      */
     @Override
     public void stop(){
+        mainPane.saveCalendar();
         System.exit(0);
     }
 }

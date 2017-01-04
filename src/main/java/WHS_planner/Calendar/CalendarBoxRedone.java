@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 /**
  * Created by geoffrey_wang on 12/30/16.
  */
-public class CalendarBox extends Pane{
+public class CalendarBoxRedone extends Pane{
     public static final int CALENDAR_BOX_MIN_HEIGHT = 80, CALENDAR_BOX_MIN_WIDTH = 110; //Constant that defines the min size of a CalendarBox
     public static final int HOMEWORK = 0; //List IDs (Default)
     private static final String[] ICONS_UNICODE = new String[]{"\uf0f6"}; //File Icon, Check Icon (Font UNICODE)
@@ -44,7 +44,7 @@ public class CalendarBox extends Pane{
     private Label dateLabel;
     private HBox iconContainer;
 
-    public CalendarBox(int date, int week, boolean active, ArrayList<ArrayList<Task>> tasks){
+    public CalendarBoxRedone(int date, int week, boolean active, ArrayList<ArrayList<Task>> tasks){
         this.date = date; //This box's date
         this.week = week; //The week (row) this box is in
 
@@ -122,8 +122,7 @@ public class CalendarBox extends Pane{
 
         //Make the button inactive if required
         if(!active){
-            button.setDisable(true);
-            dateLabel.setText("");
+            setInactive();
         }
         update();
     }
@@ -133,10 +132,10 @@ public class CalendarBox extends Pane{
     //Initializes this box
     public void initFXMLBox(){
         String dateString = date + ""; //Creates a string version of the date value
-        dateLabel.setText(dateString); //Set the dateLabel text = to the date
+        getDateLabel().setText(dateString); //Set the dateLabel text = to the date
 
         //Set the buttonClicked action
-        button.setOnMouseClicked((event -> {
+        getButtonNode().setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 update();
                 Calendar calendar = (Calendar)this.getParent().getParent().getParent();
@@ -190,6 +189,12 @@ public class CalendarBox extends Pane{
         }
 
         iconContainer.getChildren().setAll(icons); //Add all the "icons" into "iconContainer"
+    }
+
+    //If button is not in the right month, set them to be unclickable and remove the date
+    public void setInactive(){
+        getButtonNode().setDisable(true);
+        getDateLabel().setText("");
     }
 
     //Create a taskBox
@@ -288,7 +293,6 @@ public class CalendarBox extends Pane{
     public Label getDateLabel(){
         return dateLabel;
     }
-
 
     // Tzurs Code
     // Restart related
