@@ -3,17 +3,16 @@ package WHS_planner.UI;
 import WHS_planner.Calendar.Calendar;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
-import WHS_planner.Schedule.ScheduleBlock;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -158,8 +157,8 @@ public class MainPane extends Pane {
             e.printStackTrace();
         }
         //Pane meeting = new MeetingPane();
-        Home homePane = new Home(calendar, news.getCardView(), schedule.getProgressBar());
-
+//        Home homePane = new Home(calendar, news.getCardView(), schedule.getProgressBar());
+        Home homePane = new Home(calendar, news.getCardView());
         addPane(homePane);
         addPane((Pane) schedule.getPane());
         //addPane(meeting);

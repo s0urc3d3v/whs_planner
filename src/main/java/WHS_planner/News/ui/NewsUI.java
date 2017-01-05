@@ -30,7 +30,7 @@ public class NewsUI extends Pane {
     private static final double IMAGE_WIDTH = 200;
     private static final double IMAGE_HEIGHT = 200;
     private static final double BOX_HEIGHT = 300;
-    private RSSFeedParser parser = new RSSFeedParser("http://waylandstudentpress.com/feed/");
+    private RSSFeedParser parser = new RSSFeedParser("https://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
     //List of articles to add to display
     private List<FeedMessage> feedArray = feed.getMessages();
