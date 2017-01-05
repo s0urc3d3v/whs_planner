@@ -1,6 +1,7 @@
 package WHS_planner.UI;
 
 import WHS_planner.Calendar.Calendar;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
@@ -130,9 +131,15 @@ class Home extends Pane implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        double d = progressVal();
-        d = 1.0 - d;
-        progressBar.setProgress(d);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                double d = progressVal();
+                d = 1.0 - d;
+                progressBar.setProgress(d);
+            }
+        });
+
     }
 
     private int parseDate(String date) {
