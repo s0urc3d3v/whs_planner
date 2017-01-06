@@ -40,7 +40,7 @@ public class loginController implements Initializable
 
         if(username.equals("") || pass.equals(""))
         {
-            error.setText("Please put in ipass information");
+            error.setText("Please put in iPass information");
         }
         else
         {
@@ -81,6 +81,7 @@ public class loginController implements Initializable
                 else
                 {
                     error.setText("Information incorrect, please try again!");
+                    password.clear();
                 }
             }
             catch(Exception e)
