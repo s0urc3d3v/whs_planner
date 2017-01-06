@@ -419,37 +419,12 @@ public class ScheduleController implements Initializable, ActionListener
 
     public void updateSchedule() throws Exception
     {
-        File keys = new File("Keys");
-
-        File[] files = keys.listFiles();
-
-        for(File f : files)
-        {
-            if(f.getName().equals("ipass.key") || f.getName().equals("xor.key"))
-            {
-
-            }
-            else
-            {
-                f.delete();
-            }
-        }
 
         File schedule = new File("Schedule.json");
-        File days = new File("DayArray.json");
-        File output = new File("output.html");
 
         if(schedule.exists())
         {
             schedule.delete();
-        }
-        if(days.exists())
-        {
-            days.delete();
-        }
-        if(output.exists())
-        {
-            output.delete();
         }
 
         MainPane mp = (MainPane) Main.getMainPane();
