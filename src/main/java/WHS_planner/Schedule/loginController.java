@@ -72,6 +72,7 @@ public class loginController implements Initializable
                     bw.write(pass);
                     bw.close();
 
+                    error.setTextFill(Color.GREEN);
                     error.setText("Login successful! Please wait....");
                     try
                     {
