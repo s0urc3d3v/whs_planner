@@ -13,6 +13,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -34,11 +35,10 @@ public class Calendar extends BorderPane {
 //Tzurs code
     private CalendarHelper dayFinder = new CalendarHelper();
 
-    private IO io = new IO("calendarHolder.json");
+    private IO io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Calendar" + File.separator + "calendarHolder.json");
      private JSON json;
     // end tzurs code
     private VBox mainPane;
-
     private int currentTextBoxRow = -1;
     // MARK: day in foucus
     private int currentDate = -1;

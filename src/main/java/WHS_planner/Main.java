@@ -16,7 +16,8 @@ import org.apache.log4j.PropertyConfigurator;
 import java.io.*;
 import java.util.Random;
 
-public class Main extends Application {
+public class
+Main extends Application {
     //ON first run move jfoenix to a place it can be referenced on a remote system
     private static String readKey = null;
     private static MainPane mainPane;
