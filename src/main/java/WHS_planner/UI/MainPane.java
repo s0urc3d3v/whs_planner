@@ -23,6 +23,7 @@ public class MainPane extends Pane {
     private Pane navBar;
     private Pane content;
     private ArrayList<Pane> contentPanes;
+    private JFXDrawer drawer;
 
     private VBox mainPane;
 
@@ -73,7 +74,7 @@ public class MainPane extends Pane {
         VBox vBox = new VBox(); //Create a vBox for the base pane
 
         //Make a stack pane with the drawer and content in it
-        StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),175,48));
+        StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48));
 
         //Set the content the base pane to have the nav bar on top and content under it
         vBox.getChildren().setAll(navBar,stackPane);
@@ -103,8 +104,9 @@ public class MainPane extends Pane {
 //        generateButtons(new String[]{"Home", "Schedule"}, width, buttonHeight);
 
         //Set drawer preferences
-        JFXDrawer drawer = new JFXDrawer();
+        drawer = new JFXDrawer();
         drawer.setDefaultDrawerSize(width);
+        drawer.setSidePane(contentPanes.get(1));
 //        drawer.setSidePane(tabsVBox);
         drawer.setPickOnBounds(false);
         drawer.setMouseTransparent(true);                                                //vertical, higher = lower
@@ -131,17 +133,10 @@ public class MainPane extends Pane {
         //More functions to open and close the drawer
         drawer.setOnMouseClicked(event -> {
             System.out.println(event.getSceneX());
-            if (drawer.isShown()) {
-                if (event.getSceneX() >= 175) {
-                    drawer.setMouseTransparent(false);
-                    hamburger.getAnimation().setRate(1); //Switches the transition between forward and backwards.
-                    hamburger.getAnimation().play(); //Plays the transition
-                }
-            }else{
+
                 drawer.setMouseTransparent(true);
                 hamburger.getAnimation().setRate(-1);
                 hamburger.getAnimation().play(); //Plays the transition
-            }
         });
 
         return drawer;
@@ -174,8 +169,8 @@ public class MainPane extends Pane {
         remPane((Pane)schedule.getPane());
         schedule = new Schedule();
         addPane((Pane) schedule.getPane(), 1);
-        content.getChildren().clear();
-        content.getChildren().add(contentPanes.get(1));
+        drawer.getContent().clear();
+        drawer.setSidePane(contentPanes.get(1));
     }
 
     private Node[] generateButtons(String[] text, double width, double buttonHeight) {
