@@ -9,11 +9,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import sun.font.FontRunIterator;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -47,10 +45,6 @@ public class Schedule
         }
     }
 
-    public ProgressBar getProgressBar() {
-
-        return control.getBar();
-    }
 
     private void buildSchedule() throws Exception
     {

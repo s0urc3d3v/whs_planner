@@ -131,13 +131,6 @@ public class MainPane extends Pane {
         });
 
         //More functions to open and close the drawer
-        drawer.setOnMouseClicked(event -> {
-            System.out.println(event.getSceneX());
-
-                drawer.setMouseTransparent(true);
-                hamburger.getAnimation().setRate(-1);
-                hamburger.getAnimation().play(); //Plays the transition
-        });
 
         return drawer;
     }

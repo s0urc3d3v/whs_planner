@@ -1,2 +1,2 @@
 rm -rf Keys
-rm -rf Schedule/*
+rm -rf
