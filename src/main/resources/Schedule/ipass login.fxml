@@ -57,16 +57,17 @@
    <bottom>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
-            <JFXButton fx:id="button" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#submit"
-                       text="Submit" BorderPane.alignment="CENTER">
+             <JFXButton fx:id="button" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#submit"
+                        text="Submit" BorderPane.alignment="CENTER">
                <cursor>
-                  <Cursor fx:constant="CLOSED_HAND"/>
+                   <Cursor fx:constant="CLOSED_HAND"/>
                </cursor>
             </JFXButton>
          </center>
-         <bottom>
-            <Label fx:id="error" prefHeight="50.0" prefWidth="479.0" text=" " BorderPane.alignment="CENTER" />
-         </bottom>
+          <top>
+              <Label fx:id="error" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="479.0"
+                     text=" " BorderPane.alignment="CENTER"/>
+          </top>
       </BorderPane>
    </bottom>
 </BorderPane>
