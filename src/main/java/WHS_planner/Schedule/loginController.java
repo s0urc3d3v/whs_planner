@@ -31,6 +31,7 @@ public class loginController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        //Initializes the "submit" button style
         button.setButtonType(JFXButton.ButtonType.RAISED);
         button.getStyleClass().setAll("button-raised");
         button.getStylesheets().add("Schedule" + File.separator + "ButtonStyle.css");
@@ -44,7 +45,7 @@ public class loginController implements Initializable
         if(username.equals("") || pass.equals(""))
         {
             error.setTextFill(Color.BLACK);
-            error.setText("Please put in iPass information");
+            error.setText("Please enter your iPass information");
         }
         else
         {
@@ -85,7 +86,8 @@ public class loginController implements Initializable
                 else
                 {
                     error.setTextFill(Color.RED);
-                    error.setText("Information incorrect, please try again!");
+//                    error.setText("Information incorrect, please try again!");
+                    error.setText("Incorrect username or password. Please try again.");
 //                    error.setTextFill(Color.BLACK);
                     password.clear();
                 }
