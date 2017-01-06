@@ -30,7 +30,9 @@ public class loginController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-
+        button.setButtonType(JFXButton.ButtonType.RAISED);
+        button.getStyleClass().setAll("button-raised");
+        button.getStylesheets().add("Schedule" + File.separator + "ButtonStyle.css");
     }
 
     public void submit()

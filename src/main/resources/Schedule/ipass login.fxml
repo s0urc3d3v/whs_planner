@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
@@ -56,7 +57,12 @@
    <bottom>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
-            <JFXButton fx:id="button" onAction="#submit" text="Submit" BorderPane.alignment="CENTER" />
+            <JFXButton fx:id="button" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#submit"
+                       text="Submit" BorderPane.alignment="CENTER">
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND"/>
+               </cursor>
+            </JFXButton>
          </center>
          <bottom>
             <Label fx:id="error" prefHeight="50.0" prefWidth="479.0" text=" " BorderPane.alignment="CENTER" />
