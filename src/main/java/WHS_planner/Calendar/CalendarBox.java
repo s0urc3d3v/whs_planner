@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
@@ -16,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -35,7 +37,7 @@ public class CalendarBox extends Pane{
     private ArrayList<ArrayList<Task>> tasks; //List of the lists of tasks
     private StackPane mainPane;
     private VBox taskBar;
-    private VBox tasksPane;
+    private ScrollPane tasksPane;
 
     private JFXButton button;
     private VBox vBox;
@@ -208,8 +210,15 @@ public class CalendarBox extends Pane{
                 taskBar = loader.load(); //Load from FXML
                 taskBar.prefWidthProperty().bind(widthProperty); //Set the width of the taskbox to be the same as the width passed in
 
-                tasksPane = new VBox();
+                VBox vbox = new VBox();
+                tasksPane = new ScrollPane();
+                tasksPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+                vbox.prefWidthProperty().bind(tasksPane.widthProperty());
+                tasksPane.setContent(vbox);
                 tasksPane.prefWidthProperty().bind(widthProperty);
+                tasksPane.setMinHeight(150);
+                tasksPane.getStylesheets().add("News" + File.separator + "NewsUI.css");
+                tasksPane.getStyleClass().setAll("scroll-bar");
 
                 if(taskBar.getChildren().size() != 2){
                     taskBar.getChildren().add(1,tasksPane);
@@ -240,10 +249,11 @@ public class CalendarBox extends Pane{
     }
 
     public void updateTaskBox(){
-        tasksPane.getChildren().clear();
+        VBox vbox = (VBox)tasksPane.getContent();
+        vbox.getChildren().clear();
         for (int i = 0; i < tasks.get(0).size(); i++) {
             if (tasks.get(0).get(i).doesExist()){
-                tasksPane.getChildren().add(0, tasks.get(0).get(i).getPane());
+                vbox.getChildren().add(0, tasks.get(0).get(i).getPane());
             }
         }
     }
