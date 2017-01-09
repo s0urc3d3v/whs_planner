@@ -1,5 +1,6 @@
 package WHS_planner.Calendar;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,7 +17,7 @@ public class MainUI extends Application{
     public void start(Stage stage) throws Exception {
 //------------------------Calendar Pane Implementation---------------------------------------
         try {
-            cal = new Calendar();
+            cal = new Calendar(0,new JFXButton("TESTSETFD"));
         }catch (Exception e){
             e.printStackTrace();
         }

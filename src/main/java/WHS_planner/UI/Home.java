@@ -1,6 +1,7 @@
 package WHS_planner.UI;
 
 import WHS_planner.Calendar.Calendar;
+import WHS_planner.Calendar.CalendarYear;
 import com.jfoenix.controls.JFXProgressBar;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -27,7 +28,7 @@ class Home extends Pane implements ActionListener {
     private Timer progressbartimer;
 
 
-    Home(Calendar calendar, Pane newsUI/*, ProgressBar progressBar*/) {
+    Home(CalendarYear calendar, Pane newsUI/*, ProgressBar progressBar*/) {
         progressbartimer = new Timer(1000, this);
         progressbartimer.start();
 

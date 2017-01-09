@@ -8,47 +8,45 @@ import java.util.Calendar;
  * Created by tzur_almog on 11/16/16.
  */
 public class CalendarHelper {
-    String Month;
-    int daysInMonth, weekdayMonthStarts;
 
-    public  CalendarHelper()
-    {
-        // Find out what month it is
-        Month = "error";
-        int mon = Calendar.getInstance().get(Calendar.MONTH)+1;
-
+    public String getMonthString(int mon){
+        String returnString = "";
         switch(mon)
         {
-            case 1: Month = "January";
+            case 1: returnString = "January";
                 break;
-            case 2: Month ="February";
+            case 2: returnString ="February";
                 break;
-            case 3: Month ="March";
+            case 3: returnString ="March";
                 break;
-            case 4: Month ="April";
+            case 4: returnString ="April";
                 break;
-            case 5: Month ="May";
+            case 5: returnString ="May";
                 break;
-            case 6: Month ="June";
+            case 6: returnString ="June";
                 break;
-            case 7: Month ="July";
+            case 7: returnString ="July";
                 break;
-            case 8: Month ="August";
+            case 8: returnString ="August";
                 break;
-            case 9: Month ="September";
+            case 9: returnString ="September";
                 break;
-            case 10: Month ="October";
+            case 10: returnString ="October";
                 break;
-            case 11: Month ="November";
+            case 11: returnString ="November";
                 break;
-            case 12: Month ="December";
+            case 12: returnString ="December";
                 break;
-            default: Month = "Month getter is broken";
+            default: returnString = "Month getter is broken";
                 break;
         }
-        // finds out how many days in the month
-        daysInMonth = -1;
-        switch(mon)
+        return returnString;
+    }
+
+    public int getDaysInMonth(int month) {
+        month++;
+        int daysInMonth = 0;
+        switch(month)
         {
             case 1: case 3: case 5: case 7: case 8: case 10: case 12: daysInMonth = 31;
             break;
@@ -60,38 +58,23 @@ public class CalendarHelper {
                 break;
         }
 
-//      Funds out the  first day of the month
-
-        weekdayMonthStarts = -1;
-        int date = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        int subtractiondays= date%7;
-        int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        weekdayMonthStarts =  (day - subtractiondays +7)%7;
-
-
-//        int year = Calendar.getInstance().get(Calendar.YEAR);
-//        int dayFinder[] = new int[12];
-//        for (int i = 0; i <12 ; i++) {
-//            int tempVar = Calendar.set(1,1,1);
-//            dayFinder[i] = Calendar.getInstance().get(Calendar.F);
-//
-//        }
-
-
-
-
-
-    }
-
-    public int getDaysInMonth() {
         return daysInMonth;
     }
 
-    public int getWeekdayMonthStarts() {
-        return weekdayMonthStarts;
+    public int getWeekdayMonthStarts(int month) {
+        Calendar now = Calendar.getInstance();
+        now.set(Calendar.DATE, 1);
+        now.set(Calendar.MONTH, month);
+        now.set(Calendar.YEAR, 2017);
+        int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
+        return dayOfWeek;
     }
 
-    public String getMonth() {
-        return Month;
+    public int getMonth() {
+        return Calendar.getInstance().get(Calendar.MONTH)+1;
+    }
+
+    public int getDay(){
+        return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
     }
 }

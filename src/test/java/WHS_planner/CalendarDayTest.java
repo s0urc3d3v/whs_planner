@@ -8,8 +8,8 @@ import WHS_planner.Calendar.CalendarHelper;
 public class CalendarDayTest {
     public static void main(String[] args) {
         CalendarHelper jesus = new CalendarHelper();
-        System.out.println(" the month starts on  = "+ jesus.getWeekdayMonthStarts());
+        System.out.println(" the month starts on  = "+ jesus.getWeekdayMonthStarts(0));
         System.out.println(" the month is  = "+ jesus.getMonth());
-        System.out.println(" days in month = "+ jesus.getDaysInMonth());
+        System.out.println(" days in month = "+ jesus.getDaysInMonth(0));
     }
 }

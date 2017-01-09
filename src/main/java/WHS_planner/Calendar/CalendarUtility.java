@@ -19,7 +19,7 @@ public class CalendarUtility {
         int dayInMonth = 1;
 
         //Intitialize a general calendar array size
-        CalendarBox[][] calendar = new CalendarBox[5][7];
+        CalendarBox[][] calendar = new CalendarBox[6][7];
         ArrayList<ArrayList<Task>> listOfTasks = new ArrayList<>();
 
         for (int dayIndex = 0; dayIndex < numberOfDays; dayIndex++) {
@@ -44,7 +44,7 @@ public class CalendarUtility {
             for (int col = 0; col < calendar[row].length; col++) {
                 //Check if loop is on the first index
                 if (row == 0&&dayInMonth == 1) {
-                    col = startDay;
+                    col = startDay-1;
                 }
 
                 CalendarBox box = new CalendarBox(dayInMonth,row,true,listOfTasks.get(dayInMonth-1));

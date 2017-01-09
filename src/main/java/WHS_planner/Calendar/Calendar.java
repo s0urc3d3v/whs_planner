@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -35,18 +36,32 @@ public class Calendar extends BorderPane {
 //Tzurs code
     private CalendarHelper dayFinder = new CalendarHelper();
 
-    private IO io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Calendar" + File.separator + "calendarHolder.json");
+    private IO io;
      private JSON json;
     // end tzurs code
     private VBox mainPane;
     private int currentTextBoxRow = -1;
     // MARK: day in foucus
     private int currentDate = -1;
+    private String month;
 
-    public Calendar(){
+    public Calendar(int month, JFXButton button){
+
+        File saveFile = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Calendar" + File.separator + month + "CalendarHolder.json");
+        if(!saveFile.exists()){
+            try {
+                saveFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Calendar" + File.separator + month + "CalendarHolder.json");
+
         json = io.getJsonApi();
-        this.startDay = dayFinder.getWeekdayMonthStarts();
-        this.numberOfDays = dayFinder.getDaysInMonth();
+        this.startDay = dayFinder.getWeekdayMonthStarts(month);
+        this.numberOfDays = dayFinder.getDaysInMonth(month);
 
         CalendarUtility util = new CalendarUtility();
 
@@ -55,17 +70,21 @@ public class Calendar extends BorderPane {
         Font.loadFont(font,10);
 
 
-            try {
-                calendar = util.CalendarLoad(startDay, numberOfDays, json);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
         mainPane = new VBox();
         mainPane.setId("vbox");//Replace this ID
         mainPane.setPadding(new Insets(5,5,5,5));
         ArrayList<Node> rows = new ArrayList<>();
         mainPane.setAlignment(Pos.CENTER);
+
+        mainPane.getChildren().add(button);
+        Label monthLabel = new Label(dayFinder.getMonthString(month+1));
+        mainPane.getChildren().add(monthLabel);
+
+        try {
+            calendar = util.CalendarLoad(startDay, numberOfDays, json);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //Add the week days and first row to the calendar
         GridPane firstRow = new GridPane();
@@ -110,7 +129,7 @@ public class Calendar extends BorderPane {
         }
         rows.add(0,firstRow);
 
-        mainPane.getChildren().setAll(rows);
+        mainPane.getChildren().addAll(rows);
 
         this.setCenter(mainPane);
 
@@ -119,8 +138,8 @@ public class Calendar extends BorderPane {
     }
 
     public void update(int row, int date){
-        int[] rowIDs = new int[]{1,2,3,4,5};
-        GridPane tempPane = (GridPane) mainPane.getChildren().get(1);
+        int[] rowIDs = new int[]{3,4,5,6,7};
+        GridPane tempPane = (GridPane) mainPane.getChildren().get(rowIDs[0]-1);
 
         if(currentDate != -1){
             if(date == currentDate) {

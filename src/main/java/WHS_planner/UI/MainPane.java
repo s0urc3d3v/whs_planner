@@ -1,6 +1,7 @@
 package WHS_planner.UI;
 
 import WHS_planner.Calendar.Calendar;
+import WHS_planner.Calendar.CalendarYear;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXButton;
@@ -35,7 +36,7 @@ public class MainPane extends Pane {
 
 
     private Schedule schedule;
-    private Calendar calendar;
+    private CalendarYear calendar;
 
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
@@ -143,7 +144,8 @@ public class MainPane extends Pane {
 
     private void generatePanes() {
         schedule = new Schedule();
-        calendar = new Calendar();
+        calendar = new CalendarYear();
+//        calendar = new Calendar("January");
         NewsUI news = null;
         try {
             news = new NewsUI();
