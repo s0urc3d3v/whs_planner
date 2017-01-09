@@ -254,7 +254,7 @@ public class Schedule
 
     public ScheduleBlock[] getData()
     {
-        File schedulefile = new File("Schedule.json");
+        File schedulefile = new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"Schedule"+File.separator+"json"+File.separator+"Schedule.json");
 
         if(!schedulefile.exists())
         {
@@ -266,7 +266,7 @@ public class Schedule
             parseSchedule();
         }
 
-        IO dotaIo = new IO("Schedule.json");
+        IO dotaIo = new IO("src"+File.separator+"main"+File.separator+"resources"+File.separator+"Schedule"+File.separator+"json"+File.separator+"Schedule.json");
         ArrayList<ScheduleBlock> array = dotaIo.readScheduleArray();
         dotaIo.unload();
 

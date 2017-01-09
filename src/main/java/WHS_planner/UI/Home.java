@@ -1,9 +1,9 @@
 package WHS_planner.UI;
 
 import WHS_planner.Calendar.Calendar;
+import com.jfoenix.controls.JFXProgressBar;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 
@@ -22,7 +22,8 @@ class Home extends Pane implements ActionListener {
     private VBox insidePane = new VBox();
 
 
-    private ProgressBar progressBar = new ProgressBar();
+    private JFXProgressBar progressBar = new JFXProgressBar();
+    //    private ProgressBar progressBar = new ProgressBar();
     private Timer progressbartimer;
 
 
@@ -45,11 +46,20 @@ class Home extends Pane implements ActionListener {
 
         //Progress bar
         BorderPane barPane = new BorderPane();
+//        progressBar.getStylesheets().add("Schedule"+File.separator + "progressbar.css");
+//        progressBar.getStyleClass().setAll("progress-bar");
+
+        progressBar.setProgress(0);
+
 
         barPane.setCenter(progressBar);
-        progressBar.prefWidthProperty().bind(barPane.widthProperty());
+
         barPane.setMaxHeight(30);
-        barPane.setPadding(new Insets(5, 90, 5, 90));
+//        barPane.setMaxWidth(600);
+//        barPane.setPadding(new Insets(0, 40, 5, 40));
+//        barPane.setPadding(new Insets(0,15,0,15));
+        progressBar.setPadding(new Insets(0, 15, 0, 15));
+        progressBar.prefWidthProperty().bind(barPane.widthProperty());
 
 
         //Calendar + add stuff to H/VBoxes
@@ -62,6 +72,7 @@ class Home extends Pane implements ActionListener {
 
         barPane.prefHeightProperty().bind(insidePane.heightProperty());
         barPane.prefWidthProperty().bind(insidePane.widthProperty());
+
 
         VBox.setVgrow(calendar, Priority.ALWAYS);
         VBox.setVgrow(barPane, Priority.NEVER);

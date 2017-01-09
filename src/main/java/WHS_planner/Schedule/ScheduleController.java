@@ -3,6 +3,7 @@ package WHS_planner.Schedule;
 import WHS_planner.Main;
 import WHS_planner.UI.MainPane;
 import WHS_planner.Util.XorTool;
+import com.jfoenix.controls.JFXSpinner;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,6 +27,9 @@ public class ScheduleController implements Initializable
     @FXML
     private Label Title3;
 
+    @FXML
+    private JFXSpinner spinner;
+
 
     private BorderPane[] panes;
 
@@ -33,20 +37,10 @@ public class ScheduleController implements Initializable
     private String s;
 
 
-//    Pane getBar() {
-//        BorderPane anchor = new BorderPane();
-////        HBox anchor = new HBox();
-////        AnchorPane anchor = new AnchorPane();
-//
-////        anchor.getChildren().add(progressBar);
-//        anchor.setCenter(progressBar);
-//        return anchor;
-//    }
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        spinner.setVisible(false);
         grid.setGridLinesVisible(false);
         grid.setStyle("-fx-background-color: #F1F1F1;");
         panes = new BorderPane[82];
@@ -103,11 +97,12 @@ public class ScheduleController implements Initializable
 
                 if (pass == null || user.equals("") || pass.equals(""))
                 {
-                    System.out.println("No ipass data found");
+                    //System.out.println("No ipass data found");
                 }
                 else
                 {
-                    Title3.setText("");
+                    Title3.setText("Calendar loading");
+                    spinner.setVisible(true);
 
                     Thread t = new Thread(new Runnable() {
                         @Override
@@ -116,14 +111,14 @@ public class ScheduleController implements Initializable
                             BufferedReader br;
                             try
                             {
-                                File f = new File("DayArray.json");
+                                File f = new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"Schedule"+File.separator+"json"+File.separator+"DayArray.json");
 
                                 if(!f.exists())
                                 {
                                     f.createNewFile();
                                 }
 
-                                br = new BufferedReader(new FileReader("DayArray.json"));
+                                br = new BufferedReader(new FileReader("src"+File.separator+"main"+File.separator+"resources"+File.separator+"Schedule"+File.separator+"json"+File.separator+"DayArray.json"));
 
                                 if (br.readLine() == null)
                                 {
@@ -146,6 +141,7 @@ public class ScheduleController implements Initializable
 
                             //you can't do javafx stuff on other threads
                             Platform.runLater(() -> Title3.setText(s));
+                            Platform.runLater(() -> spinner.setVisible(false));
 
                         }
                     });
@@ -156,12 +152,12 @@ public class ScheduleController implements Initializable
             }
             catch(Exception e)
             {
-                System.out.println("Error in ScheduleController\n data couldn't be found in ipass.key");
+                //System.out.println("Error in ScheduleController\n data couldn't be found in ipass.key");
             }
         }
         else
         {
-            System.out.println("No ipass file, try logging in");
+            //System.out.println("No ipass file, try logging in");
         }
 
 
@@ -194,7 +190,7 @@ public class ScheduleController implements Initializable
     {
         try
         {
-            File f = new File("Keys/ipass.key");
+            File f = new File("Keys"+File.separator+"ipass.key");
 
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
@@ -278,12 +274,6 @@ public class ScheduleController implements Initializable
     }
 
 
-
-
-
-
-
-
     private void delete(File file) throws IOException
     {
 
@@ -311,37 +301,12 @@ public class ScheduleController implements Initializable
 
     public void updateSchedule() throws Exception
     {
-        File keys = new File("Keys");
 
-        File[] files = keys.listFiles();
-
-        for(File f : files)
-        {
-            if(f.getName().equals("ipass.key") || f.getName().equals("xor.key"))
-            {
-
-            }
-            else
-            {
-                f.delete();
-            }
-        }
-
-        File schedule = new File("Schedule.json");
-        File days = new File("DayArray.json");
-        File output = new File("output.html");
+        File schedule = new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"Schedule"+File.separator+"json"+File.separator+"Schedule.json");
 
         if(schedule.exists())
         {
             schedule.delete();
-        }
-        if(days.exists())
-        {
-            days.delete();
-        }
-        if(output.exists())
-        {
-            output.delete();
         }
 
         MainPane mp = (MainPane) Main.getMainPane();

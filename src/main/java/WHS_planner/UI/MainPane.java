@@ -20,6 +20,12 @@ import java.util.ArrayList;
 
 public class MainPane extends Pane {
 
+    private final int HOME = 0;
+    private final int SCHEDULE = 1;
+    private final int CALENDAR = 2;
+    private final int NEWS = 3;
+    private final int MEETING = 4;
+
     private Pane navBar;
     private Pane content;
     private ArrayList<Pane> contentPanes;

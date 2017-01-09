@@ -1,0 +1,258 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: JSON</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">WHS_planner.Core</a> ]
+</div>
+
+<h1>Coverage Summary for Class: JSON (WHS_planner.Core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">JSON</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    41,7%
+  </span>
+  <span class="absValue">
+    (5/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    38,2%
+  </span>
+  <span class="absValue">
+    (21/ 55)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package WHS_planner.Core;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.json.simple.JSONArray;
+<i>4</i>&nbsp;import org.json.simple.JSONObject;
+<i>5</i>&nbsp;import org.json.simple.parser.JSONParser;
+<i>6</i>&nbsp;import org.json.simple.parser.ParseException;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.io.FileReader;
+<i>9</i>&nbsp;import java.io.FileWriter;
+<i>10</i>&nbsp;import java.io.IOException;
+<i>11</i>&nbsp;import java.util.HashMap;
+<i>12</i>&nbsp;import java.util.Iterator;
+<i>13</i>&nbsp;import java.util.Set;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;/**
+<i>16</i>&nbsp; * Created by matthewelbing on 16.09.16.
+<i>17</i>&nbsp; */
+<i>18</i>&nbsp;public class JSON {
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    private FileWriter fileWriter;
+<b class="fc"><i>21</i>&nbsp;    private JSONObject object = new JSONObject();</b>
+<i>22</i>&nbsp;    private JSONParser parser;
+<i>23</i>&nbsp;
+<b class="fc"><i>24</i>&nbsp;    public JSON() {</b>
+<b class="fc"><i>25</i>&nbsp;        parser = new JSONParser();</b>
+<b class="fc"><i>26</i>&nbsp;    }</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * @return If the file was successfully loaded
+<i>30</i>&nbsp;     * @Param filePath
+<i>31</i>&nbsp;     */
+<i>32</i>&nbsp;    public boolean loadFile(String filePath) {
+<i>33</i>&nbsp;        try {
+<i>34</i>&nbsp;            try {
+<b class="fc"><i>35</i>&nbsp;                object = (JSONObject) parser.parse(new FileReader(filePath));</b>
+<b class="fc"><i>36</i>&nbsp;                fileWriter = new FileWriter(filePath);</b>
+<b class="nc"><i>37</i>&nbsp;            } catch (IOException e) {</b>
+<b class="nc"><i>38</i>&nbsp;                e.printStackTrace();</b>
+<b class="fc"><i>39</i>&nbsp;            }</b>
+<b class="nc"><i>40</i>&nbsp;        } catch (ParseException e) {</b>
+<b class="nc"><i>41</i>&nbsp;            object = new JSONObject();</b>
+<i>42</i>&nbsp;            try {
+<b class="nc"><i>43</i>&nbsp;                fileWriter = new FileWriter(filePath);</b>
+<b class="nc"><i>44</i>&nbsp;            } catch (IOException e1) {</b>
+<b class="nc"><i>45</i>&nbsp;                e1.printStackTrace();</b>
+<b class="nc"><i>46</i>&nbsp;            }</b>
+<b class="nc"><i>47</i>&nbsp;            return false;</b>
+<b class="fc"><i>48</i>&nbsp;        }</b>
+<b class="fc"><i>49</i>&nbsp;        parser = new JSONParser();</b>
+<b class="fc"><i>50</i>&nbsp;        return true;</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    /**
+<i>54</i>&nbsp;     * Unloads a JSON file from memory
+<i>55</i>&nbsp;     *
+<i>56</i>&nbsp;     * @Note: Once the file is unloaded it cannot be read from or written from until a new file is loaded with loadFile.
+<i>57</i>&nbsp;     */
+<i>58</i>&nbsp;    public void unloadFile() {
+<i>59</i>&nbsp;        try {
+<b class="fc"><i>60</i>&nbsp;            fileWriter.write(object.toJSONString());</b>
+<b class="fc"><i>61</i>&nbsp;            fileWriter.close();</b>
+<b class="nc"><i>62</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>63</i>&nbsp;            ErrorHandler.HandleIOError(e);</b>
+<b class="fc"><i>64</i>&nbsp;        }</b>
+<b class="fc"><i>65</i>&nbsp;    }</b>
+<i>66</i>&nbsp;    public void unloadWithoutWrite(){
+<i>67</i>&nbsp;        try{
+<b class="nc"><i>68</i>&nbsp;            fileWriter.close();</b>
+<b class="nc"><i>69</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>70</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>71</i>&nbsp;        }</b>
+<b class="nc"><i>72</i>&nbsp;    }</b>
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    /*
+<i>75</i>&nbsp;    READING METHODS
+<i>76</i>&nbsp;     */
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    /**
+<i>79</i>&nbsp;     * Loads and returns a single object from a JSON file.
+<i>80</i>&nbsp;     *
+<i>81</i>&nbsp;     * @Param key of object to load
+<i>82</i>&nbsp;     * @Return Object from JSON File
+<i>83</i>&nbsp;     */
+<i>84</i>&nbsp;    public Object readObject(String key) {
+<b class="nc"><i>85</i>&nbsp;        return object.get(key);</b>
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    /**
+<i>89</i>&nbsp;     * Loads an array of objects from a JSON file
+<i>90</i>&nbsp;     *
+<i>91</i>&nbsp;     * @Param Key of object to load
+<i>92</i>&nbsp;     * @Return Object array from JSON File
+<i>93</i>&nbsp;     */
+<i>94</i>&nbsp;    public JSONArray readArray(String key) {
+<b class="fc"><i>95</i>&nbsp;        JSONArray array = (JSONArray) object.get(key);</b>
+<b class="fc"><i>96</i>&nbsp;        return array;</b>
+<i>97</i>&nbsp;    }
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    /**
+<i>100</i>&nbsp;     * Loads the key value from a JSON file. Only public interface for this functionality.
+<i>101</i>&nbsp;     *
+<i>102</i>&nbsp;     * @Param String key of the JSON value
+<i>103</i>&nbsp;     * @Return returns either an object array or a single object that can be cast to a JSONObject.
+<i>104</i>&nbsp;     */
+<i>105</i>&nbsp;    public Object readPair(String key) {
+<b class="nc"><i>106</i>&nbsp;        if (key.length() &gt;= 1 &amp;&amp; key.substring(0, 1).equals(&quot;@&quot;)) {</b>
+<i>107</i>&nbsp;            //It is an array and needs to be parsed as one.
+<b class="nc"><i>108</i>&nbsp;            return readArray(key);</b>
+<i>109</i>&nbsp;        }
+<b class="nc"><i>110</i>&nbsp;        return readObject(key);</b>
+<i>111</i>&nbsp;    }
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;    /**
+<i>114</i>&nbsp;     * &#39;Drops&#39; the JSON Table, giving you the entire table
+<i>115</i>&nbsp;     *
+<i>116</i>&nbsp;     * @Return returns an entire hashmap of Objects that can be casted into JSONObjects and accessed
+<i>117</i>&nbsp;     */
+<i>118</i>&nbsp;    public HashMap&lt;Object, Object&gt; dropJsonDb() {
+<b class="nc"><i>119</i>&nbsp;        Set set = object.keySet();</b>
+<b class="nc"><i>120</i>&nbsp;        Iterator&lt;String&gt; iterator = set.iterator();</b>
+<b class="nc"><i>121</i>&nbsp;        HashMap&lt;Object, Object&gt; hashMap = new HashMap&lt;&gt;();</b>
+<b class="nc"><i>122</i>&nbsp;        while (iterator.hasNext()) {</b>
+<b class="nc"><i>123</i>&nbsp;            String key = iterator.next();</b>
+<b class="nc"><i>124</i>&nbsp;            hashMap.put(key, object.get(key));</b>
+<b class="nc"><i>125</i>&nbsp;        }</b>
+<b class="nc"><i>126</i>&nbsp;        return hashMap;</b>
+<i>127</i>&nbsp;    }
+<i>128</i>&nbsp;
+<i>129</i>&nbsp;    /*
+<i>130</i>&nbsp;    WRITE METHODS
+<i>131</i>&nbsp;     */
+<i>132</i>&nbsp;
+<i>133</i>&nbsp;    /**
+<i>134</i>&nbsp;     * Writes a value to the JSON File in memory
+<i>135</i>&nbsp;     *
+<i>136</i>&nbsp;     * @Param Key is the identifier of the JSON Object
+<i>137</i>&nbsp;     * @Param Data is the value of the JSON Object
+<i>138</i>&nbsp;     */
+<i>139</i>&nbsp;    public void writePair(String key, String data) {
+<b class="nc"><i>140</i>&nbsp;        object.put(key, data);</b>
+<b class="nc"><i>141</i>&nbsp;    }</b>
+<i>142</i>&nbsp;
+<i>143</i>&nbsp;    /**
+<i>144</i>&nbsp;     * Writes an array to the JSON File in memory
+<i>145</i>&nbsp;     *
+<i>146</i>&nbsp;     * @Param Key is the identifier of the JSON Object
+<i>147</i>&nbsp;     * @Param Data is the value of the JSON Object
+<i>148</i>&nbsp;     */
+<i>149</i>&nbsp;    public void writeArray(String key, Object data[]) {
+<b class="fc"><i>150</i>&nbsp;        JSONArray jsonArray = new JSONArray();</b>
+<b class="fc"><i>151</i>&nbsp;        for (int i = 0; i &lt; data.length; i++) {</b>
+<b class="fc"><i>152</i>&nbsp;            jsonArray.add(key + i + &quot;: &quot; + data[i]);</b>
+<i>153</i>&nbsp;        }
+<b class="fc"><i>154</i>&nbsp;        object.put(&quot;@&quot; + key, jsonArray);</b>
+<b class="fc"><i>155</i>&nbsp;    }</b>
+<i>156</i>&nbsp;
+<i>157</i>&nbsp;    /**
+<i>158</i>&nbsp;     * Writes a raw JSONObject allowing for custom file layouts
+<i>159</i>&nbsp;     * @param obj JSONObject with custom layout
+<i>160</i>&nbsp;     * @throws IOException IOEXception is thrown form FileWriter.write(), and .flush()
+<i>161</i>&nbsp;     */
+<i>162</i>&nbsp;    public void writeRaw(JSONObject obj) throws IOException {
+<b class="nc"><i>163</i>&nbsp;        fileWriter.write(obj.toJSONString());</b>
+<b class="nc"><i>164</i>&nbsp;        fileWriter.flush();</b>
+<b class="nc"><i>165</i>&nbsp;    }</b>
+<i>166</i>&nbsp;
+<i>167</i>&nbsp;    /**
+<i>168</i>&nbsp;     * Gets raw json data for custom parsing
+<i>169</i>&nbsp;     * @return JSONObject object
+<i>170</i>&nbsp;     */
+<i>171</i>&nbsp;    public JSONObject readRaw(){
+<b class="nc"><i>172</i>&nbsp;        return object;</b>
+<i>173</i>&nbsp;    }
+<i>174</i>&nbsp;}
+<i>175</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2017-01-07 21:56</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,429 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Schedule</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">WHS_planner.Schedule</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Schedule (WHS_planner.Schedule)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Schedule</td>
+<td class="coverageStat">
+  <span class="percent">
+    71,4%
+  </span>
+  <span class="absValue">
+    (5/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    56,9%
+  </span>
+  <span class="absValue">
+    (78/ 137)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Schedule$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/ 4)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    66,7%
+  </span>
+  <span class="absValue">
+    (6/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    56%
+  </span>
+  <span class="absValue">
+    (79/ 141)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package WHS_planner.Schedule;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import WHS_planner.Core.IO;
+<i>4</i>&nbsp;import WHS_planner.Main;
+<i>5</i>&nbsp;import WHS_planner.Util.XorTool;
+<i>6</i>&nbsp;import javafx.event.EventHandler;
+<i>7</i>&nbsp;import javafx.fxml.FXML;
+<i>8</i>&nbsp;import javafx.fxml.FXMLLoader;
+<i>9</i>&nbsp;import javafx.scene.Node;
+<i>10</i>&nbsp;import javafx.scene.Scene;
+<i>11</i>&nbsp;import javafx.scene.control.Label;
+<i>12</i>&nbsp;import javafx.scene.input.KeyCode;
+<i>13</i>&nbsp;import javafx.scene.input.KeyEvent;
+<i>14</i>&nbsp;import javafx.scene.layout.Pane;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;import java.io.BufferedReader;
+<i>17</i>&nbsp;import java.io.File;
+<i>18</i>&nbsp;import java.io.FileReader;
+<i>19</i>&nbsp;import java.io.IOException;
+<i>20</i>&nbsp;import java.util.ArrayList;
+<i>21</i>&nbsp;import java.util.Calendar;
+<i>22</i>&nbsp;import java.util.Map;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;public class Schedule
+<i>25</i>&nbsp;{
+<i>26</i>&nbsp;    public static Scene schedule;
+<i>27</i>&nbsp;    @FXML
+<i>28</i>&nbsp;    private Pane rootLayout;
+<i>29</i>&nbsp;    @FXML
+<i>30</i>&nbsp;    private Pane login;
+<i>31</i>&nbsp;    private Map&lt;String, Object&gt; labels;
+<i>32</i>&nbsp;    private ScheduleBlock[] blocks;
+<i>33</i>&nbsp;    private ScheduleController control;
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    public Schedule()
+<b class="fc"><i>36</i>&nbsp;    {</b>
+<i>37</i>&nbsp;        try
+<i>38</i>&nbsp;        {
+<i>39</i>&nbsp;            //replaced with threading...
+<b class="fc"><i>40</i>&nbsp;            buildSchedule();</b>
+<i>41</i>&nbsp;        }
+<b class="nc"><i>42</i>&nbsp;        catch(Exception e)</b>
+<i>43</i>&nbsp;        {
+<b class="nc"><i>44</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>45</i>&nbsp;        }</b>
+<b class="fc"><i>46</i>&nbsp;    }</b>
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    private void buildSchedule() throws Exception
+<i>50</i>&nbsp;    {
+<b class="fc"><i>51</i>&nbsp;        FXMLLoader loader = new FXMLLoader();</b>
+<i>52</i>&nbsp;
+<b class="fc"><i>53</i>&nbsp;        loader.setLocation(getClass().getResource(&quot;/Schedule/wank_layout.fxml&quot;));</b>
+<i>54</i>&nbsp;
+<b class="fc"><i>55</i>&nbsp;        rootLayout = loader.load();</b>
+<b class="fc"><i>56</i>&nbsp;        control = loader.getController();</b>
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;
+<b class="fc"><i>60</i>&nbsp;        FXMLLoader loader2 = new FXMLLoader();</b>
+<b class="fc"><i>61</i>&nbsp;        loader2.setLocation(getClass().getResource(&quot;/Schedule/ipass login.fxml&quot;));</b>
+<i>62</i>&nbsp;
+<b class="fc"><i>63</i>&nbsp;        login = loader2.load();</b>
+<i>64</i>&nbsp;
+<b class="fc"><i>65</i>&nbsp;        loginController control2 = loader2.getController();</b>
+<i>66</i>&nbsp;
+<b class="fc"><i>67</i>&nbsp;        login.setOnKeyPressed(new EventHandler&lt;KeyEvent&gt;() {</b>
+<i>68</i>&nbsp;            @Override
+<i>69</i>&nbsp;            public void handle(KeyEvent event) {
+<b class="nc"><i>70</i>&nbsp;                if(event.getCode() == KeyCode.ENTER)</b>
+<i>71</i>&nbsp;                {
+<b class="nc"><i>72</i>&nbsp;                    control2.submit();</b>
+<i>73</i>&nbsp;                }
+<b class="nc"><i>74</i>&nbsp;            }</b>
+<i>75</i>&nbsp;        });
+<i>76</i>&nbsp;
+<b class="fc"><i>77</i>&nbsp;        File f = new File(&quot;Keys/ipass.key&quot;);</b>
+<i>78</i>&nbsp;
+<b class="fc"><i>79</i>&nbsp;        if(!f.exists())</b>
+<i>80</i>&nbsp;        {
+<b class="nc"><i>81</i>&nbsp;            schedule = new Scene(login);</b>
+<i>82</i>&nbsp;        }
+<i>83</i>&nbsp;        else
+<i>84</i>&nbsp;        {
+<b class="fc"><i>85</i>&nbsp;            generateSchedule(loader);</b>
+<i>86</i>&nbsp;
+<b class="fc"><i>87</i>&nbsp;            schedule = new Scene(rootLayout);</b>
+<i>88</i>&nbsp;        }
+<b class="fc"><i>89</i>&nbsp;    }</b>
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;    private void generateSchedule(FXMLLoader loader)
+<i>93</i>&nbsp;    {
+<b class="fc"><i>94</i>&nbsp;        labels = loader.getNamespace();</b>
+<i>95</i>&nbsp;
+<b class="fc"><i>96</i>&nbsp;        blocks = getData();</b>
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;
+<b class="fc"><i>99</i>&nbsp;        String[] start = {&quot;7:30&quot;, &quot;8:32&quot;, &quot;9:39&quot;, &quot;10:41&quot;, &quot;12:16&quot;, &quot;1:18&quot;, &quot;0:00&quot;};</b>
+<b class="fc"><i>100</i>&nbsp;        String[] end = {&quot;8:27&quot;, &quot;9:29&quot;, &quot;10:36&quot;, &quot;12:11&quot;, &quot;1:13&quot;, &quot;2:15&quot;, &quot;0:00&quot;};</b>
+<i>101</i>&nbsp;
+<b class="fc"><i>102</i>&nbsp;        String[] wens = {&quot;7:30&quot;, &quot;8:15&quot;, &quot;9:35&quot;, &quot;10:20&quot;, &quot;11:40&quot;, &quot;12:25&quot;, &quot;0:00&quot;};</b>
+<b class="fc"><i>103</i>&nbsp;        String[] wene = {&quot;8:10&quot;, &quot;8:55&quot;, &quot;10:15&quot;, &quot;11:35&quot;, &quot;12:20&quot;, &quot;1:05&quot;, &quot;0:00&quot;};</b>
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;//        String[] bells = {&quot;7:30&quot;, &quot;8:26&quot;, &quot;9:58&quot;, &quot;10:55&quot;, &quot;12:26&quot;, &quot;1:23&quot;, &quot;0:00&quot;};    If we ever make functionality for the bell 2&#39;s
+<i>106</i>&nbsp;//        String[] belle = {&quot;8:21&quot;, &quot;9:18&quot;, &quot;10:50&quot;, &quot;12:21&quot;, &quot;1:18&quot;, &quot;2:15&quot;, &quot;0:00&quot;};
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;        String currentClass;
+<i>109</i>&nbsp;        String currentTeacher;
+<i>110</i>&nbsp;        String currentPeriod;
+<i>111</i>&nbsp;        String currentRoom;
+<i>112</i>&nbsp;
+<b class="fc"><i>113</i>&nbsp;        int incr = 0;</b>
+<b class="fc"><i>114</i>&nbsp;        int incr2 = 1;</b>
+<i>115</i>&nbsp;
+<b class="fc"><i>116</i>&nbsp;        for (int i = 0; i &lt; 56; i++)</b>
+<i>117</i>&nbsp;        {
+<i>118</i>&nbsp;            String s;
+<i>119</i>&nbsp;
+<b class="fc"><i>120</i>&nbsp;            currentClass = blocks[i].getClassName();</b>
+<b class="fc"><i>121</i>&nbsp;            currentTeacher = blocks[i].getTeacher();</b>
+<b class="fc"><i>122</i>&nbsp;            currentTeacher = currentTeacher.replace(&quot;&lt;br&gt;&quot;, &quot; &amp; &quot;);</b>
+<b class="fc"><i>123</i>&nbsp;            currentClass = currentClass.replace(&quot;&amp;amp;&quot;, &quot;&amp;&quot;);</b>
+<b class="fc"><i>124</i>&nbsp;            currentPeriod = blocks[i].getPeriodNumber();</b>
+<b class="fc"><i>125</i>&nbsp;            currentRoom = blocks[i].getRoomNumber();</b>
+<i>126</i>&nbsp;
+<b class="fc"><i>127</i>&nbsp;            if(blocks[i].getClassName().trim().equals(&quot;free&quot;))</b>
+<i>128</i>&nbsp;            {
+<b class="fc"><i>129</i>&nbsp;                s = &quot;free&quot;;</b>
+<i>130</i>&nbsp;            }
+<i>131</i>&nbsp;            else
+<i>132</i>&nbsp;            {
+<b class="fc"><i>133</i>&nbsp;                s = currentClass+&quot;\n&quot;+currentTeacher+&quot;\n&quot;+currentRoom+&quot;\n&quot;+ &quot;Block:&quot; + currentPeriod;</b>
+<i>134</i>&nbsp;            }
+<i>135</i>&nbsp;
+<i>136</i>&nbsp;            //System.out.println(s);
+<i>137</i>&nbsp;
+<i>138</i>&nbsp;            String letter;
+<i>139</i>&nbsp;
+<b class="fc"><i>140</i>&nbsp;            switch(incr)</b>
+<i>141</i>&nbsp;            {
+<b class="fc"><i>142</i>&nbsp;                case 0: letter = &quot;A&quot;;</b>
+<b class="fc"><i>143</i>&nbsp;                    break;</b>
+<b class="fc"><i>144</i>&nbsp;                case 1: letter = &quot;B&quot;;</b>
+<b class="fc"><i>145</i>&nbsp;                    break;</b>
+<b class="fc"><i>146</i>&nbsp;                case 2: letter = &quot;C&quot;;</b>
+<b class="fc"><i>147</i>&nbsp;                    break;</b>
+<b class="fc"><i>148</i>&nbsp;                case 3: letter = &quot;D&quot;;</b>
+<b class="fc"><i>149</i>&nbsp;                    break;</b>
+<b class="fc"><i>150</i>&nbsp;                case 4: letter = &quot;E&quot;;</b>
+<b class="fc"><i>151</i>&nbsp;                    break;</b>
+<b class="fc"><i>152</i>&nbsp;                case 5: letter = &quot;F&quot;;</b>
+<b class="fc"><i>153</i>&nbsp;                    break;</b>
+<b class="fc"><i>154</i>&nbsp;                case 6: letter = &quot;G&quot;;</b>
+<b class="fc"><i>155</i>&nbsp;                    break;</b>
+<b class="fc"><i>156</i>&nbsp;                case 7: letter = &quot;H&quot;;</b>
+<b class="fc"><i>157</i>&nbsp;                    break;</b>
+<b class="nc"><i>158</i>&nbsp;                default: letter = &quot;Time&quot;;</b>
+<i>159</i>&nbsp;                    break;
+<i>160</i>&nbsp;            }
+<i>161</i>&nbsp;
+<i>162</i>&nbsp;            try
+<i>163</i>&nbsp;            {
+<b class="fc"><i>164</i>&nbsp;                Label l = (Label) labels.get(letter+incr2);</b>
+<b class="fc"><i>165</i>&nbsp;                l.setText(s);</b>
+<b class="fc"><i>166</i>&nbsp;                l.setWrapText(true);</b>
+<i>167</i>&nbsp;            }
+<b class="nc"><i>168</i>&nbsp;            catch(Exception e)</b>
+<i>169</i>&nbsp;            {
+<i>170</i>&nbsp;                //e.printStackTrace();
+<b class="fc"><i>171</i>&nbsp;            }</b>
+<i>172</i>&nbsp;
+<b class="fc"><i>173</i>&nbsp;            incr++;</b>
+<b class="fc"><i>174</i>&nbsp;            if(incr == 8)</b>
+<i>175</i>&nbsp;            {
+<b class="fc"><i>176</i>&nbsp;                incr = 0;</b>
+<b class="fc"><i>177</i>&nbsp;                incr2++;</b>
+<i>178</i>&nbsp;            }
+<i>179</i>&nbsp;        }
+<i>180</i>&nbsp;
+<b class="fc"><i>181</i>&nbsp;        for (int i = 1; i &lt;= 7; i++)</b>
+<i>182</i>&nbsp;        {
+<b class="fc"><i>183</i>&nbsp;            Label l = (Label) labels.get(&quot;Time&quot;+i);</b>
+<i>184</i>&nbsp;
+<i>185</i>&nbsp;
+<i>186</i>&nbsp;            String s;
+<i>187</i>&nbsp;
+<b class="fc"><i>188</i>&nbsp;            if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == 4)</b>
+<i>189</i>&nbsp;            {
+<b class="nc"><i>190</i>&nbsp;                s = &quot;Period &quot;+i+&quot;\nStart: &quot;+&quot;\n&quot;+wens[i-1]+&quot;\nEnd:\n&quot;+wene[i-1];</b>
+<i>191</i>&nbsp;            }
+<i>192</i>&nbsp;
+<i>193</i>&nbsp;            else
+<i>194</i>&nbsp;            {
+<b class="fc"><i>195</i>&nbsp;                s = &quot;Period &quot;+i+&quot;\nStart: &quot;+&quot;\n&quot;+start[i-1]+&quot;\nEnd:\n&quot;+end[i-1];</b>
+<i>196</i>&nbsp;            }
+<i>197</i>&nbsp;
+<b class="fc"><i>198</i>&nbsp;            l.setText(s);</b>
+<b class="fc"><i>199</i>&nbsp;            l.setWrapText(true);</b>
+<i>200</i>&nbsp;        }
+<b class="fc"><i>201</i>&nbsp;    }</b>
+<i>202</i>&nbsp;
+<i>203</i>&nbsp;    private void parseSchedule()
+<i>204</i>&nbsp;    {
+<b class="nc"><i>205</i>&nbsp;        File f = new File(&quot;output.html&quot;);</b>
+<i>206</i>&nbsp;
+<b class="nc"><i>207</i>&nbsp;        File input = new File(&quot;Keys/ipass.key&quot;);</b>
+<i>208</i>&nbsp;
+<b class="nc"><i>209</i>&nbsp;        String user = null;</b>
+<b class="nc"><i>210</i>&nbsp;        String pass = null;</b>
+<i>211</i>&nbsp;
+<i>212</i>&nbsp;        try
+<i>213</i>&nbsp;        {
+<b class="nc"><i>214</i>&nbsp;            if(!input.exists())</b>
+<i>215</i>&nbsp;            {
+<b class="nc"><i>216</i>&nbsp;                input.createNewFile();</b>
+<i>217</i>&nbsp;            }
+<i>218</i>&nbsp;
+<b class="nc"><i>219</i>&nbsp;            FileReader fr = new FileReader(input);</b>
+<b class="nc"><i>220</i>&nbsp;            BufferedReader br = new BufferedReader(fr);</b>
+<i>221</i>&nbsp;
+<b class="nc"><i>222</i>&nbsp;            user = br.readLine();</b>
+<b class="nc"><i>223</i>&nbsp;            pass = br.readLine();</b>
+<i>224</i>&nbsp;
+<b class="nc"><i>225</i>&nbsp;            user = XorTool.decode(user, Main.getXorKey());</b>
+<b class="nc"><i>226</i>&nbsp;            pass = XorTool.decode(pass, Main.getXorKey());</b>
+<i>227</i>&nbsp;
+<b class="nc"><i>228</i>&nbsp;            br.close();</b>
+<b class="nc"><i>229</i>&nbsp;            fr.close();</b>
+<i>230</i>&nbsp;        }
+<b class="nc"><i>231</i>&nbsp;        catch(Exception e)</b>
+<i>232</i>&nbsp;        {
+<b class="nc"><i>233</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>234</i>&nbsp;        }</b>
+<i>235</i>&nbsp;
+<i>236</i>&nbsp;
+<b class="nc"><i>237</i>&nbsp;        ScheduleParser parse = new ScheduleParser();</b>
+<i>238</i>&nbsp;
+<b class="nc"><i>239</i>&nbsp;        if(!f.exists() &amp;&amp; user != null &amp;&amp; pass != null )</b>
+<i>240</i>&nbsp;        {
+<b class="nc"><i>241</i>&nbsp;            parse.grabwebpage(user, pass);</b>
+<i>242</i>&nbsp;            try
+<i>243</i>&nbsp;            {
+<b class="nc"><i>244</i>&nbsp;                parse.getClasses();</b>
+<b class="nc"><i>245</i>&nbsp;                f.delete();</b>
+<i>246</i>&nbsp;            }
+<b class="nc"><i>247</i>&nbsp;            catch(IOException ie)</b>
+<i>248</i>&nbsp;            {
+<b class="nc"><i>249</i>&nbsp;                ie.printStackTrace();</b>
+<b class="nc"><i>250</i>&nbsp;            }</b>
+<i>251</i>&nbsp;        }
+<i>252</i>&nbsp;
+<b class="nc"><i>253</i>&nbsp;    }</b>
+<i>254</i>&nbsp;
+<i>255</i>&nbsp;    public ScheduleBlock[] getData()
+<i>256</i>&nbsp;    {
+<b class="fc"><i>257</i>&nbsp;        File schedulefile = new File(&quot;Schedule.json&quot;);</b>
+<i>258</i>&nbsp;
+<b class="fc"><i>259</i>&nbsp;        if(!schedulefile.exists())</b>
+<i>260</i>&nbsp;        {
+<i>261</i>&nbsp;            try {
+<b class="nc"><i>262</i>&nbsp;                schedulefile.createNewFile();</b>
+<b class="nc"><i>263</i>&nbsp;            } catch (IOException e) {</b>
+<b class="nc"><i>264</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>265</i>&nbsp;            }</b>
+<b class="nc"><i>266</i>&nbsp;            parseSchedule();</b>
+<i>267</i>&nbsp;        }
+<i>268</i>&nbsp;
+<b class="fc"><i>269</i>&nbsp;        IO dotaIo = new IO(&quot;Schedule.json&quot;);</b>
+<b class="fc"><i>270</i>&nbsp;        ArrayList&lt;ScheduleBlock&gt; array = dotaIo.readScheduleArray();</b>
+<b class="fc"><i>271</i>&nbsp;        dotaIo.unload();</b>
+<i>272</i>&nbsp;
+<b class="fc"><i>273</i>&nbsp;        ScheduleBlock[] blocks = new ScheduleBlock[array.size()];</b>
+<b class="fc"><i>274</i>&nbsp;        for(int i = 0; i &lt; array.size(); i++)</b>
+<i>275</i>&nbsp;        {
+<b class="fc"><i>276</i>&nbsp;            blocks[i] = array.get(i);</b>
+<i>277</i>&nbsp;        }
+<b class="fc"><i>278</i>&nbsp;        return blocks;</b>
+<i>279</i>&nbsp;    }
+<i>280</i>&nbsp;
+<i>281</i>&nbsp;    public Node getPane()
+<i>282</i>&nbsp;    {
+<b class="fc"><i>283</i>&nbsp;        return schedule.getRoot();</b>
+<i>284</i>&nbsp;    }
+<i>285</i>&nbsp;
+<i>286</i>&nbsp;
+<i>287</i>&nbsp;    public ScheduleBlock[] getToday(String letter)
+<i>288</i>&nbsp;    {
+<b class="nc"><i>289</i>&nbsp;        ScheduleBlock b[] = new ScheduleBlock[6];</b>
+<i>290</i>&nbsp;        int x;
+<b class="nc"><i>291</i>&nbsp;        switch(letter)</b>
+<i>292</i>&nbsp;        {
+<b class="nc"><i>293</i>&nbsp;            case &quot;A&quot;: x = 0;</b>
+<b class="nc"><i>294</i>&nbsp;                break;</b>
+<b class="nc"><i>295</i>&nbsp;            case &quot;B&quot;: x = 1;</b>
+<b class="nc"><i>296</i>&nbsp;                break;</b>
+<b class="nc"><i>297</i>&nbsp;            case &quot;C&quot;: x = 2;</b>
+<b class="nc"><i>298</i>&nbsp;                break;</b>
+<b class="nc"><i>299</i>&nbsp;            case &quot;D&quot;: x = 3;</b>
+<b class="nc"><i>300</i>&nbsp;                break;</b>
+<b class="nc"><i>301</i>&nbsp;            case &quot;E&quot;: x = 4;</b>
+<b class="nc"><i>302</i>&nbsp;                break;</b>
+<b class="nc"><i>303</i>&nbsp;            case &quot;F&quot;: x = 5;</b>
+<b class="nc"><i>304</i>&nbsp;                break;</b>
+<b class="nc"><i>305</i>&nbsp;            case &quot;G&quot;: x = 6;</b>
+<b class="nc"><i>306</i>&nbsp;                break;</b>
+<b class="nc"><i>307</i>&nbsp;            case &quot;H&quot;: x = 7;</b>
+<b class="nc"><i>308</i>&nbsp;                break;</b>
+<b class="nc"><i>309</i>&nbsp;            default:  x = -1;</b>
+<i>310</i>&nbsp;                break;
+<i>311</i>&nbsp;        }
+<i>312</i>&nbsp;
+<b class="nc"><i>313</i>&nbsp;        for (int i = 0; i &lt; 6; i++)</b>
+<i>314</i>&nbsp;        {
+<b class="nc"><i>315</i>&nbsp;            b[i] = blocks[x+(i*8)];</b>
+<i>316</i>&nbsp;        }
+<i>317</i>&nbsp;
+<b class="nc"><i>318</i>&nbsp;        return b;</b>
+<i>319</i>&nbsp;    }
+<i>320</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2017-01-07 21:56</div>
+</div>
+</body>
+</html>
