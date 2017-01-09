@@ -126,7 +126,7 @@ Main extends Application {
 //        stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90); //Set the minimum width of the window
 
         //WITH HOME
-        stage.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT*5+198); //Set the minimum height of the window
+        stage.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT*5+198+100); //Set the minimum height of the window
         stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90+280); //Set the minimum width of the window
 
 

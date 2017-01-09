@@ -43,10 +43,12 @@ public class CalendarBox extends Pane{
     private Circle dayCircle;
     private Label dateLabel;
     private HBox iconContainer;
+    private int month;
 
-    public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks){
+    public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month){
         this.date = date; //This box's date
         this.week = week; //The week (row) this box is in
+        this.month = month;
 
         if(tasks == null){
             this.tasks = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
@@ -148,7 +150,8 @@ public class CalendarBox extends Pane{
         }));
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
-        if (day == this.getDate()) {
+        int month = calendar.get(java.util.Calendar.MONTH);
+        if (day == this.getDate()&&month == this.month) {
             dayCircle.setFill(new Color(255/255, 152/255.0, 0, 100/100));
         } else {
             dayCircle.setFill(new Color(255/255, 152/255, 0, 0));

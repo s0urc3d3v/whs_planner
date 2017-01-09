@@ -43,7 +43,6 @@ public class Calendar extends BorderPane {
     private int currentTextBoxRow = -1;
     // MARK: day in foucus
     private int currentDate = -1;
-    private String month;
 
     public Calendar(int month, JFXButton button){
 
@@ -81,7 +80,7 @@ public class Calendar extends BorderPane {
         mainPane.getChildren().add(monthLabel);
 
         try {
-            calendar = util.CalendarLoad(startDay, numberOfDays, json);
+            calendar = util.CalendarLoad(startDay, numberOfDays, json, month);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,7 +111,7 @@ public class Calendar extends BorderPane {
                 if (calendar[r][c] != null) {
                     tempCalendarBox = calendar[r][c];
                 }else{
-                    tempCalendarBox = new CalendarBox(0,0,false,null);
+                    tempCalendarBox = new CalendarBox(0,0,false,null,month);
                 }
                 tempCalendarBox.prefHeightProperty().bind(row.heightProperty());
                 row.add(tempCalendarBox,c,0);
@@ -138,7 +137,7 @@ public class Calendar extends BorderPane {
     }
 
     public void update(int row, int date){
-        int[] rowIDs = new int[]{3,4,5,6,7};
+        int[] rowIDs = new int[]{3,4,5,6,7,8};
         GridPane tempPane = (GridPane) mainPane.getChildren().get(rowIDs[0]-1);
 
         if(currentDate != -1){

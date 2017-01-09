@@ -14,7 +14,7 @@ public class CalendarUtility {
     FXMLLoader loader;
 
 
-    public  CalendarBox[][] CalendarLoad(int startDay, int numberOfDays, JSON json)throws IOException{
+    public  CalendarBox[][] CalendarLoad(int startDay, int numberOfDays, JSON json, int month)throws IOException{
 
         int dayInMonth = 1;
 
@@ -47,7 +47,7 @@ public class CalendarUtility {
                     col = startDay-1;
                 }
 
-                CalendarBox box = new CalendarBox(dayInMonth,row,true,listOfTasks.get(dayInMonth-1));
+                CalendarBox box = new CalendarBox(dayInMonth,row,true,listOfTasks.get(dayInMonth-1),month);
                 calendar[row][col] = box;
                 dayInMonth++;
 
