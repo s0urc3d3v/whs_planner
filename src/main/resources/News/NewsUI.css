@@ -32,8 +32,11 @@
 	-fx-background-radius: 2em;
 }
 
-.orange-bar
-{ -fx-accent: orange; }
+.clear-select
+{
+    -fx-accent: transparent;
+    -fx-focus-color: transparent;
+}
 
 .roboto
 {

@@ -14,14 +14,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 /**
  * Created by geoffrey_wang on 12/30/16.
@@ -108,7 +105,7 @@ public class CalendarBox extends Pane{
         dateLabel.getStyleClass().setAll("date-label");
 
         dateLabelStackPane.getChildren().add(dateLabel);
-        dateLabelStackPane.setMargin(dateLabel,new Insets(-1,0,0,4));
+        StackPane.setMargin(dateLabel, new Insets(-1, 0, 0, 4));
 
         iconContainer = new HBox();
         iconContainer.setId("iconContainer");
@@ -222,6 +219,7 @@ public class CalendarBox extends Pane{
                 tasksPane.setMinHeight(150);
                 tasksPane.getStylesheets().add("News" + File.separator + "NewsUI.css");
                 tasksPane.getStyleClass().setAll("scroll-bar");
+//                tasksPane.getStyleClass().addAll("clear-select");
 
                 if(taskBar.getChildren().size() != 2){
                     taskBar.getChildren().add(1,tasksPane);

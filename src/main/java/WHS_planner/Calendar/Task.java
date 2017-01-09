@@ -32,10 +32,12 @@ public class Task {
     public Pane getPane(CalendarBox box){
 //        HBox pane = new HBox();
         StackPane pane = new StackPane();
+
         pane.setMinHeight(30);
         pane.setStyle("-fx-background-color:#c2d7f9;");
         pane.setAlignment(Pos.CENTER_LEFT);
         Text label = new Text(Title + " " + Class + " " + Description);
+
         pane.getChildren().add(label);
 
         pane.setOnMouseClicked((event -> {

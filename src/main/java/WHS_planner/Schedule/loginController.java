@@ -72,7 +72,7 @@ public class loginController implements Initializable
                     bw.write(pass);
                     bw.close();
 
-                    error.setTextFill(Color.GREEN);
+                    error.setTextFill(Color.RED);
                     error.setText("iPass internal error. Please restart, run clean.sh and try again.");
 
                     try
