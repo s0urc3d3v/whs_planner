@@ -46,14 +46,21 @@ class Home extends Pane implements ActionListener {
 
         //Progress bar
         BorderPane barPane = new BorderPane();
+//        progressBar.getStylesheets().add("Schedule"+File.separator + "progressbar.css");
+//        progressBar.getStyleClass().setAll("progress-bar");
+
         progressBar.setProgress(0);
 
 
         barPane.setCenter(progressBar);
-        progressBar.prefWidthProperty().bind(barPane.widthProperty());
+
         barPane.setMaxHeight(30);
-        barPane.setPadding(new Insets(5, 90, 5, 90));
+//        barPane.setMaxWidth(600);
+//        barPane.setPadding(new Insets(0, 40, 5, 40));
+//        barPane.setPadding(new Insets(0,15,0,15));
         progressBar.setPadding(new Insets(0, 15, 0, 15));
+        progressBar.prefWidthProperty().bind(barPane.widthProperty());
+
 
         //Calendar + add stuff to H/VBoxes
         insidePane.getChildren().addAll(calendar,barPane);
@@ -65,6 +72,7 @@ class Home extends Pane implements ActionListener {
 
         barPane.prefHeightProperty().bind(insidePane.heightProperty());
         barPane.prefWidthProperty().bind(insidePane.widthProperty());
+
 
         VBox.setVgrow(calendar, Priority.ALWAYS);
         VBox.setVgrow(barPane, Priority.NEVER);
