@@ -30,7 +30,7 @@ public class Task {
         Description = description1;
     }
 
-    public Pane getPane(){
+    public Pane getPane(CalendarBox box){
         HBox pane = new HBox();
         pane.setMinHeight(30);
         pane.setStyle("-fx-background-color:#c2d7f9;");
@@ -48,6 +48,7 @@ public class Task {
                     label.setStrikethrough(false);
                 }
             }
+            box.update();
         }));
 
 //        pane.setOnMouseEntered((event -> {
