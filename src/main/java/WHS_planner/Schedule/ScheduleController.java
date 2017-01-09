@@ -33,17 +33,6 @@ public class ScheduleController implements Initializable
     private String s;
 
 
-//    Pane getBar() {
-//        BorderPane anchor = new BorderPane();
-////        HBox anchor = new HBox();
-////        AnchorPane anchor = new AnchorPane();
-//
-////        anchor.getChildren().add(progressBar);
-//        anchor.setCenter(progressBar);
-//        return anchor;
-//    }
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -276,12 +265,6 @@ public class ScheduleController implements Initializable
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
 
 
     private void delete(File file) throws IOException
