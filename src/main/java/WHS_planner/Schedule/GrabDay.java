@@ -230,7 +230,7 @@ public class GrabDay
         return f;
     }
 
-    protected class Grabber
+    private class Grabber
     {
         private Grabber()
         {
@@ -258,8 +258,8 @@ public class GrabDay
 
             int resp = connection.getResponseCode();
 
-            System.out.println("\nSending GET request to " + url);
-            System.out.println("Response code is: "+resp);
+//            System.out.println("\nSending GET request to " + url);
+//            System.out.println("Response code is: "+resp);
 
             InputStreamReader ir = new InputStreamReader(connection.getInputStream());
             BufferedReader br = new BufferedReader(ir);

@@ -1,6 +1,5 @@
 package WHS_planner.UI;
 
-import WHS_planner.Calendar.Calendar;
 import WHS_planner.Calendar.CalendarYear;
 import com.jfoenix.controls.JFXProgressBar;
 import javafx.application.Platform;
@@ -51,7 +50,12 @@ class Home extends Pane implements ActionListener {
 //        progressBar.getStyleClass().setAll("progress-bar");
 
         progressBar.setProgress(0);
+        progressBar.getStylesheets().add("News" + File.separator + "NewsUI.css");
+        progressBar.getStyleClass().setAll("orange-bar");
 
+        progressBar.setStyle("-fx-accent: orange");
+
+//        progressBar.setStyle("-fx-color: #FF9800");
 
         barPane.setCenter(progressBar);
 
@@ -143,13 +147,10 @@ class Home extends Pane implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                double d = progressVal();
-                d = 1.0 - d;
-                progressBar.setProgress(d);
-            }
+        Platform.runLater(() -> {
+            double d = progressVal();
+            d = 1.0 - d;
+            progressBar.setProgress(d);
         });
 
     }

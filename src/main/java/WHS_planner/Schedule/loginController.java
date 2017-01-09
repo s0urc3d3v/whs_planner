@@ -73,7 +73,8 @@ public class loginController implements Initializable
                     bw.close();
 
                     error.setTextFill(Color.GREEN);
-                    error.setText("Login successful! Please wait....");
+                    error.setText("iPass internal error. Please restart, run clean.sh and try again.");
+
                     try
                     {
                         MainPane mp = (MainPane) Main.getMainPane();

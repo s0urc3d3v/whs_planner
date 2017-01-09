@@ -1,17 +1,16 @@
 package WHS_planner.Calendar;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 /**
  * Created by geoffrey_wang on 9/20/16.
  */
 public class Task {
-    public String Class, Title, Description;
+    String Class, Title, Description;
     private Boolean doesExist = true;
 
     public Task(String class1,String title1, String description1){
@@ -31,7 +30,8 @@ public class Task {
     }
 
     public Pane getPane(CalendarBox box){
-        HBox pane = new HBox();
+//        HBox pane = new HBox();
+        StackPane pane = new StackPane();
         pane.setMinHeight(30);
         pane.setStyle("-fx-background-color:#c2d7f9;");
         pane.setAlignment(Pos.CENTER_LEFT);
@@ -40,7 +40,7 @@ public class Task {
 
         pane.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
-                if(doesExist == true){
+                if (doesExist) {
                     doesExist = false;
                     label.setStrikethrough(true);
                 }else{
@@ -65,7 +65,7 @@ public class Task {
         return pane;
     }
 
-    public Boolean doesExist() {
+    Boolean doesExist() {
         return doesExist;
     }
 }

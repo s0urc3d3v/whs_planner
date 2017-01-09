@@ -17,7 +17,7 @@ public class MainUI extends Application{
     public void start(Stage stage) throws Exception {
 //------------------------Calendar Pane Implementation---------------------------------------
         try {
-            cal = new Calendar(0,new JFXButton("TESTSETFD"));
+            cal = new Calendar(0, new JFXButton("TESTSETFD"), new JFXButton());
         }catch (Exception e){
             e.printStackTrace();
         }

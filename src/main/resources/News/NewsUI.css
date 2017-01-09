@@ -31,3 +31,6 @@
 	-fx-background-insets: 2, 0, 0;
 	-fx-background-radius: 2em;
 }
+
+.orange-bar
+{ -fx-accent: orange; }
