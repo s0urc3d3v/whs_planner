@@ -2,25 +2,22 @@ package WHS_planner.Meeting;
 
 import WHS_planner.Core.IO;
 import WHS_planner.Core.Meeting;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -102,18 +99,19 @@ public class MeetingController implements Initializable{
                 }
             }
         });
-//        IO io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json.whsplannermeeting");
-//        Meeting meeting = io.readMeetingJsonData();
-//        addSession(meeting.getRequestingStudent().getFirstName() + " " + meeting.getRequestingStudent().getLastName(),
-//                String.valueOf(meeting.getRequestingStudent().getGrade()),
-//                String.valueOf(meeting.getCourse().getCourseLevel()),
-//                meeting.getRequestingStudent().getTeacher(),
-//                String.valueOf(meeting.getCourse()),
-//                meeting.getHour() + ":" + meeting.getMinute(),
-//                meeting.getStudentRequested().getFirstName() + " " + meeting.getStudentRequested().getLastName(),
-//                String.valueOf(meeting.getStudentRequested().getGrade()),
-//                String.valueOf(meeting.getCourse().getCourseLevel()),
-//                meeting.getStudentRequested().getTeacher());
+        IO io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Core" + File.separator + "meeting.json.whsplannermeeting");
+        Meeting meeting = io.readMeetingJsonData();
+        addSession(meeting.getRequestingStudent().getFullName(),
+                String.valueOf(meeting.getRequestingStudent().getGrade()),
+                String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
+                meeting.getRequestingStudent().getTeacher(),
+                meeting.getCourse().getName(),
+                (String.valueOf(meeting.getHour()) + ":" + String.valueOf(meeting.getMinute())),
+                (String.valueOf(meeting.getMonth()) + "/" + String.valueOf(meeting.getDay())),
+                meeting.getStudentRequested().getFullName(),
+                String.valueOf(meeting.getStudentRequested().getGrade()),
+                String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
+                meeting.getStudentRequested().getTeacher());
 
     }
 
@@ -186,5 +184,26 @@ public class MeetingController implements Initializable{
         l4.setPadding(new Insets(5));
         VBox vbox = new VBox(l1, l2, l3, l4);
         return vbox;
+    }
+
+    @FXML
+    void importButtonPressed(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select a Metting.whsplannermeeting.json file!");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + File.separator + "Downloads"));
+        File meetingFile = fileChooser.showOpenDialog(null);
+        IO importIO = new IO(meetingFile.getAbsolutePath());
+        Meeting meeting = importIO.readMeetingJsonData();
+        addSession(meeting.getRequestingStudent().getFullName(),
+                String.valueOf(meeting.getRequestingStudent().getGrade()),
+                String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
+                meeting.getRequestingStudent().getTeacher(),
+                meeting.getCourse().getName(),
+                (String.valueOf(meeting.getHour()) + ":" + String.valueOf(meeting.getMinute())),
+                (String.valueOf(meeting.getMonth()) + "/" + String.valueOf(meeting.getDay())),
+                meeting.getStudentRequested().getFullName(),
+                String.valueOf(meeting.getStudentRequested().getGrade()),
+                String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),
+                meeting.getStudentRequested().getTeacher());
     }
 }

@@ -1,12 +1,16 @@
 package WHS_planner.Schedule;
 
 import WHS_planner.Core.IO;
+import WHS_planner.Main;
+import WHS_planner.Util.XorTool;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 import java.io.BufferedReader;
@@ -41,16 +45,12 @@ public class Schedule
         }
     }
 
-    public ProgressBar getProgressBar() {
-
-        return control.getBar();
-    }
 
     private void buildSchedule() throws Exception
     {
         FXMLLoader loader = new FXMLLoader();
 
-        loader.setLocation(getClass().getResource("/Schedule/wankTest.fxml"));
+        loader.setLocation(getClass().getResource("/Schedule/wank_layout.fxml"));
 
         rootLayout = loader.load();
         control = loader.getController();
@@ -61,6 +61,18 @@ public class Schedule
         loader2.setLocation(getClass().getResource("/Schedule/ipass login.fxml"));
 
         login = loader2.load();
+
+        loginController control2 = loader2.getController();
+
+        login.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.ENTER)
+                {
+                    control2.submit();
+                }
+            }
+        });
 
         File f = new File("Keys/ipass.key");
 
@@ -210,6 +222,9 @@ public class Schedule
             user = br.readLine();
             pass = br.readLine();
 
+            user = XorTool.decode(user, Main.getXorKey());
+            pass = XorTool.decode(pass, Main.getXorKey());
+
             br.close();
             fr.close();
         }
@@ -227,6 +242,7 @@ public class Schedule
             try
             {
                 parse.getClasses();
+                f.delete();
             }
             catch(IOException ie)
             {
@@ -238,21 +254,16 @@ public class Schedule
 
     public ScheduleBlock[] getData()
     {
-        parseSchedule();
-
         File schedulefile = new File("Schedule.json");
 
         if(!schedulefile.exists())
         {
-            try
-            {
+            try {
                 schedulefile.createNewFile();
-
-            }
-            catch (Exception e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+            parseSchedule();
         }
 
         IO dotaIo = new IO("Schedule.json");
@@ -270,5 +281,40 @@ public class Schedule
     public Node getPane()
     {
         return schedule.getRoot();
+    }
+
+
+    public ScheduleBlock[] getToday(String letter)
+    {
+        ScheduleBlock b[] = new ScheduleBlock[6];
+        int x;
+        switch(letter)
+        {
+            case "A": x = 0;
+                break;
+            case "B": x = 1;
+                break;
+            case "C": x = 2;
+                break;
+            case "D": x = 3;
+                break;
+            case "E": x = 4;
+                break;
+            case "F": x = 5;
+                break;
+            case "G": x = 6;
+                break;
+            case "H": x = 7;
+                break;
+            default:  x = -1;
+                break;
+        }
+
+        for (int i = 0; i < 6; i++)
+        {
+            b[i] = blocks[x+(i*8)];
+        }
+
+        return b;
     }
 }

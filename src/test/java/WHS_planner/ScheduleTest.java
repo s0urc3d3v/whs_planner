@@ -4,6 +4,8 @@ import WHS_planner.Schedule.GrabDay;
 import WHS_planner.Schedule.Schedule;
 import junit.framework.TestCase;
 
+import java.io.File;
+
 public class ScheduleTest extends TestCase
 {
 
@@ -29,5 +31,14 @@ public class ScheduleTest extends TestCase
             e.printStackTrace();
         }
     }
+
+    public void testGettfiles()
+    {
+        File f = new File("Keys/ipass.key");
+
+
+        System.out.println(f.getName());
+    }
+
 
 }

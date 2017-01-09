@@ -1,0 +1,398 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Calendar</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">WHS_planner.Calendar</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Calendar (WHS_planner.Calendar)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Calendar</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33,3%
+  </span>
+  <span class="absValue">
+    (3/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    63,1%
+  </span>
+  <span class="absValue">
+    (101/ 160)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package WHS_planner.Calendar;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import WHS_planner.Core.AutoSave;
+<i>4</i>&nbsp;import WHS_planner.Core.IO;
+<i>5</i>&nbsp;import WHS_planner.Core.JSON;
+<i>6</i>&nbsp;import com.jfoenix.controls.JFXButton;
+<i>7</i>&nbsp;import javafx.animation.FadeTransition;
+<i>8</i>&nbsp;import javafx.geometry.Insets;
+<i>9</i>&nbsp;import javafx.geometry.Pos;
+<i>10</i>&nbsp;import javafx.scene.Node;
+<i>11</i>&nbsp;import javafx.scene.control.Label;
+<i>12</i>&nbsp;import javafx.scene.layout.*;
+<i>13</i>&nbsp;import javafx.scene.text.Font;
+<i>14</i>&nbsp;import javafx.util.Duration;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;import java.io.File;
+<i>17</i>&nbsp;import java.io.InputStream;
+<i>18</i>&nbsp;import java.util.ArrayList;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;/**
+<i>22</i>&nbsp; * Created by geoffrey_wang on 9/21/16.
+<i>23</i>&nbsp; */
+<i>24</i>&nbsp;public class Calendar extends BorderPane {
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    //Days of the week
+<b class="fc"><i>27</i>&nbsp;    private String[] daysOfTheWeek = new String[]{&quot;Sunday&quot;,&quot;Monday&quot;,&quot;Tuesday&quot;,&quot;Wednesday&quot;,&quot;Thursday&quot;,&quot;Friday&quot;,&quot;Saturday&quot;};</b>
+<i>28</i>&nbsp;    private Background background;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    private CalendarBox[][] calendar;
+<i>31</i>&nbsp;    private int startDay;
+<i>32</i>&nbsp;    private int numberOfDays;
+<i>33</i>&nbsp;    private Node taskBox;
+<i>34</i>&nbsp;    private AutoSave autoSave;
+<i>35</i>&nbsp;//Tzurs code
+<b class="fc"><i>36</i>&nbsp;    private CalendarHelper dayFinder = new CalendarHelper();</b>
+<i>37</i>&nbsp;
+<b class="fc"><i>38</i>&nbsp;    private IO io = new IO(&quot;src&quot; + File.separator + &quot;main&quot; + File.separator + &quot;resources&quot; + File.separator + &quot;Calendar&quot; + File.separator + &quot;calendarHolder.json&quot;);</b>
+<i>39</i>&nbsp;     private JSON json;
+<i>40</i>&nbsp;    // end tzurs code
+<i>41</i>&nbsp;    private VBox mainPane;
+<b class="fc"><i>42</i>&nbsp;    private int currentTextBoxRow = -1;</b>
+<i>43</i>&nbsp;    // MARK: day in foucus
+<b class="fc"><i>44</i>&nbsp;    private int currentDate = -1;</b>
+<i>45</i>&nbsp;
+<b class="fc"><i>46</i>&nbsp;    public Calendar(){</b>
+<b class="fc"><i>47</i>&nbsp;        json = io.getJsonApi();</b>
+<b class="fc"><i>48</i>&nbsp;        this.startDay = dayFinder.getWeekdayMonthStarts();</b>
+<b class="fc"><i>49</i>&nbsp;        this.numberOfDays = dayFinder.getDaysInMonth();</b>
+<i>50</i>&nbsp;
+<b class="fc"><i>51</i>&nbsp;        CalendarUtility util = new CalendarUtility();</b>
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;        //Loads the ttf font file into the program
+<b class="fc"><i>54</i>&nbsp;        InputStream font = MainUI.class.getResourceAsStream(&quot;/FontAwesome/fontawesome.ttf&quot;);</b>
+<b class="fc"><i>55</i>&nbsp;        Font.loadFont(font,10);</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;            try {
+<b class="fc"><i>59</i>&nbsp;                calendar = util.CalendarLoad(startDay, numberOfDays, json);</b>
+<b class="nc"><i>60</i>&nbsp;            } catch (Exception e) {</b>
+<b class="nc"><i>61</i>&nbsp;                e.printStackTrace();</b>
+<b class="fc"><i>62</i>&nbsp;            }</b>
+<i>63</i>&nbsp;
+<b class="fc"><i>64</i>&nbsp;        mainPane = new VBox();</b>
+<b class="fc"><i>65</i>&nbsp;        mainPane.setId(&quot;vbox&quot;);//Replace this ID</b>
+<b class="fc"><i>66</i>&nbsp;        mainPane.setPadding(new Insets(5,5,5,5));</b>
+<b class="fc"><i>67</i>&nbsp;        ArrayList&lt;Node&gt; rows = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>68</i>&nbsp;        mainPane.setAlignment(Pos.CENTER);</b>
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;        //Add the week days and first row to the calendar
+<b class="fc"><i>71</i>&nbsp;        GridPane firstRow = new GridPane();</b>
+<b class="fc"><i>72</i>&nbsp;        firstRow.setAlignment(Pos.CENTER);</b>
+<b class="fc"><i>73</i>&nbsp;        firstRow.setHgap(10);</b>
+<b class="fc"><i>74</i>&nbsp;        firstRow.setVgap(10);</b>
+<b class="fc"><i>75</i>&nbsp;        firstRow.setPadding(new Insets(5,5,5,5));</b>
+<i>76</i>&nbsp;
+<b class="fc"><i>77</i>&nbsp;        for (int dayIndex = 0; dayIndex &lt; daysOfTheWeek.length; dayIndex++) {</b>
+<b class="fc"><i>78</i>&nbsp;            Label dayLabel = new Label(daysOfTheWeek[dayIndex]);</b>
+<b class="fc"><i>79</i>&nbsp;            dayLabel.getStyleClass().add(&quot;weekday&quot;);</b>
+<b class="fc"><i>80</i>&nbsp;            firstRow.add(dayLabel,dayIndex,0);</b>
+<b class="fc"><i>81</i>&nbsp;            GridPane.setHgrow(dayLabel, Priority.ALWAYS);</b>
+<b class="fc"><i>82</i>&nbsp;            dayLabel.prefWidthProperty().bind(this.getCalendarBox(1).widthProperty());</b>
+<i>83</i>&nbsp;        }
+<i>84</i>&nbsp;
+<i>85</i>&nbsp;        //Fill in rest of the calendar
+<b class="fc"><i>86</i>&nbsp;        for (int r = 0; r &lt; calendar.length ; r++) {</b>
+<b class="fc"><i>87</i>&nbsp;            GridPane row = new GridPane();</b>
+<b class="fc"><i>88</i>&nbsp;            row.setAlignment(Pos.CENTER);</b>
+<b class="fc"><i>89</i>&nbsp;            row.setHgap(10);</b>
+<b class="fc"><i>90</i>&nbsp;            row.setPadding(new Insets(5,5,5,5));</b>
+<b class="fc"><i>91</i>&nbsp;            for (int c = 0; c &lt; calendar[r].length; c++) {</b>
+<i>92</i>&nbsp;                CalendarBox tempCalendarBox;
+<b class="fc"><i>93</i>&nbsp;                if (calendar[r][c] != null) {</b>
+<b class="fc"><i>94</i>&nbsp;                    tempCalendarBox = calendar[r][c];</b>
+<i>95</i>&nbsp;                }else{
+<b class="fc"><i>96</i>&nbsp;                    tempCalendarBox = new CalendarBox(0,0,false,null);</b>
+<i>97</i>&nbsp;                }
+<b class="fc"><i>98</i>&nbsp;                tempCalendarBox.prefHeightProperty().bind(row.heightProperty());</b>
+<b class="fc"><i>99</i>&nbsp;                row.add(tempCalendarBox,c,0);</b>
+<b class="fc"><i>100</i>&nbsp;                GridPane.setHgrow(tempCalendarBox, Priority.ALWAYS);</b>
+<i>101</i>&nbsp;            }
+<b class="fc"><i>102</i>&nbsp;            rows.add(row);</b>
+<i>103</i>&nbsp;        }
+<i>104</i>&nbsp;
+<b class="fc"><i>105</i>&nbsp;        for (Node row:rows) {</b>
+<b class="fc"><i>106</i>&nbsp;            VBox.setVgrow(row, Priority.ALWAYS);</b>
+<b class="fc"><i>107</i>&nbsp;            GridPane tempGridPane = (GridPane)row;</b>
+<b class="fc"><i>108</i>&nbsp;            tempGridPane.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT +10);</b>
+<b class="fc"><i>109</i>&nbsp;            tempGridPane.setMinWidth(7*CalendarBox.CALENDAR_BOX_MIN_WIDTH +10);</b>
+<b class="fc"><i>110</i>&nbsp;        }</b>
+<b class="fc"><i>111</i>&nbsp;        rows.add(0,firstRow);</b>
+<i>112</i>&nbsp;
+<b class="fc"><i>113</i>&nbsp;        mainPane.getChildren().setAll(rows);</b>
+<i>114</i>&nbsp;
+<b class="fc"><i>115</i>&nbsp;        this.setCenter(mainPane);</b>
+<i>116</i>&nbsp;
+<b class="fc"><i>117</i>&nbsp;        LayoutAnimator animator = new LayoutAnimator();</b>
+<i>118</i>&nbsp;//        animator.observe(mainPane.getChildren());
+<b class="fc"><i>119</i>&nbsp;    }</b>
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;    public void update(int row, int date){
+<b class="nc"><i>122</i>&nbsp;        int[] rowIDs = new int[]{1,2,3,4,5};</b>
+<b class="nc"><i>123</i>&nbsp;        GridPane tempPane = (GridPane) mainPane.getChildren().get(1);</b>
+<i>124</i>&nbsp;
+<b class="nc"><i>125</i>&nbsp;        if(currentDate != -1){</b>
+<b class="nc"><i>126</i>&nbsp;            if(date == currentDate) {</b>
+<b class="nc"><i>127</i>&nbsp;                changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);</b>
+<b class="nc"><i>128</i>&nbsp;                removeTaskBox(taskBox);</b>
+<b class="nc"><i>129</i>&nbsp;                currentTextBoxRow = -1;</b>
+<b class="nc"><i>130</i>&nbsp;                currentDate = -1;</b>
+<b class="nc"><i>131</i>&nbsp;            }else if(currentTextBoxRow == rowIDs[row]){</b>
+<b class="nc"><i>132</i>&nbsp;                changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);</b>
+<b class="nc"><i>133</i>&nbsp;                changeButtonColor(getCalendarBox(date).getButtonNode(),true);</b>
+<b class="nc"><i>134</i>&nbsp;                removeTaskBox(taskBox);</b>
+<b class="nc"><i>135</i>&nbsp;                addTaskBox(currentTextBoxRow, getCalendarBox(date).getTaskBox(tempPane.widthProperty()));</b>
+<b class="nc"><i>136</i>&nbsp;                currentDate = date;</b>
+<i>137</i>&nbsp;            }else{
+<b class="nc"><i>138</i>&nbsp;                changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);</b>
+<b class="nc"><i>139</i>&nbsp;                removeTaskBox(taskBox);</b>
+<b class="nc"><i>140</i>&nbsp;                currentTextBoxRow = rowIDs[row];</b>
+<b class="nc"><i>141</i>&nbsp;                currentDate = date;</b>
+<b class="nc"><i>142</i>&nbsp;                addTaskBox(currentTextBoxRow, getCalendarBox(date).getTaskBox(tempPane.widthProperty()));</b>
+<b class="nc"><i>143</i>&nbsp;                changeButtonColor(getCalendarBox(date).getButtonNode(),true);</b>
+<i>144</i>&nbsp;            }
+<i>145</i>&nbsp;        }else{
+<b class="nc"><i>146</i>&nbsp;            currentTextBoxRow = rowIDs[row];</b>
+<b class="nc"><i>147</i>&nbsp;            currentDate = date;</b>
+<b class="nc"><i>148</i>&nbsp;            addTaskBox(currentTextBoxRow, getCalendarBox(date).getTaskBox(tempPane.widthProperty()));</b>
+<b class="nc"><i>149</i>&nbsp;            changeButtonColor(getCalendarBox(date).getButtonNode(),true);</b>
+<i>150</i>&nbsp;        }
+<b class="nc"><i>151</i>&nbsp;        taskBox = getCalendarBox(date).getTaskBox(tempPane.widthProperty());</b>
+<i>152</i>&nbsp;//        saveCalendar();
+<b class="nc"><i>153</i>&nbsp;    }</b>
+<i>154</i>&nbsp;
+<i>155</i>&nbsp;    public void changeButtonColor(JFXButton button,boolean selected){
+<b class="nc"><i>156</i>&nbsp;        if(selected){</b>
+<b class="nc"><i>157</i>&nbsp;            button.getStyleClass().setAll(&quot;box-button-selected&quot;);</b>
+<i>158</i>&nbsp;        }else{
+<b class="nc"><i>159</i>&nbsp;            button.getStyleClass().setAll(&quot;box-button&quot;);</b>
+<i>160</i>&nbsp;        }
+<b class="nc"><i>161</i>&nbsp;    }</b>
+<i>162</i>&nbsp;
+<i>163</i>&nbsp;    public CalendarBox getCalendarBox(int date){
+<b class="fc"><i>164</i>&nbsp;        CalendarBox currentBox = null;</b>
+<i>165</i>&nbsp;
+<b class="fc"><i>166</i>&nbsp;        for (int rowIndex = 0; rowIndex &lt; calendar.length; rowIndex++) {</b>
+<b class="fc"><i>167</i>&nbsp;            for (int colIndex = 0; colIndex &lt; calendar[rowIndex].length; colIndex++) {</b>
+<b class="fc"><i>168</i>&nbsp;                CalendarBox box = calendar[rowIndex][colIndex];</b>
+<b class="fc"><i>169</i>&nbsp;                if(box != null) {</b>
+<b class="fc"><i>170</i>&nbsp;                    if (Integer.valueOf(box.getDate()) == date) {</b>
+<b class="fc"><i>171</i>&nbsp;                        currentBox = calendar[rowIndex][colIndex];</b>
+<b class="fc"><i>172</i>&nbsp;                        break;</b>
+<i>173</i>&nbsp;                    }
+<i>174</i>&nbsp;                }
+<i>175</i>&nbsp;            }
+<b class="fc"><i>176</i>&nbsp;            if(currentBox != null){</b>
+<b class="fc"><i>177</i>&nbsp;                break;</b>
+<i>178</i>&nbsp;            }
+<i>179</i>&nbsp;        }
+<b class="fc"><i>180</i>&nbsp;        return currentBox;</b>
+<i>181</i>&nbsp;    }
+<i>182</i>&nbsp;
+<i>183</i>&nbsp;    public void addTaskBox(int row, Node taskBoxInstance){
+<b class="nc"><i>184</i>&nbsp;        mainPane.getChildren().add(row+1, taskBoxInstance);</b>
+<b class="nc"><i>185</i>&nbsp;        FadeTransition fadeIn = new FadeTransition(Duration.millis(1750));</b>
+<b class="nc"><i>186</i>&nbsp;        fadeIn.setNode(taskBoxInstance);</b>
+<i>187</i>&nbsp;
+<b class="nc"><i>188</i>&nbsp;        fadeIn.setFromValue(0.0);</b>
+<b class="nc"><i>189</i>&nbsp;        fadeIn.setToValue(1.0);</b>
+<b class="nc"><i>190</i>&nbsp;        fadeIn.setCycleCount(1);</b>
+<b class="nc"><i>191</i>&nbsp;        fadeIn.setAutoReverse(false);</b>
+<b class="nc"><i>192</i>&nbsp;        fadeIn.playFromStart();</b>
+<b class="nc"><i>193</i>&nbsp;    }</b>
+<i>194</i>&nbsp;
+<i>195</i>&nbsp;    public void removeTaskBox(Node taskBoxInstance){
+<b class="nc"><i>196</i>&nbsp;        FadeTransition fadeOut = new FadeTransition(Duration.millis(1750));</b>
+<b class="nc"><i>197</i>&nbsp;        fadeOut.setNode(taskBoxInstance);</b>
+<i>198</i>&nbsp;
+<b class="nc"><i>199</i>&nbsp;        fadeOut.setFromValue(1.0);</b>
+<b class="nc"><i>200</i>&nbsp;        fadeOut.setToValue(0.0);</b>
+<b class="nc"><i>201</i>&nbsp;        fadeOut.setCycleCount(1);</b>
+<b class="nc"><i>202</i>&nbsp;        fadeOut.setAutoReverse(false);</b>
+<b class="nc"><i>203</i>&nbsp;        fadeOut.playFromStart();</b>
+<i>204</i>&nbsp;
+<b class="nc"><i>205</i>&nbsp;        mainPane.getChildren().remove(taskBoxInstance);</b>
+<b class="nc"><i>206</i>&nbsp;    }</b>
+<i>207</i>&nbsp;//    public void loadTaskBox(int row){
+<i>208</i>&nbsp;//        FXMLLoader loader = new FXMLLoader();
+<i>209</i>&nbsp;//        loader.setResources(ResourceBundle.getBundle(&quot;FontAwesome.fontawesome&quot;));
+<i>210</i>&nbsp;//        loader.setController(new TaskBoxController());
+<i>211</i>&nbsp;//        loader.setLocation(getClass().getResource(&quot;/Calendar/taskBox.fxml&quot;));
+<i>212</i>&nbsp;//
+<i>213</i>&nbsp;//        try {//TODO Replace with errorhandler
+<i>214</i>&nbsp;//            HBox pane = loader.load();
+<i>215</i>&nbsp;//            GridPane tempPane = (GridPane) mainPane.getChildren().get(4);
+<i>216</i>&nbsp;//            pane.prefWidthProperty().bind(tempPane.widthProperty());
+<i>217</i>&nbsp;//            JFXTextField textBox = (JFXTextField) pane.getChildren().get(0);
+<i>218</i>&nbsp;//            pane.setHgrow(textBox,Priority.ALWAYS);
+<i>219</i>&nbsp;//
+<i>220</i>&nbsp;//            mainPane.getChildren().add(row+1, pane);
+<i>221</i>&nbsp;//
+<i>222</i>&nbsp;//            FadeTransition fadeIn = new FadeTransition(Duration.millis(1750));
+<i>223</i>&nbsp;//            fadeIn.setNode(pane);
+<i>224</i>&nbsp;//
+<i>225</i>&nbsp;//            fadeIn.setFromValue(0.0);
+<i>226</i>&nbsp;//            fadeIn.setToValue(1.0);
+<i>227</i>&nbsp;//            fadeIn.setCycleCount(1);
+<i>228</i>&nbsp;//            fadeIn.setAutoReverse(false);
+<i>229</i>&nbsp;//            fadeIn.playFromStart();
+<i>230</i>&nbsp;//        } catch (IOException e) {
+<i>231</i>&nbsp;//            e.printStackTrace();
+<i>232</i>&nbsp;//        }
+<i>233</i>&nbsp;//    }
+<i>234</i>&nbsp;    public CalendarBox GetCurrentCalendarBox(){
+<b class="nc"><i>235</i>&nbsp;        return getCalendarBox(currentDate);</b>
+<i>236</i>&nbsp;    }
+<i>237</i>&nbsp;
+<i>238</i>&nbsp;    // saves calendar array as a json file at calendarHolder
+<i>239</i>&nbsp;    public void saveCalendar(){
+<i>240</i>&nbsp;        try{
+<i>241</i>&nbsp;
+<i>242</i>&nbsp;        //Grabs all the caledar days
+<b class="fc"><i>243</i>&nbsp;        for (int i = 0; i &lt;numberOfDays ; i++) {</b>
+<i>244</i>&nbsp;                // Gets the active calendar day
+<b class="fc"><i>245</i>&nbsp;                CalendarBox current = calendar[i / 7][i % 7];</b>
+<i>246</i>&nbsp;            // finds out is the day exisits
+<b class="fc"><i>247</i>&nbsp;            if (current != null) {</b>
+<i>248</i>&nbsp;
+<i>249</i>&nbsp;                // gets the week and the date of the object
+<b class="fc"><i>250</i>&nbsp;                int currentWeek = current.getWeek();</b>
+<i>251</i>&nbsp;
+<b class="fc"><i>252</i>&nbsp;                int currentDate = current.getDate();</b>
+<i>253</i>&nbsp;                //gets the tasks in the calendar box
+<b class="fc"><i>254</i>&nbsp;                ArrayList&lt;ArrayList&lt;Task&gt;&gt; currentTaskArrayUnparsedSquared = current.getTasks();</b>
+<b class="fc"><i>255</i>&nbsp;                int sizeOfTasksSquared = currentTaskArrayUnparsedSquared.size();</b>
+<b class="fc"><i>256</i>&nbsp;                for (int j = 0; j &lt; sizeOfTasksSquared; j++) {</b>
+<i>257</i>&nbsp;
+<b class="fc"><i>258</i>&nbsp;                    ArrayList&lt;Task&gt; currentTaskArrayUnparsed = currentTaskArrayUnparsedSquared.get(j);</b>
+<b class="fc"><i>259</i>&nbsp;                    int sizeOfTasks = currentTaskArrayUnparsed.size();</b>
+<i>260</i>&nbsp;
+<b class="fc"><i>261</i>&nbsp;                    int index = 0;</b>
+<b class="fc"><i>262</i>&nbsp;                    for (int k = 0; k &lt; sizeOfTasks; k++) {</b>
+<i>263</i>&nbsp;
+<b class="fc"><i>264</i>&nbsp;                        Task currentTask = currentTaskArrayUnparsed.get(k);</b>
+<b class="fc"><i>265</i>&nbsp;                        if (currentTask.doesExist()) {</b>
+<b class="fc"><i>266</i>&nbsp;                            String currentTaskTitle = currentTask.Title;</b>
+<b class="fc"><i>267</i>&nbsp;                            System.out.println(&quot;currentTaskTitle =&quot; + currentTaskTitle);</b>
+<b class="fc"><i>268</i>&nbsp;                            String currentTaskClass = currentTask.Class;</b>
+<i>269</i>&nbsp;
+<b class="fc"><i>270</i>&nbsp;                            System.out.println(&quot;currentTaskClass =&quot; + currentTaskClass);</b>
+<i>271</i>&nbsp;
+<i>272</i>&nbsp;                            // checks if class = null
+<b class="fc"><i>273</i>&nbsp;                            if (currentTaskClass == null) {</b>
+<b class="nc"><i>274</i>&nbsp;                                currentTaskClass = &quot; &quot;;</b>
+<i>275</i>&nbsp;                            }
+<b class="fc"><i>276</i>&nbsp;                            String currentTaskDescription = currentTask.Description;</b>
+<b class="fc"><i>277</i>&nbsp;                            System.out.println(&quot;currentTaskDescription =&quot; + currentTaskDescription);</b>
+<i>278</i>&nbsp;
+<i>279</i>&nbsp;                            // checks if taskDescription = null
+<b class="fc"><i>280</i>&nbsp;                            if (currentTaskDescription == null) {</b>
+<b class="nc"><i>281</i>&nbsp;                                currentTaskDescription = &quot; &quot;;</b>
+<i>282</i>&nbsp;                            }
+<b class="fc"><i>283</i>&nbsp;                            ArrayList&lt;String&gt; currentTaskArray = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>284</i>&nbsp;                            currentTaskArray.add(currentTaskTitle);</b>
+<b class="fc"><i>285</i>&nbsp;                            currentTaskArray.add(currentTaskClass);</b>
+<b class="fc"><i>286</i>&nbsp;                            currentTaskArray.add(currentTaskDescription);</b>
+<b class="fc"><i>287</i>&nbsp;                            json.writeArray(&quot;CalendarSaver&quot; + i + &quot;:&quot; + j + &quot;:&quot; + index, currentTaskArray.toArray());</b>
+<b class="fc"><i>288</i>&nbsp;                            System.out.println(&quot;CalendarSaver&quot; + i + &quot;:&quot; + j + &quot;:&quot; + index);</b>
+<b class="fc"><i>289</i>&nbsp;                            index++;</b>
+<i>290</i>&nbsp;                        }
+<i>291</i>&nbsp;                    }
+<i>292</i>&nbsp;                }
+<i>293</i>&nbsp;                // make an array of values to save from the current calendarbox
+<b class="fc"><i>294</i>&nbsp;                ArrayList&lt;Integer&gt; currentBoxArray = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>295</i>&nbsp;                currentBoxArray.add(currentDate);</b>
+<b class="fc"><i>296</i>&nbsp;                currentBoxArray.add(currentWeek);</b>
+<i>297</i>&nbsp;
+<b class="fc"><i>298</i>&nbsp;                json.writeArray(&quot;CalendarSaver&quot; + i, currentBoxArray.toArray());</b>
+<i>299</i>&nbsp;
+<i>300</i>&nbsp;            }
+<i>301</i>&nbsp;        }
+<b class="fc"><i>302</i>&nbsp;        json.unloadFile();</b>
+<b class="nc"><i>303</i>&nbsp;    }catch(Exception e){</b>
+<b class="nc"><i>304</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>305</i>&nbsp;        }</b>
+<i>306</i>&nbsp;
+<b class="fc"><i>307</i>&nbsp;    }</b>
+<i>308</i>&nbsp;
+<i>309</i>&nbsp;    @Override
+<i>310</i>&nbsp;    protected void finalize() throws Throwable {
+<b class="nc"><i>311</i>&nbsp;        super.finalize();</b>
+<b class="nc"><i>312</i>&nbsp;        saveCalendar();</b>
+<b class="nc"><i>313</i>&nbsp;        System.out.println(&quot;WE NEVER GET HERE!-------------------------------------&quot;);</b>
+<b class="nc"><i>314</i>&nbsp;    }</b>
+<i>315</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2017-01-07 21:56</div>
+</div>
+</body>
+</html>

@@ -2,21 +2,19 @@ package WHS_planner.Schedule;
 
 import WHS_planner.Main;
 import WHS_planner.UI.MainPane;
-import WHS_planner.Util.AesTool;
+import WHS_planner.Util.XorTool;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
+import javafx.scene.paint.Color;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.net.URL;
-import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.ResourceBundle;
 
 public class loginController implements Initializable
@@ -33,7 +31,10 @@ public class loginController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-
+        //Initializes the "submit" button style
+        button.setButtonType(JFXButton.ButtonType.RAISED);
+        button.getStyleClass().setAll("button-raised");
+        button.getStylesheets().add("Schedule" + File.separator + "ButtonStyle.css");
     }
 
     public void submit()
@@ -43,7 +44,8 @@ public class loginController implements Initializable
 
         if(username.equals("") || pass.equals(""))
         {
-            error.setText("Please put in ipass information");
+            error.setTextFill(Color.BLACK);
+            error.setText("Please enter your iPass information");
         }
         else
         {
@@ -52,28 +54,25 @@ public class loginController implements Initializable
                 GrabDay gd = new GrabDay(username, pass);
                 if(gd.testConn())
                 {
-                    File f = new File("Keys/ipass.key");
+                    File f = new File("Keys/ipass.key"); //TODO File.seperator?
                     if(!f.exists())
                     {
                         f.createNewFile();
                     }
                     BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-                    //TODO
-                    KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-                    keyGenerator.init(128);
-                    SecretKey aesKey = keyGenerator.generateKey();
-                    AesTool usernameAesTool = new AesTool(username, aesKey);
-                    AesTool passwordAesTool = new AesTool(pass, aesKey);
-                    username = usernameAesTool.encrypt();
-                    pass = passwordAesTool.encrypt();
-                    usernameAesTool.done();
-                    //TODO add passwordAesTool too
+                    String xorKey = Main.getXorKey();
+                    username = XorTool.encode(username, xorKey);
+                    pass = XorTool.encode(pass, xorKey);
+
+                    //System.out.println(username);
+                    //System.out.println(pass);
 
                     bw.write(username);
                     bw.newLine();
                     bw.write(pass);
                     bw.close();
 
+                    error.setTextFill(Color.GREEN);
                     error.setText("Login successful! Please wait....");
                     try
                     {
@@ -87,7 +86,11 @@ public class loginController implements Initializable
                 }
                 else
                 {
-                    error.setText("Information incorrect, please try again!");
+                    error.setTextFill(Color.RED);
+//                    error.setText("Information incorrect, please try again!");
+                    error.setText("Incorrect username or password. Please try again.");
+//                    error.setTextFill(Color.BLACK);
+                    password.clear();
                 }
             }
             catch(Exception e)

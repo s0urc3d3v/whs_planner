@@ -27,6 +27,7 @@ public class IO {
             jsonApi.writeArray(i + "", new Object[]{block.getClassName(), block.getTeacher(), block.getRoomNumber(), block.getPeriodNumber()});
             i++;
         }
+
     }
 
     public void unload()
@@ -50,7 +51,7 @@ public class IO {
 //    }
 
 
-    public void writeJsonMeetingData(Student requestingStudent, Student studentRequested, int month, int day, long year, long hour, long minute, Course course) throws IOException {
+    public void writeJsonMeetingData(Student requestingStudent, Student studentRequested, long month, long day, long year, long hour, long minute, Course course) throws IOException {
         JSONObject object = new JSONObject();
 
         JSONArray requestingStuentJsonData = new JSONArray();
@@ -123,7 +124,7 @@ public class IO {
         int day = Integer.parseInt(String.valueOf(rawObject.get("day")));
         long year = Integer.parseInt(String.valueOf(rawObject.get("year")));
 
-        return new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course);
+        return new Meeting(requestingStudent, studentRequested, month, day, year, hour, minute, course, null);
 
     }
 
@@ -136,6 +137,10 @@ public class IO {
                 }
             }
         return scheduleBlockArrayList;
+    }
+
+    public JSON getJsonApi() {
+        return jsonApi;
     }
 
     public void writeMap(Map<String, Integer> map)
@@ -171,5 +176,6 @@ public class IO {
 
         return objects;
     }
+
 
 }

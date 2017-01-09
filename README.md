@@ -9,20 +9,8 @@ Remember to make and run tests BEFORE pushing to your branch.
 
 Also please do not merge until Travis says that your branch is working.
 
-[**Github Emojis to Spice up our commits!**](http://www.webpagefx.com/tools/emoji-cheat-sheet/)
+**Please refrain from langauge that could be interpreted as offensive.  Racial slurs, Religous slurs, mental handiacap slurs, etc.  remember you are on the internet!**
 
-Look at those lines of code boys!
-```
--------------------------------------------------------------------------------
-Language                     files          blank        comment           code
--------------------------------------------------------------------------------
-XML                             85              0              0           2717
-Java                            60            648            405           2580
-Maven                            1              6              1            112
-CSS                              4             14              7             72
-YAML                             1              0              0             16
-Bourne Shell                     2              0              0              2
--------------------------------------------------------------------------------
-SUM:                           153            668            413           5499
--------------------------------------------------------------------------------
-```
+**This program does not work with java 9 ea!**
+
+[**Github Emojis to Spice up our commits!**](http://www.webpagefx.com/tools/emoji-cheat-sheet/)

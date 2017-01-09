@@ -1,7 +1,7 @@
 package WHS_planner.UI;
 
 import WHS_planner.Calendar.Calendar;
-import WHS_planner.Meeting.MeetingPane;
+import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
@@ -29,11 +29,13 @@ public class MainPane extends Pane {
     private Pane navBar;
     private Pane content;
     private ArrayList<Pane> contentPanes;
+    private JFXDrawer drawer;
 
     private VBox mainPane;
 
 
     private Schedule schedule;
+    private Calendar calendar;
 
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
@@ -54,7 +56,8 @@ public class MainPane extends Pane {
      * @return NavBarPane
      */
     private Pane loadNavBar() {
-        String location = "/UI/NavBar.fxml"; //Location of the FXML in the resources folder
+        String location = "/UI/NavBar.fxml"; //Location of the FXML in the resources folder //TODO make absolute
+
 
         //Tries to load in the FXML and if it fails it returns an error message
         try {
@@ -77,7 +80,7 @@ public class MainPane extends Pane {
         VBox vBox = new VBox(); //Create a vBox for the base pane
 
         //Make a stack pane with the drawer and content in it
-        StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),175,48));
+        StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48));
 
         //Set the content the base pane to have the nav bar on top and content under it
         vBox.getChildren().setAll(navBar,stackPane);
@@ -96,16 +99,24 @@ public class MainPane extends Pane {
      */
     private JFXDrawer createDrawer(JFXHamburger hamburger, double width, double buttonHeight) {
         //Put the buttons generated into a vBox
-        VBox tabsVBox = new VBox(generateButtons(new String[]{"Home", "Schedule", "Calendar", "News", "Meetings"}, width, buttonHeight));
+//        ScheduleBlock[] scheduleBlocks = new ScheduleBlock[7]; //TODO: Get from schedule
+//        VBox tabsVBox = new VBox();
+//        for (int i = 0; i < scheduleBlocks.length; i++) {
+//            Label l = new Label();
+//            l.setPadding(new Insets(20, 5, 20, 5));
+//            l.setText(scheduleBlocks[i].getClassName());
+//            tabsVBox.getChildren().add(l);
+//        }
+//        generateButtons(new String[]{"Home", "Schedule"}, width, buttonHeight);
 
         //Set drawer preferences
-        JFXDrawer drawer = new JFXDrawer();
+        drawer = new JFXDrawer();
         drawer.setDefaultDrawerSize(width);
-        drawer.setSidePane(tabsVBox);
+        drawer.setSidePane(contentPanes.get(1));
+//        drawer.setSidePane(tabsVBox);
         drawer.setPickOnBounds(false);
         drawer.setMouseTransparent(true);                                                //vertical, higher = lower
         drawer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 5, 0);");
-
 
         //Hamburger animation
         hamburger.setAnimation(new HamburgerBackArrowBasicTransition(hamburger));
@@ -126,37 +137,25 @@ public class MainPane extends Pane {
         });
 
         //More functions to open and close the drawer
-        drawer.setOnMouseClicked(event -> {
-            System.out.println(event.getSceneX());
-            if (drawer.isShown()) {
-                if (event.getSceneX() >= 175) {
-                    drawer.setMouseTransparent(false);
-                    hamburger.getAnimation().setRate(1); //Switches the transition between forward and backwards.
-                    hamburger.getAnimation().play(); //Plays the transition
-                }
-            }else{
-                drawer.setMouseTransparent(true);
-                hamburger.getAnimation().setRate(-1);
-                hamburger.getAnimation().play(); //Plays the transition
-            }
-        });
 
         return drawer;
     }
 
     private void generatePanes() {
         schedule = new Schedule();
-        Pane calendar = new Calendar(1, 30);
-        GeoffreyNewsUI news = new GeoffreyNewsUI();
-        Pane meeting = new MeetingPane();
-
-        Home Home = new Home(calendar, news.getMasonryPane(), schedule.getProgressBar());
-
-        addPane(Home);
+        calendar = new Calendar();
+        NewsUI news = null;
+        try {
+            news = new NewsUI();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        //Pane meeting = new MeetingPane();
+//        Home homePane = new Home(calendar, news.getCardView(), schedule.getProgressBar());
+        Home homePane = new Home(calendar, news.getCardView());
+        addPane(homePane);
         addPane((Pane) schedule.getPane());
-        addPane(calendar);
-        addPane(news);
-        addPane(meeting);
+        //addPane(meeting);
 
 
         content.getChildren().add(contentPanes.get(0)); //Sets home tab as default
@@ -169,8 +168,8 @@ public class MainPane extends Pane {
         remPane((Pane)schedule.getPane());
         schedule = new Schedule();
         addPane((Pane) schedule.getPane(), 1);
-        content.getChildren().clear();
-        content.getChildren().add(contentPanes.get(1));
+        drawer.getContent().clear();
+        drawer.setSidePane(contentPanes.get(1));
     }
 
     private Node[] generateButtons(String[] text, double width, double buttonHeight) {
@@ -220,5 +219,13 @@ public class MainPane extends Pane {
         hamburg.getAnimation().play(); //Plays the transition
         drawer.close();
     }
-    
+
+    public Schedule getSchedule()
+    {
+        return schedule;
+    }
+
+    public void saveCalendar(){
+        calendar.saveCalendar();
+    }
 }

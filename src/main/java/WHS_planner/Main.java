@@ -2,6 +2,7 @@ package WHS_planner;
 
 
 //import WHS_planner.Core.MeetingFileHandler;
+
 import WHS_planner.Calendar.CalendarBox;
 import WHS_planner.UI.MainPane;
 import javafx.application.Application;
@@ -12,19 +13,30 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.apache.log4j.PropertyConfigurator;
 
-import java.io.File;
+import java.io.*;
+import java.util.Random;
 
-public class Main extends Application {
-
-
+public class
+Main extends Application {
+    //ON first run move jfoenix to a place it can be referenced on a remote system
+    private static String readKey = null;
     private static MainPane mainPane;
+
+    public static String getXorKey()
+    {
+        if (readKey != null)
+        {
+            return readKey;
+        }
+        return null;
+    }
 
     /**
      * The main method of the program.
      * It initializes and runs the application!
      */
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws Exception {
+        System.setProperty("http.agent", "Chrome");
         PropertyConfigurator.configure("log4j.properties");
 
        File keys = new File("Keys");
@@ -34,8 +46,54 @@ public class Main extends Application {
            keys.mkdir();
        }
 
+       File caldat = new File("src/main/resources/Calendar/calendarHolder.json");
 
-       launch(args);
+
+        try {
+            if(!caldat.exists())
+            {
+                caldat.createNewFile();
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+
+       File encKey = new File("Keys" + File.separator + "xor.key");
+       if (!encKey.exists()) {
+           Random r = new Random();
+           int key = r.nextInt();
+           readKey = String.valueOf(key);
+           try {
+               BufferedWriter writer = new BufferedWriter(new FileWriter("Keys" + File.separator + "xor.key"));
+               writer.write(String.valueOf(key));
+               writer.close();
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+       }
+       else {
+           try {
+               BufferedReader reader = new BufferedReader(new FileReader("keys" + File.separator + "xor.key"));
+               readKey = reader.readLine();
+               reader.close();
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+       }
+        try {
+            launch(args);
+        }
+        catch (Exception e){
+           e.printStackTrace();
+        }
+       }
+
+    public static Object getMainPane() {
+        return mainPane;
     }
 
     /**
@@ -53,7 +111,7 @@ public class Main extends Application {
             public void handle(KeyEvent event) {
                 if(event.getCode() == KeyCode.Q)
                 {
-                    System.exit(0);
+                    stop();
                 }
             }
         });
@@ -63,8 +121,15 @@ public class Main extends Application {
         mainPane.prefWidthProperty().bind(scene.widthProperty());
         mainPane.prefHeightProperty().bind(scene.heightProperty());
 
+        //Original (without HOME)
+//        stage.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT*5+198); //Set the minimum height of the window
+//        stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90); //Set the minimum width of the window
+
+        //WITH HOME
         stage.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT*5+198); //Set the minimum height of the window
-        stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90); //Set the minimum width of the window
+        stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90+280); //Set the minimum width of the window
+
+
         stage.setTitle("WHS Planner"); //Set the title of the window
         stage.setScene(scene); //Set the window (stage) to display things in the scene
 
@@ -80,12 +145,7 @@ public class Main extends Application {
      */
     @Override
     public void stop(){
+        mainPane.saveCalendar();
         System.exit(0);
-    }
-
-
-    public static Object getMainPane()
-    {
-        return mainPane;
     }
 }

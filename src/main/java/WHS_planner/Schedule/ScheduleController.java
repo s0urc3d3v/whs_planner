@@ -1,35 +1,24 @@
 package WHS_planner.Schedule;
 
-import WHS_planner.Core.JSON;
-import WHS_planner.Util.AesTool;
+import WHS_planner.Main;
+import WHS_planner.UI.MainPane;
+import WHS_planner.Util.XorTool;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
-import java.security.SecureRandom;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.ResourceBundle;
 
-public class ScheduleController implements Initializable, ActionListener
+public class ScheduleController implements Initializable
 {
+
+    private boolean write = false;
 
     @FXML
     private GridPane grid;
@@ -37,16 +26,22 @@ public class ScheduleController implements Initializable, ActionListener
     @FXML
     private Label Title3;
 
-    @FXML
-    private ProgressBar progressBar;
 
     private BorderPane[] panes;
 
-    private Timer progressbartimer;
 
-    ProgressBar getBar() {
-        return progressBar;
-    }
+    private String s;
+
+
+//    Pane getBar() {
+//        BorderPane anchor = new BorderPane();
+////        HBox anchor = new HBox();
+////        AnchorPane anchor = new AnchorPane();
+//
+////        anchor.getChildren().add(progressBar);
+//        anchor.setCenter(progressBar);
+//        return anchor;
+//    }
 
 
     @Override
@@ -99,29 +94,14 @@ public class ScheduleController implements Initializable, ActionListener
                 BufferedReader bri = new BufferedReader(new FileReader(ipass));
                 String user = bri.readLine();
                 String pass = bri.readLine();
-                //TODO json read aes key from keys.key.json
 
-                JSON jsonApi = new JSON();
-                jsonApi.loadFile("keys" + File.separator + "keys.key.json");
-                String encodedKey = (String) jsonApi.readPair("aesKey");
+                user = XorTool.decode(user, Main.getXorKey());
+                pass = XorTool.decode(pass, Main.getXorKey());
 
-                try {
-                    byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
-                    SecretKey aeskey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
-                    AesTool usernameTool = new AesTool(user, aeskey);
-                    System.out.println("encrypting username");
-                    AesTool passwordTool = new AesTool(pass, aeskey);
-                    System.out.println("encryption password");
-                    user = usernameTool.decrypt();
-                    pass = passwordTool.decrypt();
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
 
                 bri.close();
 
-                if(user == null || pass == null || user.equals("") || pass.equals(""))
+                if (pass == null || user.equals("") || pass.equals(""))
                 {
                     System.out.println("No ipass data found");
                 }
@@ -129,11 +109,10 @@ public class ScheduleController implements Initializable, ActionListener
                 {
                     Title3.setText("");
 
-                    Thread t = new Thread()
-                    {
-                        public void run()
-                        {
-                            String s;
+                    Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
                             BufferedReader br;
                             try
                             {
@@ -150,6 +129,7 @@ public class ScheduleController implements Initializable, ActionListener
                                 {
                                     buildLetterDays();
                                 }
+
                                 br.close();
                             }
                             catch (Exception e)
@@ -164,10 +144,11 @@ public class ScheduleController implements Initializable, ActionListener
                                 s = "Today is '" + s + "' day!";
                             }
 
-                            //we can set the day here
-                            Title3.setText(s);
+                            //you can't do javafx stuff on other threads
+                            Platform.runLater(() -> Title3.setText(s));
+
                         }
-                    };
+                    });
                     t.start();
 
 
@@ -183,8 +164,7 @@ public class ScheduleController implements Initializable, ActionListener
             System.out.println("No ipass file, try logging in");
         }
 
-        progressbartimer = new Timer(1000, this);
-        progressbartimer.start();
+
     }
 
 
@@ -222,24 +202,73 @@ public class ScheduleController implements Initializable, ActionListener
             String user = br.readLine();
             String pass = br.readLine();
 
+            user = XorTool.decode(user, Main.getXorKey());
+            pass = XorTool.decode(pass, Main.getXorKey());
+
             br.close();
             fr.close();
 
-            File tmp = new File("tmp");
+            File downloadcache = new File("Keys"+File.separator+"DLCache.key");
 
-            if(!tmp.exists() || tmp.listFiles().length == 0)
+            BufferedWriter dlcw;
+
+            if(!downloadcache.exists())
             {
-                //System.out.println("User: "+user+" : Password: "+pass);
-
+                downloadcache.createNewFile();
+                dlcw = new BufferedWriter(new FileWriter(downloadcache));
+                dlcw.write("false");
+                dlcw.close();
                 GrabDay gd = new GrabDay(user, pass);
                 gd.grabData();
+                write = true;
+            }
+            else
+            {
+                BufferedReader dlc = new BufferedReader(new FileReader(downloadcache));
+                String val = dlc.readLine();
+                dlc.close();
+                if(val != null)
+                {
+                    if(val.equals("false"))
+                    {
+                        File tmpf = new File("tmp");
+                        dlcw = new BufferedWriter(new FileWriter(downloadcache));
+                        dlcw.write("false");
+                        dlcw.close();
+                        try
+                        {
+                            delete(tmpf);
+                        }
+                        catch(Exception e)
+                        {
+
+                        }
+
+                        GrabDay gd = new GrabDay(user, pass);
+                        gd.grabData();
+                        downloadcache.delete();
+                        downloadcache.createNewFile();
+                        dlcw = new BufferedWriter(new FileWriter(downloadcache));
+                        dlcw.write("true");
+                        write = true;
+                        dlcw.close();
+                    }
+                }
+
+
             }
 
-            ParseCalendar pc = new ParseCalendar();
-            pc.setData();
-            pc.writeData();
 
-            delete(tmp);
+            File tmp = new File("tmp");
+
+            if(write)
+            {
+                ParseCalendar pc = new ParseCalendar();
+                pc.setData();
+                pc.writeData();
+                delete(tmp);
+            }
+
 
         }
         catch(Exception e)
@@ -249,105 +278,11 @@ public class ScheduleController implements Initializable, ActionListener
     }
 
 
-    private double progressVal()
-    {
-        Date date = new Date();
-
-        DateFormat df = new SimpleDateFormat("HH:mm");
-
-        String dateS = df.format(date);
-
-        int num = parseDate(dateS);
-
-        double mod;
-
-        if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == 4)
-        {
-            if(num >= 450 && num < 496)
-            {
-                mod = (496-num)/46.0;
-            }
-            else if(num >= 496 && num < 576)
-            {
-                mod = (576-num)/80.0;
-            }
-            else if(num >= 576 && num < 641)
-            {
-                mod = (641-num)/65.0;
-            }
-            else if(num >= 641 && num < 716)
-            {
-                mod = (716-num)/75.0;
-            }
-            else if(num >= 700 && num < 745)
-            {
-                mod = (745-num)/45.0;
-            }
-            else if(num >= 745 && num <= 785)
-            {
-                mod = (785-num)/40.0;
-            }
-            else
-            {
-                mod = 1;
-            }
-        }
-        else
-        {
-            if(num >= 450 && num < 512)
-            {
-                mod = (512-num)/62.0;
-            }
-            else if(num >= 512 && num < 579)
-            {
-                mod = (579-num)/67.0;
-            }
-            else if(num >= 579 && num < 641)
-            {
-                mod = (641-num)/62.0;
-            }
-            else if(num >= 641 && num < 736)
-            {
-                mod = (736-num)/95.0;
-            }
-            else if(num >= 736 && num < 798)
-            {
-                mod = (798-num)/62.0;
-            }
-            else if(num >= 798 && num <= 855)
-            {
-                mod = (855-num)/57.0;
-            }
-            else
-            {
-                mod = 1;
-            }
-        }
-
-        return mod;
-    }
-
-    private int parseDate(String date)
-    {
-        String hour = date.substring(0, date.indexOf(":"));
-        String minute = date.substring(date.indexOf(":")+1);
-
-        int hr = Integer.parseInt(hour);
-        int min = Integer.parseInt(minute);
-
-        min += (hr*60);
-
-        return min;
-    }
 
 
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        double d = progressVal();
-        d = 1.0-d;
-        progressBar.setProgress(d);
-    }
+
+
+
 
     private void delete(File file) throws IOException
     {
@@ -373,4 +308,33 @@ public class ScheduleController implements Initializable, ActionListener
             throw new IOException();
         }
     }
+
+    public void updateSchedule() throws Exception
+    {
+
+        File schedule = new File("Schedule.json");
+
+        if(schedule.exists())
+        {
+            schedule.delete();
+        }
+
+        MainPane mp = (MainPane) Main.getMainPane();
+        mp.resetSchedule();
+
+    }
+
+
+    public ScheduleBlock[] getCurrentSchedule()
+    {
+        MainPane mp = (MainPane) Main.getMainPane();
+        Schedule sch = mp.getSchedule();
+
+        String s = getletterday();
+
+        ScheduleBlock[] sb = sch.getToday(s);
+
+        return sb;
+    }
+
 }
