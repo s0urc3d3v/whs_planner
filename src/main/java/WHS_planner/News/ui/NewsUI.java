@@ -95,12 +95,15 @@ public class NewsUI extends Pane {
             hpl.setWrapText(true);
             hpl.setMaxWidth(BOX_WIDTH);
             hpl.setPadding(new Insets(0, 0, 0, 4));
+            hpl.getStyleClass().add("roboto");
 
             //Add label
             Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
             description.setWrapText(true);
             description.setMaxWidth(BOX_WIDTH);
             description.setPadding(new Insets(0, 0, 0, 6));
+            description.getStyleClass().add("roboto");
+
 
             //Add Image
             try {

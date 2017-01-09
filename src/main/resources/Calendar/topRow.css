@@ -10,3 +10,9 @@
      -fx-background-color: #BDBDBD;
      -fx-text-fill: #FFFFFF;
 }
+
+.label {
+    -fx-font-size: 18pt;
+    -fx-font-family: "Roboto";
+
+}

@@ -77,11 +77,15 @@ public class Calendar extends BorderPane {
 
 
         //Top Row
+        HBox topRow = new HBox();
+        topRow.getStylesheets().add("Calendar" + File.separator + "topRow.css");
         Label monthLabel = new Label(dayFinder.getMonthString(month+1));
-        HBox topRow = new HBox(prevButton, monthLabel, nextButton);
-        topRow.getStylesheets().add("Calendar" + File.separator + "monthButton.css");
+
+        monthLabel.getStyleClass().add("label");
         prevButton.getStyleClass().add("monthButton");
         nextButton.getStyleClass().add("monthButton");
+
+        topRow.getChildren().addAll(prevButton, monthLabel, nextButton);
         topRow.setAlignment(Pos.CENTER);
         topRow.setSpacing(50);
 

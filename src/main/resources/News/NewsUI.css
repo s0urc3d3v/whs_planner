@@ -34,3 +34,8 @@
 
 .orange-bar
 { -fx-accent: orange; }
+
+.roboto
+{
+    -fx-font-family: "Roboto";
+}
