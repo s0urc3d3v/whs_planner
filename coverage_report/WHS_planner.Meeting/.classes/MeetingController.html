@@ -1,0 +1,337 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MeetingController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">WHS_planner.Meeting</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MeetingController (WHS_planner.Meeting)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MeetingController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 85)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MeetingController$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">MeetingController$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 13)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 100)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package WHS_planner.Meeting;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import WHS_planner.Core.IO;
+<i>4</i>&nbsp;import WHS_planner.Core.Meeting;
+<i>5</i>&nbsp;import com.jfoenix.controls.JFXListView;
+<i>6</i>&nbsp;import javafx.application.Platform;
+<i>7</i>&nbsp;import javafx.beans.value.ChangeListener;
+<i>8</i>&nbsp;import javafx.beans.value.ObservableValue;
+<i>9</i>&nbsp;import javafx.collections.FXCollections;
+<i>10</i>&nbsp;import javafx.collections.ObservableList;
+<i>11</i>&nbsp;import javafx.event.ActionEvent;
+<i>12</i>&nbsp;import javafx.fxml.FXML;
+<i>13</i>&nbsp;import javafx.fxml.Initializable;
+<i>14</i>&nbsp;import javafx.geometry.Insets;
+<i>15</i>&nbsp;import javafx.scene.Node;
+<i>16</i>&nbsp;import javafx.scene.control.Label;
+<i>17</i>&nbsp;import javafx.scene.control.ScrollBar;
+<i>18</i>&nbsp;import javafx.scene.layout.AnchorPane;
+<i>19</i>&nbsp;import javafx.scene.layout.VBox;
+<i>20</i>&nbsp;import javafx.stage.FileChooser;
+<i>21</i>&nbsp;import javafx.stage.Stage;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;import java.io.File;
+<i>24</i>&nbsp;import java.net.URL;
+<i>25</i>&nbsp;import java.util.HashMap;
+<i>26</i>&nbsp;import java.util.ResourceBundle;
+<i>27</i>&nbsp;
+<b class="nc"><i>28</i>&nbsp;public class MeetingController implements Initializable{</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @FXML
+<i>31</i>&nbsp;    private AnchorPane anchorPane;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    @FXML
+<i>34</i>&nbsp;    private JFXListView&lt;VBox&gt; requestingListView;
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    @FXML
+<i>37</i>&nbsp;    private JFXListView&lt;VBox&gt; classListView;
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    @FXML
+<i>40</i>&nbsp;    private JFXListView&lt;VBox&gt; requestedListView;
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    private ObservableList&lt;VBox&gt; requestingContents;
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    private ObservableList&lt;VBox&gt; classContents;
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    private ObservableList&lt;VBox&gt; requestedContents;
+<i>47</i>&nbsp;    //populate JFXMListViews from json
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;
+<b class="nc"><i>50</i>&nbsp;    private Stage stage = null;</b>
+<b class="nc"><i>51</i>&nbsp;    private HashMap&lt;String, Object&gt; result = new HashMap&lt;String, Object&gt;();</b>
+<i>52</i>&nbsp;
+<b class="nc"><i>53</i>&nbsp;    public MeetingController(){</b>
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    @Override
+<i>58</i>&nbsp;    public void initialize(URL location, ResourceBundle resources) {
+<i>59</i>&nbsp;//        System.out.println(&quot;initialized&quot;);
+<b class="nc"><i>60</i>&nbsp;        anchorPane.widthProperty().addListener(new ChangeListener&lt;Number&gt;() {</b>
+<i>61</i>&nbsp;            @Override public void changed(ObservableValue&lt;? extends Number&gt; observableValue, Number oldSceneWidth, Number newSceneWidth) {
+<b class="nc"><i>62</i>&nbsp;                resize();</b>
+<i>63</i>&nbsp;            }
+<i>64</i>&nbsp;        });
+<b class="nc"><i>65</i>&nbsp;        requestedContents = FXCollections.observableArrayList();</b>
+<b class="nc"><i>66</i>&nbsp;        requestingContents = FXCollections.observableArrayList();</b>
+<b class="nc"><i>67</i>&nbsp;        classContents = FXCollections.observableArrayList();</b>
+<i>68</i>&nbsp;
+<b class="nc"><i>69</i>&nbsp;        classListView.setItems(classContents);</b>
+<b class="nc"><i>70</i>&nbsp;        requestingListView.setItems(requestingContents);</b>
+<b class="nc"><i>71</i>&nbsp;        requestedListView.setItems(requestedContents);</b>
+<i>72</i>&nbsp;
+<b class="nc"><i>73</i>&nbsp;        anchorPane.applyCss();</b>
+<i>74</i>&nbsp;
+<b class="nc"><i>75</i>&nbsp;        requestingListView.getStylesheets().add(&quot;/CoreUI/ListView.css&quot;);</b>
+<b class="nc"><i>76</i>&nbsp;        requestingListView.getStyleClass().add(&quot;list-views&quot;);</b>
+<b class="nc"><i>77</i>&nbsp;        classListView.getStylesheets().add(&quot;/CoreUI/ListView.css&quot;);</b>
+<b class="nc"><i>78</i>&nbsp;        classListView.getStyleClass().add(&quot;list-views&quot;);</b>
+<b class="nc"><i>79</i>&nbsp;        requestedListView.getStylesheets().add(&quot;/CoreUI/ListView.css&quot;);</b>
+<b class="nc"><i>80</i>&nbsp;        requestedListView.getStyleClass().add(&quot;list-viewvert&quot;); //Only removes the horizontal scrollbar</b>
+<i>81</i>&nbsp;
+<b class="nc"><i>82</i>&nbsp;        Platform.runLater(new Runnable() {</b>
+<i>83</i>&nbsp;            @Override
+<i>84</i>&nbsp;            public void run() {
+<b class="nc"><i>85</i>&nbsp;                Node n1 = requestingListView.lookup(&quot;.scroll-bar&quot;);</b>
+<b class="nc"><i>86</i>&nbsp;                if (n1 instanceof ScrollBar) {</b>
+<b class="nc"><i>87</i>&nbsp;                    final ScrollBar bar1 = (ScrollBar) n1;</b>
+<b class="nc"><i>88</i>&nbsp;                    Node n2 = classListView.lookup(&quot;.scroll-bar&quot;);</b>
+<b class="nc"><i>89</i>&nbsp;                    if (n2 instanceof ScrollBar) {</b>
+<b class="nc"><i>90</i>&nbsp;                        final ScrollBar bar2 = (ScrollBar) n2;</b>
+<b class="nc"><i>91</i>&nbsp;                        Node n3 = requestedListView.lookup(&quot;.scroll-bar&quot;);</b>
+<b class="nc"><i>92</i>&nbsp;                        if (n3 instanceof  ScrollBar) {</b>
+<b class="nc"><i>93</i>&nbsp;                            final ScrollBar bar3 = (ScrollBar) n3;</b>
+<b class="nc"><i>94</i>&nbsp;                            bar1.valueProperty().bindBidirectional(bar2.valueProperty());</b>
+<b class="nc"><i>95</i>&nbsp;                            bar2.valueProperty().bindBidirectional(bar3.valueProperty());</b>
+<b class="nc"><i>96</i>&nbsp;                            bar3.valueProperty().bindBidirectional(bar1.valueProperty());</b>
+<i>97</i>&nbsp;                        }
+<i>98</i>&nbsp;                    }
+<i>99</i>&nbsp;                }
+<i>100</i>&nbsp;            }
+<i>101</i>&nbsp;        });
+<b class="nc"><i>102</i>&nbsp;        IO io = new IO(&quot;src&quot; + File.separator + &quot;main&quot; + File.separator + &quot;resources&quot; + File.separator + &quot;Core&quot; + File.separator + &quot;meeting.json.whsplannermeeting&quot;);</b>
+<b class="nc"><i>103</i>&nbsp;        Meeting meeting = io.readMeetingJsonData();</b>
+<b class="nc"><i>104</i>&nbsp;        addSession(meeting.getRequestingStudent().getFullName(),</b>
+<b class="nc"><i>105</i>&nbsp;                String.valueOf(meeting.getRequestingStudent().getGrade()),</b>
+<b class="nc"><i>106</i>&nbsp;                String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),</b>
+<b class="nc"><i>107</i>&nbsp;                meeting.getRequestingStudent().getTeacher(),</b>
+<b class="nc"><i>108</i>&nbsp;                meeting.getCourse().getName(),</b>
+<b class="nc"><i>109</i>&nbsp;                (String.valueOf(meeting.getHour()) + &quot;:&quot; + String.valueOf(meeting.getMinute())),</b>
+<b class="nc"><i>110</i>&nbsp;                (String.valueOf(meeting.getMonth()) + &quot;/&quot; + String.valueOf(meeting.getDay())),</b>
+<b class="nc"><i>111</i>&nbsp;                meeting.getStudentRequested().getFullName(),</b>
+<b class="nc"><i>112</i>&nbsp;                String.valueOf(meeting.getStudentRequested().getGrade()),</b>
+<b class="nc"><i>113</i>&nbsp;                String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),</b>
+<b class="nc"><i>114</i>&nbsp;                meeting.getStudentRequested().getTeacher());</b>
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    }
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;    public HashMap&lt;String, Object&gt; getResult() {
+<b class="nc"><i>119</i>&nbsp;        return this.result;</b>
+<i>120</i>&nbsp;    }
+<i>121</i>&nbsp;
+<i>122</i>&nbsp;    /**
+<i>123</i>&nbsp;     * setting the stage of this view
+<i>124</i>&nbsp;     * @param stage
+<i>125</i>&nbsp;     */
+<i>126</i>&nbsp;    public void setStage(Stage stage) {
+<b class="nc"><i>127</i>&nbsp;        this.stage = stage;</b>
+<i>128</i>&nbsp;    }
+<i>129</i>&nbsp;
+<i>130</i>&nbsp;    /**
+<i>131</i>&nbsp;     * Closes the stage of this view
+<i>132</i>&nbsp;     */
+<i>133</i>&nbsp;    private void closeStage() {
+<b class="nc"><i>134</i>&nbsp;        if(stage!=null) {</b>
+<b class="nc"><i>135</i>&nbsp;            stage.close();</b>
+<i>136</i>&nbsp;        }
+<i>137</i>&nbsp;    }
+<i>138</i>&nbsp;
+<i>139</i>&nbsp;    public void resize(){
+<b class="nc"><i>140</i>&nbsp;        System.out.println(&quot;resized&quot;);</b>
+<b class="nc"><i>141</i>&nbsp;        requestingListView.setPrefWidth((anchorPane.getWidth())/3);</b>
+<b class="nc"><i>142</i>&nbsp;        classListView.setPrefWidth((anchorPane.getWidth())/3);</b>
+<b class="nc"><i>143</i>&nbsp;        requestedListView.setPrefWidth((anchorPane.getWidth())/3);</b>
+<i>144</i>&nbsp;    }
+<i>145</i>&nbsp;
+<i>146</i>&nbsp;    public void addSession(String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String meetingDate, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
+<b class="nc"><i>147</i>&nbsp;        requestingContents.add(createVBox(requestingStudentName, requestingGrade, requestingLevel, requestingTeacher));</b>
+<b class="nc"><i>148</i>&nbsp;        classContents.add(createVBox(meetingDate ,className, classTime, &quot; &quot;));</b>
+<b class="nc"><i>149</i>&nbsp;        requestedContents.add(createVBox(requestedStudentName, requestedStudentGrade, requestedStudentLevel, requestedStudentTeacher));</b>
+<i>150</i>&nbsp;
+<b class="nc"><i>151</i>&nbsp;        requestingListView.setItems(requestingContents);</b>
+<b class="nc"><i>152</i>&nbsp;        classListView.setItems(classContents);</b>
+<b class="nc"><i>153</i>&nbsp;        requestedListView.setItems(requestedContents);</b>
+<i>154</i>&nbsp;    }
+<i>155</i>&nbsp;
+<i>156</i>&nbsp;    public void changeSession(int Index,String requestingStudentName, String requestingGrade, String requestingLevel, String requestingTeacher, String className, String classTime, String meetingDate, String requestedStudentName, String requestedStudentGrade, String requestedStudentLevel, String requestedStudentTeacher){
+<b class="nc"><i>157</i>&nbsp;        requestingContents.add(createVBox(requestingStudentName, requestingGrade, requestingLevel, requestingTeacher));</b>
+<b class="nc"><i>158</i>&nbsp;        classContents.add(createVBox(meetingDate, className, classTime, &quot; &quot;));</b>
+<b class="nc"><i>159</i>&nbsp;        requestedContents.add(createVBox(requestedStudentName, requestedStudentGrade, requestedStudentLevel, requestedStudentTeacher));</b>
+<i>160</i>&nbsp;
+<b class="nc"><i>161</i>&nbsp;        requestingListView.setItems(requestingContents);</b>
+<b class="nc"><i>162</i>&nbsp;        classListView.setItems(classContents);</b>
+<b class="nc"><i>163</i>&nbsp;        requestedListView.setItems(requestedContents);</b>
+<i>164</i>&nbsp;    }
+<i>165</i>&nbsp;
+<i>166</i>&nbsp;    public void removeSession(int Index) {
+<b class="nc"><i>167</i>&nbsp;        requestingContents.remove(Index);</b>
+<b class="nc"><i>168</i>&nbsp;        classContents.remove(Index);</b>
+<b class="nc"><i>169</i>&nbsp;        requestedContents.remove(Index);</b>
+<i>170</i>&nbsp;
+<b class="nc"><i>171</i>&nbsp;        requestingListView.setItems(requestingContents);</b>
+<b class="nc"><i>172</i>&nbsp;        classListView.setItems(classContents);</b>
+<b class="nc"><i>173</i>&nbsp;        requestedListView.setItems(requestedContents);</b>
+<i>174</i>&nbsp;    }
+<i>175</i>&nbsp;
+<i>176</i>&nbsp;    private VBox createVBox(String one, String two, String three, String four){
+<b class="nc"><i>177</i>&nbsp;        Label l1 = new Label(one);</b>
+<b class="nc"><i>178</i>&nbsp;        l1.setPadding(new Insets(5));</b>
+<b class="nc"><i>179</i>&nbsp;        Label l2 = new Label(two);</b>
+<b class="nc"><i>180</i>&nbsp;        l2.setPadding(new Insets(5));</b>
+<b class="nc"><i>181</i>&nbsp;        Label l3 = new Label(three);</b>
+<b class="nc"><i>182</i>&nbsp;        l3.setPadding(new Insets(5));</b>
+<b class="nc"><i>183</i>&nbsp;        Label l4 = new Label(four);</b>
+<b class="nc"><i>184</i>&nbsp;        l4.setPadding(new Insets(5));</b>
+<b class="nc"><i>185</i>&nbsp;        VBox vbox = new VBox(l1, l2, l3, l4);</b>
+<b class="nc"><i>186</i>&nbsp;        return vbox;</b>
+<i>187</i>&nbsp;    }
+<i>188</i>&nbsp;
+<i>189</i>&nbsp;    @FXML
+<i>190</i>&nbsp;    void importButtonPressed(ActionEvent event) {
+<b class="nc"><i>191</i>&nbsp;        FileChooser fileChooser = new FileChooser();</b>
+<b class="nc"><i>192</i>&nbsp;        fileChooser.setTitle(&quot;Select a Metting.whsplannermeeting.json file!&quot;);</b>
+<b class="nc"><i>193</i>&nbsp;        fileChooser.setInitialDirectory(new File(System.getProperty(&quot;user.home&quot;) + File.separator + &quot;Downloads&quot;));</b>
+<b class="nc"><i>194</i>&nbsp;        File meetingFile = fileChooser.showOpenDialog(null);</b>
+<b class="nc"><i>195</i>&nbsp;        IO importIO = new IO(meetingFile.getAbsolutePath());</b>
+<b class="nc"><i>196</i>&nbsp;        Meeting meeting = importIO.readMeetingJsonData();</b>
+<b class="nc"><i>197</i>&nbsp;        addSession(meeting.getRequestingStudent().getFullName(),</b>
+<b class="nc"><i>198</i>&nbsp;                String.valueOf(meeting.getRequestingStudent().getGrade()),</b>
+<b class="nc"><i>199</i>&nbsp;                String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),</b>
+<b class="nc"><i>200</i>&nbsp;                meeting.getRequestingStudent().getTeacher(),</b>
+<b class="nc"><i>201</i>&nbsp;                meeting.getCourse().getName(),</b>
+<b class="nc"><i>202</i>&nbsp;                (String.valueOf(meeting.getHour()) + &quot;:&quot; + String.valueOf(meeting.getMinute())),</b>
+<b class="nc"><i>203</i>&nbsp;                (String.valueOf(meeting.getMonth()) + &quot;/&quot; + String.valueOf(meeting.getDay())),</b>
+<b class="nc"><i>204</i>&nbsp;                meeting.getStudentRequested().getFullName(),</b>
+<b class="nc"><i>205</i>&nbsp;                String.valueOf(meeting.getStudentRequested().getGrade()),</b>
+<b class="nc"><i>206</i>&nbsp;                String.valueOf(meeting.getCourse().getCourseLevel()).charAt(0) + String.valueOf(meeting.getCourse().getCourseLevel()).substring(1, String.valueOf(meeting.getCourse().getCourseLevel()).length()).toLowerCase(),</b>
+<b class="nc"><i>207</i>&nbsp;                meeting.getStudentRequested().getTeacher());</b>
+<i>208</i>&nbsp;    }
+<i>209</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2017-01-07 21:56</div>
+</div>
+</body>
+</html>

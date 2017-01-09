@@ -46,6 +46,22 @@ Main extends Application {
            keys.mkdir();
        }
 
+       File caldat = new File("src/main/resources/Calendar/calendarHolder.json");
+
+
+        try {
+            if(!caldat.exists())
+            {
+                caldat.createNewFile();
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+
        File encKey = new File("Keys" + File.separator + "xor.key");
        if (!encKey.exists()) {
            Random r = new Random();

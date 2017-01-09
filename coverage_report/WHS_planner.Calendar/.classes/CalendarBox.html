@@ -1,0 +1,385 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CalendarBox</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">WHS_planner.Calendar</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CalendarBox (WHS_planner.Calendar)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CalendarBox</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (8/ 16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    69,1%
+  </span>
+  <span class="absValue">
+    (96/ 139)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package WHS_planner.Calendar;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.jfoenix.controls.JFXBadge;
+<i>4</i>&nbsp;import com.jfoenix.controls.JFXButton;
+<i>5</i>&nbsp;import com.jfoenix.controls.JFXTextField;
+<i>6</i>&nbsp;import javafx.beans.property.ReadOnlyDoubleProperty;
+<i>7</i>&nbsp;import javafx.fxml.FXMLLoader;
+<i>8</i>&nbsp;import javafx.geometry.Insets;
+<i>9</i>&nbsp;import javafx.geometry.Pos;
+<i>10</i>&nbsp;import javafx.scene.Node;
+<i>11</i>&nbsp;import javafx.scene.control.Label;
+<i>12</i>&nbsp;import javafx.scene.input.KeyCode;
+<i>13</i>&nbsp;import javafx.scene.input.MouseButton;
+<i>14</i>&nbsp;import javafx.scene.layout.*;
+<i>15</i>&nbsp;import javafx.scene.paint.Color;
+<i>16</i>&nbsp;import javafx.scene.paint.Paint;
+<i>17</i>&nbsp;import javafx.scene.shape.Circle;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;import java.io.IOException;
+<i>20</i>&nbsp;import java.util.ArrayList;
+<i>21</i>&nbsp;import java.util.Map;
+<i>22</i>&nbsp;import java.util.ResourceBundle;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;/**
+<i>25</i>&nbsp; * Created by geoffrey_wang on 12/30/16.
+<i>26</i>&nbsp; */
+<i>27</i>&nbsp;public class CalendarBox extends Pane{
+<i>28</i>&nbsp;    public static final int CALENDAR_BOX_MIN_HEIGHT = 80, CALENDAR_BOX_MIN_WIDTH = 110; //Constant that defines the min size of a CalendarBox
+<i>29</i>&nbsp;    public static final int HOMEWORK = 0; //List IDs (Default)
+<b class="fc"><i>30</i>&nbsp;    private static final String[] ICONS_UNICODE = new String[]{&quot;\uf0f6&quot;}; //File Icon, Check Icon (Font UNICODE)</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    private int date; //The date of the box
+<i>33</i>&nbsp;    private int week; //The week this box is in
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    private ArrayList&lt;ArrayList&lt;Task&gt;&gt; tasks; //List of the lists of tasks
+<i>36</i>&nbsp;    private StackPane mainPane;
+<i>37</i>&nbsp;    private VBox taskBar;
+<i>38</i>&nbsp;    private VBox tasksPane;
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    private JFXButton button;
+<i>41</i>&nbsp;    private VBox vBox;
+<i>42</i>&nbsp;    private StackPane dateLabelStackPane;
+<i>43</i>&nbsp;    private Circle dayCircle;
+<i>44</i>&nbsp;    private Label dateLabel;
+<i>45</i>&nbsp;    private HBox iconContainer;
+<i>46</i>&nbsp;
+<b class="fc"><i>47</i>&nbsp;    public CalendarBox(int date, int week, boolean active, ArrayList&lt;Task&gt; tasks){</b>
+<b class="fc"><i>48</i>&nbsp;        this.date = date; //This box&#39;s date</b>
+<b class="fc"><i>49</i>&nbsp;        this.week = week; //The week (row) this box is in</b>
+<i>50</i>&nbsp;
+<b class="fc"><i>51</i>&nbsp;        if(tasks == null){</b>
+<b class="fc"><i>52</i>&nbsp;            this.tasks = new ArrayList&lt;&gt;(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)</b>
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;            //Creates and fills in tasks with correct amount of lists according to NUMBER_OF_TASKLISTS
+<b class="fc"><i>55</i>&nbsp;            for (int taskListIndex = 0; taskListIndex &lt; ICONS_UNICODE.length; taskListIndex++) {</b>
+<b class="fc"><i>56</i>&nbsp;                this.tasks.add(new ArrayList&lt;&gt;()); //Create a new list</b>
+<i>57</i>&nbsp;            }
+<i>58</i>&nbsp;        }else{
+<b class="fc"><i>59</i>&nbsp;            this.tasks = new ArrayList&lt;&gt;(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)</b>
+<i>60</i>&nbsp;
+<b class="fc"><i>61</i>&nbsp;            this.tasks.add(tasks);</b>
+<i>62</i>&nbsp;        }
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;        //Creates the entire pane
+<b class="fc"><i>65</i>&nbsp;        mainPane = new StackPane();</b>
+<b class="fc"><i>66</i>&nbsp;        mainPane.setId(&quot;stackPane&quot;);</b>
+<b class="fc"><i>67</i>&nbsp;        mainPane.setMinSize(CALENDAR_BOX_MIN_WIDTH,CALENDAR_BOX_MIN_HEIGHT);</b>
+<i>68</i>&nbsp;
+<b class="fc"><i>69</i>&nbsp;        button = new JFXButton();</b>
+<b class="fc"><i>70</i>&nbsp;        button.setId(&quot;button&quot;);</b>
+<b class="fc"><i>71</i>&nbsp;        button.getStyleClass().setAll(&quot;box-button&quot;);</b>
+<b class="fc"><i>72</i>&nbsp;        button.prefHeightProperty().bind(mainPane.heightProperty());</b>
+<b class="fc"><i>73</i>&nbsp;        button.prefWidthProperty().bind(mainPane.widthProperty());</b>
+<i>74</i>&nbsp;
+<b class="fc"><i>75</i>&nbsp;        mainPane.getChildren().add(button);</b>
+<i>76</i>&nbsp;
+<b class="fc"><i>77</i>&nbsp;        vBox = new VBox();</b>
+<b class="fc"><i>78</i>&nbsp;        vBox.setId(&quot;vbox&quot;);</b>
+<b class="fc"><i>79</i>&nbsp;        vBox.setMouseTransparent(true);</b>
+<b class="fc"><i>80</i>&nbsp;        vBox.prefHeightProperty().bind(mainPane.heightProperty());</b>
+<b class="fc"><i>81</i>&nbsp;        vBox.prefWidthProperty().bind(mainPane.widthProperty());</b>
+<i>82</i>&nbsp;
+<b class="fc"><i>83</i>&nbsp;        mainPane.getChildren().add(vBox);</b>
+<i>84</i>&nbsp;
+<b class="fc"><i>85</i>&nbsp;        dateLabelStackPane = new StackPane();</b>
+<b class="fc"><i>86</i>&nbsp;        dateLabelStackPane.setId(&quot;dateLabelStackPane&quot;);</b>
+<b class="fc"><i>87</i>&nbsp;        dateLabelStackPane.setAlignment(Pos.TOP_LEFT);</b>
+<b class="fc"><i>88</i>&nbsp;        dateLabelStackPane.setMouseTransparent(true);</b>
+<i>89</i>&nbsp;
+<b class="fc"><i>90</i>&nbsp;        vBox.getChildren().add(dateLabelStackPane);</b>
+<i>91</i>&nbsp;
+<b class="fc"><i>92</i>&nbsp;        dayCircle = new Circle();</b>
+<b class="fc"><i>93</i>&nbsp;        dayCircle.setId(&quot;dayCircle&quot;);</b>
+<b class="fc"><i>94</i>&nbsp;        dayCircle.fillProperty().set(Color.WHITE);</b>
+<b class="fc"><i>95</i>&nbsp;        dayCircle.radiusProperty().setValue(10);</b>
+<b class="fc"><i>96</i>&nbsp;        dayCircle.setMouseTransparent(true);</b>
+<b class="fc"><i>97</i>&nbsp;        dayCircle.getStyleClass().setAll(&quot;date-circle&quot;);</b>
+<i>98</i>&nbsp;
+<b class="fc"><i>99</i>&nbsp;        dateLabelStackPane.getChildren().add(dayCircle);</b>
+<i>100</i>&nbsp;
+<b class="fc"><i>101</i>&nbsp;        dateLabel = new Label();</b>
+<b class="fc"><i>102</i>&nbsp;        dateLabel.setId(&quot;dateLabel&quot;);</b>
+<b class="fc"><i>103</i>&nbsp;        dateLabel.setMouseTransparent(true);</b>
+<b class="fc"><i>104</i>&nbsp;        dateLabel.getStyleClass().setAll(&quot;date-label&quot;);</b>
+<i>105</i>&nbsp;
+<b class="fc"><i>106</i>&nbsp;        dateLabelStackPane.getChildren().add(dateLabel);</b>
+<b class="fc"><i>107</i>&nbsp;        dateLabelStackPane.setMargin(dateLabel,new Insets(-1,0,0,4));</b>
+<i>108</i>&nbsp;
+<b class="fc"><i>109</i>&nbsp;        iconContainer = new HBox();</b>
+<b class="fc"><i>110</i>&nbsp;        iconContainer.setId(&quot;iconContainer&quot;);</b>
+<b class="fc"><i>111</i>&nbsp;        iconContainer.setAlignment(Pos.CENTER);</b>
+<b class="fc"><i>112</i>&nbsp;        iconContainer.setMouseTransparent(true);</b>
+<b class="fc"><i>113</i>&nbsp;        iconContainer.prefWidthProperty().bind(vBox.widthProperty());</b>
+<b class="fc"><i>114</i>&nbsp;        iconContainer.prefHeightProperty().bind(vBox.heightProperty());</b>
+<i>115</i>&nbsp;
+<b class="fc"><i>116</i>&nbsp;        vBox.getChildren().add(iconContainer);</b>
+<i>117</i>&nbsp;
+<b class="fc"><i>118</i>&nbsp;        this.getChildren().setAll(mainPane);</b>
+<b class="fc"><i>119</i>&nbsp;        mainPane.prefWidthProperty().bind(this.widthProperty());</b>
+<b class="fc"><i>120</i>&nbsp;        mainPane.prefHeightProperty().bind(this.heightProperty());</b>
+<i>121</i>&nbsp;
+<i>122</i>&nbsp;        //Set up the calendar box
+<b class="fc"><i>123</i>&nbsp;        initFXMLBox();</b>
+<i>124</i>&nbsp;
+<i>125</i>&nbsp;        //Make the button inactive if required
+<b class="fc"><i>126</i>&nbsp;        if(!active){</b>
+<b class="fc"><i>127</i>&nbsp;            button.setDisable(true);</b>
+<b class="fc"><i>128</i>&nbsp;            dateLabel.setText(&quot;&quot;);</b>
+<i>129</i>&nbsp;        }
+<b class="fc"><i>130</i>&nbsp;        update();</b>
+<b class="fc"><i>131</i>&nbsp;    }</b>
+<i>132</i>&nbsp;
+<i>133</i>&nbsp;    /*-----METHODS-----*/
+<i>134</i>&nbsp;
+<i>135</i>&nbsp;    //Initializes this box
+<i>136</i>&nbsp;    public void initFXMLBox(){
+<b class="fc"><i>137</i>&nbsp;        String dateString = date + &quot;&quot;; //Creates a string version of the date value</b>
+<b class="fc"><i>138</i>&nbsp;        dateLabel.setText(dateString); //Set the dateLabel text = to the date</b>
+<i>139</i>&nbsp;
+<i>140</i>&nbsp;        //Set the buttonClicked action
+<b class="fc"><i>141</i>&nbsp;        button.setOnMouseClicked((event -&gt; {</b>
+<b class="nc"><i>142</i>&nbsp;            if (event.getButton() == MouseButton.PRIMARY) {</b>
+<b class="nc"><i>143</i>&nbsp;                update();</b>
+<b class="nc"><i>144</i>&nbsp;                Calendar calendar = (Calendar)this.getParent().getParent().getParent();</b>
+<b class="nc"><i>145</i>&nbsp;                calendar.update(week,date);</b>
+<b class="nc"><i>146</i>&nbsp;                updateTaskBox();</b>
+<i>147</i>&nbsp;            }
+<b class="nc"><i>148</i>&nbsp;        }));</b>
+<b class="fc"><i>149</i>&nbsp;        java.util.Calendar calendar = java.util.Calendar.getInstance();</b>
+<b class="fc"><i>150</i>&nbsp;        int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);</b>
+<b class="fc"><i>151</i>&nbsp;        if (day == this.getDate()) {</b>
+<b class="fc"><i>152</i>&nbsp;            dayCircle.setFill(new Color(255/255, 152/255.0, 0, 100/100));</b>
+<i>153</i>&nbsp;        } else {
+<b class="fc"><i>154</i>&nbsp;            dayCircle.setFill(new Color(255/255, 152/255, 0, 0));</b>
+<i>155</i>&nbsp;        }
+<i>156</i>&nbsp;
+<b class="fc"><i>157</i>&nbsp;        if (this.getDate() &gt;= 10) {</b>
+<b class="fc"><i>158</i>&nbsp;            StackPane sp = dateLabelStackPane;</b>
+<b class="fc"><i>159</i>&nbsp;            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 4.5));</b>
+<i>160</i>&nbsp;        }
+<i>161</i>&nbsp;//        else {
+<i>162</i>&nbsp;//            this.setStyle(&quot;-fx-background-color: #FFFFFF&quot;);
+<i>163</i>&nbsp;//        }
+<i>164</i>&nbsp;
+<b class="fc"><i>165</i>&nbsp;        this.getStyleClass().add(&quot;box&quot;); //Set the CSS style class to be box</b>
+<b class="fc"><i>166</i>&nbsp;        this.getChildren().setAll(mainPane); //Set this pane to contain the mainPane</b>
+<b class="fc"><i>167</i>&nbsp;        this.setId(&quot;calendar-box&quot;); //Set the id of this box to be &quot;calendar-box&quot;</b>
+<i>168</i>&nbsp;
+<i>169</i>&nbsp;        //Initiate update sequence
+<b class="fc"><i>170</i>&nbsp;        update();</b>
+<b class="fc"><i>171</i>&nbsp;    }</b>
+<i>172</i>&nbsp;
+<i>173</i>&nbsp;    //Updates the iconContainer
+<i>174</i>&nbsp;    public void update(){
+<b class="fc"><i>175</i>&nbsp;        ArrayList&lt;Node&gt; icons = new ArrayList&lt;Node&gt;(); //Create a list for all the icons</b>
+<i>176</i>&nbsp;
+<i>177</i>&nbsp;        //Loop through all the task lists and add icons according to the content
+<b class="fc"><i>178</i>&nbsp;        for (int listID = 0; listID &lt; tasks.size(); listID++) {</b>
+<b class="fc"><i>179</i>&nbsp;            if(getTaskCount(listID) != 0) { //Only add an icon if there is more than one task</b>
+<i>180</i>&nbsp;                //Create the ICON
+<b class="fc"><i>181</i>&nbsp;                Label icon = new Label();</b>
+<b class="fc"><i>182</i>&nbsp;                icon.getStyleClass().add(&quot;icon&quot;);</b>
+<b class="fc"><i>183</i>&nbsp;                icon.setId(&quot;icon&quot;);</b>
+<b class="fc"><i>184</i>&nbsp;                icon.setText(ICONS_UNICODE[listID]);</b>
+<i>185</i>&nbsp;
+<i>186</i>&nbsp;                //Create the badge on the Label
+<b class="fc"><i>187</i>&nbsp;                JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);</b>
+<b class="fc"><i>188</i>&nbsp;                badge.getStyleClass().add(&quot;icon-badge&quot;);</b>
+<i>189</i>&nbsp;//                badge.getChildren().get(0).getStyleClass().setAll(&quot;testsefd&quot;);
+<b class="fc"><i>190</i>&nbsp;                badge.setText(&quot;&quot; + getTaskCount(listID)); //Set the badge number</b>
+<b class="fc"><i>191</i>&nbsp;                icons.add(badge);</b>
+<i>192</i>&nbsp;            }
+<i>193</i>&nbsp;        }
+<i>194</i>&nbsp;
+<b class="fc"><i>195</i>&nbsp;        iconContainer.getChildren().setAll(icons); //Add all the &quot;icons&quot; into &quot;iconContainer&quot;</b>
+<b class="fc"><i>196</i>&nbsp;    }</b>
+<i>197</i>&nbsp;
+<i>198</i>&nbsp;    //Create a taskBox
+<i>199</i>&nbsp;    public Node getTaskBox(ReadOnlyDoubleProperty widthProperty){
+<i>200</i>&nbsp;        //If there is no taskBox create one
+<b class="nc"><i>201</i>&nbsp;        if(taskBar == null) {</b>
+<b class="nc"><i>202</i>&nbsp;            FXMLLoader loader = new FXMLLoader(); //Create a new FXML Loader</b>
+<b class="nc"><i>203</i>&nbsp;            loader.setLocation(getClass().getResource(&quot;/Calendar/taskBox.fxml&quot;)); //Set location of taskbox FXML file</b>
+<i>204</i>&nbsp;
+<b class="nc"><i>205</i>&nbsp;            taskBar = new VBox(); //Creates a return taskbox</b>
+<i>206</i>&nbsp;
+<i>207</i>&nbsp;            try {
+<b class="nc"><i>208</i>&nbsp;                taskBar = loader.load(); //Load from FXML</b>
+<b class="nc"><i>209</i>&nbsp;                taskBar.prefWidthProperty().bind(widthProperty); //Set the width of the taskbox to be the same as the width passed in</b>
+<i>210</i>&nbsp;
+<b class="nc"><i>211</i>&nbsp;                tasksPane = new VBox();</b>
+<b class="nc"><i>212</i>&nbsp;                tasksPane.prefWidthProperty().bind(widthProperty);</b>
+<i>213</i>&nbsp;
+<b class="nc"><i>214</i>&nbsp;                if(taskBar.getChildren().size() != 2){</b>
+<b class="nc"><i>215</i>&nbsp;                    taskBar.getChildren().add(1,tasksPane);</b>
+<i>216</i>&nbsp;                }
+<i>217</i>&nbsp;
+<i>218</i>&nbsp;                //Get the JFXTextField and set the width to grow
+<b class="nc"><i>219</i>&nbsp;                HBox hBox = (HBox) taskBar.getChildren().get(0);</b>
+<b class="nc"><i>220</i>&nbsp;                JFXTextField textBox = (JFXTextField) hBox.getChildren().get(0);</b>
+<b class="nc"><i>221</i>&nbsp;                HBox.setHgrow(textBox, Priority.ALWAYS);</b>
+<i>222</i>&nbsp;
+<i>223</i>&nbsp;                //Set pressing enter to clear the box text
+<b class="nc"><i>224</i>&nbsp;                textBox.setOnKeyPressed(event -&gt; {</b>
+<b class="nc"><i>225</i>&nbsp;                    if (event.getCode() == KeyCode.ENTER) {</b>
+<b class="nc"><i>226</i>&nbsp;                        String textBoxText = textBox.getText();</b>
+<b class="nc"><i>227</i>&nbsp;                        if (textBoxText.trim().length() &gt; 0){</b>
+<b class="nc"><i>228</i>&nbsp;                            addTask(HOMEWORK, new Task(&quot;&quot;,&quot;&quot;, textBoxText));</b>
+<b class="nc"><i>229</i>&nbsp;                            update();</b>
+<i>230</i>&nbsp;                        }
+<b class="nc"><i>231</i>&nbsp;                        textBox.clear();</b>
+<b class="nc"><i>232</i>&nbsp;                        updateTaskBox();</b>
+<i>233</i>&nbsp;                    }
+<b class="nc"><i>234</i>&nbsp;                });</b>
+<b class="nc"><i>235</i>&nbsp;            } catch (IOException e) {</b>
+<b class="nc"><i>236</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>237</i>&nbsp;            }</b>
+<i>238</i>&nbsp;        }
+<b class="nc"><i>239</i>&nbsp;        return taskBar;</b>
+<i>240</i>&nbsp;    }
+<i>241</i>&nbsp;
+<i>242</i>&nbsp;    public void updateTaskBox(){
+<b class="nc"><i>243</i>&nbsp;        tasksPane.getChildren().clear();</b>
+<b class="nc"><i>244</i>&nbsp;        for (int i = 0; i &lt; tasks.get(0).size(); i++) {</b>
+<b class="nc"><i>245</i>&nbsp;            if (tasks.get(0).get(i).doesExist()){</b>
+<b class="nc"><i>246</i>&nbsp;                tasksPane.getChildren().add(0, tasks.get(0).get(i).getPane());</b>
+<i>247</i>&nbsp;            }
+<i>248</i>&nbsp;        }
+<b class="nc"><i>249</i>&nbsp;    }</b>
+<i>250</i>&nbsp;
+<i>251</i>&nbsp;    /*-----ID RELATED-----*/
+<i>252</i>&nbsp;    //Get the date of this box
+<i>253</i>&nbsp;    public int getDate() {
+<b class="fc"><i>254</i>&nbsp;        return date;</b>
+<i>255</i>&nbsp;    }
+<i>256</i>&nbsp;
+<i>257</i>&nbsp;    //Get the week this box is in (row)
+<i>258</i>&nbsp;    public int getWeek() {
+<b class="fc"><i>259</i>&nbsp;        return week;</b>
+<i>260</i>&nbsp;    }
+<i>261</i>&nbsp;
+<i>262</i>&nbsp;    /*-----TASK RELATED-----*/
+<i>263</i>&nbsp;    //Used to get the number of tasks in a certain list
+<i>264</i>&nbsp;    public int getTaskCount(int listID){
+<b class="fc"><i>265</i>&nbsp;        int returnValue = 0;</b>
+<b class="fc"><i>266</i>&nbsp;        for (int i = 0; i &lt; tasks.get(listID).size(); i++) {</b>
+<b class="fc"><i>267</i>&nbsp;            if (tasks.get(listID).get(i).doesExist()) {</b>
+<b class="fc"><i>268</i>&nbsp;                returnValue++;</b>
+<i>269</i>&nbsp;            }
+<i>270</i>&nbsp;        }
+<b class="fc"><i>271</i>&nbsp;        return returnValue;</b>
+<i>272</i>&nbsp;    }
+<i>273</i>&nbsp;
+<i>274</i>&nbsp;    //Adds a task in a certain list based on the listID
+<i>275</i>&nbsp;    public void addTask(int listID, Task task){
+<b class="nc"><i>276</i>&nbsp;        tasks.get(listID).add(task);</b>
+<b class="nc"><i>277</i>&nbsp;    }</b>
+<i>278</i>&nbsp;
+<i>279</i>&nbsp;    //Removes a task in a certain list based on the listID
+<i>280</i>&nbsp;    public void removeTask(int listID, Task task){
+<b class="nc"><i>281</i>&nbsp;        tasks.get(listID).remove(task);</b>
+<b class="nc"><i>282</i>&nbsp;    }</b>
+<i>283</i>&nbsp;
+<i>284</i>&nbsp;    /*-----NODE RELATED-----*/
+<i>285</i>&nbsp;    //Get the button
+<i>286</i>&nbsp;    public JFXButton getButtonNode(){
+<b class="nc"><i>287</i>&nbsp;        return button;</b>
+<i>288</i>&nbsp;    }
+<i>289</i>&nbsp;
+<i>290</i>&nbsp;    //Get the date Label
+<i>291</i>&nbsp;    public Label getDateLabel(){
+<b class="nc"><i>292</i>&nbsp;        return dateLabel;</b>
+<i>293</i>&nbsp;    }
+<i>294</i>&nbsp;
+<i>295</i>&nbsp;
+<i>296</i>&nbsp;    // Tzurs Code
+<i>297</i>&nbsp;    // Restart related
+<i>298</i>&nbsp;
+<i>299</i>&nbsp;    public ArrayList&lt;ArrayList&lt;Task&gt;&gt; getTasks() {
+<b class="fc"><i>300</i>&nbsp;        return tasks;</b>
+<i>301</i>&nbsp;    }
+<i>302</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2017-01-07 21:56</div>
+</div>
+</body>
+</html>

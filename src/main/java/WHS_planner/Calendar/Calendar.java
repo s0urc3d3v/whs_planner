@@ -258,33 +258,36 @@ public class Calendar extends BorderPane {
                     ArrayList<Task> currentTaskArrayUnparsed = currentTaskArrayUnparsedSquared.get(j);
                     int sizeOfTasks = currentTaskArrayUnparsed.size();
 
+                    int index = 0;
                     for (int k = 0; k < sizeOfTasks; k++) {
 
-
                         Task currentTask = currentTaskArrayUnparsed.get(k);
-                        String currentTaskTitle = currentTask.Title;
-                        System.out.println("currentTaskTitle ="+currentTaskTitle);
-                        String currentTaskClass = currentTask.Class;
+                        if (currentTask.doesExist()) {
+                            String currentTaskTitle = currentTask.Title;
+                            System.out.println("currentTaskTitle =" + currentTaskTitle);
+                            String currentTaskClass = currentTask.Class;
 
-                        System.out.println("currentTaskClass ="+currentTaskClass);
+                            System.out.println("currentTaskClass =" + currentTaskClass);
 
-                        // checks if class = null
-                        if (currentTaskClass == null){
-                            currentTaskClass = " ";
+                            // checks if class = null
+                            if (currentTaskClass == null) {
+                                currentTaskClass = " ";
+                            }
+                            String currentTaskDescription = currentTask.Description;
+                            System.out.println("currentTaskDescription =" + currentTaskDescription);
+
+                            // checks if taskDescription = null
+                            if (currentTaskDescription == null) {
+                                currentTaskDescription = " ";
+                            }
+                            ArrayList<String> currentTaskArray = new ArrayList<>();
+                            currentTaskArray.add(currentTaskTitle);
+                            currentTaskArray.add(currentTaskClass);
+                            currentTaskArray.add(currentTaskDescription);
+                            json.writeArray("CalendarSaver" + i + ":" + j + ":" + index, currentTaskArray.toArray());
+                            System.out.println("CalendarSaver" + i + ":" + j + ":" + index);
+                            index++;
                         }
-                        String currentTaskDescription = currentTask.Description;
-                        System.out.println("currentTaskDescription ="+currentTaskDescription);
-
-                        // checks if taskDescription = null
-                        if (currentTaskDescription == null){
-                            currentTaskDescription = " ";
-                        }
-                        ArrayList<String> currentTaskArray = new ArrayList<>();
-                        currentTaskArray.add(currentTaskTitle);
-                        currentTaskArray.add(currentTaskClass);
-                        currentTaskArray.add(currentTaskDescription);
-                        json.writeArray("CalendarSaver" + i + ":" + j + ":" + k, currentTaskArray.toArray());
-                        System.out.println("CalendarSaver" + i + ":" + j + ":" + k);
                     }
                 }
                 // make an array of values to save from the current calendarbox

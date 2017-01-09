@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -30,7 +31,10 @@ public class loginController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-
+        //Initializes the "submit" button style
+        button.setButtonType(JFXButton.ButtonType.RAISED);
+        button.getStyleClass().setAll("button-raised");
+        button.getStylesheets().add("Schedule" + File.separator + "ButtonStyle.css");
     }
 
     public void submit()
@@ -40,7 +44,8 @@ public class loginController implements Initializable
 
         if(username.equals("") || pass.equals(""))
         {
-            error.setText("Please put in ipass information");
+            error.setTextFill(Color.BLACK);
+            error.setText("Please enter your iPass information");
         }
         else
         {
@@ -67,6 +72,7 @@ public class loginController implements Initializable
                     bw.write(pass);
                     bw.close();
 
+                    error.setTextFill(Color.GREEN);
                     error.setText("Login successful! Please wait....");
                     try
                     {
@@ -80,7 +86,11 @@ public class loginController implements Initializable
                 }
                 else
                 {
-                    error.setText("Information incorrect, please try again!");
+                    error.setTextFill(Color.RED);
+//                    error.setText("Information incorrect, please try again!");
+                    error.setText("Incorrect username or password. Please try again.");
+//                    error.setTextFill(Color.BLACK);
+                    password.clear();
                 }
             }
             catch(Exception e)

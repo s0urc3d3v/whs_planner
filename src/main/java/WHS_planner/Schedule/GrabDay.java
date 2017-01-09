@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by John on 10/24/2016.
- */
 public class GrabDay
 {
     private final String USER_AGENT = "Mozilla/5.0";
@@ -190,6 +187,8 @@ public class GrabDay
 
                 String filename = childs+"/"+(j+1);
                 String supp = "?month="+(i+1)+"&day="+(j+1)+"&year="+year;
+
+                //TODO loading
                 String res = g.getPageContent(calURL + supp);
                 parseHtml(res, filename);
             }
@@ -288,7 +287,7 @@ public class GrabDay
             Element loginform = doc.getElementById("login");
             Elements inputelements = loginform.getElementsByTag("input");
 
-            ArrayList<String> params = new ArrayList<String>();
+            ArrayList<String> params = new ArrayList<>();
 
             for(Element el : inputelements)
             {
