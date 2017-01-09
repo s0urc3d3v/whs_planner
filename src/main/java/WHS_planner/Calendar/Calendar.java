@@ -264,17 +264,14 @@ public class Calendar extends BorderPane {
                         Task currentTask = currentTaskArrayUnparsed.get(k);
                         if (currentTask.doesExist()) {
                             String currentTaskTitle = currentTask.Title;
-                            System.out.println("currentTaskTitle =" + currentTaskTitle);
                             String currentTaskClass = currentTask.Class;
 
-                            System.out.println("currentTaskClass =" + currentTaskClass);
 
                             // checks if class = null
                             if (currentTaskClass == null) {
                                 currentTaskClass = " ";
                             }
                             String currentTaskDescription = currentTask.Description;
-                            System.out.println("currentTaskDescription =" + currentTaskDescription);
 
                             // checks if taskDescription = null
                             if (currentTaskDescription == null) {
@@ -285,7 +282,6 @@ public class Calendar extends BorderPane {
                             currentTaskArray.add(currentTaskClass);
                             currentTaskArray.add(currentTaskDescription);
                             json.writeArray("CalendarSaver" + i + ":" + j + ":" + index, currentTaskArray.toArray());
-                            System.out.println("CalendarSaver" + i + ":" + j + ":" + index);
                             index++;
                         }
                     }
