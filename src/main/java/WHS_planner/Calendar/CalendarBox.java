@@ -253,7 +253,7 @@ public class CalendarBox extends Pane{
         vbox.getChildren().clear();
         for (int i = 0; i < tasks.get(0).size(); i++) {
             if (tasks.get(0).get(i).doesExist()){
-                vbox.getChildren().add(0, tasks.get(0).get(i).getPane());
+                vbox.getChildren().add(0, tasks.get(0).get(i).getPane(this));
             }
         }
     }
