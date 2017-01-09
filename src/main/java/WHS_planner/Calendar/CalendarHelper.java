@@ -43,7 +43,7 @@ public class CalendarHelper {
                 break;
             case 12: Month ="December";
                 break;
-            default: Month = "Mounth getter is broke";
+            default: Month = "Month getter is broken";
                 break;
         }
         // finds out how many days in the month

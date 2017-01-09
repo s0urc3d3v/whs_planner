@@ -40,8 +40,13 @@ public class Task {
 
         pane.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
-                doesExist = false;
-                label.setStrikethrough(true);
+                if(doesExist == true){
+                    doesExist = false;
+                    label.setStrikethrough(true);
+                }else{
+                    doesExist = true;
+                    label.setStrikethrough(false);
+                }
             }
         }));
 
