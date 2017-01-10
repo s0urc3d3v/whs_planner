@@ -126,7 +126,6 @@ public class CalendarBox extends Pane{
         //Make the button inactive if required
         if(!active){
             button.setDisable(true);
-            button.getStyleClass().setAll("box-button-disabled");
             dateLabel.setText("");
         }
         update();
@@ -217,7 +216,7 @@ public class CalendarBox extends Pane{
                 vbox.prefWidthProperty().bind(tasksPane.widthProperty());
                 tasksPane.setContent(vbox);
                 tasksPane.prefWidthProperty().bind(widthProperty);
-                tasksPane.setMinHeight(0);
+                tasksPane.setMinHeight(150);
                 tasksPane.getStylesheets().add("News" + File.separator + "NewsUI.css");
                 tasksPane.getStyleClass().setAll("scroll-bar");
 //                tasksPane.getStyleClass().addAll("clear-select");
@@ -257,11 +256,6 @@ public class CalendarBox extends Pane{
             if (tasks.get(0).get(i).doesExist()){
                 vbox.getChildren().add(0, tasks.get(0).get(i).getPane(this));
             }
-        }
-        if (tasks.get(0).size() < 3) {
-            tasksPane.setMinHeight(tasks.get(0).size()*30);
-        } else {
-            tasksPane.setMinHeight(90);
         }
     }
 

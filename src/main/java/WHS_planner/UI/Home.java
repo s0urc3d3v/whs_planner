@@ -39,12 +39,14 @@ class Home extends Pane implements ActionListener {
         newsScroll.setFitToWidth(true);
         newsScroll.setStyle("-fx-focus-color: transparent;");
 
+        newsScroll.setStyle("-fx-background-color: transparent;");
 
         newsScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
         newsScroll.getStyleClass().setAll("scroll-bar");
         newsScroll.setMinWidth(280);
         newsScroll.setMaxWidth(280);
         newsScroll.setPrefHeight(this.getPrefHeight());
+//                setCellSelectionEnabled(true);
 
         //Progress bar
         BorderPane barPane = new BorderPane();
