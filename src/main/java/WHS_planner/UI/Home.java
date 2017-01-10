@@ -62,13 +62,14 @@ class Home extends Pane implements ActionListener {
 
 //        progressBar.setStyle("-fx-color: #FF9800");
 
-        barPane.setLeft(progressBar);
+        barPane.setCenter(progressBar);
 
         barPane.setMaxHeight(30);
 //        barPane.setMaxWidth(600);
 //        barPane.setPadding(new Insets(0, 40, 5, 40));
 //        barPane.setPadding(new Insets(0,15,0,15));
         progressBar.setPadding(new Insets(0, 15, 0, 15));
+//        progressBar.setMaxWidth(600);
         progressBar.prefWidthProperty().bind(barPane.widthProperty());
 
         //Calendar + add stuff to H/VBoxes
