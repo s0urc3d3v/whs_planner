@@ -109,7 +109,7 @@ public class Calendar extends BorderPane {
             dayLabel.getStyleClass().add("weekday");
             firstRow.add(dayLabel,dayIndex,0);
             GridPane.setHgrow(dayLabel, Priority.ALWAYS);
-            dayLabel.prefWidthProperty().bind(this.getCalendarBox(1).widthProperty());
+            dayLabel.prefWidthProperty().bind(this.widthProperty());
         }
 
         //Fill in rest of the calendar
