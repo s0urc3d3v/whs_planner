@@ -565,7 +565,7 @@
          <center>
             <Label fx:id="Title3" alignment="CENTER" prefHeight="17.0" prefWidth="405.0" text="Label" textAlignment="CENTER" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="Plantagenet Cherokee" size="24.0" />
                </font>
             </Label>
          </center>
