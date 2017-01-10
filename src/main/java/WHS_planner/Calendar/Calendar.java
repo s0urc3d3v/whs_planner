@@ -145,7 +145,7 @@ public class Calendar extends BorderPane {
         this.setCenter(mainPane);
 
         LayoutAnimator animator = new LayoutAnimator();
-//        animator.observe(mainPane.getChildren());
+        animator.observe(mainPane.getChildren());
     }
 
     void update(int row, int date) {
@@ -211,7 +211,7 @@ public class Calendar extends BorderPane {
 
     private void addTaskBox(int row, Node taskBoxInstance) {
         mainPane.getChildren().add(row+1, taskBoxInstance);
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(1750));
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(1250));
         fadeIn.setNode(taskBoxInstance);
 
         fadeIn.setFromValue(0.0);
@@ -222,7 +222,7 @@ public class Calendar extends BorderPane {
     }
 
     private void removeTaskBox(Node taskBoxInstance) {
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(1750));
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(1250));
         fadeOut.setNode(taskBoxInstance);
 
         fadeOut.setFromValue(1.0);

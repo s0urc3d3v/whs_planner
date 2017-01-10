@@ -33,7 +33,10 @@
 
 .box-button-selected {
 	-fx-background-color:#BDBDBD;
+}
 
+.box-button-disabled {
+    -fx-background-color: #f8f8f8
 }
 
 
