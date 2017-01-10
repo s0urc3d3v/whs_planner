@@ -59,11 +59,10 @@ class Home extends Pane implements ActionListener {
 
         progressBar.setStyle("-fx-accent: orange");
         progressBar.setStyle("-fx-accent: orange; ");
-        System.out.println(progressBar.getStyle());
 
 //        progressBar.setStyle("-fx-color: #FF9800");
 
-        barPane.setCenter(progressBar);
+        barPane.setLeft(progressBar);
 
         barPane.setMaxHeight(30);
 //        barPane.setMaxWidth(600);
@@ -71,7 +70,6 @@ class Home extends Pane implements ActionListener {
 //        barPane.setPadding(new Insets(0,15,0,15));
         progressBar.setPadding(new Insets(0, 15, 0, 15));
         progressBar.prefWidthProperty().bind(barPane.widthProperty());
-
 
         //Calendar + add stuff to H/VBoxes
         insidePane.getChildren().addAll(calendar,barPane);
@@ -81,8 +79,8 @@ class Home extends Pane implements ActionListener {
         calendar.prefHeightProperty().bind(insidePane.heightProperty());
         calendar.prefWidthProperty().bind(insidePane.widthProperty());
 
-        barPane.prefHeightProperty().bind(insidePane.heightProperty());
-        barPane.prefWidthProperty().bind(insidePane.widthProperty());
+        barPane.prefHeightProperty().bind(calendar.heightProperty());
+        barPane.prefWidthProperty().bind(calendar.widthProperty());
 
 
         VBox.setVgrow(calendar, Priority.ALWAYS);

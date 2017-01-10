@@ -77,17 +77,33 @@ public class Calendar extends BorderPane {
 
 
         //Top Row
-        HBox topRow = new HBox();
+        BorderPane topRow = new BorderPane();
+//        HBox topRow = new HBox();
         topRow.getStylesheets().add("Calendar" + File.separator + "topRow.css");
         Label monthLabel = new Label(dayFinder.getMonthString(month+1));
+//        topRow.setStyle("fx-background-color:#FFFFFF;");
 
         monthLabel.getStyleClass().add("label");
         prevButton.getStyleClass().add("monthButton");
         nextButton.getStyleClass().add("monthButton");
 
-        topRow.getChildren().addAll(prevButton, monthLabel, nextButton);
-        topRow.setAlignment(Pos.CENTER);
-        topRow.setSpacing(50);
+//        topRow.getChildren().addAll(prevButton, monthLabel, nextButton);
+        topRow.setLeft(prevButton);
+        topRow.setCenter(monthLabel);
+        topRow.setRight(nextButton);
+
+        topRow.prefWidthProperty().bind(this.prefWidthProperty());
+        topRow.setPadding(new Insets(10, 10, 0, 10));
+
+
+//        topRow.setAlignment(Pos.CENTER);
+
+
+//        topRow.prefHeightProperty().bind(this.prefHeightProperty());
+//        prevButton.setTextAlignment();
+//        prevButton.setAlignment(Pos.CENTER_LEFT);
+//        nextButton.setAlignment(Pos.CENTER_RIGHT);
+//        topRow.setSpacing(50);
 
         mainPane.getChildren().add(topRow);
 
@@ -103,6 +119,7 @@ public class Calendar extends BorderPane {
         firstRow.setHgap(10);
         firstRow.setVgap(10);
         firstRow.setPadding(new Insets(5,5,5,5));
+
 
         for (int dayIndex = 0; dayIndex < daysOfTheWeek.length; dayIndex++) {
             Label dayLabel = new Label(daysOfTheWeek[dayIndex]);
