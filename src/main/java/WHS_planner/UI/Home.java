@@ -56,6 +56,8 @@ class Home extends Pane implements ActionListener {
         progressBar.getStyleClass().setAll("orange-bar");
 
         progressBar.setStyle("-fx-accent: orange");
+        progressBar.setStyle("-fx-accent: orange; ");
+        System.out.println(progressBar.getStyle());
 
 //        progressBar.setStyle("-fx-color: #FF9800");
 

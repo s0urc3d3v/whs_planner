@@ -1,11 +1,9 @@
 package WHS_planner.Calendar;
 
-import WHS_planner.Core.IO;
 import WHS_planner.Core.JSON;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CalendarUtility {
@@ -19,7 +17,7 @@ public class CalendarUtility {
         int dayInMonth = 1;
 
         //Intitialize a general calendar array size
-        CalendarBox[][] calendar = new CalendarBox[6][7];
+        CalendarBox[][] calendar = new CalendarBox[5][7];
         ArrayList<ArrayList<Task>> listOfTasks = new ArrayList<>();
 
         for (int dayIndex = 0; dayIndex < numberOfDays; dayIndex++) {
