@@ -149,8 +149,8 @@ public class Calendar extends BorderPane {
     }
 
     void update(int row, int date) {
-        int[] rowIDs = new int[]{3,4,5,6,7,8};
-        GridPane tempPane = (GridPane) mainPane.getChildren().get(rowIDs[0]-1);
+        int[] rowIDs = new int[]{1,1,1,1,1,1};
+        GridPane tempPane = (GridPane) mainPane.getChildren().get(rowIDs[3]);
 
         if(currentDate != -1){
             if(date == currentDate) {
