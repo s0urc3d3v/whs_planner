@@ -126,6 +126,7 @@ public class CalendarBox extends Pane{
         //Make the button inactive if required
         if(!active){
             button.setDisable(true);
+            button.getStyleClass().setAll("box-button-disabled");
             dateLabel.setText("");
         }
         update();
