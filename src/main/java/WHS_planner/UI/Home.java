@@ -15,8 +15,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
@@ -24,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-class Home extends Pane implements ActionListener {
+class Home extends Pane {
 
     private HBox outsidePane = new HBox();
     private VBox insidePane = new VBox();
@@ -42,7 +40,16 @@ class Home extends Pane implements ActionListener {
 
         //TODO force initial timer update
 
-        progressbartimer = new Timer(60000, this);
+        progressbartimer = new Timer(60000, e -> {
+            Platform.runLater(() -> {
+                double d = progressVal();
+                d = 1.0 - d;
+                progressBar.setProgress(d);
+                System.out.println("timer updated");
+                //set Tooltip text
+            });
+        });
+
         progressbartimer.start();
 
         //News
@@ -187,17 +194,6 @@ class Home extends Pane implements ActionListener {
         return mod;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Platform.runLater(() -> {
-            double d = progressVal();
-            d = 1.0 - d;
-            progressBar.setProgress(d);
-            System.out.println("timer updated");
-            //set Tooltip text
-        });
-
-    }
 
     private int parseDate(String date) {
         String hour = date.substring(0, date.indexOf(":"));
