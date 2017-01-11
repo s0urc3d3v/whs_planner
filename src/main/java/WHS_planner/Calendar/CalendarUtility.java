@@ -17,7 +17,7 @@ public class CalendarUtility {
         int dayInMonth = 1;
 
         //Intitialize a general calendar array size
-        CalendarBox[][] calendar = new CalendarBox[5][7];
+        CalendarBox[][] calendar = new CalendarBox[6][7];
         ArrayList<ArrayList<Task>> listOfTasks = new ArrayList<>();
 
         for (int dayIndex = 0; dayIndex < numberOfDays; dayIndex++) {

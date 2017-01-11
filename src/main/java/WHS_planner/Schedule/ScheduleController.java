@@ -299,6 +299,18 @@ public class ScheduleController implements Initializable
         }
     }
 
+
+    public void logout() throws Exception {
+        File ipassFile = new File("Keys" + File.separator + "ipass.key");
+        if (ipassFile.exists()) {
+//            Files.delete();
+            ipassFile.delete();
+        }
+        MainPane mp = (MainPane) Main.getMainPane();
+        mp.resetSchedule();
+        System.out.println("ipass file deleted");
+    }
+
     public void updateSchedule() throws Exception
     {
 

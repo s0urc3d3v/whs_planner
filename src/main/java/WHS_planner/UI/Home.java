@@ -6,6 +6,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
@@ -85,7 +86,7 @@ class Home extends Pane {
 //        progressBar.setPadding(new Insets(0, 100, 0, 100));
 //        progressBar.setMaxWidth(600);
         progressBar.prefWidthProperty().bind(insidePane.widthProperty());
-//        progressBar.setCursor(Cursor.HAND);
+        progressBar.setCursor(Cursor.HAND);
 //        progressBar.setOnMouseClicked((event -> showTimeLeft()));
         progressBar.setTooltip(tooltip);
 
@@ -93,7 +94,7 @@ class Home extends Pane {
 
         hackTooltipStartTiming(tooltip);
 
-        insidePane.setPadding(new Insets(0, 0, 5, 0));
+        insidePane.setPadding(new Insets(0, 0, 5, 5)); //top, right, bottom, left
 
 
 //        barPane.prefHeightProperty().bind(calendar.heightProperty());
@@ -144,10 +145,6 @@ class Home extends Pane {
         }
     }
 
-    private void showTimeLeft() {
-        System.out.println("progress bar clicked!");
-
-    }
 
     private double progressVal() {
         Date date = new Date();
