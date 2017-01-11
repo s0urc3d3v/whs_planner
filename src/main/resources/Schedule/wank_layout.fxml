@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXSpinner?>
 <?import javafx.geometry.*?>
@@ -546,39 +545,35 @@
       <Pane prefHeight="388.0" prefWidth="102.0" BorderPane.alignment="CENTER" />
    </right>
     <bottom>
-        <BorderPane prefHeight="58.0" prefWidth="573.0" BorderPane.alignment="CENTER">
-            <right>
-                <JFXButton fx:id="logout" buttonType="RAISED" onAction="#logout" text="Logout"
-                           BorderPane.alignment="CENTER">
+       <HBox alignment="CENTER_RIGHT" prefHeight="30.0" BorderPane.alignment="CENTER">
+          <children>
+             <JFXButton fx:id="reset" onAction="#updateSchedule" text="Reset Schedule">
+                <font>
+                   <Font name="Roboto" size="13.0"/>
+                </font>
+             </JFXButton>
+             <JFXButton fx:id="logout" buttonType="RAISED" onAction="#logout" text="Logout">
                     <font>
-                        <Font name="Roboto" size="13.0"/>
+                       <Font name="Roboto" size="13.0"/>
                     </font>
                 </JFXButton>
-            </right>
-            <center>
-             <Button fx:id="reset" mnemonicParsing="false" onAction="#updateSchedule" text="Reset Schedule" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="9.0" />
-               </font>
-             </Button>
-            </center>
-        </BorderPane>
+          </children>
+       </HBox>
    </bottom>
+   <left>
+      <Pane prefHeight="338.0" prefWidth="102.0" BorderPane.alignment="CENTER"/>
+   </left>
    <top>
-      <BorderPane prefHeight="11.0" prefWidth="573.0" BorderPane.alignment="CENTER">
-         <center>
-            <Label fx:id="Title3" alignment="CENTER" prefHeight="17.0" prefWidth="405.0" text="Label" textAlignment="CENTER" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="60.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="Title3" alignment="CENTER" prefHeight="17.0" prefWidth="405.0" text="Label"
+                   textAlignment="CENTER">
                <font>
                   <Font name="Plantagenet Cherokee" size="24.0" />
                </font>
             </Label>
-         </center>
-         <bottom>
-            <JFXSpinner fx:id="spinner" radius="6.0" BorderPane.alignment="CENTER" />
-         </bottom>
-      </BorderPane>
+            <JFXSpinner fx:id="spinner" radius="6.0"/>
+         </children>
+      </VBox>
    </top>
-   <left>
-      <Pane prefHeight="338.0" prefWidth="102.0" BorderPane.alignment="CENTER"/>
-   </left>
 </BorderPane>
