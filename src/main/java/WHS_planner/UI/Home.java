@@ -2,16 +2,23 @@ package WHS_planner.UI;
 
 import WHS_planner.Calendar.CalendarYear;
 import com.jfoenix.controls.JFXProgressBar;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.scene.Cursor;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,9 +34,15 @@ class Home extends Pane implements ActionListener {
     //    private ProgressBar progressBar = new ProgressBar();
     private Timer progressbartimer;
 
+    private Tooltip tooltip = new Tooltip();
 
     Home(CalendarYear calendar, Pane newsUI/*, ProgressBar progressBar*/) {
-        progressbartimer = new Timer(1000, this);
+
+        progressBar.setProgress(100);
+
+        //TODO force initial timer update
+
+        progressbartimer = new Timer(60000, this);
         progressbartimer.start();
 
         //News
@@ -50,8 +63,8 @@ class Home extends Pane implements ActionListener {
 //                setCellSelectionEnabled(true);
 
         //Progress bar
-        BorderPane barPane = new BorderPane();
-        progressBar.setProgress(100);
+//        BorderPane barPane = new BorderPane();
+
 //        progressBar.getStylesheets().add("News" + File.separator + "NewsUI.css");
 
 //        progressBar.setStyle("-fx-color: #FF9800");
@@ -63,8 +76,12 @@ class Home extends Pane implements ActionListener {
 //        progressBar.setPadding(new Insets(0, 100, 0, 100));
 //        progressBar.setMaxWidth(600);
         progressBar.prefWidthProperty().bind(insidePane.widthProperty());
-        progressBar.setCursor(Cursor.HAND);
-        progressBar.setOnMouseClicked((event -> showTimeLeft()));
+//        progressBar.setCursor(Cursor.HAND);
+//        progressBar.setOnMouseClicked((event -> showTimeLeft()));
+        progressBar.setTooltip(tooltip);
+
+        tooltip.setText("Test tooltip!");
+        hackTooltipStartTiming(tooltip);
 
         insidePane.setPadding(new Insets(0, 0, 5, 0));
 
@@ -83,7 +100,7 @@ class Home extends Pane implements ActionListener {
 
 
         VBox.setVgrow(calendar, Priority.ALWAYS);
-        VBox.setVgrow(barPane, Priority.NEVER);
+        VBox.setVgrow(progressBar, Priority.NEVER);
 
         insidePane.prefHeightProperty().bind(outsidePane.heightProperty());
         insidePane.prefWidthProperty().bind(outsidePane.widthProperty());
@@ -100,9 +117,26 @@ class Home extends Pane implements ActionListener {
         this.getChildren().setAll(outsidePane);
     }
 
+    public static void hackTooltipStartTiming(Tooltip tooltip) {
+        try {
+            Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
+            fieldBehavior.setAccessible(true);
+            Object objBehavior = fieldBehavior.get(tooltip);
+
+            Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
+            fieldTimer.setAccessible(true);
+            Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
+
+            objTimer.getKeyFrames().clear();
+            objTimer.getKeyFrames().add(new KeyFrame(new Duration(0)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void showTimeLeft() {
         System.out.println("progress bar clicked!");
+
     }
 
     private double progressVal() {
@@ -159,6 +193,8 @@ class Home extends Pane implements ActionListener {
             double d = progressVal();
             d = 1.0 - d;
             progressBar.setProgress(d);
+            System.out.println("timer updated");
+            //set Tooltip text
         });
 
     }
