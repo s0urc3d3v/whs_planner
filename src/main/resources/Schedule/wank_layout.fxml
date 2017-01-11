@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXSpinner?>
 <?import javafx.geometry.*?>
@@ -544,9 +545,6 @@
    <right>
       <Pane prefHeight="388.0" prefWidth="102.0" BorderPane.alignment="CENTER" />
    </right>
-   <left>
-       <BorderPane prefHeight="426.0" prefWidth="104.0" BorderPane.alignment="CENTER"/>
-   </left>
     <bottom>
         <BorderPane prefHeight="58.0" prefWidth="573.0" BorderPane.alignment="CENTER">
             <right>
@@ -561,7 +559,8 @@
              <Button fx:id="reset" mnemonicParsing="false" onAction="#updateSchedule" text="Reset Schedule" BorderPane.alignment="CENTER">
                <font>
                   <Font size="9.0" />
-               </font></Button>
+               </font>
+             </Button>
             </center>
         </BorderPane>
    </bottom>
@@ -579,4 +578,7 @@
          </bottom>
       </BorderPane>
    </top>
+   <left>
+      <Pane prefHeight="338.0" prefWidth="102.0" BorderPane.alignment="CENTER"/>
+   </left>
 </BorderPane>

@@ -7,38 +7,55 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;"
             xmlns="http://javafx.com/javafx/8.0.65" fx:controller="WHS_planner.Schedule.loginController">
     <center>
         <Pane fx:id="loginPane" maxHeight="360.0" maxWidth="360.0" minHeight="360.0" minWidth="360.0" prefHeight="360.0"
-              prefWidth="360.0" style="-fx-background-color: #F7F7F7;" BorderPane.alignment="CENTER">
+              prefWidth="360.0"
+              style="-fx-background-color: #F7F7F7; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);"
+              BorderPane.alignment="CENTER">
             <children>
-                <Label layoutX="105.0" layoutY="26.0" text="Login to iPass">
+                <Label layoutX="85.0" layoutY="40.0" text="Login to iPass">
                     <font>
-                        <Font name="Raanana Bold" size="24.0"/>
+                        <Font name="Roboto" size="30.0"/>
                     </font>
                 </Label>
-                <JFXTextField fx:id="user" focusColor="#0079f5" layoutX="45.0" layoutY="115.0" maxWidth="270.0"
+                <JFXTextField fx:id="user" focusColor="#0079f5" layoutX="45.0" layoutY="120.0" maxWidth="270.0"
                               minWidth="220.0" prefHeight="31.0" prefWidth="270.0" promptText="Username:">
                     <font>
                         <Font name="Roboto" size="13.0"/>
                     </font>
                 </JFXTextField>
-                <JFXPasswordField fx:id="password" focusColor="#0079f5" layoutX="45.0" layoutY="195.0" maxWidth="270.0"
+                <JFXPasswordField fx:id="password" focusColor="#0079f5" layoutX="45.0" layoutY="180.0" maxWidth="270.0"
                                   prefWidth="270.0" promptText="Password:">
                     <font>
                         <Font name="Roboto" size="13.0"/>
                     </font>
                 </JFXPasswordField>
                 <JFXButton fx:id="button" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="45.0"
-                           layoutY="270.0" onAction="#submit" prefWidth="270.0" text="Sign in">
+                           layoutY="270.0" onAction="#submit" prefWidth="270.0"
+                           style="-fx-padding: 0.7em 0.57em; -fx-background-color: #0079F5;" text="Sign in"
+                           textFill="WHITE">
                     <cursor>
-                        <Cursor fx:constant="CLOSED_HAND"/>
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
+                    <font>
+                        <Font name="Roboto" size="14.0"/>
+                    </font>
                 </JFXButton>
-                <Label fx:id="error" layoutX="164.0" layoutY="237.0"/>
+                <VBox alignment="CENTER" layoutY="215.0" prefHeight="50.0" prefWidth="360.0">
+                    <children>
+                        <Label fx:id="error" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER"
+                               textFill="RED">
+                            <font>
+                                <Font name="Roboto" size="13.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
             </children>
         </Pane>
     </center>

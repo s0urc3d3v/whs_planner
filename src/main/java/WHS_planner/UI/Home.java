@@ -39,11 +39,11 @@ class Home extends Pane {
 
         //Force initial timer update
         progressBar.setProgress(100);
+        progressBar.setProgress(0);
         Platform.runLater(() -> {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             tooltip.setText("Test tooltip!");
-
         });
 
 
@@ -90,7 +90,8 @@ class Home extends Pane {
 //        progressBar.setOnMouseClicked((event -> showTimeLeft()));
         progressBar.setTooltip(tooltip);
 
-        progressBar.setScaleY(2);
+
+        progressBar.setScaleY(3);
 
         hackTooltipStartTiming(tooltip);
 

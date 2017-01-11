@@ -3,14 +3,12 @@ package WHS_planner.Schedule;
 import WHS_planner.Core.IO;
 import WHS_planner.Main;
 import WHS_planner.Util.XorTool;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 import java.io.BufferedReader;
@@ -64,13 +62,9 @@ public class Schedule
 
         loginController control2 = loader2.getController();
 
-        login.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.ENTER)
-                {
-                    control2.submit();
-                }
+        login.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                control2.submit();
             }
         });
 
@@ -126,7 +120,7 @@ public class Schedule
 
             if(blocks[i].getClassName().trim().equals("free"))
             {
-                s = "free";
+                s = "Free";
             }
             else
             {
@@ -187,12 +181,16 @@ public class Schedule
 
             if(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == 4)
             {
-                s = "Period "+i+"\nStart: "+"\n"+wens[i-1]+"\nEnd:\n"+wene[i-1];
+//                s = "Period "+i+"\nStart: "+"\n"+wens[i-1]+"\nEnd:\n"+wene[i-1];
+                s = "Period " + i + "\nStart: " + wens[i - 1] + "\nEnd:" + wene[i - 1];
+
             }
 
             else
             {
-                s = "Period "+i+"\nStart: "+"\n"+start[i-1]+"\nEnd:\n"+end[i-1];
+//                s = "Period "+i+"\nStart: "+"\n"+start[i-1]+"\nEnd:\n"+end[i-1];
+                s = "Period " + i + "\nStart: " + start[i - 1] + "\nEnd:" + end[i - 1];
+
             }
 
             l.setText(s);
@@ -284,7 +282,7 @@ public class Schedule
     }
 
 
-    public ScheduleBlock[] getToday(String letter)
+    ScheduleBlock[] getToday(String letter)
     {
         ScheduleBlock b[] = new ScheduleBlock[6];
         int x;

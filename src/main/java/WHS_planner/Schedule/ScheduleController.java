@@ -84,7 +84,7 @@ public class ScheduleController implements Initializable
                 user = XorTool.decode(user, Main.getXorKey());
                 pass = XorTool.decode(pass, Main.getXorKey());
                 bri.close();
-                if (pass == null || user.equals("") || pass.equals(""))
+                if (/*pass == null || */user.equals("") || pass.equals(""))
                 {
                     //System.out.println("No ipass data found");
                 }
@@ -92,41 +92,34 @@ public class ScheduleController implements Initializable
                 {
                     Title3.setText("Calendar loading");
                     spinner.setVisible(true);
-                    Thread t = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            BufferedReader br;
-                            try
+                    Thread t = new Thread(() -> {
+                        BufferedReader br;
+                        try {
+                            File f = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Schedule" + File.separator + "json" + File.separator + "DayArray.json");
+
+                            if (!f.exists())
                             {
-                                File f = new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"Schedule"+File.separator+"json"+File.separator+"DayArray.json");
-
-                                if(!f.exists())
-                                {
-                                    f.createNewFile();
-                                }
-
-                                br = new BufferedReader(new FileReader("src"+File.separator+"main"+File.separator+"resources"+File.separator+"Schedule"+File.separator+"json"+File.separator+"DayArray.json"));
-
-                                if (br.readLine() == null)
-                                {
-                                    buildLetterDays();
-                                }
-
-                                br.close();
+                                f.createNewFile();
                             }
-                            catch (Exception e)
+
+                            br = new BufferedReader(new FileReader("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Schedule" + File.separator + "json" + File.separator + "DayArray.json"));
+
+                            if (br.readLine() == null)
                             {
-                                e.printStackTrace();
+                                buildLetterDays();
                             }
-                            s = getletterday();
-                            if(s.length() == 1)
-                            {
-                                s = "Today is '" + s + "' day!";
-                            }
-                            //you can't do javafx stuff on other threads
-                            Platform.runLater(() -> Title3.setText(s));
-                            Platform.runLater(() -> spinner.setVisible(false));
+
+                            br.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
+                        s = getletterday();
+                        if (s.length() == 1) {
+                            s = "Today is '" + s + "' day!";
+                        }
+                        //you can't do javafx stuff on other threads
+                        Platform.runLater(() -> Title3.setText(s));
+                        Platform.runLater(() -> spinner.setVisible(false));
                     });
                     t.start();
                 }
@@ -209,7 +202,7 @@ public class ScheduleController implements Initializable
                         try
                         {
                             delete(tmpf);
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
                         }
                         GrabDay gd = new GrabDay(user, pass);
                         gd.grabData();
@@ -252,6 +245,7 @@ public class ScheduleController implements Initializable
         }
     }
 
+
     public void logout() throws Exception {
         File ipassFile = new File("Keys" + File.separator + "ipass.key");
         File schedule = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Schedule" + File.separator + "json" + File.separator + "Schedule.json");
@@ -288,9 +282,7 @@ public class ScheduleController implements Initializable
 
         String s = getletterday();
 
-        ScheduleBlock[] sb = sch.getToday(s);
-
-        return sb;
+        return sch.getToday(s);
     }
 
 }

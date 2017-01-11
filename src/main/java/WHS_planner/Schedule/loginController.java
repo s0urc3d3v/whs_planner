@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -35,11 +34,11 @@ public class loginController implements Initializable
     public void initialize(URL location, ResourceBundle resources)
     {
         //Initializes the "submit" button style
-        button.setButtonType(JFXButton.ButtonType.RAISED);
-        button.getStyleClass().setAll("button-raised");
-        button.getStylesheets().add("Schedule" + File.separator + "ButtonStyle.css");
+//        button.setButtonType(JFXButton.ButtonType.RAISED);
+//        button.getStyleClass().setAll("button-raised");
+//        button.getStylesheets().add("Schedule" + File.separator + "ButtonStyle.css");
 
-        loginPane.getStyleClass().add("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);");
+//        loginPane.getStyleClass().add("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);");
     }
 
     public void submit()
@@ -49,7 +48,7 @@ public class loginController implements Initializable
 
         if(username.equals("") || pass.equals(""))
         {
-            error.setTextFill(Color.BLACK);
+//            error.setTextFill(Color.BLACK);
             error.setText("Please enter your iPass information");
         }
         else
@@ -77,8 +76,15 @@ public class loginController implements Initializable
                     bw.write(pass);
                     bw.close();
 
-                    error.setTextFill(Color.RED);
-                    error.setText("iPass internal error. Please restart, run clean.sh and try again.");
+//                    error.setTextFill(Color.RED);
+                    error.setText("iPass internal error. Restart and run clean.sh");
+
+                    /*
+                    //TODO
+                    show button,
+                    error.setText("iPass internal error. Restart and try again");
+                    button calls logout method in ScheduleController and quits to program
+                     */
 
                     try
                     {
@@ -92,7 +98,7 @@ public class loginController implements Initializable
                 }
                 else
                 {
-                    error.setTextFill(Color.RED);
+//                    error.setTextFill(Color.RED);
 //                    error.setText("Information incorrect, please try again!");
                     error.setText("Incorrect username or password. Please try again.");
 //                    error.setTextFill(Color.BLACK);
