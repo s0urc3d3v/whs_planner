@@ -25,7 +25,7 @@ import java.util.ArrayList;
  */
 public class CalendarBox extends Pane{
     public static final int CALENDAR_BOX_MIN_HEIGHT = 80, CALENDAR_BOX_MIN_WIDTH = 110; //Constant that defines the min size of a CalendarBox
-    public static final int HOMEWORK = 0; //List IDs (Default)
+    private static final int HOMEWORK = 0; //List IDs (Default)
     private static final String[] ICONS_UNICODE = new String[]{"\uf0f6"}; //File Icon, Check Icon (Font UNICODE)
 
     private int date; //The date of the box
@@ -53,7 +53,7 @@ public class CalendarBox extends Pane{
             this.tasks = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
 
             //Creates and fills in tasks with correct amount of lists according to NUMBER_OF_TASKLISTS
-            for (int taskListIndex = 0; taskListIndex < ICONS_UNICODE.length; taskListIndex++) {
+            for (String aICONS_UNICODE : ICONS_UNICODE) {
                 this.tasks.add(new ArrayList<>()); //Create a new list
             }
         }else{
@@ -135,7 +135,7 @@ public class CalendarBox extends Pane{
     /*-----METHODS-----*/
 
     //Initializes this box
-    public void initFXMLBox(){
+    private void initFXMLBox() {
         String dateString = date + ""; //Creates a string version of the date value
         dateLabel.setText(dateString); //Set the dateLabel text = to the date
 
@@ -174,8 +174,8 @@ public class CalendarBox extends Pane{
     }
 
     //Updates the iconContainer
-    public void update(){
-        ArrayList<Node> icons = new ArrayList<Node>(); //Create a list for all the icons
+    void update() {
+        ArrayList<Node> icons = new ArrayList<>(); //Create a list for all the icons
 
         //Loop through all the task lists and add icons according to the content
         for (int listID = 0; listID < tasks.size(); listID++) {
@@ -199,7 +199,7 @@ public class CalendarBox extends Pane{
     }
 
     //Create a taskBox
-    public Node getTaskBox(ReadOnlyDoubleProperty widthProperty){
+    Node getTaskBox(ReadOnlyDoubleProperty widthProperty) {
         //If there is no taskBox create one
         if(taskBar == null) {
             FXMLLoader loader = new FXMLLoader(); //Create a new FXML Loader
@@ -219,8 +219,11 @@ public class CalendarBox extends Pane{
                 tasksPane.prefWidthProperty().bind(widthProperty);
                 tasksPane.setMinHeight(0);
                 tasksPane.setMaxHeight(0);
+                tasksPane.setStyle("-fx-background-color: transparent;");
+
                 tasksPane.getStylesheets().add("News" + File.separator + "NewsUI.css");
                 tasksPane.getStyleClass().setAll("scroll-bar");
+
 //                tasksPane.getStyleClass().addAll("clear-select");
 
                 if(taskBar.getChildren().size() != 2){
@@ -251,7 +254,7 @@ public class CalendarBox extends Pane{
         return taskBar;
     }
 
-    public void updateTaskBox(){
+    private void updateTaskBox() {
         VBox vbox = (VBox)tasksPane.getContent();
         vbox.getChildren().clear();
         for (int i = 0; i < tasks.get(0).size(); i++) {
@@ -275,13 +278,13 @@ public class CalendarBox extends Pane{
     }
 
     //Get the week this box is in (row)
-    public int getWeek() {
+    int getWeek() {
         return week;
     }
 
     /*-----TASK RELATED-----*/
     //Used to get the number of tasks in a certain list
-    public int getTaskCount(int listID){
+    private int getTaskCount(int listID) {
         int returnValue = 0;
         for (int i = 0; i < tasks.get(listID).size(); i++) {
             if (tasks.get(listID).get(i).doesExist()) {
@@ -292,7 +295,7 @@ public class CalendarBox extends Pane{
     }
 
     //Adds a task in a certain list based on the listID
-    public void addTask(int listID, Task task){
+    private void addTask(int listID, Task task) {
         tasks.get(listID).add(task);
     }
 
@@ -303,7 +306,7 @@ public class CalendarBox extends Pane{
 
     /*-----NODE RELATED-----*/
     //Get the button
-    public JFXButton getButtonNode(){
+    JFXButton getButtonNode() {
         return button;
     }
 
@@ -316,7 +319,7 @@ public class CalendarBox extends Pane{
     // Tzurs Code
     // Restart related
 
-    public ArrayList<ArrayList<Task>> getTasks() {
+    ArrayList<ArrayList<Task>> getTasks() {
         return tasks;
     }
 }

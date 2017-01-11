@@ -36,19 +36,21 @@ class Home extends Pane {
 
     Home(CalendarYear calendar, Pane newsUI/*, ProgressBar progressBar*/) {
 
+        //Force initial timer update
         progressBar.setProgress(100);
+        Platform.runLater(() -> {
+            double d = 1.0 - progressVal();
+            progressBar.setProgress(d);
+            tooltip.setText("Test tooltip!");
 
-        //TODO force initial timer update
-
-        progressbartimer = new Timer(60000, e -> {
-            Platform.runLater(() -> {
-                double d = progressVal();
-                d = 1.0 - d;
-                progressBar.setProgress(d);
-                System.out.println("timer updated");
-                //set Tooltip text
-            });
         });
+
+
+        progressbartimer = new Timer(60000, e -> Platform.runLater(() -> {
+            double d = 1.0 - progressVal();
+            progressBar.setProgress(d);
+            //set Tooltip text
+        }));
 
         progressbartimer.start();
 
@@ -58,7 +60,7 @@ class Home extends Pane {
         newsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         newsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         newsScroll.setFitToWidth(true);
-        newsScroll.setStyle("-fx-focus-color: transparent;");
+//        newsScroll.setStyle("-fx-focus-color: transparent;");
 
         newsScroll.setStyle("-fx-background-color: transparent;");
 
@@ -67,7 +69,7 @@ class Home extends Pane {
         newsScroll.setMinWidth(280);
         newsScroll.setMaxWidth(280);
         newsScroll.setPrefHeight(this.getPrefHeight());
-//                setCellSelectionEnabled(true);
+//                setCellSelectionEnabled(false);
 
         //Progress bar
 //        BorderPane barPane = new BorderPane();
@@ -87,7 +89,8 @@ class Home extends Pane {
 //        progressBar.setOnMouseClicked((event -> showTimeLeft()));
         progressBar.setTooltip(tooltip);
 
-        tooltip.setText("Test tooltip!");
+        progressBar.setScaleY(2);
+
         hackTooltipStartTiming(tooltip);
 
         insidePane.setPadding(new Insets(0, 0, 5, 0));
@@ -124,7 +127,7 @@ class Home extends Pane {
         this.getChildren().setAll(outsidePane);
     }
 
-    public static void hackTooltipStartTiming(Tooltip tooltip) {
+    private static void hackTooltipStartTiming(Tooltip tooltip) {
         try {
             Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
             fieldBehavior.setAccessible(true);
