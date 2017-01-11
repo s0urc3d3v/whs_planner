@@ -3,6 +3,8 @@ package WHS_planner.UI;
 import WHS_planner.Calendar.CalendarYear;
 import com.jfoenix.controls.JFXProgressBar;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 
@@ -61,6 +63,11 @@ class Home extends Pane implements ActionListener {
 //        progressBar.setPadding(new Insets(0, 100, 0, 100));
 //        progressBar.setMaxWidth(600);
         progressBar.prefWidthProperty().bind(insidePane.widthProperty());
+        progressBar.setCursor(Cursor.HAND);
+        progressBar.setOnMouseClicked((event -> showTimeLeft()));
+
+        insidePane.setPadding(new Insets(0, 0, 5, 0));
+
 
 //        barPane.prefHeightProperty().bind(calendar.heightProperty());
 //        barPane.prefWidthProperty().bind(calendar.widthProperty());
@@ -93,6 +100,10 @@ class Home extends Pane implements ActionListener {
         this.getChildren().setAll(outsidePane);
     }
 
+
+    private void showTimeLeft() {
+        System.out.println("progress bar clicked!");
+    }
 
     private double progressVal() {
         Date date = new Date();
