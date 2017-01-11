@@ -4,11 +4,12 @@ import WHS_planner.Main;
 import WHS_planner.UI.MainPane;
 import WHS_planner.Util.XorTool;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.io.BufferedWriter;
@@ -22,11 +23,13 @@ public class loginController implements Initializable
     @FXML
     private JFXButton button;
     @FXML
-    private PasswordField password;
+    private JFXPasswordField password;
     @FXML
-    private TextField user;
+    private JFXTextField user;
     @FXML
     private Label error;
+    @FXML
+    private Pane loginPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -35,6 +38,8 @@ public class loginController implements Initializable
         button.setButtonType(JFXButton.ButtonType.RAISED);
         button.getStyleClass().setAll("button-raised");
         button.getStylesheets().add("Schedule" + File.separator + "ButtonStyle.css");
+
+        loginPane.getStyleClass().add("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);");
     }
 
     public void submit()

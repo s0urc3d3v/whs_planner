@@ -9,6 +9,7 @@
 
 .jfx-hamburger-icon{
     -fx-cursor: hand;
+    -fx-background-radius: 0;
 }
 .jfx-hamburger-icon StackPane{
     -fx-background-color : WHITE;

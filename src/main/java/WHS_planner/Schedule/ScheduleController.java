@@ -49,7 +49,6 @@ public class ScheduleController implements Initializable
         for (int i = 0; i < 82; i++) {
             panes[i] = new BorderPane();
         }
-
         for (int i = 1; i < 9; i++) {
             for (int j = 2; j < 9; j++) {
                 grid.add(panes[count],i,j);
@@ -60,7 +59,6 @@ public class ScheduleController implements Initializable
                 count++;
             }
         }
-
         for (int i = 2; i < 9; i++) {
             grid.add(panes[54 + i],0,i);
             panes[54 + i].setStyle("-fx-background-color: #ffffff");
@@ -68,8 +66,6 @@ public class ScheduleController implements Initializable
             panes[54 + i].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.THIN)));
         }
-
-
         for (int i = 0; i < 9; i++) {
             grid.add(panes[i + 63],i,1);
             panes[i + 63].setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
@@ -77,10 +73,7 @@ public class ScheduleController implements Initializable
             panes[i + 63].setStyle("-fx-background-color: #ffffff");
             panes[i + 63].toBack();
         }
-
-
         File ipass = new File("Keys" + File.separator + "ipass.key");
-
         if(ipass.exists())
         {
             try
@@ -88,13 +81,9 @@ public class ScheduleController implements Initializable
                 BufferedReader bri = new BufferedReader(new FileReader(ipass));
                 String user = bri.readLine();
                 String pass = bri.readLine();
-
                 user = XorTool.decode(user, Main.getXorKey());
                 pass = XorTool.decode(pass, Main.getXorKey());
-
-
                 bri.close();
-
                 if (pass == null || user.equals("") || pass.equals(""))
                 {
                     //System.out.println("No ipass data found");
@@ -103,11 +92,9 @@ public class ScheduleController implements Initializable
                 {
                     Title3.setText("Calendar loading");
                     spinner.setVisible(true);
-
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
-
                             BufferedReader br;
                             try
                             {
@@ -131,23 +118,17 @@ public class ScheduleController implements Initializable
                             {
                                 e.printStackTrace();
                             }
-
                             s = getletterday();
-
                             if(s.length() == 1)
                             {
                                 s = "Today is '" + s + "' day!";
                             }
-
                             //you can't do javafx stuff on other threads
                             Platform.runLater(() -> Title3.setText(s));
                             Platform.runLater(() -> spinner.setVisible(false));
-
                         }
                     });
                     t.start();
-
-
                 }
             }
             catch(Exception e)
@@ -159,19 +140,14 @@ public class ScheduleController implements Initializable
         {
             //System.out.println("No ipass file, try logging in");
         }
-
-
     }
 
 
     private String getletterday()
     {
         String result = "error";
-
         String s = (Calendar.getInstance().get(Calendar.MONTH)+1)+"/"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-
         ParseCalendar pc = new ParseCalendar();
-
         try
         {
             pc.readData();
@@ -181,7 +157,6 @@ public class ScheduleController implements Initializable
         {
             e.printStackTrace();
         }
-
 
         return result;
     }
@@ -234,12 +209,8 @@ public class ScheduleController implements Initializable
                         try
                         {
                             delete(tmpf);
+                        } catch (Exception e) {
                         }
-                        catch(Exception e)
-                        {
-
-                        }
-
                         GrabDay gd = new GrabDay(user, pass);
                         gd.grabData();
                         downloadcache.delete();
@@ -250,13 +221,8 @@ public class ScheduleController implements Initializable
                         dlcw.close();
                     }
                 }
-
-
             }
-
-
             File tmp = new File("tmp");
-
             if(write)
             {
                 ParseCalendar pc = new ParseCalendar();
@@ -264,8 +230,6 @@ public class ScheduleController implements Initializable
                 pc.writeData();
                 delete(tmp);
             }
-
-
         }
         catch(Exception e)
         {
@@ -273,42 +237,32 @@ public class ScheduleController implements Initializable
         }
     }
 
-
-    private void delete(File file) throws IOException
-    {
-
-        for (File childFile : file.listFiles())
-        {
-
-            if (childFile.isDirectory())
-            {
+    private void delete(File file) throws IOException {
+        for (File childFile : file.listFiles()) {
+            if (childFile.isDirectory()) {
                 delete(childFile);
-            }
-            else
-            {
-                if (!childFile.delete())
-                {
+            } else {
+                if (!childFile.delete()) {
                     throw new IOException();
                 }
             }
         }
-
-        if (!file.delete())
-        {
+        if (!file.delete()) {
             throw new IOException();
         }
     }
 
-
     public void logout() throws Exception {
         File ipassFile = new File("Keys" + File.separator + "ipass.key");
+        File schedule = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Schedule" + File.separator + "json" + File.separator + "Schedule.json");
         if (ipassFile.exists()) {
-//            Files.delete();
             ipassFile.delete();
+        }
+        if (schedule.exists()) {
+            schedule.delete();
         }
         MainPane mp = (MainPane) Main.getMainPane();
         mp.resetSchedule();
-        System.out.println("ipass file deleted");
     }
 
     public void updateSchedule() throws Exception

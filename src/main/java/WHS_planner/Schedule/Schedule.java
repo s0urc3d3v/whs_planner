@@ -58,7 +58,7 @@ public class Schedule
 
 
         FXMLLoader loader2 = new FXMLLoader();
-        loader2.setLocation(getClass().getResource("/Schedule/ipass login.fxml"));
+        loader2.setLocation(getClass().getResource("/Schedule/material_login.fxml"));
 
         login = loader2.load();
 
