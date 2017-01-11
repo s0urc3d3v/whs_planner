@@ -42,3 +42,8 @@
 {
     -fx-font-family: "Roboto";
 }
+
+.progress-bar > .bar {
+    -fx-background-color: gray;
+    -fx-background-radius: 0;
+}

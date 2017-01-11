@@ -3,7 +3,6 @@ package WHS_planner.UI;
 import WHS_planner.Calendar.CalendarYear;
 import com.jfoenix.controls.JFXProgressBar;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 
@@ -50,38 +49,30 @@ class Home extends Pane implements ActionListener {
 
         //Progress bar
         BorderPane barPane = new BorderPane();
-//        progressBar.getStylesheets().add("Schedule"+File.separator + "progressbar.css");
-//        progressBar.getStyleClass().setAll("progress-bar");
-
-        progressBar.setProgress(0);
-        progressBar.getStylesheets().add("News" + File.separator + "NewsUI.css");
-        progressBar.getStyleClass().setAll("orange-bar");
-
-        progressBar.setStyle("-fx-accent: orange");
-        progressBar.setStyle("-fx-accent: orange; ");
+        progressBar.setProgress(100);
+//        progressBar.getStylesheets().add("News" + File.separator + "NewsUI.css");
 
 //        progressBar.setStyle("-fx-color: #FF9800");
-
-        barPane.setCenter(progressBar);
-
-        barPane.setMaxHeight(30);
+//        barPane.setCenter(progressBar);
+//        barPane.setPrefHeight(30);
 //        barPane.setMaxWidth(600);
 //        barPane.setPadding(new Insets(0, 40, 5, 40));
 //        barPane.setPadding(new Insets(0,15,0,15));
-        progressBar.setPadding(new Insets(0, 15, 0, 15));
+//        progressBar.setPadding(new Insets(0, 100, 0, 100));
 //        progressBar.setMaxWidth(600);
-        progressBar.prefWidthProperty().bind(barPane.widthProperty());
+        progressBar.prefWidthProperty().bind(insidePane.widthProperty());
+
+//        barPane.prefHeightProperty().bind(calendar.heightProperty());
+//        barPane.prefWidthProperty().bind(calendar.widthProperty());
+
 
         //Calendar + add stuff to H/VBoxes
-        insidePane.getChildren().addAll(calendar,barPane);
+        insidePane.getChildren().addAll(calendar, progressBar);
         outsidePane.getChildren().addAll(insidePane,newsScroll);
 
         //Resizing stuff
         calendar.prefHeightProperty().bind(insidePane.heightProperty());
         calendar.prefWidthProperty().bind(insidePane.widthProperty());
-
-        barPane.prefHeightProperty().bind(calendar.heightProperty());
-        barPane.prefWidthProperty().bind(calendar.widthProperty());
 
 
         VBox.setVgrow(calendar, Priority.ALWAYS);
@@ -101,6 +92,7 @@ class Home extends Pane implements ActionListener {
 
         this.getChildren().setAll(outsidePane);
     }
+
 
     private double progressVal() {
         Date date = new Date();
