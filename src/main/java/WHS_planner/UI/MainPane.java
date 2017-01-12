@@ -1,26 +1,26 @@
 package WHS_planner.UI;
 
-import WHS_planner.Calendar.Calendar;
 import WHS_planner.Calendar.CalendarYear;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -99,84 +99,89 @@ public class MainPane extends StackPane {
     }
 
     private void initiateDropDown(Button bigButton) {
+
+        /*
+
+           START Jesus code
+
+         */
         bigButton.setText("\uf142");
         bigButton.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 28px; -fx-text-fill: #FFFFFF;");
         Pane parent = (Pane)(bigButton.getParent());
         bigButton.prefHeightProperty().bind(parent.heightProperty());
         final StackPane backmanISGay = this;
-        bigButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                VBox info = new VBox();
-                JFXButton button1 = new JFXButton();
-                button1.setText("Reset Schedule");
-                button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        try {
-                            schedule.getControl().updateSchedule();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                JFXButton button2 = new JFXButton();
-                button2.setText("Logout");
-                button2.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        try {
-                            schedule.getControl().logout();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                JFXButton button3 = new JFXButton();
-                button3.setText("Feedback");
-                button3.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        try {
-                            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/K5ieqVSterU8Jxmt1"});
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                JFXButton button4 = new JFXButton();
-                button4.setText("About");
-                button4.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        info.getChildren().clear();
-                        Label versionLabel = new Label("Version:");
-                        versionLabel.setUnderline(true);
-                        Label peopleLabel = new Label("Collaborators:");
-                        peopleLabel.setUnderline(true);
+        bigButton.setOnMouseClicked(event -> {
+            VBox info = new VBox();
+            JFXButton button1 = new JFXButton();
+            button1.setText("      Reset Schedule");
+            button1.setOnMouseClicked(event1 -> {
+                try {
+                    schedule.getControl().updateSchedule();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            JFXButton button2 = new JFXButton();
+            button2.setText("      Logout");
+            button2.setOnMouseClicked(event12 -> {
+                try {
+                    schedule.getControl().logout();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            JFXButton button3 = new JFXButton();
+            button3.setText("     Send Feedback");
+            button3.setOnMouseClicked(event13 -> {
+                try {
+                    Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/K5ieqVSterU8Jxmt1"});
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            JFXButton button4 = new JFXButton();
+            button4.setText("      About");
+            button4.setOnMouseClicked(event14 -> {
+                info.getChildren().clear();
+                Label versionLabel = new Label("Version:");
+                versionLabel.setUnderline(true);
+                Label peopleLabel = new Label("Collaborators:");
+                peopleLabel.setUnderline(true);
 
-                        info.getChildren().add(new Label("Created in HACS under the guidance of Mr.Hopps!\n "));
+                info.getChildren().add(new Label("Created in HACS under the guidance of Mr.Hopps!\n "));
 
-                        info.getChildren().add(versionLabel);
-                        info.getChildren().add(new Label("Dev Alpha 1/12/17\n "));
-                        info.getChildren().add(peopleLabel);
-                        String[] names = new String[]{"Tyler Brient","George Jiang","Andrew Eggleston","Geoffrey Wang","Matthew Elbing","Jack Bachman","John Broderick","Will Robison","Tzur Almog"};
-                        for(String name: names){
-                            info.getChildren().add(new Label(name));
-                        }
-                        info.setPadding(new Insets(10));
-                    }
-                });
-                info.getChildren().add(button1);
-                info.getChildren().add(button2);
-                info.getChildren().add(button3);
-                info.getChildren().add(button4);
-                info.setAlignment(Pos.CENTER);
+                info.getChildren().add(versionLabel);
+                info.getChildren().add(new Label("Dev Alpha 1/12/17\n "));
+                info.getChildren().add(peopleLabel);
+                String[] names = new String[]{"Tyler Brient", "George Jiang", "Andrew Eggleston", "Geoffrey Wang", "Matthew Elbing", "Jack Bachman", "John Broderick", "Will Robinson", "Tzur Almog", "Alex Bell"};
+                for (String name : names) {
+                    info.getChildren().add(new Label(name));
+                }
                 info.setPadding(new Insets(10));
-                JFXDialog dialog = new JFXDialog(backmanISGay,info, JFXDialog.DialogTransition.CENTER, true);
-                dialog.show();
-            }
+            });
+            info.getChildren().add(button1);
+            info.getChildren().add(button2);
+            info.getChildren().add(button3);
+            info.getChildren().add(button4);
+            info.setAlignment(Pos.TOP_LEFT);
+            info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
+            button1.getStyleClass().setAll("list-button");
+            button2.getStyleClass().setAll("list-button");
+            button3.getStyleClass().setAll("list-button");
+            button4.getStyleClass().setAll("list-button");
+            info.setSpacing(0);
+            info.setMinSize(200, 200);
+            JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
+            dialog.show();
+
+            /*
+
+                 END Jesus code
+
+             */
         });
+
+
     }
 
     /**
