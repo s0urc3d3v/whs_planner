@@ -3,6 +3,7 @@ package WHS_planner.Calendar;
 import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.FadeTransition;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -15,6 +16,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -260,7 +262,18 @@ public class CalendarBox extends Pane{
         int height = 0;
         for (int i = 0; i < tasks.get(0).size(); i++) {
             if (tasks.get(0).get(i).doesExist()){
-                vbox.getChildren().add(0, tasks.get(0).get(i).getPane(this));
+                Pane tempPane = tasks.get(0).get(i).getPane(this);
+                vbox.getChildren().add(0, tempPane);
+
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(1250));
+                fadeIn.setNode(tempPane);
+
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.setCycleCount(1);
+                fadeIn.setAutoReverse(false);
+                fadeIn.playFromStart();
+
                 if (height < 90) {
                     height+= 30;
                 }

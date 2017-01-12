@@ -43,6 +43,7 @@ public class CalendarYear extends Pane {
         for(Calendar month: months) {
             month.prefHeightProperty().bind(this.heightProperty());
             month.prefWidthProperty().bind(this.widthProperty());
+            this.getChildren().setAll(month);
         }
 
         this.getChildren().setAll(months[month]);
