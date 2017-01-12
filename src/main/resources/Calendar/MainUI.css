@@ -7,7 +7,6 @@
      -fx-font-family: 'FontAwesome Regular';
      -fx-font-size: 36px;
      -fx-padding: 10;
-
 }
 
 
@@ -52,5 +51,25 @@
 
 .taskHBox {
     -fx-background-color:#FFFFFF;
+}
+
+.monthLabel {
+    -fx-font-size: 18pt;
+    -fx-font-family: "Roboto";
+}
+
+.monthButton {
+
+/* Circle Code
+     -fx-background-radius: 50em;
+     -fx-min-width: 20px;
+     -fx-min-height: 20px;
+     -fx-max-width: 20px;
+     -fx-max-height: 20px;
+*/
+     -fx-background-color: #BDBDBD;
+     -fx-text-fill: #FFFFFF;
+	 -fx-padding: 8 20 7 20;
+     -fx-font-family: 'FontAwesome Regular';
 }
 

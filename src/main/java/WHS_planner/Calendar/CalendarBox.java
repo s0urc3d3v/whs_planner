@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class CalendarBox extends Pane{
     public static final int CALENDAR_BOX_MIN_HEIGHT = 80, CALENDAR_BOX_MIN_WIDTH = 110; //Constant that defines the min size of a CalendarBox
     private static final int HOMEWORK = 0; //List IDs (Default)
-    private static final String[] ICONS_UNICODE = new String[]{"\uf0f6"}; //File Icon, Check Icon (Font UNICODE)
+    private static final String[] ICONS_UNICODE = new String[]{"\uf0f6","\uf21b"}; //File Icon, Check Icon (Font UNICODE)
 
     private int date; //The date of the box
     private int week; //The week this box is in
@@ -125,6 +125,12 @@ public class CalendarBox extends Pane{
         //Set up the calendar box
         initFXMLBox();
 
+        if(this.getDate()==1&&month==8){
+            ArrayList<Task> tempList = new ArrayList<>();
+            tempList.add(new Task("","",""));
+            this.tasks.add(tempList);
+        }
+
         //Make the button inactive if required
         if(!active){
             button.setDisable(true);
@@ -144,10 +150,16 @@ public class CalendarBox extends Pane{
         //Set the buttonClicked action
         button.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
+                if(tasks.size()>1) {
+                    if (tasks.get(1).size() == 1) {
+                        tasks.get(1).remove(0);
+                    }
+                }
                 update();
                 Calendar calendar = (Calendar)this.getParent().getParent().getParent();
                 calendar.update(week,date);
                 updateTaskBox();
+
             }
         }));
         java.util.Calendar calendar = java.util.Calendar.getInstance();
@@ -188,12 +200,17 @@ public class CalendarBox extends Pane{
                 icon.setId("icon");
                 icon.setText(ICONS_UNICODE[listID]);
 
-                //Create the badge on the Label
-                JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
-                badge.getStyleClass().add("icon-badge");
+                if(!ICONS_UNICODE[listID].equals("\uf21b")) {
+                    //Create the badge on the Label
+                    JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
+                    badge.getStyleClass().add("icon-badge");
 //                badge.getChildren().get(0).getStyleClass().setAll("testsefd");
-                badge.setText("" + getTaskCount(listID)); //Set the badge number
-                icons.add(badge);
+                    badge.setText("" + getTaskCount(listID)); //Set the badge number
+                    icons.add(badge);
+                }else{
+                    icon.setStyle("-fx-text-fill: #FDFDFD;");
+                    icons.add(icon);
+                }
             }
         }
 

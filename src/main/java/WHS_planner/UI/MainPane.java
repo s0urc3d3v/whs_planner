@@ -8,6 +8,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -98,6 +99,10 @@ public class MainPane extends StackPane {
     }
 
     private void initiateDropDown(Button bigButton) {
+        bigButton.setText("\uf05a");
+        bigButton.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 28px; -fx-text-fill: #FFFFFF;");
+        Pane parent = (Pane)(bigButton.getParent());
+        bigButton.prefHeightProperty().bind(parent.heightProperty());
         final StackPane backmanISGay = this;
         bigButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -145,8 +150,21 @@ public class MainPane extends StackPane {
                     @Override
                     public void handle(MouseEvent event) {
                         info.getChildren().clear();
-                        info.getChildren().add(new Label("Version: Dev Alpha"));
-                        info.getChildren().add(new Label("Collaborators: Tyler Brient, George Jiang, Geoffrey Wang"));
+                        Label versionLabel = new Label("Version:");
+                        versionLabel.setUnderline(true);
+                        Label peopleLabel = new Label("Collaborators:");
+                        peopleLabel.setUnderline(true);
+
+                        info.getChildren().add(new Label("Created in HACS under the guidance of Mr.Hopps!\n "));
+
+                        info.getChildren().add(versionLabel);
+                        info.getChildren().add(new Label("Dev Alpha 1/12/17\n "));
+                        info.getChildren().add(peopleLabel);
+                        String[] names = new String[]{"Tyler Brient","George Jiang","Andrew Eggleston","Geoffrey Wang","Matthew Elbing","Jack Bachman","John Broderick","Will Robison","Tzur Almog"};
+                        for(String name: names){
+                            info.getChildren().add(new Label(name));
+                        }
+                        info.setPadding(new Insets(10));
                     }
                 });
                 info.getChildren().add(button1);
@@ -154,7 +172,7 @@ public class MainPane extends StackPane {
                 info.getChildren().add(button3);
                 info.getChildren().add(button4);
                 info.setAlignment(Pos.CENTER);
-                info.setPrefSize(200, 200);
+                info.setPadding(new Insets(10));
                 JFXDialog dialog = new JFXDialog(backmanISGay,info, JFXDialog.DialogTransition.CENTER, true);
                 dialog.show();
             }
