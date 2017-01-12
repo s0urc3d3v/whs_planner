@@ -43,7 +43,7 @@ class Home extends Pane {
         Platform.runLater(() -> {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
-            tooltip.setText("Test tooltip!");
+            tooltip.setText("Time left: \n" + timeLeft() + " min");
         });
 
 
@@ -51,6 +51,7 @@ class Home extends Pane {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             //set Tooltip text
+            tooltip.setText("Time left: \n" + timeLeft() + " min");
         }));
 
         progressbartimer.start();
@@ -196,7 +197,7 @@ class Home extends Pane {
     }
 
 
-    private double timeLeft() {
+    private int timeLeft() {
         Date date = new Date();
 
         DateFormat df = new SimpleDateFormat("HH:mm");
@@ -241,7 +242,7 @@ class Home extends Pane {
             }
         }
 
-        return mod;
+        return (int) mod;
     }
 
 
