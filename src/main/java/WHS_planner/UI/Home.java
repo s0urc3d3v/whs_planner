@@ -196,6 +196,55 @@ class Home extends Pane {
     }
 
 
+    private double timeLeft() {
+        Date date = new Date();
+
+        DateFormat df = new SimpleDateFormat("HH:mm");
+
+        String dateS = df.format(date);
+
+        int num = parseDate(dateS);
+
+        double mod;
+
+        if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
+            if (num >= 450 && num < 495) {
+                mod = (495 - num);
+            } else if (num >= 495 && num < 575) {
+                mod = (575 - num);
+            } else if (num >= 575 && num < 620) {
+                mod = (620 - num);
+            } else if (num >= 620 && num < 700) {
+                mod = (700 - num);
+            } else if (num >= 700 && num < 745) {
+                mod = (745 - num);
+            } else if (num >= 745 && num <= 785) {
+                mod = (785 - num);
+            } else {
+                mod = 0;
+            }
+        } else {
+            if (num >= 450 && num < 512) {
+                mod = (512 - num);
+            } else if (num >= 512 && num < 579) {
+                mod = (579 - num);
+            } else if (num >= 579 && num < 641) {
+                mod = (641 - num);
+            } else if (num >= 641 && num < 736) {
+                mod = (736 - num);
+            } else if (num >= 736 && num < 798) {
+                mod = (798 - num);
+            } else if (num >= 798 && num <= 855) {
+                mod = (855 - num);
+            } else {
+                mod = 0;
+            }
+        }
+
+        return mod;
+    }
+
+
     private int parseDate(String date) {
         String hour = date.substring(0, date.indexOf(":"));
         String minute = date.substring(date.indexOf(":") + 1);
