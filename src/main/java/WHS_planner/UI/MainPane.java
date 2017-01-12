@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -83,12 +84,18 @@ public class MainPane extends Pane {
         //Make a stack pane with the drawer and content in it
         StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48));
 
+        initiateDropDown((Button)navBar.getChildren().get(1));
+
         //Set the content the base pane to have the nav bar on top and content under it
         vBox.getChildren().setAll(navBar,stackPane);
         VBox.setVgrow(stackPane, Priority.ALWAYS);
         VBox.setVgrow(navBar, Priority.NEVER);
 
         return vBox;
+    }
+
+    private void initiateDropDown(Button bigButton) {
+//        bigButton.setOnMouseClicked();
     }
 
     /**
