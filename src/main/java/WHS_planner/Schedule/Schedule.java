@@ -315,4 +315,8 @@ public class Schedule
 
         return b;
     }
+
+    public ScheduleController getControl() {
+        return control;
+    }
 }

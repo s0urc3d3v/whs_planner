@@ -4,23 +4,26 @@ import WHS_planner.Calendar.Calendar;
 import WHS_planner.Calendar.CalendarYear;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 
-public class MainPane extends Pane {
+public class MainPane extends StackPane {
 
     private final int HOME = 0;
     private final int SCHEDULE = 1;
@@ -95,7 +98,67 @@ public class MainPane extends Pane {
     }
 
     private void initiateDropDown(Button bigButton) {
-//        bigButton.setOnMouseClicked();
+        final StackPane backmanISGay = this;
+        bigButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                VBox info = new VBox();
+                JFXButton button1 = new JFXButton();
+                button1.setText("Reset Schedule");
+                button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        try {
+                            schedule.getControl().updateSchedule();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                JFXButton button2 = new JFXButton();
+                button2.setText("Logout");
+                button2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        try {
+                            schedule.getControl().logout();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                JFXButton button3 = new JFXButton();
+                button3.setText("Feedback");
+                button3.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        try {
+                            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/K5ieqVSterU8Jxmt1"});
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                JFXButton button4 = new JFXButton();
+                button4.setText("About");
+                button4.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        info.getChildren().clear();
+                        info.getChildren().add(new Label("Version: Dev Alpha"));
+                        info.getChildren().add(new Label("Collaborators: Tyler Brient, George Jiang, Geoffrey Wang"));
+                    }
+                });
+                info.getChildren().add(button1);
+                info.getChildren().add(button2);
+                info.getChildren().add(button3);
+                info.getChildren().add(button4);
+                info.setAlignment(Pos.CENTER);
+                info.setPrefSize(200, 200);
+                JFXDialog dialog = new JFXDialog(backmanISGay,info, JFXDialog.DialogTransition.CENTER, true);
+                dialog.show();
+            }
+        });
     }
 
     /**
