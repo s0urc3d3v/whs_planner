@@ -9,6 +9,8 @@
 */
      -fx-background-color: #BDBDBD;
      -fx-text-fill: #FFFFFF;
+     -fx-font-weight: bold;
+     -fx-font-family: "Roboto Mono"
 }
 
 .label {

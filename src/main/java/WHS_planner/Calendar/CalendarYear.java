@@ -18,6 +18,7 @@ public class CalendarYear extends Pane {
     public CalendarYear(){
         for (int i = 0; i < 12; i++) {
             JFXButton nextButton = new JFXButton(">");
+
 //            JFXButton nextButton = createIconButton("\uf054");
             nextButton.setOnMouseClicked(event -> {
                 if(month == 11) {
@@ -43,6 +44,7 @@ public class CalendarYear extends Pane {
         for(Calendar month: months) {
             month.prefHeightProperty().bind(this.heightProperty());
             month.prefWidthProperty().bind(this.widthProperty());
+            this.getChildren().setAll(month);
         }
 
         this.getChildren().setAll(months[month]);
