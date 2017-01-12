@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -9,12 +8,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" style="-fx-background-color: #FFFFFF;"
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" style="-fx-background-color: #F7F7F7;"
       xmlns="http://javafx.com/javafx/8.0.65" fx:controller="WHS_planner.Schedule.loginController">
     <children>
         <Pane fx:id="loginPane" maxHeight="360.0" maxWidth="360.0" minHeight="360.0" minWidth="360.0" prefHeight="360.0"
               prefWidth="360.0"
-              style="-fx-background-color: #F7F7F7; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);">
+              style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0); -fx-background-color: #FFFFFF;">
             <children>
                 <Label layoutX="85.0" layoutY="40.0" text="Login to iPass">
                     <font>
