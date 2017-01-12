@@ -257,18 +257,17 @@ public class CalendarBox extends Pane{
     private void updateTaskBox() {
         VBox vbox = (VBox)tasksPane.getContent();
         vbox.getChildren().clear();
+        int height = 0;
         for (int i = 0; i < tasks.get(0).size(); i++) {
             if (tasks.get(0).get(i).doesExist()){
                 vbox.getChildren().add(0, tasks.get(0).get(i).getPane(this));
+                if (height < 90) {
+                    height+= 30;
+                }
             }
         }
-        if (tasks.get(0).size() < 3) {
-            tasksPane.setMinHeight(tasks.get(0).size()*30);
-            tasksPane.setMaxHeight(tasks.get(0).size()*30);
-        } else {
-            tasksPane.setMinHeight(90);
-            tasksPane.setMaxHeight(90);
-        }
+        tasksPane.setMinHeight(height);
+        tasksPane.setMaxHeight(height);
     }
 
     /*-----ID RELATED-----*/
