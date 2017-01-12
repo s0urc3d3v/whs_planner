@@ -1,10 +1,12 @@
 package WHS_planner.UI;
 
-import WHS_planner.Calendar.Calendar;
 import WHS_planner.Calendar.CalendarYear;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +20,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -104,7 +106,7 @@ public class MainPane extends StackPane {
             public void handle(MouseEvent event) {
                 VBox info = new VBox();
                 JFXButton button1 = new JFXButton();
-                button1.setText("Reset Schedule");
+                button1.setText("    Reset Schedule");
                 button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
@@ -116,7 +118,7 @@ public class MainPane extends StackPane {
                     }
                 });
                 JFXButton button2 = new JFXButton();
-                button2.setText("Logout");
+                button2.setText("    Logout");
                 button2.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
@@ -128,7 +130,7 @@ public class MainPane extends StackPane {
                     }
                 });
                 JFXButton button3 = new JFXButton();
-                button3.setText("Feedback");
+                button3.setText("    Feedback");
                 button3.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
@@ -140,20 +142,36 @@ public class MainPane extends StackPane {
                     }
                 });
                 JFXButton button4 = new JFXButton();
-                button4.setText("About");
+                button4.setText("    About");
                 button4.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
+                        Label version = new Label("Version: Dev Alpha");
+                        version.setWrapText(true);
+                        Label collab = new Label("Collaborators: Tyler Brient, George Jiang, Geoffrey Wang");
+                        collab.setWrapText(true);
                         info.getChildren().clear();
-                        info.getChildren().add(new Label("Version: Dev Alpha"));
-                        info.getChildren().add(new Label("Collaborators: Tyler Brient, George Jiang, Geoffrey Wang"));
+                        info.getChildren().add(version);
+                        info.getChildren().add(collab);
                     }
                 });
                 info.getChildren().add(button1);
                 info.getChildren().add(button2);
                 info.getChildren().add(button3);
                 info.getChildren().add(button4);
-                info.setAlignment(Pos.CENTER);
+                info.setAlignment(Pos.TOP_LEFT);
+                info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
+                button1.getStyleClass().setAll("list-button");
+                button2.getStyleClass().setAll("list-button");
+                button3.getStyleClass().setAll("list-button");
+                button4.getStyleClass().setAll("list-button");
+
+//                button1.setTextAlignment(TextAlignment.LEFT);
+
+
+//                info.getStyleClass().setAll("list-button");
+                info.setSpacing(0);
+
                 info.setPrefSize(200, 200);
                 JFXDialog dialog = new JFXDialog(backmanISGay,info, JFXDialog.DialogTransition.CENTER, true);
                 dialog.show();
