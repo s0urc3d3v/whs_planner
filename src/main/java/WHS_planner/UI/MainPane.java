@@ -99,7 +99,7 @@ public class MainPane extends StackPane {
     }
 
     private void initiateDropDown(Button bigButton) {
-        bigButton.setText("\uf05a");
+        bigButton.setText("\uf142");
         bigButton.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 28px; -fx-text-fill: #FFFFFF;");
         Pane parent = (Pane)(bigButton.getParent());
         bigButton.prefHeightProperty().bind(parent.heightProperty());
