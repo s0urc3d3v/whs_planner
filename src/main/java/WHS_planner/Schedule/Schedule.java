@@ -3,6 +3,7 @@ package WHS_planner.Schedule;
 import WHS_planner.Core.IO;
 import WHS_planner.Main;
 import WHS_planner.Util.XorTool;
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -29,9 +30,11 @@ public class Schedule
     private Map<String, Object> labels;
     private ScheduleBlock[] blocks;
     private ScheduleController control;
+    private JFXCheckBox checkBox;
 
-    public Schedule()
+    public Schedule(JFXCheckBox checkBox)
     {
+        this.checkBox = checkBox;
         try
         {
             //replaced with threading...
@@ -96,8 +99,8 @@ public class Schedule
         String[] wens = {"7:30", "8:15", "9:35", "10:20", "11:40", "12:25", "0:00"};
         String[] wene = {"8:10", "8:55", "10:15", "11:35", "12:20", "1:05", "0:00"};
 
-//        String[] bells = {"7:30", "8:26", "9:58", "10:55", "12:26", "1:23", "0:00"};    If we ever make functionality for the bell 2's
-//        String[] belle = {"8:21", "9:18", "10:50", "12:21", "1:18", "2:15", "0:00"};
+        String[] bells = {"7:30", "8:26", "9:58", "10:55", "12:26", "1:23", "0:00"};
+        String[] belle = {"8:21", "9:18", "10:50", "12:21", "1:18", "2:15", "0:00"};
 
         String currentClass;
         String currentTeacher;
@@ -184,6 +187,8 @@ public class Schedule
 //                s = "Period "+i+"\nStart: "+"\n"+wens[i-1]+"\nEnd:\n"+wene[i-1];
                 s = "Period " + i + "\nStart: " + wens[i - 1] + "\nEnd:" + wene[i - 1];
 
+            } else if (checkBox.isSelected()) {
+                s = "Period " + i + "\nStart: " + bells[i - 1] + "\nEnd:" + wene[i - 1];
             }
 
             else

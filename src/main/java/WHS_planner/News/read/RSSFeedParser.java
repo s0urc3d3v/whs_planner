@@ -102,7 +102,6 @@ public class RSSFeedParser {
                                 copyright = getCharacterData(eventReader);
                                 break;
                         }
-
                     } else if (event.isEndElement()) {
                         if (event.asEndElement().getName().getLocalPart().equals(ITEM)) {
                             FeedMessage message = new FeedMessage();
@@ -149,16 +148,15 @@ public class RSSFeedParser {
 
     }
 
-
+    //Unused Refresh function
     public List getNewArticles(List<FeedMessage> oldFeed) {
 
         List<FeedMessage> currentFeed = readFeed().getMessages();
 
         if (oldFeed.size() == 0) {
-            System.out.println("Case lul. If it's case lul something has gone catastrophically wrong.");
+            System.out.println("Refresh Error.");
             return oldFeed;
         } else if (currentFeed.get(0).getLink().equals(oldFeed.get(0).getLink())) {
-            System.out.println("Case 1");
             return null;
         } else {
             ArrayList<FeedMessage> newFeed = new ArrayList<>();
@@ -167,7 +165,6 @@ public class RSSFeedParser {
                 newFeed.add(0, currentFeed.get(i));
                 i++;
             }
-            System.out.println("Case 2");
             return newFeed;
         }
     }

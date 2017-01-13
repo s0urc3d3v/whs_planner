@@ -1,26 +1,26 @@
 package WHS_planner.UI;
 
-import WHS_planner.Calendar.Calendar;
 import WHS_planner.Calendar.CalendarYear;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.stream.Stream;
 
 
 public class MainPane extends StackPane {
@@ -30,17 +30,17 @@ public class MainPane extends StackPane {
     private final int CALENDAR = 2;
     private final int NEWS = 3;
     private final int MEETING = 4;
-
+    public JFXCheckBox bell2Check = new JFXCheckBox();
     private Pane navBar;
     private Pane content;
     private ArrayList<Pane> contentPanes;
     private JFXDrawer drawer;
-
     private VBox mainPane;
-
-
+    private VBox cardView = new NewsUI().getCardView();
     private Schedule schedule;
     private CalendarYear calendar;
+
+    private Home homePane;
 
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
@@ -97,68 +97,142 @@ public class MainPane extends StackPane {
         return vBox;
     }
 
+    public JFXCheckBox getCheck() {
+        return bell2Check;
+    }
+
     private void initiateDropDown(Button bigButton) {
+
+        /*
+
+           START Jesus code
+
+         */
+        bigButton.setText("\uf142");
+        bigButton.setCursor(Cursor.HAND);
+        bigButton.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 28px; -fx-text-fill: #FFFFFF;");
+        Pane parent = (Pane)(bigButton.getParent());
+        bigButton.prefHeightProperty().bind(parent.heightProperty());
         final StackPane backmanISGay = this;
-        bigButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                VBox info = new VBox();
-                JFXButton button1 = new JFXButton();
-                button1.setText("Reset Schedule");
-                button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        try {
-                            schedule.getControl().updateSchedule();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                JFXButton button2 = new JFXButton();
-                button2.setText("Logout");
-                button2.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        try {
-                            schedule.getControl().logout();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                JFXButton button3 = new JFXButton();
-                button3.setText("Feedback");
-                button3.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        try {
-                            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/K5ieqVSterU8Jxmt1"});
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                JFXButton button4 = new JFXButton();
-                button4.setText("About");
-                button4.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        info.getChildren().clear();
-                        info.getChildren().add(new Label("Version: Dev Alpha"));
-                        info.getChildren().add(new Label("Collaborators: Tyler Brient, George Jiang, Geoffrey Wang"));
-                    }
-                });
-                info.getChildren().add(button1);
-                info.getChildren().add(button2);
-                info.getChildren().add(button3);
-                info.getChildren().add(button4);
-                info.setAlignment(Pos.CENTER);
-                info.setPrefSize(200, 200);
-                JFXDialog dialog = new JFXDialog(backmanISGay,info, JFXDialog.DialogTransition.CENTER, true);
-                dialog.show();
-            }
+        bigButton.setOnMouseClicked(event -> {
+            VBox info = new VBox();
+            JFXButton button0 = new JFXButton();
+            button0.setText("      Show Bell Schedule");
+            button0.setOnMouseClicked(event1 -> {
+                info.setMinSize(0, 0);
+                info.getChildren().clear();
+                info.getChildren().add(getBellSchedulePane());
+            });
+
+//            JFXButton button0 = new JFXButton();
+//            button0.setText("      Delete Calendar Data");
+//            button0.setOnMouseClicked(event0 -> {
+//                System.out.println("delete calendar data pressed");
+//                calendar.deleteCalendarData();
+//            });
+            JFXButton button1 = new JFXButton();
+            button1.setText("      Reset Schedule");
+            button1.setOnMouseClicked(event1 -> {
+                try {
+                    schedule.getControl().updateSchedule();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            JFXButton button2 = new JFXButton();
+            button2.setText("      Logout of iPass");
+            button2.setOnMouseClicked(event12 -> {
+                try {
+                    schedule.getControl().logout();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            JFXButton button3 = new JFXButton();
+            button3.setText("      Send Feedback");
+            button3.setOnMouseClicked(event13 -> {
+                try {
+                    Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/K5ieqVSterU8Jxmt1"});
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            JFXButton button4 = new JFXButton();
+            button4.setText("      About");
+            button4.setOnMouseClicked(event14 -> {
+                info.getChildren().clear();
+                Label versionLabel = new Label("Version:");
+                versionLabel.setUnderline(true);
+                Label peopleLabel = new Label("Collaborators:");
+                peopleLabel.setUnderline(true);
+
+                info.getChildren().add(new Label("Created in HACS under the guidance of Mr.Hopps!\n "));
+
+                info.getChildren().add(versionLabel);
+                info.getChildren().add(new Label("Production 1.0.0\n "));
+                info.getChildren().add(peopleLabel);
+                String[] names = new String[]{
+                        "Tyler Brient - UI Master, Bug Squasher",
+                        "George Jiang - UX, News, Bug Finder",
+                        "Andrew Eggleston - Yelled at Tyler",
+                        "Geoffrey Wang - UI Master, Calendar",
+                        "Matthew Elbing - Backend, Project Lead",
+                        "Jack Bachman - Backend, Github",
+                        "John Broderick - Bug Human, Schedule",
+                        "Will Robinson - HTML, Piano Tiles",
+                        "Tzur Almog - Calendar",
+                        "Alex Bell - News"
+                };
+                for (String name : names) {
+                    info.getChildren().add(new Label(name));
+                }
+                info.setPadding(new Insets(10));
+            });
+
+            HBox button5 = new HBox();
+            bell2Check.setCursor(Cursor.HAND);
+//            JFXCheckBox bell2Check = new JFXCheckBox();
+            Label bell2Label = new Label();
+            bell2Label.setText("Bell 2");
+            button5.getChildren().addAll(bell2Check, bell2Label);
+            button5.setPrefSize(200, 50);
+            button5.setAlignment(Pos.CENTER_LEFT);
+//            bell2Check.setPadding(new Insets(0, 0, 0, -10)); //top right bottom left
+//            bell2Label.setPadding(new Insets(0,0,0,-10));
+            bell2Check.setTranslateX(10);
+            bell2Label.setTranslateX(10);
+            bell2Check.setAlignment(Pos.CENTER_LEFT);
+
+//            info.getChildren().add(button0);
+
+            info.getChildren().addAll(button0, button1, button2, button3, button4, button5);
+
+            info.setAlignment(Pos.TOP_LEFT);
+            info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
+            button0.setCursor(Cursor.HAND);
+            button1.setCursor(Cursor.HAND);
+            button2.setCursor(Cursor.HAND);
+            button3.setCursor(Cursor.HAND);
+            button4.setCursor(Cursor.HAND);
+            button0.getStyleClass().setAll("list-button");
+            button1.getStyleClass().setAll("list-button");
+            button2.getStyleClass().setAll("list-button");
+            button3.getStyleClass().setAll("list-button");
+            button4.getStyleClass().setAll("list-button");
+            button5.getStyleClass().setAll("label-button");
+            info.setSpacing(0);
+            info.setMinSize(200, 300);
+            JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
+            dialog.show();
+
+            /*
+
+                 END Jesus code
+
+             */
         });
+
+
     }
 
     /**
@@ -213,7 +287,7 @@ public class MainPane extends StackPane {
     }
 
     private void generatePanes() {
-        schedule = new Schedule();
+        schedule = new Schedule(bell2Check);
         calendar = new CalendarYear();
 //        calendar = new Calendar("January");
         NewsUI news = null;
@@ -224,7 +298,7 @@ public class MainPane extends StackPane {
         }
         //Pane meeting = new MeetingPane();
 //        Home homePane = new Home(calendar, news.getCardView(), schedule.getProgressBar());
-        Home homePane = new Home(calendar, news.getCardView());
+        Home homePane = new Home(calendar, news.getCardView(), bell2Check);
         addPane(homePane);
         addPane((Pane) schedule.getPane());
         //addPane(meeting);
@@ -238,7 +312,7 @@ public class MainPane extends StackPane {
     public void resetSchedule() throws Exception
     {
         remPane((Pane)schedule.getPane());
-        schedule = new Schedule();
+        schedule = new Schedule(bell2Check);
         addPane((Pane) schedule.getPane(), 1);
         drawer.getContent().clear();
         drawer.setSidePane(contentPanes.get(1));
@@ -299,5 +373,64 @@ public class MainPane extends StackPane {
 
     public void saveCalendar(){
         calendar.saveCalendar();
+    }
+
+    public Pane getBellSchedulePane(){
+        Calendar now = Calendar.getInstance();
+        //Testing
+//        now.set(Calendar.DATE, 15);
+//        now.set(Calendar.MONTH, 0);
+//        now.set(Calendar.YEAR, 2017);
+
+        String[] times;
+        String[] blocks;
+
+        if(now.get(Calendar.DAY_OF_WEEK)==Calendar.WEDNESDAY){
+            times = new String[]{"7:30-8:10","8:15-8:55","9:05-9:30","9:35-10:15", "10:20-10:50","10:42-11:12","11:05-11:35","11:40-12:20","12:25-1:05"};
+            blocks = new String[]{"Block 1: ","Block 2: ","Advisory: ","Block 3: ","1st Lunch: ","2nd Lunch: ","3rd Lunch: ","Block 5: ","Block 6: "};
+
+        } else if (bell2Check.isSelected()) {
+            times = new String[]{"7:30-8:21", "8:26-9:18", "9:58-10:50", "10:55-11:25", "11:22-11:52", "11:51-12:21", "12:26-1:18", "1:23-2:15"};
+            blocks = new String[]{"Block 1: ", "Block 2: ", "Class Meeting: ", "Block 3: ", "1st Lunch: ", "2nd Lunch: ", "3rd Lunch: ", "Block 5: ", "Block 6: "};
+        } else {
+            times = new String[]{"7:30-8:26","8:31-9:28","9:38-10:35","10:40-11:10","11:10-11:40","11:41-12:11","12:16-1:13","1:18-2:15"};
+            blocks = new String[]{"Block 1: ","Block 2: ","Block 3: ","1st Lunch: ","2nd Lunch: ","3rd Lunch: ","Block 5: ","Block 6: "};
+        }
+
+        ArrayList<String> bellTimesFile = new ArrayList<>();
+        try (Stream<String> stream = Files.lines(Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"))) {
+            stream.forEachOrdered(line -> bellTimesFile.add(line));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            if(bellTimesFile.size()>5) {
+                if (now.get(Calendar.MONTH) == Integer.parseInt(bellTimesFile.get(0)) - 1 && now.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(bellTimesFile.get(1)) && now.get(Calendar.YEAR) == Integer.parseInt(bellTimesFile.get(2))) {
+                    int numberOfRows = Integer.parseInt(bellTimesFile.get(3));
+                    blocks = new String[numberOfRows];
+                    times = new String[numberOfRows];
+                    for (int i = 0; i < numberOfRows; i++) {
+                        blocks[i] = bellTimesFile.get(i + 4);
+                    }
+                    for (int i = 0; i < numberOfRows; i++) {
+                        times[i] = bellTimesFile.get(i + 4 + numberOfRows);
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+        GridPane returnPane = new GridPane();
+        for (int i = 0; i < times.length; i++) {
+            returnPane.add(new Label(blocks[i]),0,i);
+            returnPane.add(new Label(times[i]),1,i);
+        }
+        returnPane.setHgap(10);
+        returnPane.setPadding(new Insets(10));
+        return returnPane;
     }
 }

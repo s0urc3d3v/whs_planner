@@ -3,6 +3,7 @@ package WHS_planner.Calendar;
 import WHS_planner.Core.AutoSave;
 import WHS_planner.Core.IO;
 import WHS_planner.Core.JSON;
+import WHS_planner.Main;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
@@ -35,13 +36,12 @@ public class Calendar extends BorderPane {
     private AutoSave autoSave;
 //Tzurs code
     private CalendarHelper dayFinder = new CalendarHelper();
-
     private IO io;
-     private JSON json;
-    // end tzurs code
+    private JSON json;
+    //End Tzurs code
     private VBox mainPane;
     private int currentTextBoxRow = -1;
-    // MARK: day in foucus
+    // MARK: day in focus
     private int currentDate = -1;
 
     public Calendar(int month, JFXButton nextButton, JFXButton prevButton) {
@@ -55,7 +55,6 @@ public class Calendar extends BorderPane {
             }
         }
 
-
         io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Calendar" + File.separator + month + "CalendarHolder.json");
 
         json = io.getJsonApi();
@@ -65,9 +64,8 @@ public class Calendar extends BorderPane {
         CalendarUtility util = new CalendarUtility();
 
         //Loads the ttf font file into the program
-        InputStream font = MainUI.class.getResourceAsStream("/FontAwesome/fontawesome.ttf");
+        InputStream font = Main.class.getResourceAsStream("/FontAwesome/fontawesome.ttf");
         Font.loadFont(font,10);
-
 
         mainPane = new VBox();
         mainPane.setId("vbox");//Replace this ID
@@ -75,15 +73,13 @@ public class Calendar extends BorderPane {
         ArrayList<Node> rows = new ArrayList<>();
         mainPane.setAlignment(Pos.CENTER);
 
-
         //Top Row
         BorderPane topRow = new BorderPane();
 //        HBox topRow = new HBox();
-        topRow.getStylesheets().add("Calendar" + File.separator + "topRow.css");
         Label monthLabel = new Label(dayFinder.getMonthString(month+1));
 //        topRow.setStyle("fx-background-color:#FFFFFF;");
 
-        monthLabel.getStyleClass().add("label");
+        monthLabel.getStyleClass().add("monthLabel");
         prevButton.getStyleClass().add("monthButton");
         nextButton.getStyleClass().add("monthButton");
 
@@ -161,8 +157,8 @@ public class Calendar extends BorderPane {
 
         this.setCenter(mainPane);
 
-        LayoutAnimator animator = new LayoutAnimator();
-        animator.observe(mainPane.getChildren());
+//        LayoutAnimator animator = new LayoutAnimator();
+//        animator.observe(mainPane.getChildren());
     }
 
     void update(int row, int date) {
@@ -283,10 +279,10 @@ public class Calendar extends BorderPane {
 
     // saves calendar array as a json file at calendarHolder
     void saveCalendar() {
+        int dayInMonth = 1;
         try{
-
-        //Grabs all the caledar days
-        for (int i = 0; i <numberOfDays ; i++) {
+        //Grabs all the calendar days
+        for (int i = 0; dayInMonth <= numberOfDays ; i++) {
                 // Gets the active calendar day
                 CalendarBox current = calendar[i / 7][i % 7];
             // finds out is the day exisits
@@ -326,7 +322,7 @@ public class Calendar extends BorderPane {
                             currentTaskArray.add(currentTaskTitle);
                             currentTaskArray.add(currentTaskClass);
                             currentTaskArray.add(currentTaskDescription);
-                            json.writeArray("CalendarSaver" + i + ":" + j + ":" + index, currentTaskArray.toArray());
+                            json.writeArray("CalendarSaver" + dayInMonth + ":" + j + ":" + index, currentTaskArray.toArray());
                             index++;
                         }
                     }
@@ -336,8 +332,8 @@ public class Calendar extends BorderPane {
                 currentBoxArray.add(currentDate);
                 currentBoxArray.add(currentWeek);
 
-                json.writeArray("CalendarSaver" + i, currentBoxArray.toArray());
-
+                json.writeArray("CalendarSaver" + dayInMonth, currentBoxArray.toArray());
+                dayInMonth++;
             }
         }
         json.unloadFile();
@@ -345,12 +341,5 @@ public class Calendar extends BorderPane {
             e.printStackTrace();
         }
 
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-        saveCalendar();
-        System.out.println("WE NEVER GET HERE!-------------------------------------");
     }
 }

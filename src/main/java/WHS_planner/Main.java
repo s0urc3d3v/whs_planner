@@ -6,14 +6,15 @@ package WHS_planner;
 import WHS_planner.Calendar.CalendarBox;
 import WHS_planner.UI.MainPane;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.io.*;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Random;
 
 public class
@@ -46,22 +47,6 @@ Main extends Application {
            keys.mkdir();
        }
 
-       File caldat = new File("src/main/resources/Calendar/calendarHolder.json");
-
-
-        try {
-            if(!caldat.exists())
-            {
-                caldat.createNewFile();
-            }
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-
-
-
        File encKey = new File("Keys" + File.separator + "xor.key");
        if (!encKey.exists()) {
            Random r = new Random();
@@ -84,6 +69,32 @@ Main extends Application {
                e.printStackTrace();
            }
        }
+
+        File saveFile = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt");
+        try {
+            saveFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            URL website = new URL("https://raw.githubusercontent.com/Razer0901/BellSchedule/master/BellTimes.txt");
+            InputStream in = website.openStream();
+            if (!(in == null)) {
+                Files.copy(in, Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
+                in.close();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+//        try (InputStream in = website.openStream()) {
+//            Files.copy(in, Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+
         try {
             launch(args);
         }
@@ -106,15 +117,15 @@ Main extends Application {
 
         Scene scene = new Scene(mainPane); //Put the mainPane into a scene
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.Q)
-                {
-                    stop();
-                }
-            }
-        });
+//        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent event) {
+//                if(event.getCode() == KeyCode.Q)
+//                {
+//                    stop();
+//                }
+//            }
+//        });
 
 
         //Binds the size of the mainPane to be equal to the scene

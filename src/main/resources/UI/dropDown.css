@@ -1,0 +1,18 @@
+.list-button {
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto";
+    -fx-pref-width: 200;
+    -fx-pref-height: 50;
+    -fx-padding: 0;
+    -fx-background-radius: 0;
+
+    /*text wrap*/
+}
+
+.label-button {
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto";
+
+    -fx-padding: 0;
+
+}
