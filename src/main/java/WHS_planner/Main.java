@@ -77,12 +77,17 @@ Main extends Application {
             e.printStackTrace();
         }
 
-        URL website = new URL("https://raw.githubusercontent.com/Razer0901/BellSchedule/master/BellTimes.txt");
-        InputStream in = website.openStream();
-        if (!(in == null)) {
-            Files.copy(in, Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
-            in.close();
+        try {
+            URL website = new URL("https://raw.githubusercontent.com/Razer0901/BellSchedule/master/BellTimes.txt");
+            InputStream in = website.openStream();
+            if (!(in == null)) {
+                Files.copy(in, Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
+                in.close();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
 
 //        try (InputStream in = website.openStream()) {
 //            Files.copy(in, Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
