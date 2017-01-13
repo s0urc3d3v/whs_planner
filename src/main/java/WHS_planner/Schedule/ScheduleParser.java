@@ -68,14 +68,14 @@ public class ScheduleParser
             schedule[i] = new ScheduleBlock(holder[0],holder[1],holder[2],holder[3]);
         }
 
-        File schedf = new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"Schedule"+File.separator+"json"+File.separator+"Schedule.json");
+        File schedf = new File("Documents"+File.separator+"Schedule.json");
 
         if(!schedf.exists())
         {
             schedf.createNewFile();
         }
 
-        IO io = new IO("src"+File.separator+"main"+File.separator+"resources"+File.separator+"Schedule"+File.separator+"json"+File.separator+"Schedule.json");
+        IO io = new IO("Documents"+File.separator+"Schedule.json");
         io.writeScheduleArray(schedule);
         io.unload();
 

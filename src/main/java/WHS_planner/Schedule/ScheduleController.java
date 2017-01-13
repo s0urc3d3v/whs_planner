@@ -100,14 +100,14 @@ public class ScheduleController implements Initializable
                     Thread t = new Thread(() -> {
                         BufferedReader br;
                         try {
-                            File f = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Schedule" + File.separator + "json" + File.separator + "DayArray.json");
+                            File f = new File("Documents" + File.separator + "DayArray.json");
 
                             if (!f.exists())
                             {
                                 f.createNewFile();
                             }
 
-                            br = new BufferedReader(new FileReader("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Schedule" + File.separator + "json" + File.separator + "DayArray.json"));
+                            br = new BufferedReader(new FileReader("Documents" + File.separator + "DayArray.json"));
 
                             if (br.readLine() == null)
                             {
@@ -259,7 +259,7 @@ public class ScheduleController implements Initializable
     public void updateSchedule() throws Exception
     {
 
-        File schedule = new File("src"+File.separator+"main"+File.separator+"resources"+File.separator+"Schedule"+File.separator+"json"+File.separator+"Schedule.json");
+        File schedule = new File("Documents"+File.separator+"Schedule.json");
 
         if(schedule.exists())
         {

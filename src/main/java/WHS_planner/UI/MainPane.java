@@ -175,13 +175,15 @@ public class MainPane extends StackPane {
                         "Tyler Brient - UI Master, Bug Squasher",
                         "George Jiang - UX, News, Bug Finder",
                         "Andrew Eggleston - Yelled at Tyler",
-                        "Geoffrey Wang - UI Master, Calendar",
+                        "Geoffrey Wang - UI Master, Calendar, Project Carry :)",
                         "Matthew Elbing - Backend, Project Lead",
                         "Jack Bachman - Backend, Github",
                         "John Broderick - Bug Human, Schedule",
-                        "Will Robinson - HTML, Piano Tiles",
+                        "Will Robison - HTML, Piano Tiles",
                         "Tzur Almog - Calendar",
-                        "Alex Bell - News"
+                        "Alex Bell - News",
+                        " ",
+                        "Look for the Easter Egg!"
                 };
                 for (String name : names) {
                     info.getChildren().add(new Label(name));
@@ -197,8 +199,7 @@ public class MainPane extends StackPane {
             button5.getChildren().addAll(bell2Check, bell2Label);
             button5.setPrefSize(200, 50);
             button5.setAlignment(Pos.CENTER_LEFT);
-//            bell2Check.setPadding(new Insets(0, 0, 0, -10)); //top right bottom left
-//            bell2Label.setPadding(new Insets(0,0,0,-10));
+//            button5.setPadding(new Insets(15, 0, 10, 20)); //top right bottom left
             bell2Check.setTranslateX(10);
             bell2Label.setTranslateX(10);
             bell2Check.setAlignment(Pos.CENTER_LEFT);
@@ -214,6 +215,7 @@ public class MainPane extends StackPane {
             button2.setCursor(Cursor.HAND);
             button3.setCursor(Cursor.HAND);
             button4.setCursor(Cursor.HAND);
+            button5.setCursor(Cursor.HAND);
             button0.getStyleClass().setAll("list-button");
             button1.getStyleClass().setAll("list-button");
             button2.getStyleClass().setAll("list-button");
@@ -398,7 +400,7 @@ public class MainPane extends StackPane {
         }
 
         ArrayList<String> bellTimesFile = new ArrayList<>();
-        try (Stream<String> stream = Files.lines(Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"))) {
+        try (Stream<String> stream = Files.lines(Paths.get("Documents" + File.separator + "BellTimes.txt"))) {
             stream.forEachOrdered(line -> bellTimesFile.add(line));
         }catch (Exception e){
             e.printStackTrace();
