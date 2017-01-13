@@ -18,8 +18,11 @@ import javafx.scene.layout.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.stream.Stream;
 
 
 public class MainPane extends StackPane {
@@ -342,12 +345,13 @@ public class MainPane extends StackPane {
     public Pane getBellSchedulePane(){
         Calendar now = Calendar.getInstance();
         //Testing
-//        now.set(Calendar.DATE, 11);
+//        now.set(Calendar.DATE, 15);
 //        now.set(Calendar.MONTH, 0);
 //        now.set(Calendar.YEAR, 2017);
 
         String[] times;
         String[] blocks;
+
         if(now.get(Calendar.DAY_OF_WEEK)==Calendar.WEDNESDAY){
             times = new String[]{"7:30-8:10","8:15-8:55","9:05-9:30","9:35-10:15", "10:20-10:50","10:42-11:12","11:05-11:35","11:40-12:20","12:25-1:05"};
             blocks = new String[]{"Block 1: ","Block 2: ","Advisory: ","Block 3: ","1st Lunch: ","2nd Lunch: ","3rd Lunch: ","Block 5: ","Block 6: "};
@@ -356,6 +360,33 @@ public class MainPane extends StackPane {
             times = new String[]{"7:30-8:26","8:31-9:28","9:38-10:35","10:40-11:10","11:10-11:40","11:41-12:11","12:16-1:13","1:18-2:15"};
             blocks = new String[]{"Block 1: ","Block 2: ","Block 3: ","1st Lunch: ","2nd Lunch: ","3rd Lunch: ","Block 5: ","Block 6: "};
         }
+
+        ArrayList<String> bellTimesFile = new ArrayList<>();
+        try (Stream<String> stream = Files.lines(Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"))) {
+            stream.forEachOrdered(line -> bellTimesFile.add(line));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            if(bellTimesFile.size()>5) {
+                if (now.get(Calendar.MONTH) == Integer.parseInt(bellTimesFile.get(0)) - 1 && now.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(bellTimesFile.get(1)) && now.get(Calendar.YEAR) == Integer.parseInt(bellTimesFile.get(2))) {
+                    int numberOfRows = Integer.parseInt(bellTimesFile.get(3));
+                    blocks = new String[numberOfRows];
+                    times = new String[numberOfRows];
+                    for (int i = 0; i < numberOfRows; i++) {
+                        blocks[i] = bellTimesFile.get(i + 4);
+                    }
+                    for (int i = 0; i < numberOfRows; i++) {
+                        times[i] = bellTimesFile.get(i + 4 + numberOfRows);
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
 
         GridPane returnPane = new GridPane();
         for (int i = 0; i < times.length; i++) {
