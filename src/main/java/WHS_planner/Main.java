@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.io.*;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Random;
 
 public class
@@ -68,6 +72,23 @@ Main extends Application {
                e.printStackTrace();
            }
        }
+
+        File saveFile = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt");
+        if(!saveFile.exists()){
+            try {
+                saveFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        URL website = new URL("https://raw.githubusercontent.com/Razer0901/BellSchedule/master/BellTimes.txt");
+        try (InputStream in = website.openStream()) {
+            Files.copy(in, Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         try {
             launch(args);
         }
