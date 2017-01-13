@@ -183,7 +183,10 @@ public class MainPane extends StackPane {
             button5.getChildren().addAll(bell2Check, bell2Label);
             button5.setPrefSize(200, 50);
             button5.setAlignment(Pos.CENTER_LEFT);
-            bell2Check.setPadding(new Insets(15, 0, 10, 20)); //top right bottom left
+//            bell2Check.setPadding(new Insets(0, 0, 0, -10)); //top right bottom left
+//            bell2Label.setPadding(new Insets(0,0,0,-10));
+            bell2Check.setTranslateX(10);
+            bell2Label.setTranslateX(10);
             bell2Check.setAlignment(Pos.CENTER_LEFT);
 
 //            info.getChildren().add(button0);

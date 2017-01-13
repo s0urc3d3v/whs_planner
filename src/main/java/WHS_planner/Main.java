@@ -6,10 +6,7 @@ package WHS_planner;
 import WHS_planner.Calendar.CalendarBox;
 import WHS_planner.UI.MainPane;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -81,11 +78,16 @@ Main extends Application {
         }
 
         URL website = new URL("https://raw.githubusercontent.com/Razer0901/BellSchedule/master/BellTimes.txt");
-        try (InputStream in = website.openStream()) {
+        InputStream in = website.openStream();
+        if (!(in == null)) {
             Files.copy(in, Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
-        }catch (Exception e){
-            e.printStackTrace();
         }
+
+//        try (InputStream in = website.openStream()) {
+//            Files.copy(in, Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
 
         try {
             launch(args);
