@@ -169,9 +169,20 @@ public class MainPane extends StackPane {
                 info.getChildren().add(new Label("Created in HACS under the guidance of Mr.Hopps!\n "));
 
                 info.getChildren().add(versionLabel);
-                info.getChildren().add(new Label("Dev Alpha 1/12/17\n "));
+                info.getChildren().add(new Label("Dev Alpha 1/13/17\n "));
                 info.getChildren().add(peopleLabel);
-                String[] names = new String[]{"Tyler Brient - UI Master, Bug Squasher", "George Jiang - UX, News", "Andrew Eggleston - Yelled at Tyler", "Geoffrey Wang - UI Master, Calendar", "Matthew Elbing - Backend", "Jack Bachman - Backend", "John Broderick - Bug Human, Schedule", "Will Robinson - HTML, Piano Tiles", "Tzur Almog - Calendar", "Alex Bell - News"};
+                String[] names = new String[]{
+                        "Tyler Brient - UI Master, Bug Squasher",
+                        "George Jiang - UX, News, Bug Finder",
+                        "Andrew Eggleston - Yelled at Tyler",
+                        "Geoffrey Wang - UI Master, Calendar",
+                        "Matthew Elbing - Backend, Project Lead",
+                        "Jack Bachman - Backend, Github",
+                        "John Broderick - Bug Human, Schedule",
+                        "Will Robinson - HTML, Piano Tiles",
+                        "Tzur Almog - Calendar",
+                        "Alex Bell - News"
+                };
                 for (String name : names) {
                     info.getChildren().add(new Label(name));
                 }
