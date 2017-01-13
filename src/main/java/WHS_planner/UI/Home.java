@@ -122,8 +122,10 @@ class Home extends Pane {
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
             if (num >= 450 && num < 495) {
                 mod = (495 - num) / 45.0;
-            } else if (num >= 495 && num < 575) {
-                mod = (575 - num) / 80.0;
+            } else if (num >= 495 && num < 535) {
+                mod = (575 - num) / 40.0;
+            } else if (num >= 535 && num <= 620) {
+                mod = (620 - num) / 40.0;
             } else if (num >= 575 && num < 620) {
                 mod = (620 - num) / 45.0;
             } else if (num >= 620 && num < 700) {
@@ -138,25 +140,25 @@ class Home extends Pane {
         }
         //Bell2
         else if (checkBox.isSelected()) {
-            if (num >= 450 && num < 495) {
-                mod = (495 - num) / 45.0;
-            } else if (num >= 495 && num < 575) {
-                mod = (575 - num) / 80.0;
-            } else if (num >= 575 && num < 620) {
-                mod = (620 - num) / 45.0;
-            } else if (num >= 620 && num < 700) {
-                mod = (700 - num) / 80.0;
-            } else if (num >= 700 && num < 745) {
-                mod = (745 - num) / 45.0;
-            } else if (num >= 745 && num <= 785) {
-                mod = (785 - num) / 40.0;
+            if (num >= 450 && num < 501) {
+                mod = (501 - num) / 56;
+            } else if (num >= 501 && num < 558) {
+                mod = (558 - num) / 62;
+            } else if (num >= 558 && num < 593) {
+                //Class meeting
+                mod = (593 - num) / 30;
+            } else if (num >= 593 && num < 650) {
+                mod = (650 - num) / 57;
+            } else if (num >= 650 && num < 741) {
+                mod = (741 - num) / 91;
+            } else if (num >= 741 && num <= 798) {
+                mod = (798 - num) / 57;
+            } else if (num >= 798 && num <= 855) {
+                mod = (855 - num) / 57;
             } else {
                 mod = 1;
             }
 
-            String[] bells = {"7:30", "8:26", "9:58", "10:55", "12:26", "1:23", "0:00"};
-            String[] belle = {"8:21", "9:18", "10:50", "12:21", "1:18", "2:15", "0:00"};
-            System.out.println("CHECKBOX SELECTED");
             return 1;
         }
         //other days
@@ -189,8 +191,10 @@ class Home extends Pane {
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
             if (num >= 450 && num < 495) {
                 mod = (495 - num);
-            } else if (num >= 495 && num < 575) {
+            } else if (num >= 495 && num < 535) {
                 mod = (575 - num);
+            } else if (num >= 535 && num <= 620) {
+                mod = (620 - num);
             } else if (num >= 575 && num < 620) {
                 mod = (620 - num);
             } else if (num >= 620 && num < 700) {
@@ -200,8 +204,29 @@ class Home extends Pane {
             } else if (num >= 745 && num <= 785) {
                 mod = (785 - num);
             } else {
-                mod = 0;
+                mod = 1;
             }
+        } else if (checkBox.isSelected()) {
+            if (num >= 450 && num < 501) {
+                mod = (501 - num);
+            } else if (num >= 501 && num < 558) {
+                mod = (558 - num);
+            } else if (num >= 558 && num < 593) {
+                //Class meeting
+                mod = (593 - num);
+            } else if (num >= 593 && num < 650) {
+                mod = (650 - num);
+            } else if (num >= 650 && num < 741) {
+                mod = (741 - num);
+            } else if (num >= 741 && num <= 798) {
+                mod = (798 - num);
+            } else if (num >= 798 && num <= 855) {
+                mod = (855 - num);
+            } else {
+                mod = 1;
+            }
+
+            return 1;
         } else {
             if (num >= 450 && num < 512) {
                 mod = (512 - num);
