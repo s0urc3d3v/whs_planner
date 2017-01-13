@@ -105,6 +105,7 @@ public class GrabDay
             String params = grabber.getForm(page, user, pass);
             grabber.send(url, params);
 
+            //String output = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samstuschedprint.html?token=895990");
             String output = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?dt=11031642682");
             parseHtml(output, scheduleFileName);
 
