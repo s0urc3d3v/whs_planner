@@ -28,6 +28,18 @@ public class ReadScheduleTest extends TestCase{
     }
 
 
-    public void schedule()
+    public void testschedule() throws Exception
+    {
+        GrabDay gd = new GrabDay("john_broderick", "wps401175");
+
+
+
+        gd.grabSchedule("test.html");
+
+
+        gd.setQuarter("", "", 3);
+
+
+    }
 
 }
