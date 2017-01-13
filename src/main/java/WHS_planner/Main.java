@@ -81,6 +81,7 @@ Main extends Application {
         InputStream in = website.openStream();
         if (!(in == null)) {
             Files.copy(in, Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
+            in.close();
         }
 
 //        try (InputStream in = website.openStream()) {
