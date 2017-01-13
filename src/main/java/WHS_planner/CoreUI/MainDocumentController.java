@@ -3,6 +3,7 @@ package WHS_planner.CoreUI;
 import WHS_planner.Calendar.Calendar;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -69,7 +70,7 @@ public class MainDocumentController implements Initializable {
 //        cal = new Calendar(0);
         cal.setPrefHeight(anchorPane.getPrefHeight());
         cal.prefWidthProperty().bind(anchorPane.widthProperty());
-        schedule = new Schedule();
+        schedule = new Schedule(new JFXCheckBox());
         BorderPane schedulePane = (BorderPane) schedule.getPane();
 
 
