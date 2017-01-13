@@ -3,10 +3,6 @@ package WHS_planner.CoreUI;
 
 import javafx.scene.control.Alert;
 
-
-/**
- * Created by andrew_eggleston on 9/16/16.
- */
 public class ErrorPage{
 
     private static void infoBox(String infoMessage, String titleBar)
