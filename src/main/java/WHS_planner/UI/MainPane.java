@@ -8,6 +8,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -108,6 +109,7 @@ public class MainPane extends StackPane {
 
          */
         bigButton.setText("\uf142");
+        bigButton.setCursor(Cursor.HAND);
         bigButton.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 28px; -fx-text-fill: #FFFFFF;");
         Pane parent = (Pane)(bigButton.getParent());
         bigButton.prefHeightProperty().bind(parent.heightProperty());
@@ -177,6 +179,7 @@ public class MainPane extends StackPane {
             });
 
             HBox button5 = new HBox();
+            bell2Check.setCursor(Cursor.HAND);
 //            JFXCheckBox bell2Check = new JFXCheckBox();
             Label bell2Label = new Label();
             bell2Label.setText("Bell 2");
@@ -195,6 +198,11 @@ public class MainPane extends StackPane {
 
             info.setAlignment(Pos.TOP_LEFT);
             info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
+            button0.setCursor(Cursor.HAND);
+            button1.setCursor(Cursor.HAND);
+            button2.setCursor(Cursor.HAND);
+            button3.setCursor(Cursor.HAND);
+            button4.setCursor(Cursor.HAND);
             button0.getStyleClass().setAll("list-button");
             button1.getStyleClass().setAll("list-button");
             button2.getStyleClass().setAll("list-button");
