@@ -1,17 +1,22 @@
 package WHS_planner.Schedule;
 
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.*;
+import com.gargoylesoftware.htmlunit.util.Cookie;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.print.Doc;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
+
 
 public class GrabDay
 {
@@ -46,6 +51,7 @@ public class GrabDay
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 
+
         Grabber grab = new Grabber();
 
         String page = grab.getPageContent(url);
@@ -67,6 +73,8 @@ public class GrabDay
         CookieHandler.setDefault(new CookieManager());
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+
+       // cookieManager.getCookieStore().add();
 
         Grabber grabber = new Grabber();
 
@@ -94,23 +102,20 @@ public class GrabDay
     {
         Grabber grabber = new Grabber();
 
-        String url = "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html";
-
-        CookieHandler.setDefault(new CookieManager());
-        CookieManager cookieManager = new CookieManager();
-        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+//        String url = "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html";
+//
+//        CookieHandler.setDefault(new CookieManager());
+//        CookieManager cookieManager = new CookieManager();
+//        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 
         try
         {
-            String page = grabber.getPageContent(url);
-            String params = grabber.getForm(page, user, pass);
-            grabber.send(url, params);
+//            String page = grabber.getPageContent(url);
+//            String params = grabber.getForm(page, user, pass);
+//            grabber.send(url, params);
 
-            String output = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samstuschedprint.html?token=895990");
-            //String output = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?dt=11031642682");
-            parseHtml(output, scheduleFileName);
-
-            connection.disconnect();
+            setQuarter(user, pass);
+            //connection.disconnect();
         }
         catch(Exception e)
         {
@@ -232,30 +237,52 @@ public class GrabDay
         return f;
     }
 
-    public void setQuarter( String user, String pass, int n) throws Exception
+    public void setQuarter( String user, String pass) throws Exception
     {
-        Grabber g = new Grabber();
 
-        String html = g.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html");
+        WebClient client = new WebClient();
 
-        Document doc = Jsoup.parse(html);
+        client.getOptions().setJavaScriptEnabled(true);
 
-        Element quarter = doc.getElementById("term");
+        client.getCookieManager().setCookiesEnabled(true);
 
-        String rough = quarter.toString();
+        HtmlPage login = client.getPage("https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html");
+        HtmlForm form = login.getFormByName("login");
+        HtmlTextInput txt = form.getInputByName("userid");
+        HtmlPasswordInput passfield = form.getInputByName("password");
+        HtmlAnchor anchor = login.getAnchorByHref("javascript:document.login.submit();");
+        txt.setValueAttribute(user);
+        passfield.setValueAttribute(pass);
 
-        String fix = rough.replace("selected", "");
+        HtmlPage page2 = anchor.click();
 
-        fix = fix.replace("<option value=\"159\">", "<option value=\"159\" selected>");
+        HtmlPage page = client.getPage("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html");
 
-        System.out.println(rough);
+        List<HtmlAnchor> anchors = page.getAnchors();
 
-        html = html.replace(rough, fix);
+        HtmlAnchor anchor2 = null;
 
+        for (int i = 0; i < anchors.size(); i++)
+        {
+            anchor2 = anchors.get(1);
+        }
 
-        String s = g.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html");
-        System.out.println(s);
+        HtmlPage sched = anchor2.click();
 
+       // String res;
+
+        //res = sched.getUrl().toString();
+
+        //HtmlPage fin = client.getPage(res);
+
+        File f = new File("output.html");
+        sched.save(f);
+
+        //String s = fin.getWebResponse().getContentAsString();
+
+        //parseHtml(s, "output.html");
+
+        client.close();
     }
 
     private class Grabber

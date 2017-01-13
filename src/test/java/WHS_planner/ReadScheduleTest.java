@@ -2,6 +2,7 @@ package WHS_planner;
 
 import WHS_planner.Schedule.GrabDay;
 import junit.framework.TestCase;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.util.Calendar;
 
@@ -34,12 +35,17 @@ public class ReadScheduleTest extends TestCase{
 
 
 
-        gd.grabSchedule("test.html");
+        //gd.grabSchedule("test.html");
 
 
-        gd.setQuarter("", "", 3);
+        gd.grabSchedule("output.html");
 
 
+    }
+
+    public void testhttp()
+    {
+        System.out.println(HttpClientBuilder.class.getProtectionDomain().getCodeSource().getLocation());
     }
 
 }
