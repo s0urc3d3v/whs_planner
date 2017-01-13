@@ -3,10 +3,7 @@ package WHS_planner.UI;
 import WHS_planner.Calendar.CalendarYear;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -32,15 +29,13 @@ public class MainPane extends StackPane {
     private final int CALENDAR = 2;
     private final int NEWS = 3;
     private final int MEETING = 4;
-
+    public JFXCheckBox bell2Check = new JFXCheckBox();
     private Pane navBar;
     private Pane content;
     private ArrayList<Pane> contentPanes;
     private JFXDrawer drawer;
-
     private VBox mainPane;
     private VBox cardView = new NewsUI().getCardView();
-
     private Schedule schedule;
     private CalendarYear calendar;
 
@@ -101,6 +96,10 @@ public class MainPane extends StackPane {
         return vBox;
     }
 
+    public JFXCheckBox getCheck() {
+        return bell2Check;
+    }
+
     private void initiateDropDown(Button bigButton) {
 
         /*
@@ -118,6 +117,7 @@ public class MainPane extends StackPane {
             JFXButton button0 = new JFXButton();
             button0.setText("      Show Bell Schedule");
             button0.setOnMouseClicked(event1 -> {
+                info.setMinSize(0, 0);
                 info.getChildren().clear();
                 info.getChildren().add(getBellSchedulePane());
             });
@@ -175,11 +175,21 @@ public class MainPane extends StackPane {
                 }
                 info.setPadding(new Insets(10));
             });
-            info.getChildren().add(button0);
-            info.getChildren().add(button1);
-            info.getChildren().add(button2);
-            info.getChildren().add(button3);
-            info.getChildren().add(button4);
+
+            HBox button5 = new HBox();
+//            JFXCheckBox bell2Check = new JFXCheckBox();
+            Label bell2Label = new Label();
+            bell2Label.setText("Bell 2");
+            button5.getChildren().addAll(bell2Check, bell2Label);
+            button5.setPrefSize(200, 50);
+            button5.setAlignment(Pos.CENTER_LEFT);
+            button5.setPadding(new Insets(15, 0, 10, 20)); //top right bottom left
+            bell2Check.setAlignment(Pos.CENTER_LEFT);
+
+//            info.getChildren().add(button0);
+
+            info.getChildren().addAll(button0, button1, button2, button3, button4, button5);
+
             info.setAlignment(Pos.TOP_LEFT);
             info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
             button0.getStyleClass().setAll("list-button");
@@ -187,8 +197,9 @@ public class MainPane extends StackPane {
             button2.getStyleClass().setAll("list-button");
             button3.getStyleClass().setAll("list-button");
             button4.getStyleClass().setAll("list-button");
+            button5.getStyleClass().setAll("label-button");
             info.setSpacing(0);
-//            info.setMinSize(200, 200);
+            info.setMinSize(200, 300);
             JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
             dialog.show();
 
@@ -254,7 +265,7 @@ public class MainPane extends StackPane {
     }
 
     private void generatePanes() {
-        schedule = new Schedule();
+        schedule = new Schedule(bell2Check);
         calendar = new CalendarYear();
 //        calendar = new Calendar("January");
         NewsUI news = null;
@@ -265,7 +276,7 @@ public class MainPane extends StackPane {
         }
         //Pane meeting = new MeetingPane();
 //        Home homePane = new Home(calendar, news.getCardView(), schedule.getProgressBar());
-        Home homePane = new Home(calendar, news.getCardView());
+        Home homePane = new Home(calendar, news.getCardView(), bell2Check);
         addPane(homePane);
         addPane((Pane) schedule.getPane());
         //addPane(meeting);
@@ -279,7 +290,7 @@ public class MainPane extends StackPane {
     public void resetSchedule() throws Exception
     {
         remPane((Pane)schedule.getPane());
-        schedule = new Schedule();
+        schedule = new Schedule(bell2Check);
         addPane((Pane) schedule.getPane(), 1);
         drawer.getContent().clear();
         drawer.setSidePane(contentPanes.get(1));

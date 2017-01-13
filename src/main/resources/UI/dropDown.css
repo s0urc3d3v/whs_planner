@@ -8,3 +8,11 @@
 
     /*text wrap*/
 }
+
+.label-button {
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto";
+
+    -fx-padding: 0;
+
+}
