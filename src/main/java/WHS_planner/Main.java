@@ -6,7 +6,10 @@ package WHS_planner;
 import WHS_planner.Calendar.CalendarBox;
 import WHS_planner.UI.MainPane;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -46,6 +49,12 @@ Main extends Application {
        {
            keys.mkdir();
        }
+        File documents = new File("Documents");
+
+        if(!documents.exists())
+        {
+            documents.mkdir();
+        }
 
        File encKey = new File("Keys" + File.separator + "xor.key");
        if (!encKey.exists()) {
@@ -70,7 +79,7 @@ Main extends Application {
            }
        }
 
-        File saveFile = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt");
+        File saveFile = new File("Documents" + File.separator + "BellTimes.txt");
         try {
             saveFile.createNewFile();
         } catch (IOException e) {
@@ -81,19 +90,12 @@ Main extends Application {
             URL website = new URL("https://raw.githubusercontent.com/Razer0901/BellSchedule/master/BellTimes.txt");
             InputStream in = website.openStream();
             if (!(in == null)) {
-                Files.copy(in, Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(in, Paths.get("Documents" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
                 in.close();
             }
-        }catch (Exception e){
+        }catch(Exception e){
             e.printStackTrace();
         }
-
-
-//        try (InputStream in = website.openStream()) {
-//            Files.copy(in, Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
 
         try {
             launch(args);

@@ -46,7 +46,7 @@ public class Calendar extends BorderPane {
 
     public Calendar(int month, JFXButton nextButton, JFXButton prevButton) {
 
-        File saveFile = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Calendar" + File.separator + month + "CalendarHolder.json");
+        File saveFile = new File("Documents" + File.separator + month + "CalendarHolder.json");
         if(!saveFile.exists()){
             try {
                 saveFile.createNewFile();
@@ -55,7 +55,7 @@ public class Calendar extends BorderPane {
             }
         }
 
-        io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Calendar" + File.separator + month + "CalendarHolder.json");
+        io = new IO("Documents" + File.separator + month + "CalendarHolder.json");
 
         json = io.getJsonApi();
         this.startDay = dayFinder.getWeekdayMonthStarts(month);

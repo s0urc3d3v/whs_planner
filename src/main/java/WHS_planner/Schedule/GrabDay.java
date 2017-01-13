@@ -6,7 +6,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.print.Doc;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -106,8 +105,7 @@ public class GrabDay
             String params = grabber.getForm(page, user, pass);
             grabber.send(url, params);
 
-            String output = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samstuschedprint.html?token=895990");
-            //String output = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?dt=11031642682");
+            String output = grabber.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html?dt=11031642682");
             parseHtml(output, scheduleFileName);
 
             connection.disconnect();
@@ -232,32 +230,6 @@ public class GrabDay
         return f;
     }
 
-    public void setQuarter( String user, String pass, int n) throws Exception
-    {
-        Grabber g = new Grabber();
-
-        String html = g.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html");
-
-        Document doc = Jsoup.parse(html);
-
-        Element quarter = doc.getElementById("term");
-
-        String rough = quarter.toString();
-
-        String fix = rough.replace("selected", "");
-
-        fix = fix.replace("<option value=\"159\">", "<option value=\"159\" selected>");
-
-        System.out.println(rough);
-
-        html = html.replace(rough, fix);
-
-
-        String s = g.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html");
-        System.out.println(s);
-
-    }
-
     private class Grabber
     {
         private Grabber()
@@ -306,8 +278,6 @@ public class GrabDay
             return response.toString();
         }
 
-
-
         private String getForm(String html, String user, String pass) throws Exception
         {
             System.out.println("Getting form data...");
@@ -353,7 +323,6 @@ public class GrabDay
             return buffer.toString();
         }
 
-
         private void send(String url, String params) throws Exception
         {
             System.out.println("Attempting to send data");
@@ -375,7 +344,6 @@ public class GrabDay
 
             DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
 
-            System.out.println(params);
             dos.writeBytes(params);
             dos.flush();
             dos.close();

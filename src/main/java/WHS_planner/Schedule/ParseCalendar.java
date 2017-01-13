@@ -30,7 +30,7 @@ public class ParseCalendar
 
     public void writeData()
     {
-        IO io = new IO("src"+File.separator+"main"+File.separator+"resources"+File.separator+"Schedule"+File.separator+"json"+File.separator+"DayArray.json");
+        IO io = new IO("Documents"+File.separator+"DayArray.json");
         io.writeArray("calendarData", classdays);
         //io.unload();
 
@@ -65,7 +65,7 @@ public class ParseCalendar
         tracker = new HashMap<String, Integer>();
         classdays = new String[365];
 
-        IO io = new IO("src"+File.separator+"main"+File.separator+"resources"+File.separator+"Schedule"+File.separator+"json"+File.separator+"DayArray.json");
+        IO io = new IO("Documents"+File.separator+"DayArray.json");
         Object[] objects = io.readArray("@calendarData");
         for (int i = 0; i < objects.length; i++)
         {

@@ -27,19 +27,4 @@ public class ReadScheduleTest extends TestCase{
         System.out.println(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
     }
 
-
-    public void testschedule() throws Exception
-    {
-        GrabDay gd = new GrabDay("john_broderick", "wps401175");
-
-
-
-        gd.grabSchedule("test.html");
-
-
-        gd.setQuarter("", "", 3);
-
-
-    }
-
 }
