@@ -33,7 +33,6 @@ public class Feed {
 
     }
 
-
     public List<FeedMessage> getMessages() {
         return entries;
     }
@@ -50,17 +49,15 @@ public class Feed {
         return description;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public String getCopyright() {
-        return copyright;
-    }
-
-    public String getPubDate() {
-        return pubDate;
-    }
+//    public String getLanguage() {
+//        return language;
+//    }
+//    public String getCopyright() {
+//        return copyright;
+//    }
+//    public String getPubDate() {
+//        return pubDate;
+//    }
 
 
     @Override

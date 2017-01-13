@@ -7,9 +7,7 @@
      -fx-font-family: 'FontAwesome Regular';
      -fx-font-size: 36px;
      -fx-padding: 10;
-
 }
-
 
 .icon-badge .badge-pane {
 	-fx-background-color: rgb(56, 118, 237);
@@ -20,7 +18,6 @@
 
 }
 
-
 .icon-badge .badge-pane Label{
 	-fx-font-size: 14.0px;
 	-fx-text-fill: #FFFFFF;
@@ -30,7 +27,6 @@
     -fx-background-color: #FFFFFF
 }
 
-
 .box-button-selected {
 	-fx-background-color:#BDBDBD;
 }
@@ -38,7 +34,6 @@
 .box-button-disabled {
     -fx-background-color: #f8f8f8
 }
-
 
 .weekday {
     -fx-font-family: "Roboto";
@@ -52,5 +47,25 @@
 
 .taskHBox {
     -fx-background-color:#FFFFFF;
+}
+
+.monthLabel {
+    -fx-font-size: 18pt;
+    -fx-font-family: "Roboto";
+}
+
+.monthButton {
+
+/* Circle Code
+     -fx-background-radius: 50em;
+     -fx-min-width: 20px;
+     -fx-min-height: 20px;
+     -fx-max-width: 20px;
+     -fx-max-height: 20px;
+*/
+     -fx-background-color: #BDBDBD;
+     -fx-text-fill: #FFFFFF;
+	 -fx-padding: 8 20 7 20;
+     -fx-font-family: 'FontAwesome Regular';
 }
 

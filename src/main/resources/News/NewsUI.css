@@ -48,3 +48,10 @@
     -fx-background-color: gray;
     -fx-background-radius: 0;
 }
+
+.news-card
+{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);
+    -fx-background-color: white;
+    -fx-padding: 10;
+}

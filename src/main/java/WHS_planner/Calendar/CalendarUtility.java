@@ -20,7 +20,7 @@ public class CalendarUtility {
         CalendarBox[][] calendar = new CalendarBox[6][7];
         ArrayList<ArrayList<Task>> listOfTasks = new ArrayList<>();
 
-        for (int dayIndex = 0; dayIndex < numberOfDays; dayIndex++) {
+        for (int dayIndex = 1; dayIndex <= numberOfDays; dayIndex++) {
             boolean finishedReadingTasks = false;
             ArrayList<Task> tasks = new ArrayList<>();
             int taskIndex = 0;
@@ -45,13 +45,13 @@ public class CalendarUtility {
                     col = startDay-1;
                 }
 
-                CalendarBox box = new CalendarBox(dayInMonth,row,true,listOfTasks.get(dayInMonth-1),month);
-                calendar[row][col] = box;
-                dayInMonth++;
-
                 if(dayInMonth > numberOfDays){
                     break;
                 }
+
+                CalendarBox box = new CalendarBox(dayInMonth,row,true,listOfTasks.get(dayInMonth-1),month);
+                calendar[row][col] = box;
+                dayInMonth++;
             }
             if(dayInMonth > numberOfDays){
                 break;

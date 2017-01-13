@@ -46,22 +46,6 @@ Main extends Application {
            keys.mkdir();
        }
 
-       File caldat = new File("src/main/resources/Calendar/calendarHolder.json");
-
-
-        try {
-            if(!caldat.exists())
-            {
-                caldat.createNewFile();
-            }
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-
-
-
        File encKey = new File("Keys" + File.separator + "xor.key");
        if (!encKey.exists()) {
            Random r = new Random();
@@ -106,15 +90,15 @@ Main extends Application {
 
         Scene scene = new Scene(mainPane); //Put the mainPane into a scene
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.Q)
-                {
-                    stop();
-                }
-            }
-        });
+//        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent event) {
+//                if(event.getCode() == KeyCode.Q)
+//                {
+//                    stop();
+//                }
+//            }
+//        });
 
 
         //Binds the size of the mainPane to be equal to the scene

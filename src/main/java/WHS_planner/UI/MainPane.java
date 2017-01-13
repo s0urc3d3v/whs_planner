@@ -8,21 +8,18 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class MainPane extends StackPane {
@@ -39,10 +36,12 @@ public class MainPane extends StackPane {
     private JFXDrawer drawer;
 
     private VBox mainPane;
-
+    private VBox cardView = new NewsUI().getCardView();
 
     private Schedule schedule;
     private CalendarYear calendar;
+
+    private Home homePane;
 
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
@@ -100,83 +99,104 @@ public class MainPane extends StackPane {
     }
 
     private void initiateDropDown(Button bigButton) {
+
+        /*
+
+           START Jesus code
+
+         */
+        bigButton.setText("\uf142");
+        bigButton.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 28px; -fx-text-fill: #FFFFFF;");
+        Pane parent = (Pane)(bigButton.getParent());
+        bigButton.prefHeightProperty().bind(parent.heightProperty());
         final StackPane backmanISGay = this;
-        bigButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                VBox info = new VBox();
-                JFXButton button1 = new JFXButton();
-                button1.setText("    Reset Schedule");
-                button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        try {
-                            schedule.getControl().updateSchedule();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                JFXButton button2 = new JFXButton();
-                button2.setText("    Logout");
-                button2.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        try {
-                            schedule.getControl().logout();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                JFXButton button3 = new JFXButton();
-                button3.setText("    Feedback");
-                button3.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        try {
-                            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/K5ieqVSterU8Jxmt1"});
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                JFXButton button4 = new JFXButton();
-                button4.setText("    About");
-                button4.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        Label version = new Label("Version: Dev Alpha");
-                        version.setWrapText(true);
-                        Label collab = new Label("Collaborators: Tyler Brient, George Jiang, Geoffrey Wang");
-                        collab.setWrapText(true);
-                        info.getChildren().clear();
-                        info.getChildren().add(version);
-                        info.getChildren().add(collab);
-                    }
-                });
-                info.getChildren().add(button1);
-                info.getChildren().add(button2);
-                info.getChildren().add(button3);
-                info.getChildren().add(button4);
-                info.setAlignment(Pos.TOP_LEFT);
-                info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
-                button1.getStyleClass().setAll("list-button");
-                button2.getStyleClass().setAll("list-button");
-                button3.getStyleClass().setAll("list-button");
-                button4.getStyleClass().setAll("list-button");
+        bigButton.setOnMouseClicked(event -> {
+            VBox info = new VBox();
+            JFXButton button0 = new JFXButton();
+            button0.setText("      Show Bell Schedule");
+            button0.setOnMouseClicked(event1 -> {
+                info.getChildren().clear();
+                info.getChildren().add(getBellSchedulePane());
+            });
 
-//                button1.setTextAlignment(TextAlignment.LEFT);
+//            JFXButton button0 = new JFXButton();
+//            button0.setText("      Delete Calendar Data");
+//            button0.setOnMouseClicked(event0 -> {
+//                System.out.println("delete calendar data pressed");
+//                calendar.deleteCalendarData();
+//            });
+            JFXButton button1 = new JFXButton();
+            button1.setText("      Reset Schedule");
+            button1.setOnMouseClicked(event1 -> {
+                try {
+                    schedule.getControl().updateSchedule();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            JFXButton button2 = new JFXButton();
+            button2.setText("      Logout of iPass");
+            button2.setOnMouseClicked(event12 -> {
+                try {
+                    schedule.getControl().logout();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            JFXButton button3 = new JFXButton();
+            button3.setText("      Send Feedback");
+            button3.setOnMouseClicked(event13 -> {
+                try {
+                    Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/K5ieqVSterU8Jxmt1"});
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            JFXButton button4 = new JFXButton();
+            button4.setText("      About");
+            button4.setOnMouseClicked(event14 -> {
+                info.getChildren().clear();
+                Label versionLabel = new Label("Version:");
+                versionLabel.setUnderline(true);
+                Label peopleLabel = new Label("Collaborators:");
+                peopleLabel.setUnderline(true);
 
+                info.getChildren().add(new Label("Created in HACS under the guidance of Mr.Hopps!\n "));
 
-//                info.getStyleClass().setAll("list-button");
-                info.setSpacing(0);
+                info.getChildren().add(versionLabel);
+                info.getChildren().add(new Label("Dev Alpha 1/12/17\n "));
+                info.getChildren().add(peopleLabel);
+                String[] names = new String[]{"Tyler Brient", "George Jiang", "Andrew Eggleston", "Geoffrey Wang", "Matthew Elbing", "Jack Bachman", "John Broderick", "Will Robinson", "Tzur Almog", "Alex Bell"};
+                for (String name : names) {
+                    info.getChildren().add(new Label(name));
+                }
+                info.setPadding(new Insets(10));
+            });
+            info.getChildren().add(button0);
+            info.getChildren().add(button1);
+            info.getChildren().add(button2);
+            info.getChildren().add(button3);
+            info.getChildren().add(button4);
+            info.setAlignment(Pos.TOP_LEFT);
+            info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
+            button0.getStyleClass().setAll("list-button");
+            button1.getStyleClass().setAll("list-button");
+            button2.getStyleClass().setAll("list-button");
+            button3.getStyleClass().setAll("list-button");
+            button4.getStyleClass().setAll("list-button");
+            info.setSpacing(0);
+//            info.setMinSize(200, 200);
+            JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
+            dialog.show();
 
-                info.setPrefSize(200, 200);
-                JFXDialog dialog = new JFXDialog(backmanISGay,info, JFXDialog.DialogTransition.CENTER, true);
-                dialog.show();
-            }
+            /*
+
+                 END Jesus code
+
+             */
         });
+
+
     }
 
     /**
@@ -317,5 +337,33 @@ public class MainPane extends StackPane {
 
     public void saveCalendar(){
         calendar.saveCalendar();
+    }
+
+    public Pane getBellSchedulePane(){
+        Calendar now = Calendar.getInstance();
+        //Testing
+//        now.set(Calendar.DATE, 11);
+//        now.set(Calendar.MONTH, 0);
+//        now.set(Calendar.YEAR, 2017);
+
+        String[] times;
+        String[] blocks;
+        if(now.get(Calendar.DAY_OF_WEEK)==Calendar.WEDNESDAY){
+            times = new String[]{"7:30-8:10","8:15-8:55","9:05-9:30","9:35-10:15", "10:20-10:50","10:42-11:12","11:05-11:35","11:40-12:20","12:25-1:05"};
+            blocks = new String[]{"Block 1: ","Block 2: ","Advisory: ","Block 3: ","1st Lunch: ","2nd Lunch: ","3rd Lunch: ","Block 5: ","Block 6: "};
+
+        }else{
+            times = new String[]{"7:30-8:26","8:31-9:28","9:38-10:35","10:40-11:10","11:10-11:40","11:41-12:11","12:16-1:13","1:18-2:15"};
+            blocks = new String[]{"Block 1: ","Block 2: ","Block 3: ","1st Lunch: ","2nd Lunch: ","3rd Lunch: ","Block 5: ","Block 6: "};
+        }
+
+        GridPane returnPane = new GridPane();
+        for (int i = 0; i < times.length; i++) {
+            returnPane.add(new Label(blocks[i]),0,i);
+            returnPane.add(new Label(times[i]),1,i);
+        }
+        returnPane.setHgap(10);
+        returnPane.setPadding(new Insets(10));
+        return returnPane;
     }
 }
