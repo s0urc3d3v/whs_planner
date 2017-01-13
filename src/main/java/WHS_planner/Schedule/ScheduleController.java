@@ -84,13 +84,18 @@ public class ScheduleController implements Initializable
                 user = XorTool.decode(user, Main.getXorKey());
                 pass = XorTool.decode(pass, Main.getXorKey());
                 bri.close();
-                if (/*pass == null || */user.equals("") || pass.equals(""))
+//                if (/*pass == null || */user.equals("") || pass.equals(""))
+//                {
+//                    //System.out.println("No ipass data found");
+//                    /*
+//                    if userEquals OR passEquals then dont
+//                    if not userEquals AND not passEquals then do
+//                     */
+//                }
+//                else
+                if (!user.equals("") && !pass.equals(""))
                 {
-                    //System.out.println("No ipass data found");
-                }
-                else
-                {
-                    Title3.setText("Calendar loading");
+                    Title3.setText("");
                     spinner.setVisible(true);
                     Thread t = new Thread(() -> {
                         BufferedReader br;
@@ -129,10 +134,7 @@ public class ScheduleController implements Initializable
                 //System.out.println("Error in ScheduleController\n data couldn't be found in ipass.key");
             }
         }
-        else
-        {
-            //System.out.println("No ipass file, try logging in");
-        }
+
     }
 
 
@@ -248,15 +250,10 @@ public class ScheduleController implements Initializable
 
     public void logout() throws Exception {
         File ipassFile = new File("Keys" + File.separator + "ipass.key");
-        File schedule = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Schedule" + File.separator + "json" + File.separator + "Schedule.json");
         if (ipassFile.exists()) {
             ipassFile.delete();
         }
-        if (schedule.exists()) {
-            schedule.delete();
-        }
-        MainPane mp = (MainPane) Main.getMainPane();
-        mp.resetSchedule();
+        updateSchedule();
     }
 
     public void updateSchedule() throws Exception

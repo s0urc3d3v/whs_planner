@@ -36,10 +36,12 @@ public class MainPane extends StackPane {
     private JFXDrawer drawer;
 
     private VBox mainPane;
-
+    private VBox cardView = new NewsUI().getCardView();
 
     private Schedule schedule;
     private CalendarYear calendar;
+
+    private Home homePane;
 
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
@@ -116,6 +118,13 @@ public class MainPane extends StackPane {
                 info.getChildren().clear();
                 info.getChildren().add(getBellSchedulePane());
             });
+
+//            JFXButton button0 = new JFXButton();
+//            button0.setText("      Delete Calendar Data");
+//            button0.setOnMouseClicked(event0 -> {
+//                System.out.println("delete calendar data pressed");
+//                calendar.deleteCalendarData();
+//            });
             JFXButton button1 = new JFXButton();
             button1.setText("      Reset Schedule");
             button1.setOnMouseClicked(event1 -> {
@@ -126,7 +135,7 @@ public class MainPane extends StackPane {
                 }
             });
             JFXButton button2 = new JFXButton();
-            button2.setText("      Logout");
+            button2.setText("      Logout of iPass");
             button2.setOnMouseClicked(event12 -> {
                 try {
                     schedule.getControl().logout();
@@ -328,33 +337,5 @@ public class MainPane extends StackPane {
 
     public void saveCalendar(){
         calendar.saveCalendar();
-    }
-
-    public Pane getBellSchedulePane(){
-        Calendar now = Calendar.getInstance();
-        //Testing
-//        now.set(Calendar.DATE, 11);
-//        now.set(Calendar.MONTH, 0);
-//        now.set(Calendar.YEAR, 2017);
-
-        String[] times;
-        String[] blocks;
-        if(now.get(Calendar.DAY_OF_WEEK)==Calendar.WEDNESDAY){
-            times = new String[]{"7:30-8:10","8:15-8:55","9:05-9:30","9:35-10:15", "10:20-10:50","10:42-11:12","11:05-11:35","11:40-12:20","12:25-1:05"};
-            blocks = new String[]{"Block 1: ","Block 2: ","Advisory: ","Block 3: ","1st Lunch: ","2nd Lunch: ","3rd Lunch: ","Block 5: ","Block 6: "};
-
-        }else{
-            times = new String[]{"7:30-8:26","8:31-9:28","9:38-10:35","10:40-11:10","11:10-11:40","11:41-12:11","12:16-1:13","1:18-2:15"};
-            blocks = new String[]{"Block 1: ","Block 2: ","Block 3: ","1st Lunch: ","2nd Lunch: ","3rd Lunch: ","Block 5: ","Block 6: "};
-        }
-
-        GridPane returnPane = new GridPane();
-        for (int i = 0; i < times.length; i++) {
-            returnPane.add(new Label(blocks[i]),0,i);
-            returnPane.add(new Label(times[i]),1,i);
-        }
-        returnPane.setHgap(10);
-        returnPane.setPadding(new Insets(10));
-        return returnPane;
     }
 }

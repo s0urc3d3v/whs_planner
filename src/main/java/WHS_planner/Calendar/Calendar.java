@@ -36,13 +36,12 @@ public class Calendar extends BorderPane {
     private AutoSave autoSave;
 //Tzurs code
     private CalendarHelper dayFinder = new CalendarHelper();
-
     private IO io;
     private JSON json;
-    // end tzurs code
+    //End Tzurs code
     private VBox mainPane;
     private int currentTextBoxRow = -1;
-    // MARK: day in foucus
+    // MARK: day in focus
     private int currentDate = -1;
 
     public Calendar(int month, JFXButton nextButton, JFXButton prevButton) {
@@ -56,7 +55,6 @@ public class Calendar extends BorderPane {
             }
         }
 
-
         io = new IO("src" + File.separator + "main" + File.separator + "resources" + File.separator + "Calendar" + File.separator + month + "CalendarHolder.json");
 
         json = io.getJsonApi();
@@ -69,13 +67,11 @@ public class Calendar extends BorderPane {
         InputStream font = Main.class.getResourceAsStream("/FontAwesome/fontawesome.ttf");
         Font.loadFont(font,10);
 
-
         mainPane = new VBox();
         mainPane.setId("vbox");//Replace this ID
         mainPane.setPadding(new Insets(5,5,5,5));
         ArrayList<Node> rows = new ArrayList<>();
         mainPane.setAlignment(Pos.CENTER);
-
 
         //Top Row
         BorderPane topRow = new BorderPane();

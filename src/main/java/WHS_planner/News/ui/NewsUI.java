@@ -7,7 +7,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -21,7 +20,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewsUI extends Pane {
@@ -29,48 +27,22 @@ public class NewsUI extends Pane {
     private static final double BOX_WIDTH = 250;
     private static final double IMAGE_WIDTH = 200;
     private static final double IMAGE_HEIGHT = 200;
-    private static final double BOX_HEIGHT = 300;
+
     private RSSFeedParser parser = new RSSFeedParser("https://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
-    //List of articles to add to display
     private List<FeedMessage> feedArray = feed.getMessages();
-    //List of articles CURRENTLY ON DISPLAY
-    private List<FeedMessage> onScreenMessages = new ArrayList<>();
-    private URL url;
-
-    private ScrollPane mainPane = new ScrollPane();
-    //    private JFXMasonryPane masonryPane = new JFXMasonryPane();
     private VBox cardView = new VBox();
 
     public NewsUI() {
-        mainPane.setContent(cardView);
-        mainPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        mainPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        mainPane.setFitToWidth(true);
-        mainPane.setStyle("-fx-background-color: #FFFFFF;");
-        mainPane.getStyleClass().setAll("scroll-bar");
 
-
+        cardView.getStylesheets().add("News" + File.separator + "NewsUI.css");
 
         //Checks if feed sends back a connection error. If it doesn't, initialize cards as normal.
         if (feed.getTitle().equals("badNet")) {
-            addCard(new Label("Error with Connection!"), new Hyperlink("https://www.google.com/"));
+            addCard(new Label("Error with Connection!"), new Hyperlink("https://www.google.com/"), null);
         } else {
             init();
         }
-//        masonryPane.setHSpacing(10);
-//        masonryPane.setVSpacing(10);
-
-
-//        masonryPane.setCellHeight(BOX_HEIGHT + 30);
-//        masonryPane.setCellWidth(BOX_WIDTH);
-//        masonryPane.prefHeightProperty().bind(mainPane.heightProperty());
-
-        this.getChildren().setAll(mainPane);
-        mainPane.prefWidthProperty().bind(this.widthProperty());
-        mainPane.prefHeightProperty().bind(this.heightProperty());
-        mainPane.getStylesheets().add("News" + File.separator + "NewsUI.css");
-
     }
 
     private void openLink(int index) {
@@ -81,14 +53,13 @@ public class NewsUI extends Pane {
         }
     }
 
-
     private void init() {
         cardView.getChildren().clear();
 
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
 
-            //Add Hyperlink
+            //Add Title (Hyperlink)
             final int eye = i;
             Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
             hpl.setOnAction((event) -> openLink(eye));
@@ -97,27 +68,25 @@ public class NewsUI extends Pane {
             hpl.setPadding(new Insets(0, 0, 0, 4));
             hpl.getStyleClass().add("roboto");
 
-            //Add label
+            //Add Description (Label)
             Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
             description.setWrapText(true);
             description.setMaxWidth(BOX_WIDTH);
             description.setPadding(new Insets(0, 0, 0, 6));
             description.getStyleClass().add("roboto");
 
-
             //Add Image
             try {
                 String urlString = scanDescription(feedArray.get(i).getDescription());
                 if (urlString != null) {
-                    url = new URL(urlString);
+                    URL url = new URL(urlString);
                     BufferedImage bf;
                     try {
                         bf = ImageIO.read(url);
                     } catch (Exception ex) {
-                        addCard(description, hpl);
+                        addCard(description, hpl, null);
                         continue;
                     }
-
                     WritableImage wr = convertImg(bf);
                     ImageView img = new ImageView(wr);
                     if (wr.getHeight() < wr.getWidth()) {
@@ -129,24 +98,16 @@ public class NewsUI extends Pane {
                     }
                     img.setImage(wr);
 
-                    //Add article to list
+                    //Add article to list WITH image
                     addCard(description, hpl, img);
-
                 } else {
-
-                    addCard(description, hpl);
+                    //Add article to list WITHOUT image
+                    addCard(description, hpl, null);
                 }
-
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-            onScreenMessages.add(feedArray.get(i));
-
         }
-    }
-
-    private void addCard(Label description, Hyperlink hyperlink) {
-        addCard(description, hyperlink, null);
     }
 
     private void addCard(Label description, Hyperlink hyperlink, ImageView image) {
@@ -158,13 +119,10 @@ public class NewsUI extends Pane {
         }
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setPrefWidth(BOX_WIDTH);
-//        vBox.setPrefHeight();
-        vBox.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);" + "-fx-background-color: white;" + "-fx-padding: 10;");
-        cardView.getChildren().add(vBox);
+        vBox.getStyleClass().setAll("news-card");
         VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
 
-//        masonryPane.getChildren().add(vBox);
-
+        cardView.getChildren().add(vBox);
     }
 
     private WritableImage convertImg(BufferedImage bf) {
@@ -188,7 +146,6 @@ public class NewsUI extends Pane {
     private String scanDescription(String content) {
         String link;
         if (content.contains("src")) {
-
             content = content.substring(content.indexOf("src=") + 5, content.length());
             link = content.substring(0, content.indexOf("\""));
             return link;

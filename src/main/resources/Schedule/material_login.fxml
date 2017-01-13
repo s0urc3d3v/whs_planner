@@ -43,7 +43,7 @@
                         <Font name="Roboto" size="14.0"/>
                     </font>
                 </JFXButton>
-                <VBox alignment="CENTER" layoutY="215.0" prefHeight="50.0" prefWidth="360.0">
+                <VBox alignment="CENTER" layoutY="210.0" prefHeight="50.0" prefWidth="360.0">
                     <children>
                         <Label fx:id="error" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER"
                                textFill="RED">
