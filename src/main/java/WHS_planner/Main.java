@@ -74,12 +74,10 @@ Main extends Application {
        }
 
         File saveFile = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "UI" + File.separator + "BellTimes.txt");
-        if(!saveFile.exists()){
-            try {
-                saveFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            saveFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         URL website = new URL("https://raw.githubusercontent.com/Razer0901/BellSchedule/master/BellTimes.txt");
