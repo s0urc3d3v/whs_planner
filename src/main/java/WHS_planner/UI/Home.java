@@ -1,6 +1,7 @@
 package WHS_planner.UI;
 
 import WHS_planner.Calendar.CalendarYear;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXProgressBar;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,15 +25,15 @@ import java.util.Date;
 
 class Home extends Pane {
 
+    JFXCheckBox checkBox;
     private HBox outsidePane = new HBox();
     private VBox insidePane = new VBox();
-
     private JFXProgressBar progressBar = new JFXProgressBar();
     private Timer progressbartimer;
-
     private Tooltip tooltip = new Tooltip();
 
-    Home(CalendarYear calendar, Pane newsUI) {
+    Home(CalendarYear calendar, Pane newsUI, JFXCheckBox checkBox) {
+        this.checkBox = checkBox;
         //Force initial timer update
         progressBar.setProgress(100);
         progressBar.setProgress(0);
@@ -117,6 +118,7 @@ class Home extends Pane {
         String dateS = df.format(date);
         int num = parseDate(dateS);
         double mod;
+        //wednesday
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
             if (num >= 450 && num < 495) {
                 mod = (495 - num) / 45.0;
@@ -133,7 +135,32 @@ class Home extends Pane {
             } else {
                 mod = 1;
             }
-        } else {
+        }
+        //Bell2
+        else if (checkBox.isSelected()) {
+            if (num >= 450 && num < 495) {
+                mod = (495 - num) / 45.0;
+            } else if (num >= 495 && num < 575) {
+                mod = (575 - num) / 80.0;
+            } else if (num >= 575 && num < 620) {
+                mod = (620 - num) / 45.0;
+            } else if (num >= 620 && num < 700) {
+                mod = (700 - num) / 80.0;
+            } else if (num >= 700 && num < 745) {
+                mod = (745 - num) / 45.0;
+            } else if (num >= 745 && num <= 785) {
+                mod = (785 - num) / 40.0;
+            } else {
+                mod = 1;
+            }
+
+            String[] bells = {"7:30", "8:26", "9:58", "10:55", "12:26", "1:23", "0:00"};
+            String[] belle = {"8:21", "9:18", "10:50", "12:21", "1:18", "2:15", "0:00"};
+            System.out.println("CHECKBOX SELECTED");
+            return 1;
+        }
+        //other days
+        else {
             if (num >= 450 && num < 512) {
                 mod = (512 - num) / 62.0;
             } else if (num >= 512 && num < 579) {
