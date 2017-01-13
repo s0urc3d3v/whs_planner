@@ -22,21 +22,17 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 class Home extends Pane {
 
     private HBox outsidePane = new HBox();
     private VBox insidePane = new VBox();
 
-
     private JFXProgressBar progressBar = new JFXProgressBar();
-    //    private ProgressBar progressBar = new ProgressBar();
     private Timer progressbartimer;
 
     private Tooltip tooltip = new Tooltip();
 
-    Home(CalendarYear calendar, Pane newsUI/*, ProgressBar progressBar*/) {
-
+    Home(CalendarYear calendar, Pane newsUI) {
         //Force initial timer update
         progressBar.setProgress(100);
         progressBar.setProgress(0);
@@ -45,8 +41,7 @@ class Home extends Pane {
             progressBar.setProgress(d);
             tooltip.setText("Time left: \n" + timeLeft() + " min");
         });
-
-
+        //Timer updates (60 sec)
         progressbartimer = new Timer(60000, e -> Platform.runLater(() -> {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
@@ -56,74 +51,45 @@ class Home extends Pane {
 
         progressbartimer.start();
 
-        //News
+        //Initialize NEWS
         ScrollPane newsScroll = new ScrollPane();
         newsScroll.setContent(newsUI);
         newsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         newsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        newsScroll.setFitToWidth(true);
-//        newsScroll.setStyle("-fx-focus-color: transparent;");
-
+        //NEWS Style
         newsScroll.setStyle("-fx-background-color: transparent;");
-
         newsScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
         newsScroll.getStyleClass().setAll("scroll-bar");
+        //NEWS Scaling
+        newsScroll.setFitToWidth(true);
         newsScroll.setMinWidth(280);
         newsScroll.setMaxWidth(280);
         newsScroll.setPrefHeight(this.getPrefHeight());
-//                setCellSelectionEnabled(false);
 
         //Progress bar
-//        BorderPane barPane = new BorderPane();
-
-//        progressBar.getStylesheets().add("News" + File.separator + "NewsUI.css");
-
-//        progressBar.setStyle("-fx-color: #FF9800");
-//        barPane.setCenter(progressBar);
-//        barPane.setPrefHeight(30);
-//        barPane.setMaxWidth(600);
-//        barPane.setPadding(new Insets(0, 40, 5, 40));
-//        barPane.setPadding(new Insets(0,15,0,15));
-//        progressBar.setPadding(new Insets(0, 100, 0, 100));
-//        progressBar.setMaxWidth(600);
         progressBar.prefWidthProperty().bind(insidePane.widthProperty());
         progressBar.setCursor(Cursor.HAND);
-//        progressBar.setOnMouseClicked((event -> showTimeLeft()));
         progressBar.setTooltip(tooltip);
-
-
         progressBar.setScaleY(3);
-
         hackTooltipStartTiming(tooltip);
 
         insidePane.setPadding(new Insets(0, 0, 5, 5)); //top, right, bottom, left
 
-
-//        barPane.prefHeightProperty().bind(calendar.heightProperty());
-//        barPane.prefWidthProperty().bind(calendar.widthProperty());
-
-
-        //Calendar + add stuff to H/VBoxes
+        //Add Nodes to H/VBoxes
         insidePane.getChildren().addAll(calendar, progressBar);
         outsidePane.getChildren().addAll(insidePane,newsScroll);
 
         //Resizing stuff
         calendar.prefHeightProperty().bind(insidePane.heightProperty());
         calendar.prefWidthProperty().bind(insidePane.widthProperty());
-
-
         VBox.setVgrow(calendar, Priority.ALWAYS);
         VBox.setVgrow(progressBar, Priority.NEVER);
-
         insidePane.prefHeightProperty().bind(outsidePane.heightProperty());
         insidePane.prefWidthProperty().bind(outsidePane.widthProperty());
-
         newsScroll.prefHeightProperty().bind(outsidePane.heightProperty());
         newsScroll.prefWidthProperty().bind(outsidePane.widthProperty());
-
         HBox.setHgrow(newsScroll, Priority.NEVER);
         HBox.setHgrow(insidePane, Priority.ALWAYS);
-
         outsidePane.prefHeightProperty().bind(this.heightProperty());
         outsidePane.prefWidthProperty().bind(this.widthProperty());
 
@@ -135,11 +101,9 @@ class Home extends Pane {
             Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
             fieldBehavior.setAccessible(true);
             Object objBehavior = fieldBehavior.get(tooltip);
-
             Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
             fieldTimer.setAccessible(true);
             Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
-
             objTimer.getKeyFrames().clear();
             objTimer.getKeyFrames().add(new KeyFrame(new Duration(0)));
         } catch (Exception e) {
@@ -147,18 +111,12 @@ class Home extends Pane {
         }
     }
 
-
     private double progressVal() {
         Date date = new Date();
-
         DateFormat df = new SimpleDateFormat("HH:mm");
-
         String dateS = df.format(date);
-
         int num = parseDate(dateS);
-
         double mod;
-
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
             if (num >= 450 && num < 495) {
                 mod = (495 - num) / 45.0;
@@ -192,22 +150,15 @@ class Home extends Pane {
                 mod = 1;
             }
         }
-
         return mod;
     }
 
-
     private int timeLeft() {
         Date date = new Date();
-
         DateFormat df = new SimpleDateFormat("HH:mm");
-
         String dateS = df.format(date);
-
         int num = parseDate(dateS);
-
         double mod;
-
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
             if (num >= 450 && num < 495) {
                 mod = (495 - num);
@@ -241,22 +192,15 @@ class Home extends Pane {
                 mod = 0;
             }
         }
-
         return (int) mod;
     }
-
 
     private int parseDate(String date) {
         String hour = date.substring(0, date.indexOf(":"));
         String minute = date.substring(date.indexOf(":") + 1);
-
         int hr = Integer.parseInt(hour);
         int min = Integer.parseInt(minute);
-
         min += (hr * 60);
-
         return min;
     }
-
-
 }

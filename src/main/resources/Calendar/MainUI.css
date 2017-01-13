@@ -9,7 +9,6 @@
      -fx-padding: 10;
 }
 
-
 .icon-badge .badge-pane {
 	-fx-background-color: rgb(56, 118, 237);
 	-fx-background-radius: 23;
@@ -18,7 +17,6 @@
 	-fx-alignment: center;
 
 }
-
 
 .icon-badge .badge-pane Label{
 	-fx-font-size: 14.0px;
@@ -29,7 +27,6 @@
     -fx-background-color: #FFFFFF
 }
 
-
 .box-button-selected {
 	-fx-background-color:#BDBDBD;
 }
@@ -37,7 +34,6 @@
 .box-button-disabled {
     -fx-background-color: #f8f8f8
 }
-
 
 .weekday {
     -fx-font-family: "Roboto";

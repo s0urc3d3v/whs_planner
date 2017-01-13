@@ -38,10 +38,12 @@ public class MainPane extends StackPane {
     private JFXDrawer drawer;
 
     private VBox mainPane;
-
+    private VBox cardView = new NewsUI().getCardView();
 
     private Schedule schedule;
     private CalendarYear calendar;
+
+    private Home homePane;
 
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
@@ -99,7 +101,6 @@ public class MainPane extends StackPane {
     }
 
     private void initiateDropDown(Button bigButton) {
-
         /*
 
            START Jesus code
@@ -112,6 +113,13 @@ public class MainPane extends StackPane {
         final StackPane backmanISGay = this;
         bigButton.setOnMouseClicked(event -> {
             VBox info = new VBox();
+
+//            JFXButton button0 = new JFXButton();
+//            button0.setText("      Delete Calendar Data");
+//            button0.setOnMouseClicked(event0 -> {
+//                System.out.println("delete calendar data pressed");
+//                calendar.deleteCalendarData();
+//            });
             JFXButton button1 = new JFXButton();
             button1.setText("      Reset Schedule");
             button1.setOnMouseClicked(event1 -> {
@@ -122,7 +130,7 @@ public class MainPane extends StackPane {
                 }
             });
             JFXButton button2 = new JFXButton();
-            button2.setText("      Logout");
+            button2.setText("      Logout of iPass");
             button2.setOnMouseClicked(event12 -> {
                 try {
                     schedule.getControl().logout();
@@ -131,7 +139,7 @@ public class MainPane extends StackPane {
                 }
             });
             JFXButton button3 = new JFXButton();
-            button3.setText("     Send Feedback");
+            button3.setText("      Send Feedback");
             button3.setOnMouseClicked(event13 -> {
                 try {
                     Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/K5ieqVSterU8Jxmt1"});
@@ -159,37 +167,32 @@ public class MainPane extends StackPane {
                 }
                 info.setPadding(new Insets(10));
             });
+//            info.getChildren().add(button0);
             info.getChildren().add(button1);
             info.getChildren().add(button2);
             info.getChildren().add(button3);
             info.getChildren().add(button4);
             info.setAlignment(Pos.TOP_LEFT);
             info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
+//            button0.getStyleClass().setAll("list-button");
             button1.getStyleClass().setAll("list-button");
             button2.getStyleClass().setAll("list-button");
             button3.getStyleClass().setAll("list-button");
             button4.getStyleClass().setAll("list-button");
             info.setSpacing(0);
-            info.setMinSize(200, 200);
+            info.setMinSize(200, 200 /*50 pixels multiplied by number of buttons*/);
             JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
             dialog.show();
-
             /*
 
                  END Jesus code
 
              */
         });
-
-
     }
 
     /**
      * Generates a drawer initiated by the hamburger, defined by the width and height
-     * @param hamburger
-     * @param width
-     * @param buttonHeight
-     * @return drawer
      */
     private JFXDrawer createDrawer(JFXHamburger hamburger, double width, double buttonHeight) {
         //Put the buttons generated into a vBox
@@ -209,8 +212,7 @@ public class MainPane extends StackPane {
         drawer.setSidePane(contentPanes.get(1));
 //        drawer.setSidePane(tabsVBox);
         drawer.setPickOnBounds(false);
-        drawer.setMouseTransparent(true);                                                //vertical, higher = lower
-        drawer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 5, 0);");
+        drawer.setMouseTransparent(true);
 
         //Hamburger animation
         hamburger.setAnimation(new HamburgerBackArrowBasicTransition(hamburger));
@@ -229,34 +231,18 @@ public class MainPane extends StackPane {
             }
             hamburger.getAnimation().play(); //Plays the transition
         });
-
         //More functions to open and close the drawer
-
         return drawer;
     }
 
     private void generatePanes() {
         schedule = new Schedule();
         calendar = new CalendarYear();
-//        calendar = new Calendar("January");
-        NewsUI news = null;
-        try {
-            news = new NewsUI();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        //Pane meeting = new MeetingPane();
-//        Home homePane = new Home(calendar, news.getCardView(), schedule.getProgressBar());
-        Home homePane = new Home(calendar, news.getCardView());
+        homePane = new Home(calendar, cardView);
         addPane(homePane);
         addPane((Pane) schedule.getPane());
-        //addPane(meeting);
-
-
         content.getChildren().add(contentPanes.get(0)); //Sets home tab as default
-
     }
-
 
     public void resetSchedule() throws Exception
     {
