@@ -1,6 +1,7 @@
 package WHS_planner;
 
 import WHS_planner.Schedule.GrabDay;
+import WHS_planner.Schedule.ScheduleParserV2;
 import junit.framework.TestCase;
 import org.apache.http.impl.client.HttpClientBuilder;
 
@@ -31,14 +32,16 @@ public class ReadScheduleTest extends TestCase{
 
     public void testschedule() throws Exception
     {
-        GrabDay gd = new GrabDay("john_broderick", "wps401175");
+        GrabDay gd = new GrabDay("john_broderick", "");
 
 
 
         //gd.grabSchedule("test.html");
 
-
         gd.grabSchedule("output.html");
+
+        ScheduleParserV2 parse = new ScheduleParserV2();
+        parse.getClasses();
 
 
     }
