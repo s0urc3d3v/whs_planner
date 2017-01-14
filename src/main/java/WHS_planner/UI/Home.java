@@ -50,6 +50,12 @@ class Home extends Pane {
             tooltip.setText("Time left: \n" + timeLeft() + " min");
         }));
 
+        this.checkBox.setOnAction(e -> Platform.runLater(() -> {
+            double d = 1.0 - progressVal();
+            progressBar.setProgress(d);
+            tooltip.setText("Time left: \n" + timeLeft() + " min");
+        }));
+
         progressbartimer.start();
 
         //Initialize NEWS

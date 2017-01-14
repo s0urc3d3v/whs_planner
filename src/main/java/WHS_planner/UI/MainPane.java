@@ -179,11 +179,8 @@ public class MainPane extends StackPane {
                         "Matthew Elbing - Backend, Project Lead",
                         "Jack Bachman - Backend, Github",
                         "John Broderick - Bug Human, Schedule",
-                        "Will Robison - HTML, Piano Tiles",
+                        "Will Robison - HTML, Piano Tiles 2",
                         "Tzur Almog - Calendar",
-                        "Alex Bell - News",
-                        " ",
-                        "Look for the Easter Egg!"
                 };
                 for (String name : names) {
                     info.getChildren().add(new Label(name));
