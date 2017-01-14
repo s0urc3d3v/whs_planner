@@ -32,11 +32,7 @@ public class ReadScheduleTest extends TestCase{
 
     public void testschedule() throws Exception
     {
-        GrabDay gd = new GrabDay("john_broderick", "");
-
-
-
-        //gd.grabSchedule("test.html");
+        GrabDay gd = new GrabDay("", "");
 
         gd.grabSchedule("output.html");
 

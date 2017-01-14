@@ -121,7 +121,7 @@ public class Schedule
             currentPeriod = blocks[i].getPeriodNumber();
             currentRoom = blocks[i].getRoomNumber();
 
-            if(blocks[i].getClassName().trim().equals("free"))
+            if(blocks[i].getClassName().trim().equals("Free"))
             {
                 s = "Free";
             }
@@ -237,7 +237,7 @@ public class Schedule
         }
 
 
-        ScheduleParser parse = new ScheduleParser();
+        ScheduleParserV2 parse = new ScheduleParserV2();
 
         if(!f.exists() && user != null && pass != null )
         {
