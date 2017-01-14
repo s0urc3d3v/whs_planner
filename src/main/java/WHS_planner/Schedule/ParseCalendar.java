@@ -218,7 +218,7 @@ public class ParseCalendar
         }
         else
         {
-            System.out.println("day not found");
+            //System.out.println("day not found");
             return "No School Today";
         }
     }

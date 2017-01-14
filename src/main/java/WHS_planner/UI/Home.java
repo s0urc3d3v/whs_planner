@@ -21,6 +21,7 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 class Home extends Pane {
@@ -119,6 +120,13 @@ class Home extends Pane {
     }
 
     private double progressVal() {
+
+        int n = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        if(n == Calendar.SATURDAY || n == Calendar.SUNDAY)
+        {
+            return 1;
+        }
+
         Date date = new Date();
         DateFormat df = new SimpleDateFormat("HH:mm");
         String dateS = df.format(date);
@@ -189,6 +197,11 @@ class Home extends Pane {
     }
 
     private int timeLeft() {
+        int n = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        if(n == Calendar.SATURDAY || n == Calendar.SUNDAY)
+        {
+            return 0;
+        }
         Date date = new Date();
         DateFormat df = new SimpleDateFormat("HH:mm");
         String dateS = df.format(date);

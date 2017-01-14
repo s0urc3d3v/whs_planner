@@ -402,7 +402,7 @@ public class GrabDay
 
             DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
 
-            System.out.println(params);
+            //System.out.println(params);
             dos.writeBytes(params);
             dos.flush();
             dos.close();
