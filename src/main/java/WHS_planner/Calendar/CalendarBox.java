@@ -125,11 +125,11 @@ public class CalendarBox extends Pane{
         //Set up the calendar box
         initFXMLBox();
 
-        if(this.getDate()==1&&month==8){
-            ArrayList<Task> tempList = new ArrayList<>();
-            tempList.add(new Task("","",""));
-            this.tasks.add(tempList);
-        }
+//        if(this.getDate()==1&&month==8){
+//            ArrayList<Task> tempList = new ArrayList<>();
+//            tempList.add(new Task("","",""));
+//            this.tasks.add(tempList);
+//        }
 
         //Make the button inactive if required
         if(!active){
