@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.jsoup.Jsoup;
@@ -128,14 +129,14 @@ public class NewsUI extends Pane {
     }
 
     private void addCard(Pane pane) {
-        VBox vBox;
-        vBox = new VBox(pane);
-        vBox.setAlignment(Pos.TOP_CENTER);
-        vBox.setPrefWidth(BOX_WIDTH);
-        vBox.getStyleClass().setAll("news-card");
-        VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
+        HBox hBox;
+        hBox = new HBox(pane);
+        hBox.setAlignment(Pos.CENTER);
+        hBox.setPrefWidth(BOX_WIDTH);
+        hBox.getStyleClass().setAll("news-card");
+        VBox.setMargin(hBox, new Insets(10, 10, 10, 10));
 
-        cardView.getChildren().add(vBox);
+        cardView.getChildren().add(hBox);
     }
 
     private WritableImage convertImg(BufferedImage bf) {
