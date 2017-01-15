@@ -10,7 +10,10 @@
    <children>
       <HBox fx:id="textHBox" styleClass="taskBox">
          <children>
-            <JFXCheckBox fx:id="override" text="Use Current Class" HBox.hgrow="NEVER" />
+            <JFXCheckBox fx:id="override" prefHeight="31.0" prefWidth="155.0" text="Use Current Class" HBox.hgrow="NEVER">
+               <font>
+                  <Font name="Roboto" size="13.0" />
+               </font></JFXCheckBox>
             <JFXTextField fx:id="textBox" promptText="Enter Task...">
                <font>
                   <Font name="Roboto" size="13.0" />

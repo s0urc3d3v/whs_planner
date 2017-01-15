@@ -28,13 +28,15 @@ public class TaskBoxController implements Initializable {
     private JFXCheckBox override;
 
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println(textBox.getParent());
+        override.setSelected(true);
+
+//        System.out.println(textBox.getParent());
         try {
             textBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent keyEvent) {
                     if (keyEvent.getCode() == KeyCode.ENTER) {
-                        System.out.println(textBox.getText());
+//                        System.out.println(textBox.getText());
                         textBox.clear();
                     }
                 }
