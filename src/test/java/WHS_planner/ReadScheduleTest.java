@@ -32,13 +32,9 @@ public class ReadScheduleTest extends TestCase{
 
     public void testschedule() throws Exception
     {
-        GrabDay gd = new GrabDay("", "");
+        GrabDay gd = new GrabDay("john_broderick", "wps401175");
 
         gd.grabSchedule("output.html");
-
-        ScheduleParserV2 parse = new ScheduleParserV2();
-        parse.getClasses();
-
 
     }
 

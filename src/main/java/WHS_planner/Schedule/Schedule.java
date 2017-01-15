@@ -49,6 +49,7 @@ public class Schedule
         {
             //replaced with threading...
             buildSchedule();
+
         }
         catch(Exception e)
         {
@@ -260,7 +261,24 @@ public class Schedule
 
         if(!f.exists() && user != null && pass != null )
         {
-            parse.grabwebpage(user, pass);
+            final String u = user;
+            final String p = pass;
+
+            Thread t = new Thread(() ->
+            {
+                parse.grabwebpage(u, p);
+
+            });
+            t.start();
+            try
+            {
+                t.join();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+
             try
             {
                 parse.getClasses();
@@ -285,9 +303,10 @@ public class Schedule
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            parseSchedule();
-        }
 
+            parseSchedule();
+
+        }
         IO dotaIo = new IO("Documents"+File.separator+"Schedule.json");
         ArrayList<ScheduleBlock> array = dotaIo.readScheduleArray();
         dotaIo.unload();
@@ -297,7 +316,9 @@ public class Schedule
         {
             blocks[i] = array.get(i);
         }
+
         return blocks;
+
     }
 
     public Node getPane()

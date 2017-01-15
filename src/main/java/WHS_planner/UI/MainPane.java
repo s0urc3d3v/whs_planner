@@ -173,13 +173,13 @@ public class MainPane extends StackPane {
                 info.getChildren().add(new Label("Production 1.0.0\n "));
                 info.getChildren().add(peopleLabel);
                 String[] names = new String[]{
-                        "Tyler Brient - UI Master, Bug Squasher",
+                        "Tyler Brient - UI, Pleb",
                         "George Jiang - UX, News, Bug Finder",
                         "Andrew Eggleston - Yelled at Tyler",
                         "Geoffrey Wang - UI Master, Calendar",
                         "Matthew Elbing - Backend, Project Lead",
                         "Jack Bachman - Backend, Github",
-                        "John Broderick - Bug Human, Schedule",
+                        "John Broderick - Schedule",
                         "Will Robison - HTML, Piano Tiles 2",
                         "Tzur Almog - Calendar",
                 };
