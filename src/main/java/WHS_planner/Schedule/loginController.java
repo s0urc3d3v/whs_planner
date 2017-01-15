@@ -10,12 +10,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ThreadFactory;
 
 public class loginController implements Initializable
 {
@@ -45,6 +47,7 @@ public class loginController implements Initializable
     {
         String username = user.getText();
         String pass = password.getText();
+        error.setText("Logging in...please wait");
 
         if(username.equals("") || pass.equals(""))
         {
@@ -56,8 +59,10 @@ public class loginController implements Initializable
             try
             {
                 GrabDay gd = new GrabDay(username, pass);
+
                 if(gd.testConn())
                 {
+
                     File f = new File("Keys/ipass.key"); //TODO File.seperator?
                     if(!f.exists())
                     {
@@ -68,16 +73,13 @@ public class loginController implements Initializable
                     username = XorTool.encode(username, xorKey);
                     pass = XorTool.encode(pass, xorKey);
 
-                    //System.out.println(username);
-                    //System.out.println(pass);
-
                     bw.write(username);
                     bw.newLine();
                     bw.write(pass);
                     bw.close();
 
 //                    error.setTextFill(Color.RED);
-                    error.setText("iPass internal error. Restart and run clean.sh");
+                    //error.setText("iPass internal error. Restart and run clean.sh");
 
                     /*
                     //TODO
@@ -88,8 +90,8 @@ public class loginController implements Initializable
 
                     try
                     {
-                        MainPane mp = (MainPane) Main.getMainPane();
-                        mp.resetSchedule();
+                       MainPane mp = (MainPane) Main.getMainPane();
+                       mp.resetSchedule();
                     }
                     catch(Exception e)
                     {

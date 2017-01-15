@@ -74,8 +74,6 @@ public class GrabDay
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 
-       // cookieManager.getCookieStore().add();
-
         Grabber grabber = new Grabber();
 
         try
@@ -102,20 +100,22 @@ public class GrabDay
     {
         Grabber grabber = new Grabber();
 
-//        String url = "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html";
-//
-//        CookieHandler.setDefault(new CookieManager());
-//        CookieManager cookieManager = new CookieManager();
-//        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+        String url = "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html";
+
+        CookieHandler.setDefault(new CookieManager());
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 
         try
         {
-//            String page = grabber.getPageContent(url);
-//            String params = grabber.getForm(page, user, pass);
-//            grabber.send(url, params);
+            String page = grabber.getPageContent(url);
+            String params = grabber.getForm(page, user, pass);
+            grabber.send(url, params);
 
-            setQuarter(user, pass);
-            //connection.disconnect();
+            String cookie = cookies.get(2);
+
+            setQuarter(cookie);
+            connection.disconnect();
         }
         catch(Exception e)
         {
@@ -237,7 +237,7 @@ public class GrabDay
         return f;
     }
 
-    public void setQuarter( String user, String pass) throws Exception
+    public void setQuarter(String cookie) throws Exception
     {
 
         WebClient client = new WebClient();
@@ -246,7 +246,7 @@ public class GrabDay
 
         client.getCookieManager().setCookiesEnabled(true);
 
-        HtmlPage login = client.getPage("https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html");
+       /* HtmlPage login = client.getPage("https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html");
         HtmlForm form = login.getFormByName("login");
         HtmlTextInput txt = form.getInputByName("userid");
         HtmlPasswordInput passfield = form.getInputByName("password");
@@ -254,7 +254,10 @@ public class GrabDay
         txt.setValueAttribute(user);
         passfield.setValueAttribute(pass);
 
-        HtmlPage page2 = anchor.click();
+        HtmlPage page2 = anchor.click();*/
+
+
+        client.addCookie(cookie, new URL("https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html"), client);
 
         HtmlPage page = client.getPage("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html");
 
@@ -423,6 +426,8 @@ public class GrabDay
                 stringbuffer.append(input);
             }
 
+
+            setCookies(connection.getHeaderFields().get("Set-Cookie"));
             error = stringbuffer.toString();
             br.close();
 

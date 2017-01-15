@@ -163,6 +163,7 @@ public class ScheduleParserV2
         }
 
 
+        br.close();
         File schedf = new File("Documents"+File.separator+"Schedule.json");
 
         if(!schedf.exists())

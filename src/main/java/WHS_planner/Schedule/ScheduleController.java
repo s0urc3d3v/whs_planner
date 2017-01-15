@@ -84,15 +84,7 @@ public class ScheduleController implements Initializable
                 user = XorTool.decode(user, Main.getXorKey());
                 pass = XorTool.decode(pass, Main.getXorKey());
                 bri.close();
-//                if (/*pass == null || */user.equals("") || pass.equals(""))
-//                {
-//                    //System.out.println("No ipass data found");
-//                    /*
-//                    if userEquals OR passEquals then dont
-//                    if not userEquals AND not passEquals then do
-//                     */
-//                }
-//                else
+
                 if (!user.equals("") && !pass.equals(""))
                 {
                     Title3.setText("");
