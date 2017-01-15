@@ -3,6 +3,7 @@ package WHS_planner.News.ui;
 import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
+import WHS_planner.Trex.TrexPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Hyperlink;
@@ -40,6 +41,7 @@ public class NewsUI extends Pane {
         //Checks if feed sends back a connection error. If it doesn't, initialize cards as normal.
         if (feed.getTitle().equals("badNet")) {
             addCard(new Label("Error with Connection!"), new Hyperlink("https://www.google.com/"), null);
+            addCard(new TrexPane());
         } else {
             init();
         }
@@ -117,6 +119,17 @@ public class NewsUI extends Pane {
         } else {
             vBox = new VBox(image, hyperlink, description);
         }
+        vBox.setAlignment(Pos.TOP_CENTER);
+        vBox.setPrefWidth(BOX_WIDTH);
+        vBox.getStyleClass().setAll("news-card");
+        VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
+
+        cardView.getChildren().add(vBox);
+    }
+
+    private void addCard(Pane pane) {
+        VBox vBox;
+        vBox = new VBox(pane);
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setPrefWidth(BOX_WIDTH);
         vBox.getStyleClass().setAll("news-card");

@@ -3,6 +3,7 @@ package WHS_planner.UI;
 import WHS_planner.Calendar.CalendarYear;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
+import WHS_planner.Trex.TrexPane;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXMLLoader;

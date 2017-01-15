@@ -46,6 +46,14 @@
                     <mainClass>WHS_planner.Main</mainClass>
                     <generateDiskImageFile>true</generateDiskImageFile>
                     <iconFile>icon.icns</iconFile>
+                <!--<additionalBundledClasspathResources>-->
+                    <!--<fileSet>-->
+                        <!--<directory>src/main/resources/Trex</directory>-->
+                        <!--<includes>-->
+                            <!--<include>*.png</include>-->
+                        <!--</includes>-->
+                    <!--</fileSet>-->
+                <!--</additionalBundledClasspathResources>-->
             </configuration>
             <executions>
                 <execution>
