@@ -41,15 +41,15 @@ public class GlobalTime {
             } else if (num >= 495 && num < 535) {
                 mod = 1;
             } else if (num >= 535 && num <= 620) {
-                mod = 2; //advisory
+                mod = -2; //advisory
             } else if (num >= 575 && num < 620) {
-                mod = 3;
+                mod = 2;
             } else if (num >= 620 && num < 700) {
-                mod = 4;
+                mod = 3;
             } else if (num >= 700 && num < 745) {
-                mod = 5;
+                mod = 4;
             } else if (num >= 745 && num <= 785) {
-                mod = 6;
+                mod = 5;
             } else {
                 mod = -1;
             }
@@ -62,15 +62,15 @@ public class GlobalTime {
                 mod = 1;
             } else if (num >= 558 && num < 593) {
                 //Class meeting
-                mod = 2;
+                mod = -3;
             } else if (num >= 593 && num < 650) {
-                mod = 3;
+                mod = 2;
             } else if (num >= 650 && num < 741) {
-                mod = 4;
+                mod = 3;
             } else if (num >= 741 && num <= 798) {
-                mod = 5;
+                mod = 4;
             } else if (num >= 798 && num <= 855) {
-                mod = 6;
+                mod = 5;
             } else {
                 mod = -1;
             }

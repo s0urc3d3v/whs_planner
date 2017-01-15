@@ -280,14 +280,28 @@ public class CalendarBox extends Pane{
                         if (textBoxText.trim().length() > 0){
                             int classIndex = globalTime.getClassIndex();
                             if (overridden() && classIndex != -1) { //If box is checked and it's during school hours, add it with class!
+                                if (classIndex == -2) //wednestday advisory
+                                {
+                                    addTask(HOMEWORK, new Task("Advisory", "", textBoxText));
+                                    update();
+                                    updateTaskBox();
+                                }
+                                else if (classIndex==-3) // bell 2 class meeting
+                                {
+                                    addTask(HOMEWORK, new Task("Class Meeting", "", textBoxText));
+                                    update();
+                                    updateTaskBox();
+                                }
+                                else
+                                {
+                                    String currentClass = schedule.getData()[classIndex].getClassName();
+
+                                    addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                    update();
+                                    updateTaskBox();
+                                }
 
 
-                                String currentClass = schedule.getData()[classIndex].getClassName();
-
-
-                                addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
-                                update();
-                                updateTaskBox();
                             }
                             else //add it without class!
                             {
