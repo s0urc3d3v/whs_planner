@@ -119,11 +119,11 @@ public class TrexPane extends Pane{
         gc.drawImage(background,bg2,canvas.getHeight() - background.getHeight());
         gc.setFont(new Font("Arial",20));
         gc.fillText("S h h h ,   d o n ' t   t e l l   a n y o n e !",text,canvas.getHeight()/4);
-        if(bg1 <= -2400){
-            bg1 = 2400;
+        if(bg1 <= -background.getWidth()){
+            bg1 = (int)background.getWidth();
         }
-        if(bg2 <= -2400){
-            bg2 = 2400;
+        if(bg2 <= -background.getWidth()){
+            bg2 = (int)background.getWidth();
         }
         if(text <= -600){
             text = 250;
