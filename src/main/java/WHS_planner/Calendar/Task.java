@@ -45,14 +45,30 @@ public class Task {
 //        pane.setStyle("-fx-background-color:#c2d7f9;");
         pane.setAlignment(Pos.CENTER_LEFT);
 
-        Text classText = new Text(Class + ":  ");
+
+
         Text label = new Text(Description);
         Text spaces = new Text("  ");
         label.setBoundsType(TextBoundsType.VISUAL);
-        pane.getChildren().add(spaces);
-        pane.getChildren().add(classText);
 
-        pane.getChildren().add(label);
+
+        if (Class.equals("")) //If there is no class
+        {
+            Text classText = new Text(Class);
+
+            pane.getChildren().add(spaces);
+            pane.getChildren().add(classText);
+
+            pane.getChildren().add(label);
+        }
+        else //If there is a class
+        {
+            Text classText = new Text(Class + ":  ");
+            pane.getChildren().add(spaces);
+            pane.getChildren().add(classText);
+
+            pane.getChildren().add(label);
+        }
 
         pane.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
