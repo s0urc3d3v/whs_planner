@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,6 +23,9 @@ public class TaskBoxController implements Initializable {
 
     @FXML
     private JFXTextField textBox;
+
+    @FXML
+    private JFXCheckBox override;
 
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println(textBox.getParent());

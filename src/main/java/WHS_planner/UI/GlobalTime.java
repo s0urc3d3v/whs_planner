@@ -19,10 +19,86 @@ public class GlobalTime {
     }
 
 
-    private String currentBlock()
+    //if class index is -1, that means it's not school hours!
+    public int getClassIndex()
     {
-        return "lol";
+        int n = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        if(n == Calendar.SATURDAY || n == Calendar.SUNDAY)
+        {
+            return -1;
+        }
+
+
+        Date date = new Date();
+        DateFormat df = new SimpleDateFormat("HH:mm");
+        String dateS = df.format(date);
+        int num = parseDate(dateS);
+        int mod;
+        //wednesday
+        if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
+            if (num >= 450 && num < 495) {
+                mod = 0;
+            } else if (num >= 495 && num < 535) {
+                mod = 1;
+            } else if (num >= 535 && num <= 620) {
+                mod = 2; //advisory
+            } else if (num >= 575 && num < 620) {
+                mod = 3;
+            } else if (num >= 620 && num < 700) {
+                mod = 4;
+            } else if (num >= 700 && num < 745) {
+                mod = 5;
+            } else if (num >= 745 && num <= 785) {
+                mod = 6;
+            } else {
+                mod = -1;
+            }
+        }
+        //Bell2
+        else if (checkBox.isSelected()) {
+            if (num >= 450 && num < 501) {
+                mod = 0;
+            } else if (num >= 501 && num < 558) {
+                mod = 1;
+            } else if (num >= 558 && num < 593) {
+                //Class meeting
+                mod = 2;
+            } else if (num >= 593 && num < 650) {
+                mod = 3;
+            } else if (num >= 650 && num < 741) {
+                mod = 4;
+            } else if (num >= 741 && num <= 798) {
+                mod = 5;
+            } else if (num >= 798 && num <= 855) {
+                mod = 6;
+            } else {
+                mod = -1;
+            }
+
+            return 1;
+        }
+        //other days
+        else {
+            if (num >= 450 && num < 512) {
+                mod = 0;
+            } else if (num >= 512 && num < 579) {
+                mod = 1;
+            } else if (num >= 579 && num < 641) {
+                mod = 2;
+            } else if (num >= 641 && num < 736) {
+                mod = 3;
+            } else if (num >= 736 && num < 798) {
+                mod = 4;
+            } else if (num >= 798 && num <= 855) {
+                mod = 5;
+            } else {
+                mod = -1;
+            }
+        }
+        return mod;
+
     }
+
     private double progressVal()
     {
 

@@ -36,7 +36,7 @@ public class CalendarYear extends Pane {
                 }
                 changeMonth(month);
             });
-            months[i] = new Calendar(i, nextButton, prevButton);
+            months[i] = new Calendar(i, nextButton, prevButton, sc);
         }
         for(Calendar month: months) {
             month.prefHeightProperty().bind(this.heightProperty());

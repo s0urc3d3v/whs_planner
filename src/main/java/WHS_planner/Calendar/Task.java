@@ -44,10 +44,14 @@ public class Task {
         pane.getStyleClass().add("task-pane");
 //        pane.setStyle("-fx-background-color:#c2d7f9;");
         pane.setAlignment(Pos.CENTER_LEFT);
+
+        Text classText = new Text(Class + ":  ");
         Text label = new Text(Description);
         Text spaces = new Text("  ");
         label.setBoundsType(TextBoundsType.VISUAL);
         pane.getChildren().add(spaces);
+        pane.getChildren().add(classText);
+
         pane.getChildren().add(label);
 
         pane.setOnMouseClicked((event -> {

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<VBox xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WHS_planner.Calendar.TaskBoxController">
    <children>
       <HBox fx:id="textHBox" styleClass="taskBox">
          <children>
-            <JFXTextField fx:id="textBox" promptText="Enter Task..." />
+            <JFXCheckBox fx:id="override" text="Use Current Class" HBox.hgrow="NEVER" />
+            <JFXTextField fx:id="textBox" promptText="Enter Task...">
+               <font>
+                  <Font name="Roboto" size="13.0" />
+               </font></JFXTextField>
          </children>
       </HBox>
    </children>

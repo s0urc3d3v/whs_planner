@@ -1,7 +1,10 @@
 package WHS_planner.Calendar;
 
+import WHS_planner.UI.GlobalTime;
+import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -46,7 +49,20 @@ public class CalendarBox extends Pane{
     private HBox iconContainer;
     private int month;
 
-    public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month){
+    private JFXCheckBox bell2;
+    private JFXCheckBox override;
+    private GlobalTime globalTime = new GlobalTime(bell2);
+    private Schedule schedule;
+
+
+    private boolean overridden() {
+        return !override.isSelected();
+    }
+
+    public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Schedule sc){
+
+        this.schedule = sc;
+        this.bell2 = sc.getCheck();
         this.date = date; //This box's date
         this.week = week; //The week (row) this box is in
         this.month = month;
@@ -250,17 +266,35 @@ public class CalendarBox extends Pane{
 
                 //Get the JFXTextField and set the width to grow
                 HBox hBox = (HBox) taskBar.getChildren().get(0);
-                JFXTextField textBox = (JFXTextField) hBox.getChildren().get(0);
+                JFXTextField textBox = (JFXTextField) hBox.getChildren().get(1);
                 HBox.setHgrow(textBox, Priority.ALWAYS);
+
+                //Code for the Checkbox
+                override = (JFXCheckBox) hBox.getChildren().get(0);
+
 
                 //Set pressing enter to clear the box text
                 textBox.setOnKeyPressed(event -> {
                     if (event.getCode() == KeyCode.ENTER) {
                         String textBoxText = textBox.getText();
                         if (textBoxText.trim().length() > 0){
-                            addTask(HOMEWORK, new Task("","", textBoxText));
-                            update();
-                            updateTaskBox();
+                            int classIndex = globalTime.getClassIndex();
+                            if (overridden() && classIndex != -1) { //If box is checked and it's during school hours, add it with class!
+
+
+                                String currentClass = schedule.getData()[classIndex].getClassName();
+
+
+                                addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                update();
+                                updateTaskBox();
+                            }
+                            else //add it without class!
+                            {
+                                addTask(HOMEWORK, new Task("", "", textBoxText));
+                                update();
+                                updateTaskBox();
+                            }
                         }
                         textBox.clear();
                     }

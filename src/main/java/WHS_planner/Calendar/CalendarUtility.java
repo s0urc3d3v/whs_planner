@@ -1,12 +1,22 @@
 package WHS_planner.Calendar;
 
 import WHS_planner.Core.JSON;
+import WHS_planner.Schedule.Schedule;
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class CalendarUtility {
+    private JFXCheckBox checkBox;
+    private Schedule schedule;
+
+    public CalendarUtility(Schedule sc)
+    {
+        this.schedule = sc;
+        this.checkBox = schedule.getCheck();
+    }
 
     public static final int SUNDAY = 0, MONDAY = 1,TUESDAY = 2, WEDNESDAY = 3, THURSDAY = 4, FRIDAY = 5, SATURDAY = 6;
     FXMLLoader loader;
@@ -49,7 +59,7 @@ public class CalendarUtility {
                     break;
                 }
 
-                CalendarBox box = new CalendarBox(dayInMonth,row,true,listOfTasks.get(dayInMonth-1),month);
+                CalendarBox box = new CalendarBox(dayInMonth,row,true,listOfTasks.get(dayInMonth-1),month, schedule);
                 calendar[row][col] = box;
                 dayInMonth++;
             }
