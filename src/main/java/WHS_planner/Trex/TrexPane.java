@@ -23,6 +23,8 @@ public class TrexPane extends Pane{
     private int count = 0;
 
     private int bg1 = 0, bg2 = 2400, text = 200;
+    private Image trexJump;
+    private double trexX;
 
 
     public TrexPane(){
@@ -30,22 +32,24 @@ public class TrexPane extends Pane{
         this.getChildren().add(canvas);
         gc = canvas.getGraphicsContext2D();
         background = new Image("Trex/background.png");
-        Image trexJump = new Image("Trex/small-trexJump.png");
+        trexJump = new Image("Trex/small-trexJump.png");
 
         AnimatedImage trexRun = new AnimatedImage();
         Image[] imageArray = new Image[]{new Image("Trex/small-trex1.png"),new Image("Trex/small-trex2.png")};
         trexRun.frames = imageArray;
         trexRun.duration = 0.175;
 
-        double trexX = (canvas.getWidth()-trexJump.getWidth())/2;
+        trexX = (canvas.getWidth()-trexJump.getWidth())/2;
 
         final long startNanoTime = System.nanoTime();
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 double time = (currentNanoTime - startNanoTime) / 1000000000.0;
                 if(!isEnabled){
-                    gc.drawImage(trexJump,trexX,canvas.getHeight()-trexJump.getHeight());
-                    drawBackground(0);
+                    staticTRex();
+//                    drawBackground(0);
+//                    gc.drawImage(trexJump,trexX,canvas.getHeight()-trexJump.getHeight());
+
                     clearRectSize = (int)(trexX - 10);
                 }else {
                     clear();
@@ -79,11 +83,12 @@ public class TrexPane extends Pane{
                     }
 
                 }
-                if(count >= 1){
+                if(count >= 3){
                     clear();
-                    gc.drawImage(trexJump,trexX,canvas.getHeight()-trexJump.getHeight());
-                    drawBackground(0);
-                    clearRectSize = (int)(trexX - 10);
+                    staticTRex();
+//                    gc.drawImage(trexJump,trexX,canvas.getHeight()-trexJump.getHeight());
+//                    drawBackground(0);
+//                    clearRectSize = (int)(trexX - 10);
                     count = 0;
                     this.stop();
                 }
@@ -108,6 +113,13 @@ public class TrexPane extends Pane{
 
     public void clear(){
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    }
+
+    private void staticTRex()
+    {
+        drawBackground(0);
+        gc.drawImage(trexJump,trexX,canvas.getHeight()-trexJump.getHeight());
+        clearRectSize = (int)(trexX - 10);
     }
 
     public void drawBackground(int distance){

@@ -41,7 +41,9 @@ public class NewsUI extends Pane {
 
         //Checks if feed sends back a connection error. If it doesn't, initialize cards as normal.
         if (feed.getTitle().equals("badNet")) {
-            addCard(new Label("Error with Connection!"), new Hyperlink("https://www.google.com/"), null);
+            Hyperlink badNetLink = new Hyperlink("https://www.google.com/");
+            badNetLink.setText("Test Connection (google.com)");
+            addCard(badNetLink, new Label("Error with Connection!"));
             addCard(new TrexPane());
         } else {
             init();
@@ -137,6 +139,18 @@ public class NewsUI extends Pane {
         VBox.setMargin(hBox, new Insets(10, 10, 10, 10));
 
         cardView.getChildren().add(hBox);
+    }
+
+    //This one adds the label first
+    private void addCard(Hyperlink hyperlink, Label description)
+    {
+        VBox vBox = new VBox(description, hyperlink);
+        vBox.setAlignment(Pos.TOP_CENTER);
+        vBox.setPrefWidth(BOX_WIDTH);
+        vBox.getStyleClass().setAll("news-card");
+        VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
+
+        cardView.getChildren().add(vBox);
     }
 
     private WritableImage convertImg(BufferedImage bf) {
