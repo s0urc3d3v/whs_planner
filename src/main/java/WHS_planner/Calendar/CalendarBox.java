@@ -208,7 +208,6 @@ public class CalendarBox extends Pane{
                     badge.setText("" + getTaskCount(listID)); //Set the badge number
                     icons.add(badge);
                 }else{
-                    icon.setStyle("-fx-text-fill: #FDFDFD;");
                     icons.add(icon);
                 }
             }

@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 
+import java.io.File;
+
 /**
  * Created by geoffrey_wang on 9/20/16.
  */
@@ -38,7 +40,9 @@ public class Task {
 //        StackPane pane = new StackPane();
 
         pane.setMinHeight(30);
-        pane.setStyle("-fx-background-color:#c2d7f9;");
+        pane.getStylesheets().add("Calendar" + File.separator + "MainUI.css");
+        pane.getStyleClass().add("task-pane");
+//        pane.setStyle("-fx-background-color:#c2d7f9;");
         pane.setAlignment(Pos.CENTER_LEFT);
         Text label = new Text(Description);
         Text spaces = new Text("  ");

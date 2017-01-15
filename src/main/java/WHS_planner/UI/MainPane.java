@@ -179,7 +179,7 @@ public class MainPane extends StackPane {
                         "Geoffrey Wang - UI Master, Calendar",
                         "Matthew Elbing - Backend, Project Lead",
                         "Jack Bachman - Backend, Github",
-                        "John Broderick - Bug Human, Schedule",
+                        "John Broderick - Schedule, Bug Creator",
                         "Will Robison - HTML, Piano Tiles 2",
                         "Tzur Almog - Calendar",
                 };
