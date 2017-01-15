@@ -126,7 +126,9 @@ public class RSSFeedParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return feed;
+//        return feed;
+        return new Feed("badNet", "", "", "",
+                "", "");
     }
 
     private String getCharacterData(XMLEventReader eventReader)

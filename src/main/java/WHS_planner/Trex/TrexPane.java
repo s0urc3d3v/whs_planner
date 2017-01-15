@@ -30,10 +30,10 @@ public class TrexPane extends Pane{
         this.getChildren().add(canvas);
         gc = canvas.getGraphicsContext2D();
         background = new Image("Trex/background.png");
-        Image trexJump = new Image("Trex/trexJump.png");
+        Image trexJump = new Image("Trex/small-trexJump.png");
 
         AnimatedImage trexRun = new AnimatedImage();
-        Image[] imageArray = new Image[]{new Image("Trex/trex1.png"),new Image("Trex/trex2.png")};
+        Image[] imageArray = new Image[]{new Image("Trex/small-trex1.png"),new Image("Trex/small-trex2.png")};
         trexRun.frames = imageArray;
         trexRun.duration = 0.175;
 
