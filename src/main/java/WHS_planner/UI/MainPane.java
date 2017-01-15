@@ -288,8 +288,9 @@ public class MainPane extends StackPane {
 
     private void generatePanes() {
         schedule = new Schedule(bell2Check);
-        calendar = new CalendarYear();
-//        calendar = new Calendar("January");
+        calendar = new CalendarYear(schedule);
+        //calender has schedule and bell2check
+
         NewsUI news = null;
         try {
             news = new NewsUI();
@@ -297,8 +298,7 @@ public class MainPane extends StackPane {
             e.printStackTrace();
         }
         //Pane meeting = new MeetingPane();
-//        Home homePane = new Home(calendar, news.getCardView(), schedule.getProgressBar());
-        Home homePane = new Home(calendar, news.getCardView(), bell2Check);
+        Home homePane = new Home(calendar, news.getCardView());
         addPane(homePane);
         addPane((Pane) schedule.getPane());
         //addPane(meeting);

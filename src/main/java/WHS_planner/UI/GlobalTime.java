@@ -1,127 +1,30 @@
 package WHS_planner.UI;
 
-import WHS_planner.Calendar.CalendarYear;
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXProgressBar;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.scene.Cursor;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tooltip;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
-import javax.swing.*;
-import java.io.File;
-import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-class Home extends Pane {
+/**
+ * Created by george_jiang on 1/15/17.
+ */
+public class GlobalTime {
+    private JFXCheckBox checkBox;
 
-    JFXCheckBox checkBox;
-    private HBox outsidePane = new HBox();
-    private VBox insidePane = new VBox();
-    private JFXProgressBar progressBar = new JFXProgressBar();
-    private Timer progressbartimer;
-    private Tooltip tooltip = new Tooltip();
-
-    Home(CalendarYear calendar, Pane newsUI) {
-
-        checkBox = calendar.getSchedule().getCheck();
-//        this.checkBox = checkBox;
-        //Force initial timer update
-        progressBar.setProgress(100);
-        progressBar.setProgress(0);
-        Platform.runLater(() -> {
-            double d = 1.0 - progressVal();
-            progressBar.setProgress(d);
-            tooltip.setText("Time left: \n" + timeLeft() + " min");
-        });
-        //Timer updates (60 sec)
-        progressbartimer = new Timer(60000, e -> Platform.runLater(() -> {
-            double d = 1.0 - progressVal();
-            progressBar.setProgress(d);
-            //set Tooltip text
-            tooltip.setText("Time left: \n" + timeLeft() + " min");
-        }));
-
-        this.checkBox.setOnAction(e -> Platform.runLater(() -> {
-            double d = 1.0 - progressVal();
-            progressBar.setProgress(d);
-            tooltip.setText("Time left: \n" + timeLeft() + " min");
-        }));
-
-        progressbartimer.start();
-
-        //Initialize NEWS
-        ScrollPane newsScroll = new ScrollPane();
-        newsScroll.setContent(newsUI);
-        newsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        newsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        //NEWS Style
-        newsScroll.setStyle("-fx-background-color: transparent;");
-        newsScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
-        newsScroll.getStyleClass().setAll("scroll-bar");
-        //NEWS Scaling
-        newsScroll.setFitToWidth(true);
-        newsScroll.setMinWidth(280);
-        newsScroll.setMaxWidth(280);
-        newsScroll.setPrefHeight(this.getPrefHeight());
-
-        //Progress bar
-        progressBar.prefWidthProperty().bind(insidePane.widthProperty());
-        progressBar.setCursor(Cursor.HAND);
-        progressBar.setTooltip(tooltip);
-        progressBar.setScaleY(3);
-        hackTooltipStartTiming(tooltip);
-
-        insidePane.setPadding(new Insets(0, 0, 5, 5)); //top, right, bottom, left
-
-        //Add Nodes to H/VBoxes
-        insidePane.getChildren().addAll(calendar, progressBar);
-        outsidePane.getChildren().addAll(insidePane,newsScroll);
-
-        //Resizing stuff
-        calendar.prefHeightProperty().bind(insidePane.heightProperty());
-        calendar.prefWidthProperty().bind(insidePane.widthProperty());
-        VBox.setVgrow(calendar, Priority.ALWAYS);
-        VBox.setVgrow(progressBar, Priority.NEVER);
-        insidePane.prefHeightProperty().bind(outsidePane.heightProperty());
-        insidePane.prefWidthProperty().bind(outsidePane.widthProperty());
-        newsScroll.prefHeightProperty().bind(outsidePane.heightProperty());
-        newsScroll.prefWidthProperty().bind(outsidePane.widthProperty());
-        HBox.setHgrow(newsScroll, Priority.NEVER);
-        HBox.setHgrow(insidePane, Priority.ALWAYS);
-        outsidePane.prefHeightProperty().bind(this.heightProperty());
-        outsidePane.prefWidthProperty().bind(this.widthProperty());
-
-        this.getChildren().setAll(outsidePane);
+    public GlobalTime(JFXCheckBox check)
+    {
+        this.checkBox = check;
     }
 
-    private static void hackTooltipStartTiming(Tooltip tooltip) {
-        try {
-            Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
-            fieldBehavior.setAccessible(true);
-            Object objBehavior = fieldBehavior.get(tooltip);
-            Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
-            fieldTimer.setAccessible(true);
-            Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
-            objTimer.getKeyFrames().clear();
-            objTimer.getKeyFrames().add(new KeyFrame(new Duration(0)));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    private double progressVal() {
+    private String currentBlock()
+    {
+        return "lol";
+    }
+    private double progressVal()
+    {
 
         int n = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
         if(n == Calendar.SATURDAY || n == Calendar.SUNDAY)
@@ -198,7 +101,8 @@ class Home extends Pane {
         return mod;
     }
 
-    private int timeLeft() {
+    private int timeLeft()
+    {
         int n = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
         if(n == Calendar.SATURDAY || n == Calendar.SUNDAY)
         {
@@ -267,6 +171,7 @@ class Home extends Pane {
         }
         return (int) mod;
     }
+
 
     private int parseDate(String date) {
         String hour = date.substring(0, date.indexOf(":"));

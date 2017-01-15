@@ -57,6 +57,10 @@ public class Schedule
         }
     }
 
+    public JFXCheckBox getCheck()
+    {
+        return checkBox;
+    }
 
     public void resetLabels()
     {

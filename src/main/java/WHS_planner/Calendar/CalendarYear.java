@@ -2,6 +2,7 @@ package WHS_planner.Calendar;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.scene.layout.Pane;
+import WHS_planner.Schedule.Schedule;
 
 /**
  * Created by geoffrey_wang on 1/9/17.
@@ -10,8 +11,10 @@ import javafx.scene.layout.Pane;
 public class CalendarYear extends Pane {
     private Calendar[] months = new Calendar[12];
     private int month = new CalendarHelper().getMonth()-1;
+    private Schedule sc;
 
-    public CalendarYear(){
+    public CalendarYear(Schedule schedule){
+        this.sc = schedule;
         for (int i = 0; i < 12; i++) {
             JFXButton nextButton = new JFXButton("\uf054");
 
@@ -43,6 +46,12 @@ public class CalendarYear extends Pane {
 
         this.getChildren().setAll(months[month]);
     }
+
+    public Schedule getSchedule()
+    {
+        return sc;
+    }
+
 
     private void changeMonth(int month) {
         this.getChildren().setAll(months[month]);
