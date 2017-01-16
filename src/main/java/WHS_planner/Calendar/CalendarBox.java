@@ -264,11 +264,11 @@ public class CalendarBox extends Pane{
 
                 //Get the JFXTextField and set the width to grow
                 HBox hBox = (HBox) taskBar.getChildren().get(0);
-                JFXTextField textBox = (JFXTextField) hBox.getChildren().get(1);
+                JFXTextField textBox = (JFXTextField) hBox.getChildren().get(0);
                 HBox.setHgrow(textBox, Priority.ALWAYS);
 
                 //Code for the Checkbox
-                override = (JFXCheckBox) hBox.getChildren().get(0);
+                override = (JFXCheckBox) hBox.getChildren().get(1);
 
 
                 //Set pressing enter to clear the box text
@@ -290,8 +290,8 @@ public class CalendarBox extends Pane{
                                     updateTaskBox();
                                 }
                                 else { //normal block
-//                                    String currentClass = schedule.getData()[classIndex].getClassName();
-                                    String currentClass = schedule.getToday(getLetterDay())[classIndex].getClassName();
+                                    String currentClass = schedule.getData()[classIndex].getClassName();
+//                                    String currentClass = schedule.getToday(getLetterDay())[classIndex].getClassName();
                                     addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
                                     update();
                                     updateTaskBox();
@@ -319,7 +319,7 @@ public class CalendarBox extends Pane{
         HBox hungryBox = new HBox();
         VBox taskVBox = new VBox(hungryBox);
 
-        JFXCheckBox override = new JFXCheckBox();
+        override = new JFXCheckBox();
         override.setText("Use Current Class");
         hungryBox.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
         override.getStyleClass().setAll("label-button");
@@ -341,7 +341,9 @@ public class CalendarBox extends Pane{
             e.printStackTrace();
         }
 
-        hungryBox.getChildren().addAll(override,textBox);
+//        hungryBox.getChildren().addAll(override,textBox);
+        hungryBox.getChildren().addAll(textBox,override);
+
 
         return taskVBox;
     }

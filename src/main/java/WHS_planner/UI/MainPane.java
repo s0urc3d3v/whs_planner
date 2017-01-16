@@ -189,7 +189,7 @@ public class MainPane extends StackPane {
                 info.setPadding(new Insets(10));
             });
 
-            HBox button5 = new HBox();
+//            HBox button5 = new HBox();
             bell2Check.setCursor(Cursor.HAND);
             bell2Check.setText("Bell 2");
 //            JFXCheckBox bell2Check = new JFXCheckBox();
@@ -223,7 +223,7 @@ public class MainPane extends StackPane {
 //            button5.getStyleClass().setAll("label-button");
             bell2Check.getStyleClass().setAll("label-button");
             bell2Check.setPrefSize(200,50);
-            System.out.println(bell2Check.getLabelPadding());
+//            System.out.println(bell2Check.getLabelPadding());
             info.setSpacing(0);
             info.setMinSize(200, 300);
             JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);

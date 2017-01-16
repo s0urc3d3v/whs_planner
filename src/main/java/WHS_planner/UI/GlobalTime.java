@@ -14,6 +14,10 @@ public class GlobalTime {
     private JFXCheckBox checkBox;
     public GlobalTime(JFXCheckBox check)
     {
+        if (check== null )
+        {
+            System.out.println("check is null");
+        }
         this.checkBox = check;
     }
 
