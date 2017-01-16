@@ -6,11 +6,8 @@ package WHS_planner;
 import WHS_planner.Calendar.CalendarBox;
 import WHS_planner.UI.MainPane;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.CacheHint;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -55,6 +52,19 @@ Main extends Application {
         if(!documents.exists())
         {
             documents.mkdir();
+        }
+
+        for (int i = 0; i < 12; i++)
+        {
+            try
+            {
+                File f = new File("Documents"+File.separator+i+"CalendarHolder.json");
+                f.createNewFile();
+            }
+            catch(Exception e)
+            {
+                System.out.println("Error creating holder file...");
+            }
         }
 
        File encKey = new File("Keys" + File.separator + "xor.key");
@@ -122,16 +132,6 @@ Main extends Application {
         mainPane.setCache(true);
         mainPane.setCacheShape(true);
         mainPane.setCacheHint(CacheHint.SPEED);
-
-//        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent event) {
-//                if(event.getCode() == KeyCode.Q)
-//                {
-//                    stop();
-//                }
-//            }
-//        });
 
 
         //Binds the size of the mainPane to be equal to the scene

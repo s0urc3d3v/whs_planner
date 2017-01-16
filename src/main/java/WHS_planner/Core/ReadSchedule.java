@@ -2,7 +2,7 @@ package WHS_planner.Core;
 
 import WHS_planner.Schedule.GrabDay;
 
-import java.net.*;
+import java.net.HttpURLConnection;
 import java.util.List;
 
 

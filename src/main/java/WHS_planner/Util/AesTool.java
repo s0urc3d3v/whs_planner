@@ -1,19 +1,11 @@
 package WHS_planner.Util;
 
-import WHS_planner.Core.JSON;
-import org.json.simple.JSONObject;
-
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.security.Key;
 import java.util.Base64;
-
-import static java.lang.System.exit;
-import static org.apache.commons.codec.binary.Hex.encodeHex;
 
 
 /**

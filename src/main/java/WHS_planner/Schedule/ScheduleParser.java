@@ -1,11 +1,11 @@
 package WHS_planner.Schedule;
 
 import WHS_planner.Core.IO;
-import WHS_planner.Core.ReadSchedule;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.File;
 import java.io.IOException;
 

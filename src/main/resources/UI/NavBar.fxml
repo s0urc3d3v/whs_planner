@@ -2,8 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXHamburger?>
-<?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.layout.*?>
 <AnchorPane fx:id="navBar" maxHeight="48.0" minHeight="48.0" minWidth="100.0" prefHeight="48.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <JFXHamburger alignment="CENTER" layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />

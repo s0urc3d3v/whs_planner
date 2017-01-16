@@ -1,6 +1,7 @@
 package WHS_planner.CoreUI;
-import javafx.scene.*;
-import javafx.stage.*;
+
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
 public abstract class Page {

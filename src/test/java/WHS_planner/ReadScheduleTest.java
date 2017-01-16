@@ -1,7 +1,6 @@
 package WHS_planner;
 
 import WHS_planner.Schedule.GrabDay;
-import WHS_planner.Schedule.ScheduleParserV2;
 import junit.framework.TestCase;
 import org.apache.http.impl.client.HttpClientBuilder;
 

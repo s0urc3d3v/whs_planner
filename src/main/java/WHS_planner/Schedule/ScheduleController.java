@@ -13,7 +13,10 @@ import javafx.scene.paint.Color;
 
 import java.io.*;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ScheduleController implements Initializable
@@ -110,9 +113,80 @@ public class ScheduleController implements Initializable
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        s = getletterday();
-                        if (s.length() == 1) {
+                        s = getletterday((Calendar.getInstance().get(Calendar.MONTH)+1)+"/"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                        if (s.length() == 1)
+                        {
                             s = "Today is '" + s + "' day!";
+                        }
+                        else
+                        {
+                            ParseCalendar pc = new ParseCalendar();
+                            pc.readData();
+                            int m = Calendar.getInstance().get(Calendar.MONTH)+1;
+                            int i = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+                            int th = 0;
+                            int year = Calendar.getInstance().get(Calendar.YEAR);
+
+                            while(true)
+                            {
+                                String res = pc.getDay(m+"/"+i);
+
+                                if(res.length() == 1)
+                                {
+                                    try
+                                    {
+                                        String day = parseDate(m+"/"+i+"/"+year);
+                                        s += ", "+day+" will be a \'"+res+"\' day";
+                                        break;
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        System.out.println("Exception in getting the closest new school day.");
+                                    }
+                                }
+
+                                switch(m)
+                                {
+                                    case 1: th = 31;
+                                        break;
+                                    case 2: th = 28;
+                                        break;
+                                    case 3: th = 31;
+                                        break;
+                                    case 4: th = 30;
+                                        break;
+                                    case 5: th = 31;
+                                        break;
+                                    case 6: th = 30;
+                                        break;
+                                    case 7: th = 31;
+                                        break;
+                                    case 8: th = 31;
+                                        break;
+                                    case 9: th = 30;
+                                        break;
+                                    case 10: th = 31;
+                                        break;
+                                    case 11: th = 30;
+                                        break;
+                                    case 12: th = 31;
+                                        break;
+                                }
+
+                                i++;
+
+                                if(i > th)
+                                {
+                                    i = 1;
+                                    m++;
+
+                                    if(m > 12)
+                                    {
+                                        m = 1;
+                                        year++;
+                                    }
+                                }
+                            }
                         }
                         //you can't do javafx stuff on other threads
                         Platform.runLater(() -> Title3.setText(s));
@@ -130,10 +204,9 @@ public class ScheduleController implements Initializable
     }
 
 
-    private String getletterday()
+    private String getletterday(String s)
     {
         String result = "error";
-        String s = (Calendar.getInstance().get(Calendar.MONTH)+1)+"/"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         ParseCalendar pc = new ParseCalendar();
         try
         {
@@ -269,9 +342,19 @@ public class ScheduleController implements Initializable
         MainPane mp = (MainPane) Main.getMainPane();
         Schedule sch = mp.getSchedule();
 
-        String s = getletterday();
+        String s = getletterday((Calendar.getInstance().get(Calendar.MONTH)+1)+"/"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
         return sch.getToday(s);
+    }
+
+
+    public String parseDate(String input) throws Exception
+    {
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+        Date d1 = sdf1.parse(input);
+        DateFormat sdf2 = new SimpleDateFormat("EEEE");
+        String res = sdf2.format(d1);
+        return res;
     }
 
 }
