@@ -42,7 +42,6 @@ public class Task {
         pane.setMinHeight(30);
         pane.getStylesheets().add("Calendar" + File.separator + "MainUI.css");
         pane.getStyleClass().add("task-pane");
-//        pane.setStyle("-fx-background-color:#c2d7f9;");
         pane.setAlignment(Pos.CENTER_LEFT);
 
 

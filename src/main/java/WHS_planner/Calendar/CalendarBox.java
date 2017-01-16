@@ -55,10 +55,6 @@ public class CalendarBox extends Pane{
     private Schedule schedule;
 
 
-    private boolean overridden() {
-        return !override.isSelected();
-    }
-
     public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Schedule sc){
 
         this.schedule = sc;
@@ -279,29 +275,24 @@ public class CalendarBox extends Pane{
                         String textBoxText = textBox.getText();
                         if (textBoxText.trim().length() > 0){
                             int classIndex = globalTime.getClassIndex();
-                            if (overridden() && classIndex != -1) { //If box is checked and it's during school hours, add it with class!
-                                if (classIndex == -2) //wednestday advisory
-                                {
+
+                            if (!override.isSelected() && classIndex != -1) { //If box is checked and it's during school hours, add it with class!
+                                if (classIndex == -2) { //wednesday advisory
                                     addTask(HOMEWORK, new Task("Advisory", "", textBoxText));
                                     update();
                                     updateTaskBox();
                                 }
-                                else if (classIndex==-3) // bell 2 class meeting
-                                {
+                                else if (classIndex==-3) { // bell 2 class meeting
                                     addTask(HOMEWORK, new Task("Class Meeting", "", textBoxText));
                                     update();
                                     updateTaskBox();
                                 }
-                                else
-                                {
+                                else { //normal block
                                     String currentClass = schedule.getData()[classIndex].getClassName();
-
                                     addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
                                     update();
                                     updateTaskBox();
                                 }
-
-
                             }
                             else //add it without class!
                             {

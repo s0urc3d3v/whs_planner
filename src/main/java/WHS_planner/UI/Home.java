@@ -26,7 +26,7 @@ import java.util.Date;
 
 class Home extends Pane {
 
-    JFXCheckBox checkBox;
+    private JFXCheckBox checkBox;
     private HBox outsidePane = new HBox();
     private VBox insidePane = new VBox();
     private JFXProgressBar progressBar = new JFXProgressBar();
@@ -35,8 +35,6 @@ class Home extends Pane {
 
     Home(CalendarYear calendar, Pane newsUI) {
 
-        checkBox = calendar.getSchedule().getCheck();
-//        this.checkBox = checkBox;
         //Force initial timer update
         progressBar.setProgress(100);
         progressBar.setProgress(0);
@@ -52,14 +50,14 @@ class Home extends Pane {
             //set Tooltip text
             tooltip.setText("Time left: \n" + timeLeft() + " min");
         }));
-
-        this.checkBox.setOnAction(e -> Platform.runLater(() -> {
+        progressbartimer.start();
+        //Set checkbox to instantly refresh progressBar
+        checkBox = calendar.getSchedule().getCheck();
+        checkBox.setOnAction(e -> Platform.runLater(() -> {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             tooltip.setText("Time left: \n" + timeLeft() + " min");
         }));
-
-        progressbartimer.start();
 
         //Initialize NEWS
         ScrollPane newsScroll = new ScrollPane();
