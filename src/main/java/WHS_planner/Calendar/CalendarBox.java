@@ -9,8 +9,6 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -18,7 +16,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -26,7 +23,6 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -294,7 +290,7 @@ public class CalendarBox extends Pane{
                                 }
                                 else { //normal block
 //                                    String currentClass = schedule.getData()[classIndex].getClassName();
-                                    String currentClass = schedule.getToday(getletterday())[classIndex].getClassName();
+                                    String currentClass = schedule.getToday(getLetterDay())[classIndex].getClassName();
                                     addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
                                     update();
                                     updateTaskBox();
@@ -349,7 +345,7 @@ public class CalendarBox extends Pane{
         return taskVBox;
     }
 
-    private String getletterday()
+    private String getLetterDay()
     {
         String result = "error";
         String s = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH)+1)+"/"+ java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
