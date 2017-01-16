@@ -191,20 +191,21 @@ public class MainPane extends StackPane {
 
             HBox button5 = new HBox();
             bell2Check.setCursor(Cursor.HAND);
+            bell2Check.setText("Bell 2");
 //            JFXCheckBox bell2Check = new JFXCheckBox();
-            Label bell2Label = new Label();
-            bell2Label.setText("Bell 2");
-            button5.getChildren().addAll(bell2Check, bell2Label);
-            button5.setPrefSize(200, 50);
-            button5.setAlignment(Pos.CENTER_LEFT);
+//            Label bell2Label = new Label();
+//            bell2Label.setText("Bell 2");
+//            button5.getChildren().addAll(bell2Check/*, bell2Label*/);
+//            button5.setPrefSize(200, 50);
+//            button5.setAlignment(Pos.CENTER_LEFT);
 //            button5.setPadding(new Insets(15, 0, 10, 20)); //top right bottom left
             bell2Check.setTranslateX(10);
-            bell2Label.setTranslateX(10);
+//            bell2Label.setTranslateX(10);
             bell2Check.setAlignment(Pos.CENTER_LEFT);
 
 //            info.getChildren().add(button0);
 
-            info.getChildren().addAll(button0, button1, button2, button3, button4, button5);
+            info.getChildren().addAll(button0, button1, button2, button3, button4, bell2Check);
 
             info.setAlignment(Pos.TOP_LEFT);
             info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
@@ -213,13 +214,16 @@ public class MainPane extends StackPane {
             button2.setCursor(Cursor.HAND);
             button3.setCursor(Cursor.HAND);
             button4.setCursor(Cursor.HAND);
-            button5.setCursor(Cursor.HAND);
+//            button5.setCursor(Cursor.HAND);
             button0.getStyleClass().setAll("list-button");
             button1.getStyleClass().setAll("list-button");
             button2.getStyleClass().setAll("list-button");
             button3.getStyleClass().setAll("list-button");
             button4.getStyleClass().setAll("list-button");
-            button5.getStyleClass().setAll("label-button");
+//            button5.getStyleClass().setAll("label-button");
+            bell2Check.getStyleClass().setAll("label-button");
+            bell2Check.setPrefSize(200,50);
+            System.out.println(bell2Check.getLabelPadding());
             info.setSpacing(0);
             info.setMinSize(200, 300);
             JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);

@@ -12,13 +12,14 @@ import java.util.Date;
  */
 public class GlobalTime {
     private JFXCheckBox checkBox;
-
     public GlobalTime(JFXCheckBox check)
     {
         this.checkBox = check;
     }
 
-
+    private int parseDate(String date) {
+        return Integer.parseInt(date.substring(date.indexOf(":") + 1)) + (60*Integer.parseInt(date.substring(0, date.indexOf(":"))));
+    }
     //if class index is -1, that means it's not school hours!
     // -2 is advisory, -3 is class meeting
     public int getClassIndex() {
@@ -88,12 +89,5 @@ public class GlobalTime {
         return mod;
     }
 
-    private int parseDate(String date) {
-        String hour = date.substring(0, date.indexOf(":"));
-        String minute = date.substring(date.indexOf(":") + 1);
-        int hr = Integer.parseInt(hour);
-        int min = Integer.parseInt(minute);
-        min += (hr * 60);
-        return min;
-    }
+
 }

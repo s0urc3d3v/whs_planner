@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -29,6 +30,7 @@ public class TaskBoxController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         override.setSelected(true);
+        override.setCursor(Cursor.HAND);
 
 //        System.out.println(textBox.getParent());
         try {
