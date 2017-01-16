@@ -51,7 +51,7 @@ public class CalendarBox extends Pane{
 
     private JFXCheckBox bell2;
     private JFXCheckBox override;
-    private GlobalTime globalTime = new GlobalTime(bell2);
+    private GlobalTime globalTime;
     private Schedule schedule;
 
 
@@ -62,6 +62,7 @@ public class CalendarBox extends Pane{
         this.date = date; //This box's date
         this.week = week; //The week (row) this box is in
         this.month = month;
+        this.globalTime = new GlobalTime(bell2);
 
         if(tasks == null){
             this.tasks = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
