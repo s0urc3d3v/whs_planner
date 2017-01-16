@@ -1,8 +1,8 @@
 package WHS_planner.Calendar;
 
+import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXButton;
 import javafx.scene.layout.Pane;
-import WHS_planner.Schedule.Schedule;
 
 /**
  * Created by geoffrey_wang on 1/9/17.

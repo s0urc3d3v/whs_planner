@@ -1,7 +1,6 @@
 package WHS_planner;
 
 import WHS_planner.Schedule.GrabDay;
-import WHS_planner.Schedule.Schedule;
 import junit.framework.TestCase;
 
 import java.io.File;

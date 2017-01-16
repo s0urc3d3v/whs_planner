@@ -1,10 +1,8 @@
 package WHS_planner;
 
 import WHS_planner.Core.JSON;
-import junit.framework.Test;
 import junit.framework.TestCase;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 

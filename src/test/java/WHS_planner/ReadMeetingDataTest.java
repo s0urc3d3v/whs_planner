@@ -1,9 +1,6 @@
 package WHS_planner;
 
-import WHS_planner.Core.IO;
 import junit.framework.TestCase;
-
-import java.io.File;
 
 /**
  * Created by spam on 08.10.2016.

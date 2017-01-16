@@ -10,14 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.ThreadFactory;
 
 public class loginController implements Initializable
 {
@@ -63,6 +61,7 @@ public class loginController implements Initializable
                 if(gd.testConn())
                 {
 
+                    button.setDisable(true);
                     File f = new File("Keys/ipass.key"); //TODO File.seperator?
                     if(!f.exists())
                     {
