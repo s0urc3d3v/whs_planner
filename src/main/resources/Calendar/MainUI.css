@@ -51,7 +51,8 @@
 
 .task-pane {
     -fx-background-color:#c2d7f9;
-
+    -fx-font-family: "Roboto";
+    -fx-font-size: 10pt;
 }
 
 .monthLabel {

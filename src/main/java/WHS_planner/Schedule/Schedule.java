@@ -331,7 +331,7 @@ public class Schedule
     }
 
 
-    ScheduleBlock[] getToday(String letter)
+    public ScheduleBlock[] getToday(String letter)
     {
         ScheduleBlock b[] = new ScheduleBlock[6];
         int x;

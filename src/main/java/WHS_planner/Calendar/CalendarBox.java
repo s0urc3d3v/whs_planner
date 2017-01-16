@@ -1,5 +1,6 @@
 package WHS_planner.Calendar;
 
+import WHS_planner.Schedule.ParseCalendar;
 import WHS_planner.UI.GlobalTime;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXBadge;
@@ -8,13 +9,16 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -232,13 +236,14 @@ public class CalendarBox extends Pane{
     Node getTaskBox(ReadOnlyDoubleProperty widthProperty) {
         //If there is no taskBox create one
         if(taskBar == null) {
-            FXMLLoader loader = new FXMLLoader(); //Create a new FXML Loader
-            loader.setLocation(getClass().getResource("/Calendar/taskBox.fxml")); //Set location of taskbox FXML file
+//            FXMLLoader loader = new FXMLLoader(); //Create a new FXML Loader
+//            loader.setLocation(getClass().getResource("/Calendar/taskBox.fxml")); //Set location of taskbox FXML file
 
-            taskBar = new VBox(); //Creates a return taskbox
+//            taskBar = new VBox(); //Creates a return taskbox
+            taskBar = crankOutTheTaskBox();
 
             try {
-                taskBar = loader.load(); //Load from FXML
+//                taskBar = loader.load(); //Load from FXML
                 taskBar.prefWidthProperty().bind(widthProperty); //Set the width of the taskbox to be the same as the width passed in
 
                 VBox vbox = new VBox();
@@ -288,7 +293,8 @@ public class CalendarBox extends Pane{
                                     updateTaskBox();
                                 }
                                 else { //normal block
-                                    String currentClass = schedule.getData()[classIndex].getClassName();
+//                                    String currentClass = schedule.getData()[classIndex].getClassName();
+                                    String currentClass = schedule.getToday(getletterday())[classIndex].getClassName();
                                     addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
                                     update();
                                     updateTaskBox();
@@ -304,12 +310,63 @@ public class CalendarBox extends Pane{
                         textBox.clear();
                     }
                 });
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return taskBar;
     }
+
+    public VBox crankOutTheTaskBox()
+    {
+        HBox hungryBox = new HBox();
+        VBox taskVBox = new VBox(hungryBox);
+
+        JFXCheckBox override = new JFXCheckBox();
+        override.setText("Use Current Class");
+        hungryBox.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
+        override.getStyleClass().setAll("label-button");
+        override.setSelected(true);
+        override.setCursor(Cursor.HAND);
+        override.setPrefSize(155,24);
+
+        JFXTextField textBox = new JFXTextField();
+        textBox.setPromptText("Enter Task...");
+        textBox.setCursor(Cursor.TEXT);
+        textBox.getStyleClass().setAll("roboto");
+        try {
+            textBox.setOnKeyPressed(keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.ENTER) {
+                    textBox.clear();
+                }
+            });
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        hungryBox.getChildren().addAll(override,textBox);
+
+        return taskVBox;
+    }
+
+    private String getletterday()
+    {
+        String result = "error";
+        String s = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH)+1)+"/"+ java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
+        ParseCalendar pc = new ParseCalendar();
+        try
+        {
+            pc.readData();
+            result = pc.getDay(s);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
 
     private void updateTaskBox() {
         VBox vbox = (VBox)tasksPane.getContent();

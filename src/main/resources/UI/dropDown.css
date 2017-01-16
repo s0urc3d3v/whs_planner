@@ -15,3 +15,9 @@
     -fx-label-padding: 0 0 0 5;
 
 }
+
+.roboto
+{
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto";
+}
