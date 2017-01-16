@@ -373,16 +373,16 @@ public class CalendarBox extends Pane{
                 Pane tempPane = tasks.get(0).get(i).getPane(this);
                 vbox.getChildren().add(0, tempPane);
 
-                if(getTaskCount(0)<4) {
-                    FadeTransition fadeIn = new FadeTransition(Duration.millis(1250));
-                    fadeIn.setNode(tempPane);
-
-                    fadeIn.setFromValue(0.0);
-                    fadeIn.setToValue(1.0);
-                    fadeIn.setCycleCount(1);
-                    fadeIn.setAutoReverse(false);
-                    fadeIn.playFromStart();
-                }
+//                if(getTaskCount(0)<4) {
+//                    FadeTransition fadeIn = new FadeTransition(Duration.millis(1250));
+//                    fadeIn.setNode(tempPane);
+//
+//                    fadeIn.setFromValue(0.0);
+//                    fadeIn.setToValue(1.0);
+//                    fadeIn.setCycleCount(1);
+//                    fadeIn.setAutoReverse(false);
+//                    fadeIn.playFromStart();
+//                }
 
                 if (height < 90) {
                     height+= 30;
