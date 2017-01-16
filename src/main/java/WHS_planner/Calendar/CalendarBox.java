@@ -58,6 +58,7 @@ public class CalendarBox extends Pane{
 
     public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Schedule sc){
 
+        pc.readData();
         this.schedule = sc;
         this.bell2 = sc.getCheck();
         this.date = date; //This box's date

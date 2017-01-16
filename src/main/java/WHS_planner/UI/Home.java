@@ -39,6 +39,7 @@ class Home extends Pane {
     private java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
 
     Home(CalendarYear calendar, Pane newsUI) {
+        pc.readData();
 
         //Force initial timer update
         progressBar.setProgress(100);
@@ -50,9 +51,6 @@ class Home extends Pane {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             int classIndex = globalTime.getClassIndex();
-            System.out.println(classIndex);
-            System.out.println(today);
-            System.out.println(pc.getDay(today));
             if (classIndex == -1 || pc.getDay(today).length() != 1) {
                 progressBar.setTooltip(null);
             } else {
