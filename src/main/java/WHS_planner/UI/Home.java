@@ -1,6 +1,7 @@
 package WHS_planner.UI;
 
 import WHS_planner.Calendar.CalendarYear;
+import WHS_planner.Schedule.ParseCalendar;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXProgressBar;
 import javafx.animation.KeyFrame;
@@ -34,41 +35,62 @@ class Home extends Pane {
     private Tooltip tooltip = new Tooltip();
 
     private GlobalTime globalTime;
+    private ParseCalendar pc = new ParseCalendar();
+    private java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
 
     Home(CalendarYear calendar, Pane newsUI) {
 
         //Force initial timer update
         progressBar.setProgress(100);
         progressBar.setProgress(0);
-        Platform.runLater(() -> {
-            int classIndex = globalTime.getClassIndex();
-            String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+        //            String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
+        Platform.runLater(() -> {
+            String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
-            tooltip.setText(currentClass + "Time left: \n" + timeLeft() + " min");
+            int classIndex = globalTime.getClassIndex();
+            System.out.println(classIndex);
+            System.out.println(today);
+            System.out.println(pc.getDay(today));
+            if (classIndex == -1 || pc.getDay(today).length() != 1) {
+                progressBar.setTooltip(null);
+            } else {
+                progressBar.setTooltip(tooltip);
+                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
+                tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+            }
         });
         //Timer updates (60 sec)
         progressbartimer = new Timer(60000, e -> Platform.runLater(() -> {
-            int classIndex = globalTime.getClassIndex();
-            String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
-
+            String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
-            //set Tooltip text
-            tooltip.setText(currentClass + "Time left: \n" + timeLeft() + " min");
+            int classIndex = globalTime.getClassIndex();
+            if (classIndex == -1 || pc.getDay(today).length() != 1) {
+                progressBar.setTooltip(null);
+            } else {
+                progressBar.setTooltip(tooltip);
+                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
+                tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+            }
         }));
         progressbartimer.start();
         //Set checkbox to instantly refresh progressBar
         checkBox = calendar.getSchedule().getCheck();
         globalTime = new GlobalTime(checkBox);
         checkBox.setOnAction(e -> Platform.runLater(() -> {
-            int classIndex = globalTime.getClassIndex();
-            String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
-
+            String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
-            tooltip.setText(currentClass + "Time left: \n" + timeLeft() + " min");
+            int classIndex = globalTime.getClassIndex();
+            if (classIndex == -1 || pc.getDay(today).length() != 1) {
+                progressBar.setTooltip(null);
+            } else {
+                progressBar.setTooltip(tooltip);
+                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
+                tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+            }
         }));
 
         //Initialize NEWS

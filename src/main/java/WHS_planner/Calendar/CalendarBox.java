@@ -1,5 +1,6 @@
 package WHS_planner.Calendar;
 
+import WHS_planner.Schedule.ParseCalendar;
 import WHS_planner.Schedule.Schedule;
 import WHS_planner.UI.GlobalTime;
 import com.jfoenix.controls.JFXBadge;
@@ -50,6 +51,9 @@ public class CalendarBox extends Pane{
     private JFXCheckBox override;
     private GlobalTime globalTime;
     private Schedule schedule;
+
+    private ParseCalendar pc = new ParseCalendar();
+
 
 
     public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Schedule sc){
@@ -172,9 +176,11 @@ public class CalendarBox extends Pane{
 
             }
         }));
-        java.util.Calendar calendar = java.util.Calendar.getInstance();
-        int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
-        int month = calendar.get(java.util.Calendar.MONTH);
+//        java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
+        java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
+
+        int day = javaCalendar.get(java.util.Calendar.DAY_OF_MONTH);
+        int month = javaCalendar.get(java.util.Calendar.MONTH);
         if (day == this.getDate()&&month == this.month) {
             dayCircle.setFill(new Color(255/255, 152/255.0, 0, 100/100));
         } else {
@@ -288,7 +294,9 @@ public class CalendarBox extends Pane{
                                 }
                                 else { //normal block
 //                                    String currentClass = schedule.getData()[classIndex].getClassName();
-                                    String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
+//                                    String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
+
+                                    String currentClass = schedule.getToday(pc.getDay((java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH)))[classIndex].getClassName();
                                     addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
                                     update();
                                     updateTaskBox();
@@ -311,7 +319,7 @@ public class CalendarBox extends Pane{
         return taskBar;
     }
 
-    public VBox crankOutTheTaskBox()
+    private VBox crankOutTheTaskBox()
     {
         HBox hungryBox = new HBox();
         VBox taskVBox = new VBox(hungryBox);
