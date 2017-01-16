@@ -59,6 +59,8 @@ public class CalendarBox extends Pane{
     public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Schedule sc){
 
         pc.readData();
+
+
         this.schedule = sc;
         this.bell2 = sc.getCheck();
         this.date = date; //This box's date
@@ -277,12 +279,20 @@ public class CalendarBox extends Pane{
 
                 //Set pressing enter to clear the box text
                 textBox.setOnKeyPressed(event -> {
+
                     if (event.getCode() == KeyCode.ENTER) {
+
                         String textBoxText = textBox.getText();
                         if (textBoxText.trim().length() > 0){
                             int classIndex = globalTime.getClassIndex();
+                            String today = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
+//                            System.out.println("length" + pc.getDay(today).length());
+//                            System.out.println(override.isSelected());
+//                            System.out.println("Class Index: " + classIndex);
 
-                            if (!override.isSelected() && classIndex != -1) { //If box is checked and it's during school hours, add it with class!
+                                  //There is school              checkbox selected        during school hours (unreliable when there's no school)
+                            if ((pc.getDay(today).length() == 1 && override.isSelected() && classIndex != -1)) {
+
                                 if (classIndex == -2) { //wednesday advisory
                                     addTask(HOMEWORK, new Task("Advisory", "", textBoxText));
                                     update();
@@ -297,7 +307,7 @@ public class CalendarBox extends Pane{
 //                                    String currentClass = schedule.getData()[classIndex].getClassName();
 //                                    String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
-                                    String currentClass = schedule.getToday(pc.getDay((java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH)))[classIndex].getClassName();
+                                    String currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
                                     addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
                                     update();
                                     updateTaskBox();
