@@ -1,5 +1,6 @@
 package WHS_planner.UI;
 
+import WHS_planner.Schedule.ParseCalendar;
 import com.jfoenix.controls.JFXCheckBox;
 
 import java.text.DateFormat;
@@ -72,7 +73,7 @@ public class GlobalTime {
             } else {
                 mod = -1;
             }
-            return 1;
+//            return 1;
         } else { //Other days
             if (num >= 450 && num < 512) {
                 mod = 0;
@@ -91,6 +92,20 @@ public class GlobalTime {
             }
         }
         return mod;
+    }
+
+    public String getLetterDay() {
+        String result = "error";
+        String s = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
+        ParseCalendar pc = new ParseCalendar();
+        try {
+            pc.readData();
+            result = pc.getDay(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 

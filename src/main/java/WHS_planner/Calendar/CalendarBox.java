@@ -1,13 +1,11 @@
 package WHS_planner.Calendar;
 
-import WHS_planner.Schedule.ParseCalendar;
-import WHS_planner.UI.GlobalTime;
 import WHS_planner.Schedule.Schedule;
+import WHS_planner.UI.GlobalTime;
 import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
-import javafx.animation.FadeTransition;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,7 +18,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -290,8 +287,8 @@ public class CalendarBox extends Pane{
                                     updateTaskBox();
                                 }
                                 else { //normal block
-                                    String currentClass = schedule.getData()[classIndex].getClassName();
-//                                    String currentClass = schedule.getToday(getLetterDay())[classIndex].getClassName();
+//                                    String currentClass = schedule.getData()[classIndex].getClassName();
+                                    String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
                                     addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
                                     update();
                                     updateTaskBox();
@@ -348,23 +345,6 @@ public class CalendarBox extends Pane{
         return taskVBox;
     }
 
-    private String getLetterDay()
-    {
-        String result = "error";
-        String s = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH)+1)+"/"+ java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
-        ParseCalendar pc = new ParseCalendar();
-        try
-        {
-            pc.readData();
-            result = pc.getDay(s);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
 
 
     private void updateTaskBox() {
