@@ -119,16 +119,6 @@ Main extends Application {
 
         Scene scene = new Scene(mainPane); //Put the mainPane into a scene
 
-//        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent event) {
-//                if(event.getCode() == KeyCode.Q)
-//                {
-//                    stop();
-//                }
-//            }
-//        });
-
 
         //Binds the size of the mainPane to be equal to the scene
         mainPane.prefWidthProperty().bind(scene.widthProperty());
