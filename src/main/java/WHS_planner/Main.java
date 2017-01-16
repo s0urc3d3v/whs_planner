@@ -7,6 +7,7 @@ import WHS_planner.Calendar.CalendarBox;
 import WHS_planner.UI.MainPane;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.scene.CacheHint;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -118,6 +119,9 @@ Main extends Application {
         mainPane = new MainPane(); //Create the mainPane (pane with all the content)
 
         Scene scene = new Scene(mainPane); //Put the mainPane into a scene
+        mainPane.setCache(true);
+        mainPane.setCacheShape(true);
+        mainPane.setCacheHint(CacheHint.SPEED);
 
 
         //Binds the size of the mainPane to be equal to the scene

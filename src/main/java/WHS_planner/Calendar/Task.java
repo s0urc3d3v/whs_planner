@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 
+import java.io.File;
+
 /**
  * Created by geoffrey_wang on 9/20/16.
  */
@@ -38,13 +40,34 @@ public class Task {
 //        StackPane pane = new StackPane();
 
         pane.setMinHeight(30);
-        pane.setStyle("-fx-background-color:#c2d7f9;");
+        pane.getStylesheets().add("Calendar" + File.separator + "MainUI.css");
+        pane.getStyleClass().add("task-pane");
         pane.setAlignment(Pos.CENTER_LEFT);
+
+
+
         Text label = new Text(Description);
         Text spaces = new Text("  ");
         label.setBoundsType(TextBoundsType.VISUAL);
-        pane.getChildren().add(spaces);
-        pane.getChildren().add(label);
+
+
+        if (Class.equals("")) //If there is no class
+        {
+            Text classText = new Text(Class);
+
+            pane.getChildren().add(spaces);
+            pane.getChildren().add(classText);
+
+            pane.getChildren().add(label);
+        }
+        else //If there is a class
+        {
+            Text classText = new Text(Class + ":  ");
+            pane.getChildren().add(spaces);
+            pane.getChildren().add(classText);
+
+            pane.getChildren().add(label);
+        }
 
         pane.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {

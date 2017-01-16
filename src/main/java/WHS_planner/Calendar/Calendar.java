@@ -4,6 +4,7 @@ import WHS_planner.Core.AutoSave;
 import WHS_planner.Core.IO;
 import WHS_planner.Core.JSON;
 import WHS_planner.Main;
+import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
@@ -43,8 +44,15 @@ public class Calendar extends BorderPane {
     private int currentTextBoxRow = -1;
     // MARK: day in focus
     private int currentDate = -1;
+    private Schedule schedule;
 
-    public Calendar(int month, JFXButton nextButton, JFXButton prevButton) {
+    public Schedule getSchedule()
+    {
+        return schedule;
+    }
+
+    public Calendar(int month, JFXButton nextButton, JFXButton prevButton, Schedule sc) {
+        this.schedule = sc;
 
         File saveFile = new File("Documents" + File.separator + month + "CalendarHolder.json");
         if(!saveFile.exists()){
@@ -61,7 +69,7 @@ public class Calendar extends BorderPane {
         this.startDay = dayFinder.getWeekdayMonthStarts(month);
         this.numberOfDays = dayFinder.getDaysInMonth(month);
 
-        CalendarUtility util = new CalendarUtility();
+        CalendarUtility util = new CalendarUtility(schedule);
 
         //Loads the ttf font file into the program
         InputStream font = Main.class.getResourceAsStream("/FontAwesome/fontawesome.ttf");
@@ -136,7 +144,7 @@ public class Calendar extends BorderPane {
                 if (aCalendar[c] != null) {
                     tempCalendarBox = aCalendar[c];
                 } else {
-                    tempCalendarBox = new CalendarBox(0, 0, false, null, month);
+                    tempCalendarBox = new CalendarBox(0, 0, false, null, 0, sc);
                 }
                 tempCalendarBox.prefHeightProperty().bind(row.heightProperty());
                 row.add(tempCalendarBox, c, 0);

@@ -27,8 +27,8 @@ import java.util.List;
 public class NewsUI extends Pane {
 
     private static final double BOX_WIDTH = 250;
-    private static final double IMAGE_WIDTH = 200;
-    private static final double IMAGE_HEIGHT = 200;
+    private static final double IMAGE_WIDTH = 250;
+//    private static final double IMAGE_HEIGHT = 200;
 
     private RSSFeedParser parser = new RSSFeedParser("https://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
@@ -71,14 +71,12 @@ public class NewsUI extends Pane {
             hpl.setWrapText(true);
             hpl.setMaxWidth(BOX_WIDTH);
             hpl.setPadding(new Insets(0, 0, 0, 4));
-            hpl.getStyleClass().add("roboto");
 
             //Add Description (Label)
             Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
             description.setWrapText(true);
             description.setMaxWidth(BOX_WIDTH);
             description.setPadding(new Insets(0, 0, 0, 6));
-            description.getStyleClass().add("roboto");
 
             //Add Image
             try {
@@ -94,13 +92,16 @@ public class NewsUI extends Pane {
                     }
                     WritableImage wr = convertImg(bf);
                     ImageView img = new ImageView(wr);
-                    if (wr.getHeight() < wr.getWidth()) {
-                        img.setFitWidth(IMAGE_WIDTH);
-                        img.setFitHeight(wr.getHeight() / (wr.getWidth() / (IMAGE_WIDTH)));
-                    } else {
-                        img.setFitHeight(IMAGE_HEIGHT);
-                        img.setFitWidth(wr.getWidth() / (wr.getHeight() / (IMAGE_HEIGHT)));
-                    }
+
+                    img.setFitWidth(IMAGE_WIDTH);
+                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / (IMAGE_WIDTH)));
+//                    if (wr.getHeight() < wr.getWidth()) {
+//                        img.setFitWidth(IMAGE_WIDTH);
+//                        img.setFitHeight(wr.getHeight() / (wr.getWidth() / (IMAGE_WIDTH)));
+//                    } else {
+//                        img.setFitHeight(IMAGE_HEIGHT);
+//                        img.setFitWidth(wr.getWidth() / (wr.getHeight() / (IMAGE_HEIGHT)));
+//                    }
                     img.setImage(wr);
 
                     //Add article to list WITH image
@@ -115,12 +116,25 @@ public class NewsUI extends Pane {
         }
     }
 
+    //Normal news article
     private void addCard(Label description, Hyperlink hyperlink, ImageView image) {
+        hyperlink.getStyleClass().add("roboto");
+        description.getStyleClass().add("roboto");
+        VBox textVBox;
         VBox vBox;
+
+
         if (image == null) {
-            vBox = new VBox(hyperlink, description);
+            textVBox = new VBox(hyperlink, description);
+            textVBox.getStyleClass().setAll("text-padding");
+            vBox = new VBox(textVBox);
+//            vBox = new VBox(hyperlink, description);
         } else {
-            vBox = new VBox(image, hyperlink, description);
+
+            textVBox = new VBox(hyperlink, description);
+            textVBox.getStyleClass().setAll("text-padding");
+            vBox = new VBox(image,textVBox);
+//            vBox = new VBox(image, hyperlink, description);
         }
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setPrefWidth(BOX_WIDTH);
@@ -141,9 +155,11 @@ public class NewsUI extends Pane {
         cardView.getChildren().add(hBox);
     }
 
-    //This one adds the label first
+    //This one adds the label first - for offline
     private void addCard(Hyperlink hyperlink, Label description)
     {
+        hyperlink.getStyleClass().add("roboto");
+        description.getStyleClass().add("roboto");
         VBox vBox = new VBox(description, hyperlink);
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setPrefWidth(BOX_WIDTH);

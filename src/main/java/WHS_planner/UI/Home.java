@@ -26,38 +26,50 @@ import java.util.Date;
 
 class Home extends Pane {
 
-    JFXCheckBox checkBox;
+    private JFXCheckBox checkBox;
     private HBox outsidePane = new HBox();
     private VBox insidePane = new VBox();
     private JFXProgressBar progressBar = new JFXProgressBar();
     private Timer progressbartimer;
     private Tooltip tooltip = new Tooltip();
 
-    Home(CalendarYear calendar, Pane newsUI, JFXCheckBox checkBox) {
-        this.checkBox = checkBox;
+    private GlobalTime globalTime;
+
+    Home(CalendarYear calendar, Pane newsUI) {
+
         //Force initial timer update
         progressBar.setProgress(100);
         progressBar.setProgress(0);
         Platform.runLater(() -> {
+            int classIndex = globalTime.getClassIndex();
+            String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
-            tooltip.setText("Time left: \n" + timeLeft() + " min");
+            tooltip.setText(currentClass + "Time left: \n" + timeLeft() + " min");
         });
         //Timer updates (60 sec)
         progressbartimer = new Timer(60000, e -> Platform.runLater(() -> {
+            int classIndex = globalTime.getClassIndex();
+            String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             //set Tooltip text
-            tooltip.setText("Time left: \n" + timeLeft() + " min");
+            tooltip.setText(currentClass + "Time left: \n" + timeLeft() + " min");
         }));
+        progressbartimer.start();
+        //Set checkbox to instantly refresh progressBar
+        checkBox = calendar.getSchedule().getCheck();
+        globalTime = new GlobalTime(checkBox);
+        checkBox.setOnAction(e -> Platform.runLater(() -> {
+            int classIndex = globalTime.getClassIndex();
+            String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
-        this.checkBox.setOnAction(e -> Platform.runLater(() -> {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
-            tooltip.setText("Time left: \n" + timeLeft() + " min");
+            tooltip.setText(currentClass + "Time left: \n" + timeLeft() + " min");
         }));
-
-        progressbartimer.start();
 
         //Initialize NEWS
         ScrollPane newsScroll = new ScrollPane();
@@ -173,7 +185,7 @@ class Home extends Pane {
                 mod = 1;
             }
 
-            return 1;
+//            return 1;
         }
         //other days
         else {
@@ -245,7 +257,7 @@ class Home extends Pane {
                 mod = 1;
             }
 
-            return 1;
+//            return 1;
         } else {
             if (num >= 450 && num < 512) {
                 mod = (512 - num);

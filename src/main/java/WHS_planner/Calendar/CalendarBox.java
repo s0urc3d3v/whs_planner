@@ -1,13 +1,15 @@
 package WHS_planner.Calendar;
 
+import WHS_planner.Schedule.Schedule;
+import WHS_planner.UI.GlobalTime;
 import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
-import javafx.animation.FadeTransition;
 import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -16,10 +18,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.util.Duration;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -46,10 +46,20 @@ public class CalendarBox extends Pane{
     private HBox iconContainer;
     private int month;
 
-    public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month){
+    private JFXCheckBox bell2;
+    private JFXCheckBox override;
+    private GlobalTime globalTime;
+    private Schedule schedule;
+
+
+    public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Schedule sc){
+
+        this.schedule = sc;
+        this.bell2 = sc.getCheck();
         this.date = date; //This box's date
         this.week = week; //The week (row) this box is in
         this.month = month;
+        this.globalTime = new GlobalTime(bell2);
 
         if(tasks == null){
             this.tasks = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
@@ -208,7 +218,6 @@ public class CalendarBox extends Pane{
                     badge.setText("" + getTaskCount(listID)); //Set the badge number
                     icons.add(badge);
                 }else{
-                    icon.setStyle("-fx-text-fill: #FDFDFD;");
                     icons.add(icon);
                 }
             }
@@ -221,13 +230,14 @@ public class CalendarBox extends Pane{
     Node getTaskBox(ReadOnlyDoubleProperty widthProperty) {
         //If there is no taskBox create one
         if(taskBar == null) {
-            FXMLLoader loader = new FXMLLoader(); //Create a new FXML Loader
-            loader.setLocation(getClass().getResource("/Calendar/taskBox.fxml")); //Set location of taskbox FXML file
+//            FXMLLoader loader = new FXMLLoader(); //Create a new FXML Loader
+//            loader.setLocation(getClass().getResource("/Calendar/taskBox.fxml")); //Set location of taskbox FXML file
 
-            taskBar = new VBox(); //Creates a return taskbox
+//            taskBar = new VBox(); //Creates a return taskbox
+            taskBar = crankOutTheTaskBox();
 
             try {
-                taskBar = loader.load(); //Load from FXML
+//                taskBar = loader.load(); //Load from FXML
                 taskBar.prefWidthProperty().bind(widthProperty); //Set the width of the taskbox to be the same as the width passed in
 
                 VBox vbox = new VBox();
@@ -254,24 +264,88 @@ public class CalendarBox extends Pane{
                 JFXTextField textBox = (JFXTextField) hBox.getChildren().get(0);
                 HBox.setHgrow(textBox, Priority.ALWAYS);
 
+                //Code for the Checkbox
+                override = (JFXCheckBox) hBox.getChildren().get(1);
+
+
                 //Set pressing enter to clear the box text
                 textBox.setOnKeyPressed(event -> {
                     if (event.getCode() == KeyCode.ENTER) {
                         String textBoxText = textBox.getText();
                         if (textBoxText.trim().length() > 0){
-                            addTask(HOMEWORK, new Task("","", textBoxText));
-                            update();
-                            updateTaskBox();
+                            int classIndex = globalTime.getClassIndex();
+
+                            if (!override.isSelected() && classIndex != -1) { //If box is checked and it's during school hours, add it with class!
+                                if (classIndex == -2) { //wednesday advisory
+                                    addTask(HOMEWORK, new Task("Advisory", "", textBoxText));
+                                    update();
+                                    updateTaskBox();
+                                }
+                                else if (classIndex==-3) { // bell 2 class meeting
+                                    addTask(HOMEWORK, new Task("Class Meeting", "", textBoxText));
+                                    update();
+                                    updateTaskBox();
+                                }
+                                else { //normal block
+//                                    String currentClass = schedule.getData()[classIndex].getClassName();
+                                    String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
+                                    addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                    update();
+                                    updateTaskBox();
+                                }
+                            }
+                            else //add it without class!
+                            {
+                                addTask(HOMEWORK, new Task("", "", textBoxText));
+                                update();
+                                updateTaskBox();
+                            }
                         }
                         textBox.clear();
                     }
                 });
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return taskBar;
     }
+
+    public VBox crankOutTheTaskBox()
+    {
+        HBox hungryBox = new HBox();
+        VBox taskVBox = new VBox(hungryBox);
+
+        override = new JFXCheckBox();
+        override.setText("Use Current Class");
+        hungryBox.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
+        override.getStyleClass().setAll("label-button");
+        override.setSelected(true);
+        override.setCursor(Cursor.HAND);
+        override.setPrefSize(155,24);
+
+        JFXTextField textBox = new JFXTextField();
+        textBox.setPromptText("Enter Task...");
+        textBox.setCursor(Cursor.TEXT);
+        textBox.getStyleClass().setAll("roboto");
+        try {
+            textBox.setOnKeyPressed(keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.ENTER) {
+                    textBox.clear();
+                }
+            });
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+//        hungryBox.getChildren().addAll(override,textBox);
+        hungryBox.getChildren().addAll(textBox,override);
+
+
+        return taskVBox;
+    }
+
+
 
     private void updateTaskBox() {
         VBox vbox = (VBox)tasksPane.getContent();
@@ -282,16 +356,16 @@ public class CalendarBox extends Pane{
                 Pane tempPane = tasks.get(0).get(i).getPane(this);
                 vbox.getChildren().add(0, tempPane);
 
-                if(getTaskCount(0)<4) {
-                    FadeTransition fadeIn = new FadeTransition(Duration.millis(1250));
-                    fadeIn.setNode(tempPane);
-
-                    fadeIn.setFromValue(0.0);
-                    fadeIn.setToValue(1.0);
-                    fadeIn.setCycleCount(1);
-                    fadeIn.setAutoReverse(false);
-                    fadeIn.playFromStart();
-                }
+//                if(getTaskCount(0)<4) {
+//                    FadeTransition fadeIn = new FadeTransition(Duration.millis(1250));
+//                    fadeIn.setNode(tempPane);
+//
+//                    fadeIn.setFromValue(0.0);
+//                    fadeIn.setToValue(1.0);
+//                    fadeIn.setCycleCount(1);
+//                    fadeIn.setAutoReverse(false);
+//                    fadeIn.playFromStart();
+//                }
 
                 if (height < 90) {
                     height+= 30;

@@ -173,13 +173,13 @@ public class MainPane extends StackPane {
                 info.getChildren().add(new Label("Production 1.0.0\n "));
                 info.getChildren().add(peopleLabel);
                 String[] names = new String[]{
-                        "Tyler Brient - UI, Pleb",
+                        "Tyler Brient - UI Master, Bug Squasher",
                         "George Jiang - UX, News, Bug Finder",
                         "Andrew Eggleston - Yelled at Tyler",
                         "Geoffrey Wang - UI Master, Calendar",
                         "Matthew Elbing - Backend, Project Lead",
                         "Jack Bachman - Backend, Github",
-                        "John Broderick - Schedule",
+                        "John Broderick - Schedule, Bug Creator",
                         "Will Robison - HTML, Piano Tiles 2",
                         "Tzur Almog - Calendar",
                 };
@@ -189,22 +189,23 @@ public class MainPane extends StackPane {
                 info.setPadding(new Insets(10));
             });
 
-            HBox button5 = new HBox();
+//            HBox button5 = new HBox();
             bell2Check.setCursor(Cursor.HAND);
+            bell2Check.setText("Bell 2");
 //            JFXCheckBox bell2Check = new JFXCheckBox();
-            Label bell2Label = new Label();
-            bell2Label.setText("Bell 2");
-            button5.getChildren().addAll(bell2Check, bell2Label);
-            button5.setPrefSize(200, 50);
-            button5.setAlignment(Pos.CENTER_LEFT);
+//            Label bell2Label = new Label();
+//            bell2Label.setText("Bell 2");
+//            button5.getChildren().addAll(bell2Check/*, bell2Label*/);
+//            button5.setPrefSize(200, 50);
+//            button5.setAlignment(Pos.CENTER_LEFT);
 //            button5.setPadding(new Insets(15, 0, 10, 20)); //top right bottom left
             bell2Check.setTranslateX(10);
-            bell2Label.setTranslateX(10);
+//            bell2Label.setTranslateX(10);
             bell2Check.setAlignment(Pos.CENTER_LEFT);
 
 //            info.getChildren().add(button0);
 
-            info.getChildren().addAll(button0, button1, button2, button3, button4, button5);
+            info.getChildren().addAll(button0, button1, button2, button3, button4, bell2Check);
 
             info.setAlignment(Pos.TOP_LEFT);
             info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
@@ -213,13 +214,16 @@ public class MainPane extends StackPane {
             button2.setCursor(Cursor.HAND);
             button3.setCursor(Cursor.HAND);
             button4.setCursor(Cursor.HAND);
-            button5.setCursor(Cursor.HAND);
+//            button5.setCursor(Cursor.HAND);
             button0.getStyleClass().setAll("list-button");
             button1.getStyleClass().setAll("list-button");
             button2.getStyleClass().setAll("list-button");
             button3.getStyleClass().setAll("list-button");
             button4.getStyleClass().setAll("list-button");
-            button5.getStyleClass().setAll("label-button");
+//            button5.getStyleClass().setAll("label-button");
+            bell2Check.getStyleClass().setAll("label-button");
+            bell2Check.setPrefSize(200,50);
+//            System.out.println(bell2Check.getLabelPadding());
             info.setSpacing(0);
             info.setMinSize(200, 300);
             JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
@@ -288,8 +292,9 @@ public class MainPane extends StackPane {
 
     private void generatePanes() {
         schedule = new Schedule(bell2Check);
-        calendar = new CalendarYear();
-//        calendar = new Calendar("January");
+        calendar = new CalendarYear(schedule);
+        //calender has schedule and bell2check
+
         NewsUI news = null;
         try {
             news = new NewsUI();
@@ -297,8 +302,7 @@ public class MainPane extends StackPane {
             e.printStackTrace();
         }
         //Pane meeting = new MeetingPane();
-//        Home homePane = new Home(calendar, news.getCardView(), schedule.getProgressBar());
-        Home homePane = new Home(calendar, news.getCardView(), bell2Check);
+        Home homePane = new Home(calendar, news.getCardView());
         addPane(homePane);
         addPane((Pane) schedule.getPane());
         //addPane(meeting);
