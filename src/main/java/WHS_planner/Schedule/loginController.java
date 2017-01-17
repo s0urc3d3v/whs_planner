@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.io.BufferedWriter;
@@ -53,7 +54,7 @@ public class loginController implements Initializable
 
         if(username.equals("") || pass.equals(""))
         {
-//            error.setTextFill(Color.BLACK);
+            error.setTextFill(Color.BLACK);
             error.setText("Please enter your iPass information");
         }
         else
@@ -64,6 +65,7 @@ public class loginController implements Initializable
 
                 if(gd.testConn())
                 {
+                    error.setTextFill(Color.GREEN);
                     error.setText("Logging in...");
                     loginPane.requestLayout();
                     button.setDisable(true);
@@ -128,7 +130,7 @@ public class loginController implements Initializable
                 }
                 else
                 {
-//                    error.setTextFill(Color.RED);
+                    error.setTextFill(Color.RED);
 //                    error.setText("Information incorrect, please try again!");
                     error.setText("Incorrect username or password. Please try again.");
 //                    error.setTextFill(Color.BLACK);
