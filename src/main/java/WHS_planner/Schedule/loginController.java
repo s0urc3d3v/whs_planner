@@ -6,10 +6,14 @@ import WHS_planner.Util.XorTool;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,7 +24,7 @@ import java.util.ResourceBundle;
 public class loginController implements Initializable
 {
     @FXML
-    private JFXButton button;
+    private Button button;
     @FXML
     private JFXPasswordField password;
     @FXML
@@ -45,7 +49,6 @@ public class loginController implements Initializable
     {
         String username = user.getText();
         String pass = password.getText();
-        error.setText("Logging in...please wait");
         error.setVisible(true);
 
         if(username.equals("") || pass.equals(""))
@@ -61,7 +64,8 @@ public class loginController implements Initializable
 
                 if(gd.testConn())
                 {
-
+                    error.setText("Logging in...");
+                    loginPane.requestLayout();
                     button.setDisable(true);
                     File f = new File("Keys/ipass.key"); //TODO File.seperator?
                     if(!f.exists())
@@ -88,10 +92,34 @@ public class loginController implements Initializable
                     button calls logout method in ScheduleController and quits to program
                      */
 
-                    try
-                    {
-                       MainPane mp = (MainPane) Main.getMainPane();
-                       mp.resetSchedule();
+                    try {
+//                       while(true) {
+//                           if(error.isVisible()) {
+//                               System.out.println(error.getText());
+//                               MainPane mp = (MainPane) Main.getMainPane();
+//                               mp.resetSchedule();
+//                               break;
+//                           }
+//                       }
+
+
+                        PauseTransition ps = new PauseTransition(Duration.seconds(1));
+                        ps.setOnFinished(event -> {
+                            try {
+                                MainPane mp = (MainPane) Main.getMainPane();
+                                mp.resetSchedule();
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        });
+                        ps.play();
+
+
+
+
+
                     }
                     catch(Exception e)
                     {

@@ -91,7 +91,7 @@ public class Schedule
 
 
         FXMLLoader loader2 = new FXMLLoader();
-        loader2.setLocation(getClass().getResource("/Schedule/material_login.fxml"));
+        loader2.setLocation(getClass().getResource("/Schedule/test_material.fxml"));
 
         login = loader2.load();
 
