@@ -53,13 +53,11 @@ public class CalendarBox extends Pane{
     private Schedule schedule;
 
     private ParseCalendar pc = new ParseCalendar();
-
+    private File day = new File("Documents/DayArray.json");
 
 
     public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Schedule sc){
 
-
-        File day = new File("Documents/DayArray.json");
         if(day.exists()) {
             pc.readData();
         }
@@ -294,36 +292,38 @@ public class CalendarBox extends Pane{
 //                            System.out.println("length" + pc.getDay(today).length());
 //                            System.out.println(override.isSelected());
 //                            System.out.println("Class Index: " + classIndex);
+                            if (day.exists()) {
+                                //There is school              checkbox selected        during school hours (unreliable when there's no school)
+                                if ((pc.getDay(today).length() == 1 && override.isSelected() && classIndex != -1)) {
+                                    System.out.println(pc.getDay(today));
+                                    System.out.println(override.isSelected());
+                                    System.out.println(classIndex);
 
-                                  //There is school              checkbox selected        during school hours (unreliable when there's no school)
-                            if ((pc.getDay(today).length() == 1 && override.isSelected() && classIndex != -1)) {
-                                System.out.println(pc.getDay(today));
-                                System.out.println(override.isSelected());
-                                System.out.println(classIndex);
 
-
-                                if (classIndex == -2) { //wednesday advisory
-                                    addTask(HOMEWORK, new Task("Advisory", "", textBoxText));
-                                    update();
-                                    updateTaskBox();
-                                }
-                                else if (classIndex==-3) { // bell 2 class meeting
-                                    addTask(HOMEWORK, new Task("Class Meeting", "", textBoxText));
-                                    update();
-                                    updateTaskBox();
-                                }
-                                else { //normal block
+                                    if (classIndex == -2) { //wednesday advisory
+                                        addTask(HOMEWORK, new Task("Advisory", "", textBoxText));
+                                        update();
+                                        updateTaskBox();
+                                    } else if (classIndex == -3) { // bell 2 class meeting
+                                        addTask(HOMEWORK, new Task("Class Meeting", "", textBoxText));
+                                        update();
+                                        updateTaskBox();
+                                    } else { //normal block
 //                                    String currentClass = schedule.getData()[classIndex].getClassName();
 //                                    String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
-                                    String currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
-                                    addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                        String currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
+                                        addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                        update();
+                                        updateTaskBox();
+                                    }
+                                } else //add it without class!
+                                {
+                                    addTask(HOMEWORK, new Task("", "", textBoxText));
                                     update();
                                     updateTaskBox();
                                 }
-                            }
-                            else //add it without class!
-                            {
+                            } else {
                                 addTask(HOMEWORK, new Task("", "", textBoxText));
                                 update();
                                 updateTaskBox();

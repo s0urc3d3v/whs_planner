@@ -74,10 +74,12 @@ class Home extends Pane {
                 } else {
                     tooltip.setText("Time left: \n" + timeLeft() + " min");
                 }
-
 //                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
             }
-        }});
+        } else{
+                tooltip.setText("Time left: \n" + timeLeft() + " min");
+            }
+        });
 
         //Timer updates (60 sec)
         progressbartimer = new Timer(60000, e -> Platform.runLater(() -> {
@@ -85,18 +87,23 @@ class Home extends Pane {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             int classIndex = globalTime.getClassIndex();
-            if (classIndex == -1 || pc.getDay(today).length() != 1) {
-                progressBar.setTooltip(null);
-            } else {
-                progressBar.setTooltip(tooltip);
-                try {
-                    currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
-                } catch (NullPointerException exceptoin) {}
-                if(currentClass != null) {
-                    tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+            if (day.exists()) {
+                if (classIndex == -1 || pc.getDay(today).length() != 1) {
+                    progressBar.setTooltip(null);
                 } else {
-                    tooltip.setText("Time left: \n" + timeLeft() + " min");
+                    progressBar.setTooltip(tooltip);
+                    try {
+                        currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+                    } catch (NullPointerException exceptoin) {
+                    }
+                    if (currentClass != null) {
+                        tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+                    } else {
+                        tooltip.setText("Time left: \n" + timeLeft() + " min");
+                    }
                 }
+            } else {
+                tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
         }));
         progressbartimer.start();
@@ -108,18 +115,23 @@ class Home extends Pane {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             int classIndex = globalTime.getClassIndex();
-            if (classIndex == -1 || pc.getDay(today).length() != 1) {
-                progressBar.setTooltip(null);
-            } else {
-                progressBar.setTooltip(tooltip);
-                try {
-                    currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
-                } catch (NullPointerException exception) {}
-                if(currentClass != null) {
-                    tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+            if (day.exists()) {
+                if (classIndex == -1 || pc.getDay(today).length() != 1) {
+                    progressBar.setTooltip(null);
                 } else {
-                    tooltip.setText("Time left: \n" + timeLeft() + " min");
+                    progressBar.setTooltip(tooltip);
+                    try {
+                        currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+                    } catch (NullPointerException exceptoin) {
+                    }
+                    if (currentClass != null) {
+                        tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+                    } else {
+                        tooltip.setText("Time left: \n" + timeLeft() + " min");
+                    }
                 }
+            } else {
+                tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
         }));
 
