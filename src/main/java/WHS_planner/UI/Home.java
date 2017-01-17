@@ -56,8 +56,8 @@ class Home extends Pane {
                 progressBar.setTooltip(null);
             } else {
                 progressBar.setTooltip(tooltip);
-                System.out.println(globalTime.getLetterDay());
-                System.out.println(calendar.getSchedule().getToday(globalTime.getLetterDay()));
+//                System.out.println(globalTime.getLetterDay());
+//                System.out.println(calendar.getSchedule().getToday(globalTime.getLetterDay()));
                 String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
 //                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
@@ -74,7 +74,7 @@ class Home extends Pane {
                 progressBar.setTooltip(null);
             } else {
                 progressBar.setTooltip(tooltip);
-                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
+                String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
                 tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
             }
         }));
@@ -91,7 +91,7 @@ class Home extends Pane {
                 progressBar.setTooltip(null);
             } else {
                 progressBar.setTooltip(tooltip);
-                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
+                String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
                 tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
             }
         }));

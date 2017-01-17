@@ -37,7 +37,7 @@ public class GlobalTime {
         String dateS = df.format(date);
         int num = parseDate(dateS);
         int mod;
-        System.out.println("num: " + num);
+//        System.out.println("num: " + num);
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) { //wednesday
             if (num >= 450 && num < 495) {
                 mod = 0;
