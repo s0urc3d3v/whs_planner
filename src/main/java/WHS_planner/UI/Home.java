@@ -37,6 +37,7 @@ class Home extends Pane {
     private GlobalTime globalTime;
     private ParseCalendar pc = new ParseCalendar();
     private java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
+    private String currentClass;
 
     Home(CalendarYear calendar, Pane newsUI) {
         globalTime = new GlobalTime(calendar.getSchedule().getCheck());
@@ -65,15 +66,19 @@ class Home extends Pane {
                     progressBar.setTooltip(tooltip);
 //                System.out.println(globalTime.getLetterDay());
 //                System.out.println(calendar.getSchedule().getToday(globalTime.getLetterDay()));
-                    String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+                try {
+                    currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+                } catch (NullPointerException e) {}
+                if(currentClass != null) {
+                    tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+                } else {
+                    tooltip.setText("Time left: \n" + timeLeft() + " min");
+                }
 
 //                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
-                    tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
-                }
             }
+        }});
 
-
-        });
         //Timer updates (60 sec)
         progressbartimer = new Timer(60000, e -> Platform.runLater(() -> {
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -84,8 +89,14 @@ class Home extends Pane {
                 progressBar.setTooltip(null);
             } else {
                 progressBar.setTooltip(tooltip);
-                String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
-                tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+                try {
+                    currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+                } catch (NullPointerException exceptoin) {}
+                if(currentClass != null) {
+                    tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+                } else {
+                    tooltip.setText("Time left: \n" + timeLeft() + " min");
+                }
             }
         }));
         progressbartimer.start();
@@ -101,8 +112,14 @@ class Home extends Pane {
                 progressBar.setTooltip(null);
             } else {
                 progressBar.setTooltip(tooltip);
-                String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
-                tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+                try {
+                    currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+                } catch (NullPointerException exception) {}
+                if(currentClass != null) {
+                    tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+                } else {
+                    tooltip.setText("Time left: \n" + timeLeft() + " min");
+                }
             }
         }));
 

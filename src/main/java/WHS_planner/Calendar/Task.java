@@ -1,6 +1,7 @@
 package WHS_planner.Calendar;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -41,28 +42,25 @@ public class Task {
         pane.getStyleClass().add("task-pane");
         pane.setAlignment(Pos.CENTER_LEFT);
 
+        Text label;
 
-
-        Text label = new Text(Description);
         Text spaces = new Text("  ");
-        label.setBoundsType(TextBoundsType.VISUAL);
 
 
         if (Class.equals("")) //If there is no class
         {
-            Text classText = new Text(Class);
+            label = new Text(Description);
+            label.setBoundsType(TextBoundsType.VISUAL);
 
             pane.getChildren().add(spaces);
-            pane.getChildren().add(classText);
-
             pane.getChildren().add(label);
         }
         else //If there is a class
         {
-            Text classText = new Text(Class + ":  ");
-            pane.getChildren().add(spaces);
-            pane.getChildren().add(classText);
+            label = new Text(Class + ": " + Description);
+            label.setBoundsType(TextBoundsType.VISUAL);
 
+            pane.getChildren().add(spaces);
             pane.getChildren().add(label);
         }
 

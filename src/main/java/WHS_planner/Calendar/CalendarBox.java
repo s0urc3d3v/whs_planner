@@ -297,6 +297,10 @@ public class CalendarBox extends Pane{
 
                                   //There is school              checkbox selected        during school hours (unreliable when there's no school)
                             if ((pc.getDay(today).length() == 1 && override.isSelected() && classIndex != -1)) {
+                                System.out.println(pc.getDay(today));
+                                System.out.println(override.isSelected());
+                                System.out.println(classIndex);
+
 
                                 if (classIndex == -2) { //wednesday advisory
                                     addTask(HOMEWORK, new Task("Advisory", "", textBoxText));
