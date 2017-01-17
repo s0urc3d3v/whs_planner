@@ -40,7 +40,12 @@ class Home extends Pane {
 
     Home(CalendarYear calendar, Pane newsUI) {
         globalTime = new GlobalTime(calendar.getSchedule().getCheck());
-        pc.readData();
+
+        File day = new File("Documents/DayArray.json");
+        if(day.exists()) {
+            pc.readData();
+        }
+        //pc.readData();
 
         //Force initial timer update
         progressBar.setProgress(100);
@@ -52,17 +57,22 @@ class Home extends Pane {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             int classIndex = globalTime.getClassIndex();
-            if (classIndex == -1 || pc.getDay(today).length() != 1) {
-                progressBar.setTooltip(null);
-            } else {
-                progressBar.setTooltip(tooltip);
+
+            if(day.exists()) {
+                if (classIndex == -1 || pc.getDay(today).length() != 1) {
+                    progressBar.setTooltip(null);
+                } else {
+                    progressBar.setTooltip(tooltip);
 //                System.out.println(globalTime.getLetterDay());
 //                System.out.println(calendar.getSchedule().getToday(globalTime.getLetterDay()));
-                String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+                    String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
 //                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
-                tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+                    tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+                }
             }
+
+
         });
         //Timer updates (60 sec)
         progressbartimer = new Timer(60000, e -> Platform.runLater(() -> {

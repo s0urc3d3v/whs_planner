@@ -58,7 +58,12 @@ public class CalendarBox extends Pane{
 
     public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Schedule sc){
 
-        pc.readData();
+
+        File day = new File("Documents/DayArray.json");
+        if(day.exists()) {
+            pc.readData();
+        }
+
 
 
         this.schedule = sc;
