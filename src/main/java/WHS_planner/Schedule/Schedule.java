@@ -99,7 +99,15 @@ public class Schedule
 
         login.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                control2.submit();
+
+                try
+                {
+                    control2.submit();
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         });
 

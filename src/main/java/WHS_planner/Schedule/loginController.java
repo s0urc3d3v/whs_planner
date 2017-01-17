@@ -41,11 +41,12 @@ public class loginController implements Initializable
 //        loginPane.getStyleClass().add("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);");
     }
 
-    public void submit()
+    public void submit() throws Exception
     {
         String username = user.getText();
         String pass = password.getText();
         error.setText("Logging in...please wait");
+        error.setVisible(true);
 
         if(username.equals("") || pass.equals(""))
         {
