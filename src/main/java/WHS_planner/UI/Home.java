@@ -39,12 +39,13 @@ class Home extends Pane {
     private java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
 
     Home(CalendarYear calendar, Pane newsUI) {
+        globalTime = new GlobalTime(calendar.getSchedule().getCheck());
         pc.readData();
 
         //Force initial timer update
         progressBar.setProgress(100);
         progressBar.setProgress(0);
-        //            String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+//                    String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
         Platform.runLater(() -> {
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -55,7 +56,11 @@ class Home extends Pane {
                 progressBar.setTooltip(null);
             } else {
                 progressBar.setTooltip(tooltip);
-                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
+                System.out.println(globalTime.getLetterDay());
+                System.out.println(calendar.getSchedule().getToday(globalTime.getLetterDay()));
+                String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+
+//                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
                 tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
             }
         });

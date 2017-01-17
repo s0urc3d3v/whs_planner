@@ -1,5 +1,6 @@
 package WHS_planner.UI;
 
+import WHS_planner.Schedule.ParseCalendar;
 import com.jfoenix.controls.JFXCheckBox;
 
 import java.text.DateFormat;
@@ -36,6 +37,7 @@ public class GlobalTime {
         String dateS = df.format(date);
         int num = parseDate(dateS);
         int mod;
+        System.out.println("num: " + num);
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) { //wednesday
             if (num >= 450 && num < 495) {
                 mod = 0;
@@ -93,19 +95,19 @@ public class GlobalTime {
         return mod;
     }
 
-//    public String getLetterDay() {
-//        String result = "error";
-//        String s = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
-//        ParseCalendar pc = new ParseCalendar();
-//        try {
-//            pc.readData();
-//            result = pc.getDay(s);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
+    public String getLetterDay() {
+        String result = "error";
+        String s = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
+        ParseCalendar pc = new ParseCalendar();
+        try {
+            pc.readData();
+            result = pc.getDay(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 
 
 }
