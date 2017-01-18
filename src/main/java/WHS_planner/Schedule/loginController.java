@@ -72,7 +72,6 @@ public class loginController implements Initializable
                 if(gd.testConn())
                 {
                     error.setText("Logging in, please wait...");
-                    spinner.setVisible(true);
                     loginPane.requestLayout();
                     button.setDisable(true);
                     File f = new File("Keys/ipass.key"); //TODO File.seperator?
@@ -127,9 +126,7 @@ public class loginController implements Initializable
                 else
                 {
                     error.setTextFill(Color.RED);
-//                    error.setText("Information incorrect, please try again!");
                     error.setText("Incorrect username or password. Please try again.");
-//                    error.setTextFill(Color.BLACK);
                     password.clear();
                 }
             }

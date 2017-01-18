@@ -5,21 +5,27 @@ import WHS_planner.UI.MainPane;
 import WHS_planner.Util.XorTool;
 import com.jfoenix.controls.JFXSpinner;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
-public class ScheduleController implements Initializable
+public class ScheduleController implements Initializable, ActionListener
 {
 
     private boolean write = false;
@@ -39,17 +45,23 @@ public class ScheduleController implements Initializable
 
     private String s;
 
+    private String letter;
+
+    private Timer timer;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        timer = new Timer(10000, this);
+        timer.start();
         spinner.setVisible(false);
         grid.setGridLinesVisible(false);
         grid.setStyle("-fx-background-color: #F1F1F1;");
-        panes = new BorderPane[82];
+        panes = new BorderPane[72];
         int count = 0;
         //Fills Arrays
-        for (int i = 0; i < 82; i++) {
+        for (int i = 0; i < 72; i++) {
             panes[i] = new BorderPane();
         }
         for (int i = 1; i < 9; i++) {
@@ -116,6 +128,7 @@ public class ScheduleController implements Initializable
                         s = getletterday((Calendar.getInstance().get(Calendar.MONTH)+1)+"/"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
                         if (s.length() == 1)
                         {
+                            letter = s;
                             s = "Today is '" + s + "' day!";
                         }
                         else
@@ -337,8 +350,7 @@ public class ScheduleController implements Initializable
     }
 
 
-    public ScheduleBlock[] getCurrentSchedule()
-    {
+    public ScheduleBlock[] getCurrentSchedule() {
         MainPane mp = (MainPane) Main.getMainPane();
         Schedule sch = mp.getSchedule();
 
@@ -348,8 +360,7 @@ public class ScheduleController implements Initializable
     }
 
 
-    public String parseDate(String input) throws Exception
-    {
+    public String parseDate(String input) throws Exception {
         SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
         Date d1 = sdf1.parse(input);
         DateFormat sdf2 = new SimpleDateFormat("EEEE");
@@ -357,4 +368,142 @@ public class ScheduleController implements Initializable
         return res;
     }
 
+    public void setClass() {
+
+        int row = 4;
+        int col = 0;
+
+        switch(letter) {
+            case "A": col = 1;
+                break;
+            case "B": col = 2;
+                break;
+            case "C": col = 3;
+                break;
+            case "D": col = 4;
+                break;
+            case "E": col = 5;
+                break;
+            case "F": col = 6;
+                break;
+            case "G": col = 7;
+                break;
+            case "H": col = 8;
+                break;
+        }
+
+        try
+        {
+            row = getBlock();
+            if(row == 7)
+            {
+                return;
+            }
+            row++;
+        }
+        catch(Exception e)
+        {
+        }
+
+        Pane pane = null;
+
+        ObservableList<Node> childrens = grid.getChildren();
+        for (Node node : childrens) {
+
+            if(node instanceof BorderPane)
+            {
+                if(grid.getRowIndex(node) == row && grid.getColumnIndex(node) == col) {
+                    pane = (BorderPane) node;
+                    break;
+                }
+            }
+
+        }
+
+
+        pane.setStyle("-fx-background-color: #d9d9d9");
+        pane.setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1), BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderStroke.THIN)));
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        setClass();
+    }
+
+    private int getBlock() throws Exception{
+        Date date = new Date();
+        DateFormat df = new SimpleDateFormat("HH:mm");
+        String dateS = df.format(date);
+        int num = parseDate2(dateS);
+        double mod;
+        if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
+            if (num >= 450 && num < 495) {
+                mod = 1;
+            } else if (num >= 495 && num < 535) {
+                mod = 1;
+            } else if (num >= 535 && num <= 620) {
+                mod = 2;
+            } else if (num >= 575 && num < 620) {
+                mod = 3;
+            } else if (num >= 620 && num < 700) {
+                mod = 4;
+            } else if (num >= 700 && num < 745) {
+                mod = 5;
+            } else if (num >= 745 && num <= 785) {
+                mod = 6;
+            } else {
+                mod = 0;
+            }
+        } else if (false) {
+            if (num >= 450 && num < 501) {
+                mod = 1;
+            } else if (num >= 501 && num < 558) {
+                mod = 2;
+            } else if (num >= 558 && num < 593) {
+                //Class meeting
+                mod = 3;
+            } else if (num >= 593 && num < 650) {
+                mod = 4;
+            } else if (num >= 650 && num < 741) {
+                mod = 5;
+            } else if (num >= 741 && num <= 798) {
+                mod = 6;
+            } else if (num >= 798 && num <= 855) {
+                mod = 7;
+            } else {
+                mod = 0;
+            }
+
+//            return 1;
+        } else {
+            if (num >= 450 && num < 512) {
+                mod = 1;
+            } else if (num >= 512 && num < 579) {
+                mod = 2;
+            } else if (num >= 579 && num < 641) {
+                mod = 3;
+            } else if (num >= 641 && num < 736) {
+                mod = 4;
+            } else if (num >= 736 && num < 798) {
+                mod = 5;
+            } else if (num >= 798 && num <= 855) {
+                mod = 6;
+            } else {
+                mod = 7;
+            }
+        }
+        return (int) mod;
+    }
+
+
+    private int parseDate2(String date) {
+        String hour = date.substring(0, date.indexOf(":"));
+        String minute = date.substring(date.indexOf(":") + 1);
+        int hr = Integer.parseInt(hour);
+        int min = Integer.parseInt(minute);
+        min += (hr * 60);
+        return min;
+    }
 }
