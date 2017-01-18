@@ -2,55 +2,49 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" style="-fx-background-color: #F7F7F7;"
-      xmlns="http://javafx.com/javafx/8.0.65" fx:controller="WHS_planner.Schedule.loginController">
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" style="-fx-background-color: #F7F7F7;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WHS_planner.Schedule.loginController">
     <children>
-        <Pane fx:id="loginPane" maxHeight="360.0" maxWidth="360.0" minHeight="360.0" minWidth="360.0" prefHeight="360.0"
-              prefWidth="360.0"
-              style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0); -fx-background-color: #FFFFFF;">
+        <Pane fx:id="loginPane" maxHeight="360.0" maxWidth="360.0" minHeight="360.0" minWidth="360.0" prefHeight="360.0" prefWidth="360.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0); -fx-background-color: #FFFFFF;">
             <children>
                 <Label layoutX="85.0" layoutY="40.0" text="Login to iPass">
                     <font>
-                        <Font name="Roboto" size="30.0"/>
+                        <Font name="Roboto" size="30.0" />
                     </font>
                 </Label>
-                <JFXTextField fx:id="user" focusColor="#0079f5" layoutX="45.0" layoutY="120.0" maxWidth="270.0"
-                              minWidth="220.0" prefHeight="31.0" prefWidth="270.0" promptText="Username:">
+                <JFXTextField fx:id="user" focusColor="#0079f5" layoutX="45.0" layoutY="120.0" maxWidth="270.0" minWidth="220.0" prefHeight="31.0" prefWidth="270.0" promptText="Username:">
                     <font>
-                        <Font name="Roboto" size="13.0"/>
+                        <Font name="Roboto" size="13.0" />
                     </font>
                 </JFXTextField>
-                <JFXPasswordField fx:id="password" focusColor="#0079f5" layoutX="45.0" layoutY="180.0" maxWidth="270.0"
-                                  prefWidth="270.0" promptText="Password:">
+                <JFXPasswordField fx:id="password" focusColor="#0079f5" layoutX="45.0" layoutY="180.0" maxWidth="270.0" prefWidth="270.0" promptText="Password:">
                     <font>
-                        <Font name="Roboto" size="13.0"/>
+                        <Font name="Roboto" size="13.0" />
                     </font>
                 </JFXPasswordField>
-                <JFXButton fx:id="button" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="45.0"
-                           layoutY="270.0" onAction="#submit" prefWidth="270.0"
-                           style="-fx-padding: 0.7em 0.57em; -fx-background-color: #0079F5;" text="Sign in"
-                           textFill="WHITE">
+                <JFXButton fx:id="button" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="45.0" layoutY="270.0" onAction="#submit" prefWidth="270.0" style="-fx-padding: 0.7em 0.57em; -fx-background-color: #0079F5;" text="Sign in" textFill="WHITE">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                     <font>
-                        <Font name="Roboto" size="14.0"/>
+                        <Font name="Roboto" size="14.0" />
                     </font>
                 </JFXButton>
                 <VBox alignment="CENTER" layoutY="210.0" prefHeight="50.0" prefWidth="360.0">
                     <children>
-                        <Label fx:id="error" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER"
-                               textFill="RED">
+                        <Label fx:id="error" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="RED">
                             <font>
-                                <Font name="Roboto" size="13.0"/>
+                                <Font name="Roboto" size="13.0" />
                             </font>
                         </Label>
+                  <JFXSpinner fx:id="spinner" />
                     </children>
                 </VBox>
             </children>

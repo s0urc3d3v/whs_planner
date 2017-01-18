@@ -5,6 +5,7 @@ import WHS_planner.UI.MainPane;
 import WHS_planner.Util.XorTool;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -35,9 +36,14 @@ public class loginController implements Initializable
     @FXML
     private Pane loginPane;
 
+    @FXML
+    private JFXSpinner spinner;
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        spinner.setVisible(false);
+
         //Initializes the "submit" button style
 //        button.setButtonType(JFXButton.ButtonType.RAISED);
 //        button.getStyleClass().setAll("button-raised");
@@ -65,13 +71,12 @@ public class loginController implements Initializable
 
                 if(gd.testConn())
                 {
-                    error.setTextFill(Color.GREEN);
-                    error.setText("Logging in...");
+                    error.setText("Logging in, please wait...");
+                    spinner.setVisible(true);
                     loginPane.requestLayout();
                     button.setDisable(true);
                     File f = new File("Keys/ipass.key"); //TODO File.seperator?
-                    if(!f.exists())
-                    {
+                    if(!f.exists()) {
                         f.createNewFile();
                     }
                     BufferedWriter bw = new BufferedWriter(new FileWriter(f));
@@ -95,15 +100,6 @@ public class loginController implements Initializable
                      */
 
                     try {
-//                       while(true) {
-//                           if(error.isVisible()) {
-//                               System.out.println(error.getText());
-//                               MainPane mp = (MainPane) Main.getMainPane();
-//                               mp.resetSchedule();
-//                               break;
-//                           }
-//                       }
-
 
                         PauseTransition ps = new PauseTransition(Duration.seconds(1));
                         ps.setOnFinished(event -> {
