@@ -53,7 +53,7 @@ public class ScheduleController implements Initializable, ActionListener
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        timer = new Timer(10000, this);
+        timer = new Timer(60000, this);
         timer.start();
         spinner.setVisible(false);
         grid.setGridLinesVisible(false);
@@ -429,7 +429,10 @@ public class ScheduleController implements Initializable, ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        setClass();
+        if(letter != null)
+        {
+            setClass();
+        }
     }
 
     private int getBlock() throws Exception{
