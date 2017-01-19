@@ -58,7 +58,7 @@ public class CalendarBox extends Pane{
 
     public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Schedule sc){
 
-        if(day.exists()) {
+        if(day.exists() && day.length() > 0) { //and if it isnt blank
             pc.readData();
         }
 
@@ -238,6 +238,7 @@ public class CalendarBox extends Pane{
         iconContainer.getChildren().setAll(icons); //Add all the "icons" into "iconContainer"
     }
 
+
     //Create a taskBox
     Node getTaskBox(ReadOnlyDoubleProperty widthProperty) {
         //If there is no taskBox create one
@@ -284,6 +285,7 @@ public class CalendarBox extends Pane{
                 textBox.setOnKeyPressed(event -> {
 
                     if (event.getCode() == KeyCode.ENTER) {
+                        pc.readData();
 
                         String textBoxText = textBox.getText();
                         if (textBoxText.trim().length() > 0){
@@ -292,12 +294,16 @@ public class CalendarBox extends Pane{
 //                            System.out.println("length" + pc.getDay(today).length());
 //                            System.out.println(override.isSelected());
 //                            System.out.println("Class Index: " + classIndex);
-                            if (day.exists()) {
+                            System.out.println("Logged in: " + schedule.isLoggedIn());
+                            if (day.exists() && day.length() > 0 && schedule.isLoggedIn()) { //day exists even when you log out
+//                                pc.readData();
+                                pc.readData();
+                                System.out.println("day length: " + day.length());
                                 //There is school              checkbox selected        during school hours (unreliable when there's no school)
                                 if ((pc.getDay(today).length() == 1 && override.isSelected() && classIndex != -1)) {
-                                    System.out.println(pc.getDay(today));
-                                    System.out.println(override.isSelected());
-                                    System.out.println(classIndex);
+//                                    System.out.println(pc.getDay(today));
+//                                    System.out.println(override.isSelected());
+//                                    System.out.println(classIndex);
 
 
                                     if (classIndex == -2) { //wednesday advisory

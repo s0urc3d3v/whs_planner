@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -134,7 +135,7 @@ public class MainPane extends StackPane {
             button1.setText("      Reset Schedule");
             button1.setOnMouseClicked(event1 -> {
                 try {
-                    schedule.getControl().updateSchedule();
+                    schedule.getScheduleControl().updateSchedule();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -143,7 +144,7 @@ public class MainPane extends StackPane {
             button2.setText("      Logout of iPass");
             button2.setOnMouseClicked(event12 -> {
                 try {
-                    schedule.getControl().logout();
+                    schedule.getScheduleControl().logout();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -319,6 +320,7 @@ public class MainPane extends StackPane {
         addPane((Pane) schedule.getPane(), 1);
         drawer.getContent().clear();
         drawer.setSidePane(contentPanes.get(1));
+
     }
 
     private Node[] generateButtons(String[] text, double width, double buttonHeight) {

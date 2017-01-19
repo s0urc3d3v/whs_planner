@@ -37,11 +37,13 @@ public class Schedule
     private Pane login;
     private Map<String, Object> labels;
     private ScheduleBlock[] blocks;
-    private ScheduleController control;
+    private ScheduleController scheduleControl;
     private JFXCheckBox checkBox;
 
     public Schedule(JFXCheckBox checkBox)
     {
+        john_is_aids class1 = new john_is_aids();
+
         this.checkBox = checkBox;
         this.checkBox.setOnAction(e -> Platform.runLater(this::resetLabels));
 
@@ -56,6 +58,7 @@ public class Schedule
             e.printStackTrace();
         }
     }
+
 
     public JFXCheckBox getCheck()
     {
@@ -86,7 +89,7 @@ public class Schedule
         loader.setLocation(getClass().getResource("/Schedule/wank_layout.fxml"));
 
         rootLayout = loader.load();
-        control = loader.getController();
+        scheduleControl = loader.getController();
 
 
 
@@ -96,6 +99,8 @@ public class Schedule
         login = loader2.load();
 
         loginController control2 = loader2.getController();
+
+
 
         login.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -122,6 +127,7 @@ public class Schedule
             generateSchedule(loader);
 
             schedule = new Scene(rootLayout);
+
         }
     }
 
@@ -373,7 +379,12 @@ public class Schedule
         return b;
     }
 
-    public ScheduleController getControl() {
-        return control;
+    public ScheduleController getScheduleControl() {
+        return scheduleControl;
+    }
+
+    public boolean isLoggedIn() {
+        File f = new File("Keys/ipass.key");
+        return f.exists();
     }
 }

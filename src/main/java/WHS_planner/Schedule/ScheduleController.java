@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 public class ScheduleController implements Initializable, ActionListener
 {
 
+
     private boolean write = false;
 
     @FXML
@@ -330,7 +331,9 @@ public class ScheduleController implements Initializable, ActionListener
         File ipassFile = new File("Keys" + File.separator + "ipass.key");
         if (ipassFile.exists()) {
             ipassFile.delete();
+            System.out.println("Test");
         }
+
         updateSchedule();
     }
 

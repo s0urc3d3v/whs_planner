@@ -59,7 +59,7 @@ class Home extends Pane {
             progressBar.setProgress(d);
             int classIndex = globalTime.getClassIndex();
 
-            if(day.exists()) {
+            if(day.exists() && day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
                     progressBar.setTooltip(null);
                 } else {
@@ -87,7 +87,7 @@ class Home extends Pane {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             int classIndex = globalTime.getClassIndex();
-            if (day.exists()) {
+            if (day.exists()&& day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
                     progressBar.setTooltip(null);
                 } else {
@@ -115,7 +115,7 @@ class Home extends Pane {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             int classIndex = globalTime.getClassIndex();
-            if (day.exists()) {
+            if (day.exists()&& day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
                     progressBar.setTooltip(null);
                 } else {

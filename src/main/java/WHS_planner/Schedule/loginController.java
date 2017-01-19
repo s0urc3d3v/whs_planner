@@ -39,6 +39,7 @@ public class loginController implements Initializable
     @FXML
     private JFXSpinner spinner;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -82,6 +83,7 @@ public class loginController implements Initializable
                     String xorKey = Main.getXorKey();
                     username = XorTool.encode(username, xorKey);
                     pass = XorTool.encode(pass, xorKey);
+
 
                     bw.write(username);
                     bw.newLine();
@@ -141,4 +143,7 @@ public class loginController implements Initializable
         }
 
     }
+
+
 }
+
