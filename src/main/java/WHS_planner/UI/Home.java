@@ -31,7 +31,7 @@ class Home extends Pane {
     private HBox outsidePane = new HBox();
     private VBox insidePane = new VBox();
     private JFXProgressBar progressBar = new JFXProgressBar();
-    private Timer progressbartimer;
+    private Timer progressbarTimer;
     private Tooltip tooltip = new Tooltip();
 
     private GlobalTime globalTime;
@@ -82,7 +82,7 @@ class Home extends Pane {
         });
 
         //Timer updates (60 sec)
-        progressbartimer = new Timer(60000, e -> Platform.runLater(() -> {
+        progressbarTimer = new Timer(60000, e -> Platform.runLater(() -> {
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
@@ -106,7 +106,7 @@ class Home extends Pane {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
         }));
-        progressbartimer.start();
+        progressbarTimer.start();
         //Set checkbox to instantly refresh progressBar
         checkBox = calendar.getSchedule().getCheck();
         globalTime = new GlobalTime(checkBox);

@@ -12,11 +12,11 @@ import java.util.Date;
  * Created by george_jiang on 1/15/17.
  */
 public class GlobalTime {
+
     private JFXCheckBox checkBox;
-    public GlobalTime(JFXCheckBox check)
-    {
-        if (check== null )
-        {
+
+    public GlobalTime(JFXCheckBox check) {
+        if (check== null ) {
             System.out.println("check is null");
         }
         this.checkBox = check;
@@ -95,7 +95,7 @@ public class GlobalTime {
         return mod;
     }
 
-    public String getLetterDay() {
+    String getLetterDay() {
         String result = "error";
         String s = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
         ParseCalendar pc = new ParseCalendar();

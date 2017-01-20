@@ -63,7 +63,7 @@ Main extends Application {
             }
             catch(Exception e)
             {
-                System.out.println("Error creating holder file...");
+                System.out.println("Error creating holder files...");
             }
         }
 
@@ -129,9 +129,9 @@ Main extends Application {
         mainPane = new MainPane(); //Create the mainPane (pane with all the content)
 
         Scene scene = new Scene(mainPane); //Put the mainPane into a scene
-        mainPane.setCache(true);
-        mainPane.setCacheShape(true);
-        mainPane.setCacheHint(CacheHint.SPEED);
+//        mainPane.setCache(true);
+//        mainPane.setCacheShape(true);
+//        mainPane.setCacheHint(CacheHint.SPEED);
 
 
         //Binds the size of the mainPane to be equal to the scene

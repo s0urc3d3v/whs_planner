@@ -26,22 +26,22 @@ import java.util.stream.Stream;
 
 public class MainPane extends StackPane {
 
-    private final int HOME = 0;
-    private final int SCHEDULE = 1;
-    private final int CALENDAR = 2;
-    private final int NEWS = 3;
-    private final int MEETING = 4;
-    public JFXCheckBox bell2Check = new JFXCheckBox();
+//    private final int HOME = 0;
+//    private final int SCHEDULE = 1;
+//    private final int CALENDAR = 2;
+//    private final int NEWS = 3;
+//    private final int MEETING = 4;
+    private JFXCheckBox bell2Check = new JFXCheckBox();
     private Pane navBar;
     private Pane content;
     private ArrayList<Pane> contentPanes;
     private JFXDrawer drawer;
     private VBox mainPane;
-    private VBox cardView = new NewsUI().getCardView();
+//    private VBox cardView = new NewsUI().getCardView();
     private Schedule schedule;
     private CalendarYear calendar;
 
-    private Home homePane;
+//    private Home homePane;
 
     public MainPane(){
         navBar = loadNavBar(); //Loads the navBar from the FXML
@@ -98,12 +98,11 @@ public class MainPane extends StackPane {
         return vBox;
     }
 
-    public JFXCheckBox getCheck() {
-        return bell2Check;
-    }
+//    public JFXCheckBox getCheck() {
+//        return bell2Check;
+//    }
 
     private void initiateDropDown(Button bigButton) {
-
         /*
 
            START Jesus code
@@ -124,7 +123,6 @@ public class MainPane extends StackPane {
                 info.getChildren().clear();
                 info.getChildren().add(getBellSchedulePane());
             });
-
 //            JFXButton button0 = new JFXButton();
 //            button0.setText("      Delete Calendar Data");
 //            button0.setOnMouseClicked(event0 -> {
@@ -295,26 +293,24 @@ public class MainPane extends StackPane {
         calendar = new CalendarYear(schedule);
         //calender has schedule and bell2check
 
-        NewsUI news = null;
-        try {
-            news = new NewsUI();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+//        NewsUI news = null;
+//        try {
+          NewsUI news = new NewsUI();
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
         //Pane meeting = new MeetingPane();
         Home homePane = new Home(calendar, news.getCardView());
         addPane(homePane);
         addPane((Pane) schedule.getPane());
         //addPane(meeting);
 
-
         content.getChildren().add(contentPanes.get(0)); //Sets home tab as default
 
     }
 
 
-    public void resetSchedule() throws Exception
-    {
+    public void resetSchedule() throws Exception {
         remPane((Pane)schedule.getPane());
         schedule = new Schedule(bell2Check);
         addPane((Pane) schedule.getPane(), 1);
@@ -380,7 +376,7 @@ public class MainPane extends StackPane {
         calendar.saveCalendar();
     }
 
-    public Pane getBellSchedulePane(){
+    private Pane getBellSchedulePane(){
         Calendar now = Calendar.getInstance();
         //Testing
 //        now.set(Calendar.DATE, 15);
@@ -404,7 +400,7 @@ public class MainPane extends StackPane {
 
         ArrayList<String> bellTimesFile = new ArrayList<>();
         try (Stream<String> stream = Files.lines(Paths.get("Documents" + File.separator + "BellTimes.txt"))) {
-            stream.forEachOrdered(line -> bellTimesFile.add(line));
+            stream.forEachOrdered(bellTimesFile::add);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -426,7 +422,6 @@ public class MainPane extends StackPane {
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
 
         GridPane returnPane = new GridPane();
