@@ -53,7 +53,7 @@ public class CalendarBox extends Pane{
     private Schedule schedule;
 
     private ParseCalendar pc = new ParseCalendar();
-    private File day = new File("Documents/DayArray.json");
+    private File day = new File("Documents" + File.separator + "DayArray.json");
 
 
     public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Schedule sc){
