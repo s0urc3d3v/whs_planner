@@ -151,7 +151,7 @@ public class MainPane extends StackPane {
             button3.setText("      Send Feedback");
             button3.setOnMouseClicked(event13 -> {
                 try {
-                    Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/K5ieqVSterU8Jxmt1"});
+                    Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://github.com/s0urc3d3v3l0pm3nt/whs_planner/issues/new"});
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
