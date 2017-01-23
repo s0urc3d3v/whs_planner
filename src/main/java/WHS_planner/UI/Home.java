@@ -48,12 +48,64 @@ class Home extends Pane {
         }
         //pc.readData();
 
+//        progressBar.prefWidthProperty().bind(insidePane.widthProperty());
+        progressBar.setCursor(Cursor.HAND);
+        progressBar.setTooltip(tooltip);
+        progressBar.setScaleY(3);
+        hackTooltipStartTiming(tooltip);
+
         //Force initial timer update
         progressBar.setProgress(100);
         progressBar.setProgress(0);
 //                    String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
+
+
+        //Initialize NEWS
+        ScrollPane newsScroll = new ScrollPane();
+        newsScroll.setContent(newsUI);
+        newsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        newsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        //NEWS Style
+        newsScroll.setStyle("-fx-background-color: transparent;");
+        newsScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
+        newsScroll.getStyleClass().setAll("scroll-bar");
+        //NEWS Scaling
+        newsScroll.setFitToWidth(true);
+        newsScroll.setMinWidth(280);
+        newsScroll.setMaxWidth(280);
+        newsScroll.setPrefHeight(this.getPrefHeight());
+
+
+
+        insidePane.setPadding(new Insets(0, 0, 5, 5)); //top, right, bottom, left
+
+        //Add Nodes to H/VBoxes
+        insidePane.getChildren().addAll(calendar, progressBar);
+        outsidePane.getChildren().addAll(insidePane,newsScroll);
+
+        //Resizing stuff
+        calendar.prefHeightProperty().bind(insidePane.heightProperty());
+        calendar.prefWidthProperty().bind(insidePane.widthProperty());
+        VBox.setVgrow(calendar, Priority.ALWAYS);
+        VBox.setVgrow(progressBar, Priority.NEVER);
+        insidePane.prefHeightProperty().bind(outsidePane.heightProperty());
+        insidePane.prefWidthProperty().bind(outsidePane.widthProperty());
+        newsScroll.prefHeightProperty().bind(outsidePane.heightProperty());
+        newsScroll.prefWidthProperty().bind(outsidePane.widthProperty());
+        HBox.setHgrow(newsScroll, Priority.NEVER);
+        HBox.setHgrow(insidePane, Priority.ALWAYS);
+        outsidePane.prefHeightProperty().bind(this.heightProperty());
+        outsidePane.prefWidthProperty().bind(this.widthProperty());
+
+
         Platform.runLater(() -> {
+
+
+
+            VBox parent = (VBox)progressBar.getParent();
+            progressBar.setPrefWidth(parent.getWidth());
+
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
@@ -66,19 +118,20 @@ class Home extends Pane {
                     progressBar.setTooltip(tooltip);
 //                System.out.println(globalTime.getLetterDay());
 //                System.out.println(calendar.getSchedule().getToday(globalTime.getLetterDay()));
-                try {
-                    currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
-                } catch (NullPointerException e) {}
-                if(currentClass != null) {
-                    tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
-                } else {
-                    tooltip.setText("Time left: \n" + timeLeft() + " min");
-                }
+                    try {
+                        currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
+                    } catch (NullPointerException e) {}
+                    if(currentClass != null) {
+                        tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+                    } else {
+                        tooltip.setText("Time left: \n" + timeLeft() + " min");
+                    }
 //                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
-            }
-        } else{
+                }
+            } else{
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
+
         });
 
         //Timer updates (60 sec)
@@ -86,6 +139,8 @@ class Home extends Pane {
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
+            VBox parent = (VBox)progressBar.getParent();
+            progressBar.setPrefWidth(parent.getWidth());
             int classIndex = globalTime.getClassIndex();
             if (day.exists()&& day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
@@ -111,6 +166,12 @@ class Home extends Pane {
         checkBox = calendar.getSchedule().getCheck();
         globalTime = new GlobalTime(checkBox);
         checkBox.setOnAction(e -> Platform.runLater(() -> {
+
+
+
+            VBox parent = (VBox)progressBar.getParent();
+            progressBar.setPrefWidth(parent.getWidth());
+
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
@@ -134,48 +195,6 @@ class Home extends Pane {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
         }));
-
-        //Initialize NEWS
-        ScrollPane newsScroll = new ScrollPane();
-        newsScroll.setContent(newsUI);
-        newsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        newsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        //NEWS Style
-        newsScroll.setStyle("-fx-background-color: transparent;");
-        newsScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
-        newsScroll.getStyleClass().setAll("scroll-bar");
-        //NEWS Scaling
-        newsScroll.setFitToWidth(true);
-        newsScroll.setMinWidth(280);
-        newsScroll.setMaxWidth(280);
-        newsScroll.setPrefHeight(this.getPrefHeight());
-
-        //Progress bar
-        progressBar.prefWidthProperty().bind(insidePane.widthProperty());
-        progressBar.setCursor(Cursor.HAND);
-        progressBar.setTooltip(tooltip);
-        progressBar.setScaleY(3);
-        hackTooltipStartTiming(tooltip);
-
-        insidePane.setPadding(new Insets(0, 0, 5, 5)); //top, right, bottom, left
-
-        //Add Nodes to H/VBoxes
-        insidePane.getChildren().addAll(calendar, progressBar);
-        outsidePane.getChildren().addAll(insidePane,newsScroll);
-
-        //Resizing stuff
-        calendar.prefHeightProperty().bind(insidePane.heightProperty());
-        calendar.prefWidthProperty().bind(insidePane.widthProperty());
-        VBox.setVgrow(calendar, Priority.ALWAYS);
-        VBox.setVgrow(progressBar, Priority.NEVER);
-        insidePane.prefHeightProperty().bind(outsidePane.heightProperty());
-        insidePane.prefWidthProperty().bind(outsidePane.widthProperty());
-        newsScroll.prefHeightProperty().bind(outsidePane.heightProperty());
-        newsScroll.prefWidthProperty().bind(outsidePane.widthProperty());
-        HBox.setHgrow(newsScroll, Priority.NEVER);
-        HBox.setHgrow(insidePane, Priority.ALWAYS);
-        outsidePane.prefHeightProperty().bind(this.heightProperty());
-        outsidePane.prefWidthProperty().bind(this.widthProperty());
 
         this.getChildren().setAll(outsidePane);
     }

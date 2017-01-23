@@ -316,6 +316,7 @@ public class MainPane extends StackPane {
         addPane((Pane) schedule.getPane(), 1);
         drawer.getContent().clear();
         drawer.setSidePane(contentPanes.get(1));
+        calendar.setSchedule(schedule);
 
     }
 

@@ -285,7 +285,7 @@ public class CalendarBox extends Pane{
                 textBox.setOnKeyPressed(event -> {
 
                     if (event.getCode() == KeyCode.ENTER) {
-                        pc.readData();
+
 
                         String textBoxText = textBox.getText();
                         if (textBoxText.trim().length() > 0){
@@ -317,8 +317,13 @@ public class CalendarBox extends Pane{
                                     } else { //normal block
 //                                    String currentClass = schedule.getData()[classIndex].getClassName();
 //                                    String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
+                                        String currentClass = "";
 
-                                        String currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
+                                        try {
+
+
+                                            currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
+                                        } catch (Exception e){}
                                         addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
                                         update();
                                         updateTaskBox();

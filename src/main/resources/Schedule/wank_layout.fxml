@@ -11,7 +11,7 @@
          <children>
             <Label fx:id="Title3" alignment="CENTER" prefHeight="31.0" prefWidth="500.0" textAlignment="CENTER">
                <font>
-                  <Font name="Plantagenet Cherokee" size="24.0" />
+                  <Font name="Roboto" size="24.0" />
                </font>
             </Label>
             <JFXSpinner fx:id="spinner" prefHeight="20.0" prefWidth="20.0" radius="6.0" />

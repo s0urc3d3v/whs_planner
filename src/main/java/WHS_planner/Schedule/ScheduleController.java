@@ -130,6 +130,7 @@ public class ScheduleController implements Initializable, ActionListener
                         if (s.length() == 1)
                         {
                             letter = s;
+                            setClass();
                             s = "Today is '" + s + "' day!";
                         }
                         else

@@ -51,6 +51,10 @@ public class Calendar extends BorderPane {
         return schedule;
     }
 
+    public void setSchedule(Schedule sc)
+    {
+        schedule = sc;
+    }
     public Calendar(int month, JFXButton nextButton, JFXButton prevButton, Schedule sc) {
         this.schedule = sc;
 

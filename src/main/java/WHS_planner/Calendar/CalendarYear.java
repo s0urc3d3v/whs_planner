@@ -13,6 +13,14 @@ public class CalendarYear extends Pane {
     private int month = new CalendarHelper().getMonth()-1;
     private Schedule sc;
 
+    public void setSchedule(Schedule schedule)
+    {
+        sc = schedule;
+        for (int i = 0; i < months.length; i++) {
+            months[i].setSchedule(sc);
+        }
+    }
+
     public CalendarYear(Schedule schedule){
         this.sc = schedule;
         for (int i = 0; i < 12; i++) {
