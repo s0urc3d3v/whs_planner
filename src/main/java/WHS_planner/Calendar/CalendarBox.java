@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -275,6 +276,7 @@ public class CalendarBox extends Pane{
                 //Get the JFXTextField and set the width to grow
                 HBox hBox = (HBox) taskBar.getChildren().get(0);
                 JFXTextField textBox = (JFXTextField) hBox.getChildren().get(0);
+
                 HBox.setHgrow(textBox, Priority.ALWAYS);
 
                 //Code for the Checkbox
@@ -365,6 +367,12 @@ public class CalendarBox extends Pane{
 
         JFXTextField textBox = new JFXTextField();
         textBox.setPromptText("Enter Task...");
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                textBox.requestFocus();
+            }
+        });
         textBox.setCursor(Cursor.TEXT);
         textBox.getStyleClass().setAll("roboto");
         try {

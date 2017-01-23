@@ -38,6 +38,16 @@ Main extends Application {
      * It initializes and runs the application!
      */
     public static void main(String[] args) throws Exception {
+        PrintStream console = System.err;
+
+        File file = new File("err.txt");
+        if(!file.exists()){
+            file.createNewFile();
+        }
+        FileOutputStream fos = new FileOutputStream(file);
+        PrintStream ps = new PrintStream(fos);
+        System.setErr(ps);
+
         System.setProperty("http.agent", "Chrome");
         PropertyConfigurator.configure("log4j.properties");
 
