@@ -19,7 +19,9 @@ public class ScheduleBlock
 
     public String getClassName()
     {
+        if(name != null)
         return name;
+        return "";
     }
 
     public String getTeacher()

@@ -52,21 +52,24 @@ public class CalendarBox extends Pane{
     private JFXCheckBox override;
     private GlobalTime globalTime;
     private Schedule schedule;
+    private Calendar calendar;
 
     private ParseCalendar pc = new ParseCalendar();
     private File day = new File("Documents" + File.separator + "DayArray.json");
 
 
-    public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Schedule sc){
+    public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Calendar cal){
 
         if(day.exists() && day.length() > 0) { //and if it isnt blank
             pc.readData();
         }
 
 
+        this.calendar = cal;
+        this.schedule = calendar.getSchedule();
+        this.bell2 = calendar.getSchedule().getCheck();
 
-        this.schedule = sc;
-        this.bell2 = sc.getCheck();
+
         this.date = date; //This box's date
         this.week = week; //The week (row) this box is in
         this.month = month;
@@ -297,6 +300,7 @@ public class CalendarBox extends Pane{
 //                            System.out.println(override.isSelected());
 //                            System.out.println("Class Index: " + classIndex);
                             System.out.println("Logged in: " + schedule.isLoggedIn());
+                            day = new File("Documents" + File.separator + "DayArray.json");
                             if (day.exists() && day.length() > 0 && schedule.isLoggedIn()) { //day exists even when you log out
 //                                pc.readData();
                                 pc.readData();
@@ -321,11 +325,9 @@ public class CalendarBox extends Pane{
 //                                    String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
                                         String currentClass = "";
 
-                                        try {
-
-
+                                        schedule = calendar.getSchedule();
                                             currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
-                                        } catch (Exception e){}
+
                                         addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
                                         update();
                                         updateTaskBox();

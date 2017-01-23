@@ -11,10 +11,12 @@ import java.util.ArrayList;
 public class CalendarUtility {
     private JFXCheckBox checkBox;
     private Schedule schedule;
+    private  Calendar whsCalendar;
 
-    public CalendarUtility(Schedule sc)
+    public CalendarUtility(Calendar cal)
     {
-        this.schedule = sc;
+        this.whsCalendar = cal;
+        this.schedule = whsCalendar.getSchedule();
         this.checkBox = schedule.getCheck();
     }
 
@@ -63,7 +65,7 @@ public class CalendarUtility {
                     break;
                 }
 
-                CalendarBox box = new CalendarBox(dayInMonth,row,true,listOfTasks.get(dayInMonth-1),month, schedule);
+                CalendarBox box = new CalendarBox(dayInMonth,row,true,listOfTasks.get(dayInMonth-1),month, whsCalendar);
                 calendar[row][col] = box;
                 dayInMonth++;
             }

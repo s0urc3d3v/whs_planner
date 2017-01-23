@@ -73,7 +73,7 @@ public class Calendar extends BorderPane {
         this.startDay = dayFinder.getWeekdayMonthStarts(month);
         this.numberOfDays = dayFinder.getDaysInMonth(month);
 
-        CalendarUtility util = new CalendarUtility(schedule);
+        CalendarUtility util = new CalendarUtility(this);
 
         //Loads the ttf font file into the program
         InputStream font = Main.class.getResourceAsStream("/FontAwesome/fontawesome.ttf");
@@ -148,7 +148,7 @@ public class Calendar extends BorderPane {
                 if (aCalendar[c] != null) {
                     tempCalendarBox = aCalendar[c];
                 } else {
-                    tempCalendarBox = new CalendarBox(0, 0, false, null, 0, sc);
+                    tempCalendarBox = new CalendarBox(0, 0, false, null, 0, this);
                 }
                 tempCalendarBox.prefHeightProperty().bind(row.heightProperty());
                 row.add(tempCalendarBox, c, 0);
