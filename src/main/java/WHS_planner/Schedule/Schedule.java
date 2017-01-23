@@ -42,8 +42,6 @@ public class Schedule
 
     public Schedule(JFXCheckBox checkBox)
     {
-        john_is_aids class1 = new john_is_aids();
-
         this.checkBox = checkBox;
         this.checkBox.setOnAction(e -> Platform.runLater(this::resetLabels));
 
