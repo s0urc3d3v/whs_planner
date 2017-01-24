@@ -98,13 +98,12 @@ class Home extends Pane {
         outsidePane.prefHeightProperty().bind(this.heightProperty());
         outsidePane.prefWidthProperty().bind(this.widthProperty());
 
-
+        VBox parent = (VBox)progressBar.getParent();
+        progressBar.setPrefWidth(parent.getWidth());
         Platform.runLater(() -> {
 
-
-
-            VBox parent = (VBox)progressBar.getParent();
-            progressBar.setPrefWidth(parent.getWidth());
+//            VBox parent = (VBox)progressBar.getParent();
+//            progressBar.setPrefWidth(parent.getWidth());
 
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
@@ -132,6 +131,7 @@ class Home extends Pane {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
 
+
         });
 
         //Timer updates (60 sec)
@@ -139,8 +139,7 @@ class Home extends Pane {
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
-            VBox parent = (VBox)progressBar.getParent();
-            progressBar.setPrefWidth(parent.getWidth());
+
             int classIndex = globalTime.getClassIndex();
             if (day.exists()&& day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
@@ -160,6 +159,8 @@ class Home extends Pane {
             } else {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
+//            VBox parent = (VBox)progressBar.getParent();
+//            progressBar.setPrefWidth(parent.getWidth());
         }));
         progressbarTimer.start();
         //Set checkbox to instantly refresh progressBar
@@ -168,10 +169,6 @@ class Home extends Pane {
         checkBox.setOnAction(e -> Platform.runLater(() -> {
 
 
-
-            VBox parent = (VBox)progressBar.getParent();
-            progressBar.setPrefWidth(parent.getWidth());
-
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
@@ -194,6 +191,8 @@ class Home extends Pane {
             } else {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
+//            VBox parent = (VBox)progressBar.getParent();
+//            progressBar.setPrefWidth(parent.getWidth());
         }));
 
         this.getChildren().setAll(outsidePane);

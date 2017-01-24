@@ -16,6 +16,11 @@
 
 }
 
+.large-text{
+    -fx-font-size: 16px;
+
+}
+
 .roboto
 {
     -fx-font-size: 14px;

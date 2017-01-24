@@ -122,6 +122,7 @@ public class MainPane extends StackPane {
                 info.setMinSize(0, 0);
                 info.getChildren().clear();
                 info.getChildren().add(getBellSchedulePane());
+                info.getStyleClass().setAll("large-text");
             });
 //            JFXButton button0 = new JFXButton();
 //            button0.setText("      Delete Calendar Data");
@@ -151,7 +152,7 @@ public class MainPane extends StackPane {
             button3.setText("      Send Feedback");
             button3.setOnMouseClicked(event13 -> {
                 try {
-                    Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://github.com/s0urc3d3v3l0pm3nt/whs_planner/issues/new"});
+                    Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/KSCFGXldhE4EBytp1"});
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -184,6 +185,7 @@ public class MainPane extends StackPane {
                 for (String name : names) {
                     info.getChildren().add(new Label(name));
                 }
+                info.getStyleClass().setAll("large-text");
                 info.setPadding(new Insets(10));
             });
 
