@@ -9,6 +9,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
@@ -30,7 +31,8 @@ class Home extends Pane {
     private JFXCheckBox checkBox;
     private HBox outsidePane = new HBox();
     private VBox insidePane = new VBox();
-    private JFXProgressBar progressBar = new JFXProgressBar();
+//    private JFXProgressBar progressBar = new JFXProgressBar();
+    private ProgressBar progressBar = new ProgressBar();
     private Timer progressbarTimer;
     private Tooltip tooltip = new Tooltip();
 
@@ -51,12 +53,12 @@ class Home extends Pane {
 //        progressBar.prefWidthProperty().bind(insidePane.widthProperty());
         progressBar.setCursor(Cursor.HAND);
         progressBar.setTooltip(tooltip);
-        progressBar.setScaleY(3);
+//        progressBar.setScaleY(3);
         hackTooltipStartTiming(tooltip);
 
         //Force initial timer update
-        progressBar.setProgress(100);
-        progressBar.setProgress(0);
+//        progressBar.setProgress(100);
+//        progressBar.setProgress(0);
 //                    String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
 
@@ -98,8 +100,10 @@ class Home extends Pane {
         outsidePane.prefHeightProperty().bind(this.heightProperty());
         outsidePane.prefWidthProperty().bind(this.widthProperty());
 
-        VBox parent = (VBox)progressBar.getParent();
-        progressBar.setPrefWidth(parent.getWidth());
+
+        progressBar.prefWidthProperty().bind(insidePane.widthProperty());
+//        VBox parent = (VBox)progressBar.getParent();
+//        progressBar.setPrefWidth(parent.getWidth());
         Platform.runLater(() -> {
 
 //            VBox parent = (VBox)progressBar.getParent();

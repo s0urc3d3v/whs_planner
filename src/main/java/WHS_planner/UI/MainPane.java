@@ -175,7 +175,7 @@ public class MainPane extends StackPane {
                         "Tyler Brient - UI Master, Bug Squasher",
                         "George Jiang - UX, News, Bug Finder",
                         "Andrew Eggleston - Yelled at Tyler",
-                        "Geoffrey Wang - UI Master, Calendar",
+                        "Geoffrey Wang - UI Master, Calendar, T-Rex :)",
                         "Matthew Elbing - Backend, Project Lead",
                         "Jack Bachman - Backend, Github",
                         "John Broderick - Schedule, Bug Creator",
