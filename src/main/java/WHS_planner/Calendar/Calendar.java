@@ -31,6 +31,7 @@ public class Calendar extends BorderPane {
     private Background background;
 
     private CalendarBox[][] calendar;
+    private int month;
     private int startDay;
     private int numberOfDays;
     private Node taskBox;
@@ -56,9 +57,10 @@ public class Calendar extends BorderPane {
         schedule = sc;
     }
     public Calendar(int month, JFXButton nextButton, JFXButton prevButton, Schedule sc) {
+        this.month = month;
         this.schedule = sc;
 
-        File saveFile = new File("Documents" + File.separator + month + "CalendarHolder.json");
+        File saveFile = new File("Documents" + File.separator + this.month + "CalendarHolder.json");
         if(!saveFile.exists()){
             try {
                 saveFile.createNewFile();
@@ -67,7 +69,7 @@ public class Calendar extends BorderPane {
             }
         }
 
-        io = new IO("Documents" + File.separator + month + "CalendarHolder.json");
+        io = new IO("Documents" + File.separator + this.month + "CalendarHolder.json");
 
         json = io.getJsonApi();
         this.startDay = dayFinder.getWeekdayMonthStarts(month);
@@ -116,7 +118,7 @@ public class Calendar extends BorderPane {
         mainPane.getChildren().add(topRow);
 
         try {
-            calendar = util.CalendarLoad(startDay, numberOfDays, json, month);
+            calendar = util.CalendarLoad(startDay, numberOfDays, json, this.month);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -291,6 +293,17 @@ public class Calendar extends BorderPane {
 
     // saves calendar array as a json file at calendarHolder
     void saveCalendar() {
+        try {
+            File f = new File("Documents" + File.separator + month + "CalendarHolder.json");
+            f.delete();
+            f.createNewFile();
+            io = new IO("Documents" + File.separator + this.month + "CalendarHolder.json");
+
+            json = io.getJsonApi();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         int dayInMonth = 1;
         try{
         //Grabs all the calendar days
