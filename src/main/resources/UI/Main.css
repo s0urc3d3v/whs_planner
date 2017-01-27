@@ -18,3 +18,11 @@
 .navBar{
     -fx-background-color: #FF9800
 }
+
+
+
+.progress-bar > .bar {
+    -fx-background-insets: 1 1 2 1;
+    -fx-padding: 0.4em;
+    -fx-background-color: #0066FF;
+}

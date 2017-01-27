@@ -53,6 +53,8 @@ class Home extends Pane {
 //        progressBar.prefWidthProperty().bind(insidePane.widthProperty());
         progressBar.setCursor(Cursor.HAND);
         progressBar.setTooltip(tooltip);
+        progressBar.getStylesheets().add("UI" + File.separator + "Main.css");
+        progressBar.getStyleClass().setAll("progress-bar");
 //        progressBar.setScaleY(3);
         hackTooltipStartTiming(tooltip);
 
