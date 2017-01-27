@@ -331,7 +331,6 @@ public class Calendar extends BorderPane {
                                 currentTaskDescription = " ";
                             }
                             ArrayList<String> currentTaskArray = new ArrayList<>();
-                            currentTaskArray.add(currentTaskTitle);
                             currentTaskArray.add(currentTaskClass);
                             currentTaskArray.add(currentTaskDescription);
                             json.writeArray("CalendarSaver" + dayInMonth + ":" + j + ":" + index, currentTaskArray.toArray());
