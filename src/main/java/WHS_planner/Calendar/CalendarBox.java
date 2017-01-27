@@ -328,7 +328,7 @@ public class CalendarBox extends Pane{
                                         schedule = calendar.getSchedule();
                                             currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
 
-                                        addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                        addTask(HOMEWORK, new Task("", "", currentClass + " : " + textBoxText));
                                         update();
                                         updateTaskBox();
                                     }
