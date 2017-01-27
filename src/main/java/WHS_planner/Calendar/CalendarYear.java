@@ -29,7 +29,7 @@ public class CalendarYear extends Pane {
             nextButton.setOnMouseClicked(event -> {
                 if(month == 11) {
                     month = 0;
-                }else{
+                }else if(month != 5){
                     month ++;
                 }
                 changeMonth(month);
@@ -39,13 +39,14 @@ public class CalendarYear extends Pane {
             prevButton.setOnMouseClicked(event -> {
                 if (month == 0) {
                     month = 11;
-                } else {
+                } else if(month !=7){
                     month--;
                 }
                 changeMonth(month);
             });
             months[i] = new Calendar(i, nextButton, prevButton, sc);
         }
+
         for(Calendar month: months) {
             month.prefHeightProperty().bind(this.heightProperty());
             month.prefWidthProperty().bind(this.widthProperty());

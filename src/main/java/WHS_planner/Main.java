@@ -49,7 +49,7 @@ Main extends Application {
         System.setErr(ps);
 
         System.setProperty("http.agent", "Chrome");
-        PropertyConfigurator.configure("log4j.properties");
+//        PropertyConfigurator.configure("log4j.properties");
 
        File keys = new File("Keys");
 

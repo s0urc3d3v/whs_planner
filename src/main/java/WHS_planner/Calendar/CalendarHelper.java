@@ -65,7 +65,21 @@ public class CalendarHelper {
         Calendar now = Calendar.getInstance();
         now.set(Calendar.DATE, 1);
         now.set(Calendar.MONTH, month);
-        now.set(Calendar.YEAR, 2017);
+
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        int startYear;
+        if(currentMonth < 7){
+            startYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
+        }else{
+            startYear = Calendar.getInstance().get(Calendar.YEAR);
+        }
+
+        if(month < 7){
+            now.set(Calendar.YEAR,startYear+1);
+        }else{
+            now.set(Calendar.YEAR,startYear);
+        }
+
         return now.get(Calendar.DAY_OF_WEEK);
     }
 
