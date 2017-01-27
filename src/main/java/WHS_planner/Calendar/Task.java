@@ -47,7 +47,7 @@ public class Task {
         Text spaces = new Text("  ");
 
 
-        if (Class.equals("")) //If there is no class
+        if (Class.isEmpty()) //If there is no class
         {
             label = new Text(Description);
             label.setBoundsType(TextBoundsType.VISUAL);
