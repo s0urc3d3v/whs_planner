@@ -39,6 +39,7 @@ public class CalendarUtility {
 
             while(finishedReadingTasks == false){
                 try {
+                    //0 is task list
                     Object[] rawTask = json.readArray("@CalendarSaver" + dayIndex + ":" + 0 + ":" + taskIndex).toArray();
 //                    System.out.println(rawTask[0].toString());
 //                    System.out.println(rawTask[1].toString());
