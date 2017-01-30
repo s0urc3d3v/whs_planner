@@ -58,6 +58,7 @@ public class Task {
         else //If there is a class
         {
             label = new Text(Class + ": " + Description);
+            //TODO ^^ This is the problem code that is causing the bug
             label.setBoundsType(TextBoundsType.VISUAL);
 
             pane.getChildren().add(spaces);
