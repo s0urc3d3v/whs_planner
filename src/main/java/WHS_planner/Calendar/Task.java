@@ -49,14 +49,18 @@ public class Task {
 
         if (Class.isEmpty()) //If there is no class
         {
+            Description = replaceBeginingSpace(Description);
             label = new Text(Description);
             label.setBoundsType(TextBoundsType.VISUAL);
 
             pane.getChildren().add(spaces);
             pane.getChildren().add(label);
+
         }
         else //If there is a class
         {
+            Description = replaceBeginingSpace(Description);
+            Class = replaceBeginingSpace(Class);
             label = new Text(Class + ": " + Description);
             label.setBoundsType(TextBoundsType.VISUAL);
 
@@ -89,6 +93,17 @@ public class Task {
 //        }));
 
         return pane;
+    }
+
+    public String replaceBeginingSpace(String string){
+        for (int i = 0; i < string.length(); i++) {
+            if (string.substring(0,1).equals(" ")) {
+                string = string.substring(1, string.length());
+            } else {
+                break;
+            }
+        }
+        return string;
     }
 
     Boolean doesExist() {
