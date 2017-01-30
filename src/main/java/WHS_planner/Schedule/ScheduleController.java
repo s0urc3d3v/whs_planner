@@ -151,7 +151,7 @@ public class ScheduleController implements Initializable, ActionListener
                                     try
                                     {
                                         String day = parseDate(m+"/"+i+"/"+year);
-                                        s += ", "+day+" will be a \'"+res+"\' day";
+                                        s += ", next school day will be a \'"+res+"\' day";
                                         break;
                                     }
                                     catch(Exception e)
