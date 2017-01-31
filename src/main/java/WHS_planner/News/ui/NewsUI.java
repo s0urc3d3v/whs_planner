@@ -28,7 +28,6 @@ public class NewsUI extends Pane {
 
     private static final double BOX_WIDTH = 250;
     private static final double IMAGE_WIDTH = 250;
-//    private static final double IMAGE_HEIGHT = 200;
 
     private RSSFeedParser parser = new RSSFeedParser("https://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
@@ -36,7 +35,6 @@ public class NewsUI extends Pane {
     private VBox cardView = new VBox();
 
     public NewsUI() {
-
         cardView.getStylesheets().add("News" + File.separator + "NewsUI.css");
 
         //Checks if feed sends back a connection error. If it doesn't, initialize cards as normal.

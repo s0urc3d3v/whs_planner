@@ -46,8 +46,9 @@ public class Task {
 
         Text spaces = new Text("  ");
 
-
-        if (Class == null||Class.isEmpty()) //If there is no class
+        System.out.println("CLASS: " + Class);
+        String tester = Class;
+        if (Class == null||Class.isEmpty()||tester.replaceAll(" ", "").length() == 0||Class.equals("")) //If there is no class
         {
             Description = replaceBeginingSpace(Description);
             label = new Text(Description);

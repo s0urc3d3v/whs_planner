@@ -43,7 +43,6 @@ class Home extends Pane {
 
     Home(CalendarYear calendar, Pane newsUI) {
         globalTime = new GlobalTime(calendar.getSchedule().getCheck());
-
         File day = new File("Documents" + File.separator + "DayArray.json");
         if(day.exists()) {
             pc.readData();
@@ -57,13 +56,10 @@ class Home extends Pane {
         progressBar.getStyleClass().setAll("progress-bar");
 //        progressBar.setScaleY(3);
         hackTooltipStartTiming(tooltip);
-
         //Force initial timer update
 //        progressBar.setProgress(100);
 //        progressBar.setProgress(0);
 //                    String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
-
-
 
         //Initialize NEWS
         ScrollPane newsScroll = new ScrollPane();
@@ -79,8 +75,6 @@ class Home extends Pane {
         newsScroll.setMinWidth(280);
         newsScroll.setMaxWidth(280);
         newsScroll.setPrefHeight(this.getPrefHeight());
-
-
 
         insidePane.setPadding(new Insets(0, 0, 5, 5)); //top, right, bottom, left
 
@@ -102,20 +96,16 @@ class Home extends Pane {
         outsidePane.prefHeightProperty().bind(this.heightProperty());
         outsidePane.prefWidthProperty().bind(this.widthProperty());
 
-
         progressBar.prefWidthProperty().bind(insidePane.widthProperty());
 //        VBox parent = (VBox)progressBar.getParent();
 //        progressBar.setPrefWidth(parent.getWidth());
         Platform.runLater(() -> {
-
 //            VBox parent = (VBox)progressBar.getParent();
 //            progressBar.setPrefWidth(parent.getWidth());
-
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             int classIndex = globalTime.getClassIndex();
-
             if(day.exists() && day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
                     progressBar.setTooltip(null);
@@ -143,7 +133,6 @@ class Home extends Pane {
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
-
             int classIndex = globalTime.getClassIndex();
             if (day.exists()&& day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
@@ -171,12 +160,9 @@ class Home extends Pane {
         checkBox = calendar.getSchedule().getCheck();
         globalTime = new GlobalTime(checkBox);
         checkBox.setOnAction(e -> Platform.runLater(() -> {
-
-
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
-
             int classIndex = globalTime.getClassIndex();
             if (day.exists()&& day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
@@ -199,7 +185,6 @@ class Home extends Pane {
 //            VBox parent = (VBox)progressBar.getParent();
 //            progressBar.setPrefWidth(parent.getWidth());
         }));
-
         this.getChildren().setAll(outsidePane);
     }
 
@@ -219,13 +204,10 @@ class Home extends Pane {
     }
 
     private double progressVal() {
-
         int n = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        if(n == Calendar.SATURDAY || n == Calendar.SUNDAY)
-        {
+        if(n == Calendar.SATURDAY || n == Calendar.SUNDAY) {
             return 1;
         }
-
         Date date = new Date();
         DateFormat df = new SimpleDateFormat("HH:mm");
         String dateS = df.format(date);
@@ -271,8 +253,6 @@ class Home extends Pane {
             } else {
                 mod = 1;
             }
-
-//            return 1;
         }
         //other days
         else {
@@ -343,8 +323,6 @@ class Home extends Pane {
             } else {
                 mod = 1;
             }
-
-//            return 1;
         } else {
             if (num >= 450 && num < 512) {
                 mod = (512 - num);
