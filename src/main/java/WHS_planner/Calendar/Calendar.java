@@ -346,6 +346,7 @@ public class Calendar extends BorderPane {
                             ArrayList<String> currentTaskArray = new ArrayList<>();
                             currentTaskArray.add(currentTaskClass);
                             currentTaskArray.add(currentTaskDescription);
+                            System.out.println("Current Desc. = -" + currentTaskDescription);
                             json.writeArray("CalendarSaver" + dayInMonth + ":" + j + ":" + index, currentTaskArray.toArray());
                             index++;
                         }

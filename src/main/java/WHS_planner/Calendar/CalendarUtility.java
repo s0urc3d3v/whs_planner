@@ -44,7 +44,7 @@ public class CalendarUtility {
                     System.out.println(rawTask[0].toString());
                     System.out.println(rawTask[1].toString());
 
-                    Task task = new Task(rawTask[0].toString().substring(21), " ", rawTask[1].toString().substring(21));
+                    Task task = new Task(rawTask[0].toString().substring(21), "", rawTask[1].toString().substring(21));
                     tasks.add(task);
                     taskIndex ++;
                 }catch(Exception e){

@@ -334,12 +334,12 @@ public class CalendarBox extends Pane{
                                     }
                                 } else //add it without class!
                                 {
-                                    addTask(HOMEWORK, new Task("", "", textBoxText));
+                                    addTask(HOMEWORK, new Task(null , "", textBoxText));
                                     update();
                                     updateTaskBox();
                                 }
                             } else {
-                                addTask(HOMEWORK, new Task("", "", textBoxText));
+                                addTask(HOMEWORK, new Task(null, "", textBoxText));
                                 update();
                                 updateTaskBox();
                             }

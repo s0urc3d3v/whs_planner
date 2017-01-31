@@ -136,8 +136,6 @@ class Home extends Pane {
             } else{
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
-
-
         });
 
         //Timer updates (60 sec)
@@ -178,6 +176,7 @@ class Home extends Pane {
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
+
             int classIndex = globalTime.getClassIndex();
             if (day.exists()&& day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
@@ -255,20 +254,20 @@ class Home extends Pane {
         //Bell2
         else if (checkBox.isSelected()) {
             if (num >= 450 && num < 501) {
-                mod = (501 - num) / 56;
+                mod = (501 - num) / 56.0;
             } else if (num >= 501 && num < 558) {
-                mod = (558 - num) / 62;
+                mod = (558 - num) / 62.0;
             } else if (num >= 558 && num < 593) {
                 //Class meeting
-                mod = (593 - num) / 30;
+                mod = (593 - num) / 30.0;
             } else if (num >= 593 && num < 650) {
-                mod = (650 - num) / 57;
+                mod = (650 - num) / 57.0;
             } else if (num >= 650 && num < 741) {
-                mod = (741 - num) / 91;
+                mod = (741 - num) / 91.0;
             } else if (num >= 741 && num <= 798) {
-                mod = (798 - num) / 57;
+                mod = (798 - num) / 57.0;
             } else if (num >= 798 && num <= 855) {
-                mod = (855 - num) / 57;
+                mod = (855 - num) / 57.0;
             } else {
                 mod = 1;
             }
