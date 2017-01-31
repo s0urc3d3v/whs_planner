@@ -329,6 +329,7 @@ public class Calendar extends BorderPane {
                     for (Task currentTask : currentTaskArrayUnparsed) {
 
                         if (currentTask.doesExist()) {
+                            System.out.println("Does save!");
                             String currentTaskTitle = currentTask.Title;
                             String currentTaskClass = currentTask.Class;
 

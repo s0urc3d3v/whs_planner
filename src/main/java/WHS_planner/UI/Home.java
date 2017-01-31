@@ -21,10 +21,14 @@ import javafx.util.Duration;
 import javax.swing.*;
 import java.io.File;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.stream.Stream;
 
 class Home extends Pane {
 
@@ -126,6 +130,8 @@ class Home extends Pane {
             } else{
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
+
+            checkForSpecialDayTooltip(tooltip);
         });
 
         //Timer updates (60 sec)
@@ -152,6 +158,8 @@ class Home extends Pane {
             } else {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
+
+            checkForSpecialDayTooltip(tooltip);
 //            VBox parent = (VBox)progressBar.getParent();
 //            progressBar.setPrefWidth(parent.getWidth());
         }));
@@ -182,6 +190,9 @@ class Home extends Pane {
             } else {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
+
+            checkForSpecialDayTooltip(tooltip);
+
 //            VBox parent = (VBox)progressBar.getParent();
 //            progressBar.setPrefWidth(parent.getWidth());
         }));
@@ -350,5 +361,27 @@ class Home extends Pane {
         int min = Integer.parseInt(minute);
         min += (hr * 60);
         return min;
+    }
+
+    private void checkForSpecialDayTooltip(Tooltip temp){
+
+        Calendar now = Calendar.getInstance();
+
+        ArrayList<String> bellTimesFile = new ArrayList<>();
+        try (Stream<String> stream = Files.lines(Paths.get("Documents" + File.separator + "BellTimes.txt"))) {
+            stream.forEachOrdered(bellTimesFile::add);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            if(bellTimesFile.size()>5) {
+                if (now.get(Calendar.MONTH) == Integer.parseInt(bellTimesFile.get(0)) - 1 && now.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(bellTimesFile.get(1)) && now.get(Calendar.YEAR) == Integer.parseInt(bellTimesFile.get(2))) {
+                    temp.setText("Today is a special schedule, check 'Bell Schedule' for the updated info!");
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
