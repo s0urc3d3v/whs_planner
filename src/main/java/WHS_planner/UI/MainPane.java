@@ -169,7 +169,7 @@ public class MainPane extends StackPane {
                 info.getChildren().add(new Label("Created in HACS under the guidance of Mr.Hopps!\n "));
 
                 info.getChildren().add(versionLabel);
-                info.getChildren().add(new Label("1.0.2\n "));
+                info.getChildren().add(new Label("1.0.3\n "));
                 info.getChildren().add(peopleLabel);
                 String[] names = new String[]{
                         "Tyler Brient - UI Master, Bug Squasher",
