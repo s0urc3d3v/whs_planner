@@ -124,9 +124,7 @@ public class Schedule
         else
         {
             generateSchedule(loader);
-
             schedule = new Scene(rootLayout);
-
         }
     }
 

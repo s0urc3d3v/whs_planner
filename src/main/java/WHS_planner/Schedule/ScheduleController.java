@@ -207,6 +207,7 @@ public class ScheduleController implements Initializable, ActionListener
                         //you can't do javafx stuff on other threads
                         Platform.runLater(() -> Title3.setText(s));
                         Platform.runLater(() -> spinner.setVisible(false));
+                        Platform.runLater(() -> ipass.delete());
                     });
                     t.start();
                 }

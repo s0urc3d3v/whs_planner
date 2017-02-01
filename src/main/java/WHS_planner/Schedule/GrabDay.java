@@ -15,12 +15,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Here be dragons
+ *
+ *
+ * Please avoid touching if you value your sanity
+ *
+ *
+ * This just kind of works
+ *
+ * By John Broderick
+* */
 
 public class GrabDay
 {
     private final String USER_AGENT = "Mozilla/5.0";
 
-    private HttpURLConnection connection;
+    private HttpsURLConnection connection;
 
     private String calURL = "https://ipass.wayland.k12.ma.us/school/ipass/hello.html";
 
@@ -366,7 +377,7 @@ public class GrabDay
 
             URL obj = new URL(url);
 
-            connection = (HttpURLConnection) obj.openConnection();
+            connection = (HttpsURLConnection) obj.openConnection();
 
             connection.setRequestMethod("POST");
             connection.setRequestProperty("User-Agent", USER_AGENT);
