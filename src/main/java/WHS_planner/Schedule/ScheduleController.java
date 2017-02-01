@@ -329,12 +329,6 @@ public class ScheduleController implements Initializable, ActionListener
 
 
     public void logout() throws Exception {
-        File ipassFile = new File("Keys" + File.separator + "ipass.key");
-        if (ipassFile.exists()) {
-            ipassFile.delete();
-            System.out.println("Test");
-        }
-
         updateSchedule();
     }
 

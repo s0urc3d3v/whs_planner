@@ -130,17 +130,8 @@ public class MainPane extends StackPane {
 //                System.out.println("delete calendar data pressed");
 //                calendar.deleteCalendarData();
 //            });
-            JFXButton button1 = new JFXButton();
-            button1.setText("      Reset Schedule");
-            button1.setOnMouseClicked(event1 -> {
-                try {
-                    schedule.getScheduleControl().updateSchedule();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
             JFXButton button2 = new JFXButton();
-            button2.setText("      Logout of iPass");
+            button2.setText("      Refresh Schedule");
             button2.setOnMouseClicked(event12 -> {
                 try {
                     schedule.getScheduleControl().logout();
@@ -205,18 +196,16 @@ public class MainPane extends StackPane {
 
 //            info.getChildren().add(button0);
 
-            info.getChildren().addAll(button0, button1, button2, button3, button4, bell2Check);
+            info.getChildren().addAll(button0, button2, button3, button4, bell2Check);
 
             info.setAlignment(Pos.TOP_LEFT);
             info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
             button0.setCursor(Cursor.HAND);
-            button1.setCursor(Cursor.HAND);
             button2.setCursor(Cursor.HAND);
             button3.setCursor(Cursor.HAND);
             button4.setCursor(Cursor.HAND);
 //            button5.setCursor(Cursor.HAND);
             button0.getStyleClass().setAll("list-button");
-            button1.getStyleClass().setAll("list-button");
             button2.getStyleClass().setAll("list-button");
             button3.getStyleClass().setAll("list-button");
             button4.getStyleClass().setAll("list-button");
