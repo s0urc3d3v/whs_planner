@@ -63,7 +63,6 @@ public class Task {
             Description = replaceBeginingSpace(Description);
             Class = replaceBeginingSpace(Class);
             label = new Text(Class + ": " + Description);
-            //TODO ^^ This is the problem code that is causing the bug
             label.setBoundsType(TextBoundsType.VISUAL);
 
             pane.getChildren().add(spaces);

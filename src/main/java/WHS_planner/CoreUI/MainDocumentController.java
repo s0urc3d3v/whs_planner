@@ -71,7 +71,7 @@ public class MainDocumentController implements Initializable {
         cal.setPrefHeight(anchorPane.getPrefHeight());
         cal.prefWidthProperty().bind(anchorPane.widthProperty());
         schedule = new Schedule(new JFXCheckBox());
-        BorderPane schedulePane = (BorderPane) schedule.getPane();
+        Pane schedulePane = (Pane)schedule.getPane();
 
 
         topBar.setStyle("-fx-background-color: #FF9800");

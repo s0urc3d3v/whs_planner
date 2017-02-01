@@ -84,7 +84,7 @@ public class Schedule
     {
         FXMLLoader loader = new FXMLLoader();
 
-        loader.setLocation(getClass().getResource("/Schedule/wank_layout.fxml"));
+        loader.setLocation(getClass().getResource("/Schedule/schedule_layout.fxml"));
 
         rootLayout = loader.load();
         scheduleControl = loader.getController();

@@ -75,7 +75,7 @@ public class loginController implements Initializable
                     error.setText("Logging in, please wait...");
                     loginPane.requestLayout();
                     button.setDisable(true);
-                    File f = new File("Keys/ipass.key"); //TODO File.seperator?
+                    File f = new File("Keys"+File.separator +"ipass.key");
                     if(!f.exists()) {
                         f.createNewFile();
                     }

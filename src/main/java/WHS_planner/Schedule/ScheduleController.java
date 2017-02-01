@@ -41,7 +41,7 @@ public class ScheduleController implements Initializable, ActionListener
     private JFXSpinner spinner;
 
 
-    private BorderPane[] panes;
+    private VBox[] panes;
 
 
     private String s;
@@ -59,11 +59,11 @@ public class ScheduleController implements Initializable, ActionListener
         spinner.setVisible(false);
         grid.setGridLinesVisible(false);
         grid.setStyle("-fx-background-color: #F1F1F1;");
-        panes = new BorderPane[72];
+        panes = new VBox[72];
         int count = 0;
         //Fills Arrays
         for (int i = 0; i < 72; i++) {
-            panes[i] = new BorderPane();
+            panes[i] = new VBox();
         }
         for (int i = 1; i < 9; i++) {
             for (int j = 2; j < 9; j++) {
@@ -414,10 +414,10 @@ public class ScheduleController implements Initializable, ActionListener
         ObservableList<Node> childrens = grid.getChildren();
         for (Node node : childrens) {
 
-            if(node instanceof BorderPane)
+            if(node instanceof Pane)
             {
                 if(grid.getRowIndex(node) == row && grid.getColumnIndex(node) == col) {
-                    pane = (BorderPane) node;
+                    pane = (Pane) node;
                     break;
                 }
             }
