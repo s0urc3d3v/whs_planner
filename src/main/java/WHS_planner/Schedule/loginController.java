@@ -36,14 +36,9 @@ public class loginController implements Initializable
     @FXML
     private Pane loginPane;
 
-    @FXML
-    private JFXSpinner spinner;
-
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
-        spinner.setVisible(false);
+    public void initialize(URL location, ResourceBundle resources) {
 
         //Initializes the "submit" button style
 //        button.setButtonType(JFXButton.ButtonType.RAISED);
@@ -53,25 +48,19 @@ public class loginController implements Initializable
 //        loginPane.getStyleClass().add("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);");
     }
 
-    public void submit() throws Exception
-    {
+    public void submit() throws Exception {
         String username = user.getText();
         String pass = password.getText();
         error.setVisible(true);
 
-        if(username.equals("") || pass.equals(""))
-        {
+        if(username.equals("") || pass.equals("")) {
             error.setTextFill(Color.BLACK);
             error.setText("Please enter your iPass information");
-        }
-        else
-        {
-            try
-            {
+        } else {
+            try {
                 GrabDay gd = new GrabDay(username, pass);
-
-                if(gd.testConn())
-                {
+                if(gd.testConn()) {
+                    error.setTextFill(Color.GREEN);
                     error.setText("Logging in, please wait...");
                     loginPane.requestLayout();
                     button.setDisable(true);
@@ -83,7 +72,6 @@ public class loginController implements Initializable
                     String xorKey = Main.getXorKey();
                     username = XorTool.encode(username, xorKey);
                     pass = XorTool.encode(pass, xorKey);
-
 
                     bw.write(username);
                     bw.newLine();
@@ -99,51 +87,31 @@ public class loginController implements Initializable
                     error.setText("iPass internal error. Restart and try again");
                     button calls logout method in ScheduleController and quits to program
                      */
-
-                    try {
+                    try{
 
                         PauseTransition ps = new PauseTransition(Duration.seconds(1));
                         ps.setOnFinished(event -> {
                             try {
                                 MainPane mp = (MainPane) Main.getMainPane();
                                 mp.resetSchedule();
-                            }
-                            catch (Exception e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-
                         });
                         ps.play();
-
-
-
-
-
-                    }
-                    catch(Exception e)
-                    {
+                    } catch(Exception e) {
                         System.out.println("Error in refreshing schedule pane...");
                     }
                 }
-                else
-                {
+                else {
                     error.setTextFill(Color.RED);
                     error.setText("Incorrect username or password. Please try again.");
                     password.clear();
                 }
-            }
-            catch(Exception e)
-            {
+            } catch(Exception e) {
                 System.out.println("Error occurred during login");
             }
-
-
-
-
         }
-
     }
-
-
 }
 
