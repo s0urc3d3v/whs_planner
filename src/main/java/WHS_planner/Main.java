@@ -108,7 +108,7 @@ Main extends Application {
         }
 
         try {
-            URL website = new URL("https://dl.dropboxusercontent.com/s/w1rpxutgcxgb0l7/BellTimes.txt?dl=0");
+            URL website = new URL("https://dl.dropboxusercontent.com/s/a8e3qfwgbfbi0qc/BellTimes.txt?dl=0");
             InputStream in = website.openStream();
             if (!(in == null)) {
                 Files.copy(in, Paths.get("Documents" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
