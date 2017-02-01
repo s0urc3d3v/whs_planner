@@ -173,6 +173,8 @@ Main extends Application {
     @Override
     public void stop(){
         mainPane.saveCalendar();
+        new File("Keys/ipass.key").delete();
+
         System.exit(0);
     }
 }

@@ -115,8 +115,9 @@ public class Schedule
         });
 
         File f = new File("Keys/ipass.key");
+        File g = new File("Documents/Schedule.json");
 
-        if(!f.exists())
+        if(!f.exists() && !g.exists())
         {
             schedule = new Scene(login);
         }
@@ -383,6 +384,8 @@ public class Schedule
 
     public boolean isLoggedIn() {
         File f = new File("Keys/ipass.key");
-        return f.exists();
+        File g = new File("Documents/Schedule.json");
+
+        return f.exists() || g.exists();
     }
 }

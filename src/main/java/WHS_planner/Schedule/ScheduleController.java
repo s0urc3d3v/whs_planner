@@ -90,7 +90,8 @@ public class ScheduleController implements Initializable, ActionListener
             panes[i + 63].toBack();
         }
         File ipass = new File("Keys" + File.separator + "ipass.key");
-        if(ipass.exists())
+        File Schedule = new File("Documents/Schedule.json");
+        if(ipass.exists() || Schedule.exists())
         {
             try
             {
@@ -336,10 +337,16 @@ public class ScheduleController implements Initializable, ActionListener
     {
 
         File schedule = new File("Documents"+File.separator+"Schedule.json");
+        File ipasskey = new File("Keys"+File.separator+"ipass.key");
 
         if(schedule.exists())
         {
             schedule.delete();
+        }
+
+        if(ipasskey.exists())
+        {
+            ipasskey.delete();
         }
 
         MainPane mp = (MainPane) Main.getMainPane();
