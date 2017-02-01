@@ -381,9 +381,9 @@ public class MainPane extends StackPane {
 
     private Pane getBellSchedulePane(){
         Calendar now = Calendar.getInstance();
-        //Testing
-//        now.set(Calendar.DATE, 15);
-//        now.set(Calendar.MONTH, 0);
+//        //Testing
+//        now.set(Calendar.DATE, 1);
+//        now.set(Calendar.MONTH, 1);
 //        now.set(Calendar.YEAR, 2017);
 
         String[] times;
@@ -409,7 +409,7 @@ public class MainPane extends StackPane {
         }
 
         try {
-            if(bellTimesFile.size()>5) {
+            while(bellTimesFile.size()>4) {
                 if (now.get(Calendar.MONTH) == Integer.parseInt(bellTimesFile.get(0)) - 1 && now.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(bellTimesFile.get(1)) && now.get(Calendar.YEAR) == Integer.parseInt(bellTimesFile.get(2))) {
                     int numberOfRows = Integer.parseInt(bellTimesFile.get(3));
                     blocks = new String[numberOfRows];
@@ -419,6 +419,12 @@ public class MainPane extends StackPane {
                     }
                     for (int i = 0; i < numberOfRows; i++) {
                         times[i] = bellTimesFile.get(i + 4 + numberOfRows);
+                    }
+                    break;
+                }else{
+                    int numberOfRows = Integer.parseInt(bellTimesFile.get(3));
+                    for (int i = 0; i < numberOfRows*2+4; i++) {
+                        bellTimesFile.remove(0);
                     }
                 }
             }
