@@ -8,6 +8,12 @@ import java.io.IOException;
 /**
  * Created by matthewelbing on 08.12.16.
  */
+
+/** Disclaimer: This class is not a secure solution for storing data.  It
+ * is instead a method of obfusucation for data.  There is no way to securly
+ * store a password locally as it can be decrypted or the programmed can
+ * be steeped through.  This is the ideal way to solve this issue.
+ */
 public class XorTool { //encrypts string with key
     public static String encode(String data, String key){
         return base64Encode(XorTool.XorWithKey(data.getBytes(), key.getBytes()));
