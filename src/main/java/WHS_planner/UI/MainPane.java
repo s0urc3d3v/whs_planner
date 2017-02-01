@@ -372,7 +372,7 @@ public class MainPane extends StackPane {
     private Pane getBellSchedulePane(){
         Calendar now = Calendar.getInstance();
 //        //Testing
-//        now.set(Calendar.DATE, 1);
+//        now.set(Calendar.DATE, 3);
 //        now.set(Calendar.MONTH, 1);
 //        now.set(Calendar.YEAR, 2017);
 

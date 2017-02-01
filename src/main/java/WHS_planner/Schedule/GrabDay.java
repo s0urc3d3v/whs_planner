@@ -193,7 +193,6 @@ public class GrabDay
                 String filename = childs+"/"+(j+1);
                 String supp = "?month="+(i+1)+"&day="+(j+1)+"&year="+year;
 
-                //TODO loading
                 String res = g.getPageContent(calURL + supp);
                 parseHtml(res, filename);
             }
@@ -237,23 +236,11 @@ public class GrabDay
 
     public void setQuarter(String cookie) throws Exception
     {
-
         WebClient client = new WebClient();
 
         client.getOptions().setJavaScriptEnabled(true);
 
         client.getCookieManager().setCookiesEnabled(true);
-
-       /* HtmlPage login = client.getPage("https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html");
-        HtmlForm form = login.getFormByName("login");
-        HtmlTextInput txt = form.getInputByName("userid");
-        HtmlPasswordInput passfield = form.getInputByName("password");
-        HtmlAnchor anchor = login.getAnchorByHref("javascript:document.login.submit();");
-        txt.setValueAttribute(user);
-        passfield.setValueAttribute(pass);
-
-        HtmlPage page2 = anchor.click();*/
-
 
         client.addCookie(cookie, new URL("https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html"), client);
 
@@ -270,18 +257,9 @@ public class GrabDay
 
         HtmlPage sched = anchor2.click();
 
-       // String res;
-
-        //res = sched.getUrl().toString();
-
-        //HtmlPage fin = client.getPage(res);
 
         File f = new File("output.html");
         sched.save(f);
-
-        //String s = fin.getWebResponse().getContentAsString();
-
-        //parseHtml(s, "output.html");
 
         client.close();
     }
