@@ -157,21 +157,22 @@ public class MainPane extends StackPane {
                 Label peopleLabel = new Label("Collaborators:");
                 peopleLabel.setUnderline(true);
 
-                info.getChildren().add(new Label("Created in HACS under the guidance of Mr.Hopps!\n "));
+                info.getChildren().add(new Label("Created in HACS under the guidance of Mr. Hopps!\n "));
 
                 info.getChildren().add(versionLabel);
                 info.getChildren().add(new Label("1.0.3\n "));
                 info.getChildren().add(peopleLabel);
                 String[] names = new String[]{
-                        "Tyler Brient - UI Master, Bug Squasher",
-                        "George Jiang - UX, News, Bug Finder",
-                        "Andrew Eggleston - Yelled at Tyler",
-                        "Geoffrey Wang - UI Master, Calendar, T-Rex :)",
-                        "Matthew Elbing - Backend, Project Lead",
-                        "Jack Bachman - Backend, Github",
-                        "John Broderick - Schedule, Bug Creator",
-                        "Will Robison - HTML, Piano Tiles 2",
                         "Tzur Almog - Calendar",
+                        "Jack Bachman - Backend, Github",
+                        "Alex Bell - News",
+                        "Tyler Brient - UI Master, Bug Squasher",
+                        "John Broderick - Schedule, Bug Creator",
+                        "Andrew Eggleston - Yelled at Tyler",
+                        "Matthew Elbing - Backend, Project Lead",
+                        "George Jiang - UX, News, Bug Finder",
+                        "Will Robison - HTML, Piano Tiles 2",
+                        "Geoffrey Wang - UI Master, Calendar, T-Rex :)",
                 };
                 for (String name : names) {
                     info.getChildren().add(new Label(name));
@@ -214,7 +215,7 @@ public class MainPane extends StackPane {
             bell2Check.setPrefSize(200,50);
 //            System.out.println(bell2Check.getLabelPadding());
             info.setSpacing(0);
-            info.setMinSize(200, 300);
+            info.setMinSize(200, 250);
             JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
             dialog.show();
 

@@ -19,6 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 import java.io.File;
@@ -363,6 +364,7 @@ public class CalendarBox extends Pane{
         override.setText("Use Current Class");
         hungryBox.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
         override.getStyleClass().setAll("label-button");
+        override.setCheckedColor(Paint.valueOf("#0066FF"));
         override.setSelected(true);
         override.setCursor(Cursor.HAND);
         override.setPrefSize(155,24);
