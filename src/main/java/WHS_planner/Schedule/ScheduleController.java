@@ -91,6 +91,99 @@ public class ScheduleController implements Initializable, ActionListener
         }
         File ipass = new File("Keys" + File.separator + "ipass.key");
         File Schedule = new File("Documents/Schedule.json");
+        if(Schedule.exists() && !ipass.exists()) {
+
+            try
+            {
+                Title3.setText("");
+                s = getletterday((Calendar.getInstance().get(Calendar.MONTH)+1)+"/"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+
+                if (s.length() == 1)
+                {
+                    letter = s;
+                    setClass();
+                    s = "Today is '" + s + "' day!";
+                }
+                else
+                {
+                    ParseCalendar pc = new ParseCalendar();
+                    pc.readData();
+                    int m = Calendar.getInstance().get(Calendar.MONTH)+1;
+                    int i = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+                    int th = 0;
+                    int year = Calendar.getInstance().get(Calendar.YEAR);
+
+                    while(true)
+                    {
+                        String res = pc.getDay(m+"/"+i);
+
+                        if(res.length() == 1)
+                        {
+                            try
+                            {
+                                String day = parseDate(m+"/"+i+"/"+year);
+                                s += ", next school day will be a \'"+res+"\' day";
+                                break;
+                            }
+                            catch(Exception e)
+                            {
+                                System.out.println("Exception in getting the closest new school day.");
+                            }
+                        }
+
+                        switch(m)
+                        {
+                            case 1: th = 31;
+                                break;
+                            case 2: th = 28;
+                                break;
+                            case 3: th = 31;
+                                break;
+                            case 4: th = 30;
+                                break;
+                            case 5: th = 31;
+                                break;
+                            case 6: th = 30;
+                                break;
+                            case 7: th = 31;
+                                break;
+                            case 8: th = 31;
+                                break;
+                            case 9: th = 30;
+                                break;
+                            case 10: th = 31;
+                                break;
+                            case 11: th = 30;
+                                break;
+                            case 12: th = 31;
+                                break;
+                        }
+
+                        i++;
+
+                        if(i > th)
+                        {
+                            i = 1;
+                            m++;
+
+                            if(m > 12)
+                            {
+                                m = 1;
+                                year++;
+                            }
+                        }
+                    }
+                }
+
+                Title3.setText(s);
+                spinner.setVisible(false);
+            }
+            catch(Exception e)
+            {
+                //System.out.println("Error in ScheduleController\n data couldn't be found in ipass.key");
+            }
+        }
+
         if(ipass.exists() || Schedule.exists())
         {
             try
