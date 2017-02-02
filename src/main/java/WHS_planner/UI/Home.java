@@ -374,14 +374,16 @@ class Home extends Pane {
             e.printStackTrace();
         }
 
-        try {
-            if(bellTimesFile.size()>5) {
-                if (now.get(Calendar.MONTH) == Integer.parseInt(bellTimesFile.get(0)) - 1 && now.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(bellTimesFile.get(1)) && now.get(Calendar.YEAR) == Integer.parseInt(bellTimesFile.get(2))) {
-                    temp.setText("Today is a special schedule, check 'Bell Schedule' for the updated info!");
+        while(bellTimesFile.size()>4) {
+            if (now.get(Calendar.MONTH) == Integer.parseInt(bellTimesFile.get(0)) - 1 && now.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(bellTimesFile.get(1)) && now.get(Calendar.YEAR) == Integer.parseInt(bellTimesFile.get(2))) {
+                temp.setText("Today is a special schedule, check 'Bell Schedule' for the updated info!");
+                break;
+            }else{
+                int numberOfRows = Integer.parseInt(bellTimesFile.get(3));
+                for (int i = 0; i < numberOfRows*2+4; i++) {
+                    bellTimesFile.remove(0);
                 }
             }
-        }catch (Exception e){
-            e.printStackTrace();
         }
     }
 }

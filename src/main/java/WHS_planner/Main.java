@@ -20,6 +20,9 @@ import java.util.Random;
 
 public class
 Main extends Application {
+
+    public static final String  VERSION_NUMBER = "1.1.1";
+
     //ON first run move jfoenix to a place it can be referenced on a remote system
     private static String readKey = null;
     private static MainPane mainPane;

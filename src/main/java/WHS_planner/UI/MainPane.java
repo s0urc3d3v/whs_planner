@@ -1,6 +1,7 @@
 package WHS_planner.UI;
 
 import WHS_planner.Calendar.CalendarYear;
+import WHS_planner.Main;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.*;
@@ -160,7 +161,7 @@ public class MainPane extends StackPane {
                 info.getChildren().add(new Label("Created in HACS under the guidance of Mr. Hopps!\n "));
 
                 info.getChildren().add(versionLabel);
-                info.getChildren().add(new Label("1.1.0\n "));
+                info.getChildren().add(new Label(Main.VERSION_NUMBER+" \n "));
                 info.getChildren().add(peopleLabel);
                 String[] names = new String[]{
                         "Tzur Almog - Calendar",
