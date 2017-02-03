@@ -213,7 +213,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    
    
    
-   The JSOUP library avaible [here] is licensed under the MIT license:
+   We used the incrediable JSOUP library avaible [here](https://jsoup.org/) which is licensed under the MIT license:
+   
    The MIT License
 Copyright © 2009 - 2016 Jonathan Hedley (jonathan@hedley.net)
 
