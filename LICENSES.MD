@@ -169,7 +169,7 @@
       incurred by, or claims asserted against, such Contributor by reason
       of your accepting any such warranty or additional liability.
 
-   END OF TERMS AND CONDITIONS
+END OF TERMS AND CONDITIONS
    
    
 We used the JSOUP library avaible [here](https://jsoup.org/) which is licensed under the MIT license:
