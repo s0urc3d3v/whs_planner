@@ -9,5 +9,5 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-We used the federkasten's [appbundler library](https://github.com/federkasten/appbundle-maven-plugin), as well as the [JFoenix UI library](http://www.jfoenix.com/). 
+We also used the federkasten's [appbundler library](https://github.com/federkasten/appbundle-maven-plugin), as well as the [JFoenix UI library](http://www.jfoenix.com/). 
 Both are avaiable under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
