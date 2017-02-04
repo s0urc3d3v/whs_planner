@@ -181,7 +181,7 @@ public class MainPane extends StackPane {
                 }
                 info.getChildren().add(new Label("\n"));
                 JFXButton licenses = new JFXButton("Licenses");
-                licenses.setButtonType(JFXButton.ButtonType.RAISED);
+                licenses.setButtonType(JFXButton.ButtonType.FLAT);
                 licenses.getStyleClass().setAll("gray-button");
                 licenses.setOnMouseClicked(showLicences -> {
                     info.getChildren().clear();
