@@ -26,3 +26,19 @@
     -fx-font-size: 14px;
     -fx-font-family: "Roboto";
 }
+
+.gray-button {
+    -fx-background-color: #BDBDBD;
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto";
+    -fx-padding: 5;
+    -fx-background-radius: 0;
+
+
+}
+
+.times {
+-fx-font-size: 14px;
+-fx-font-family: "Times New Roman";
+
+}
