@@ -113,6 +113,12 @@ class Home extends Pane {
             if(day.exists() && day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
                     progressBar.setTooltip(null);
+                } else if (classIndex == -4) {
+                    progressBar.setTooltip(tooltip);
+                    tooltip.setText("Passing time" + "\nTime left: \n" + timeLeft() + " min");
+                } else if (classIndex == -5) {
+                    progressBar.setTooltip(tooltip);
+                    tooltip.setText("Break" + "\nTime left: \n" + timeLeft() + " min");
                 } else {
                     progressBar.setTooltip(tooltip);
 //                System.out.println(globalTime.getLetterDay());
@@ -143,6 +149,12 @@ class Home extends Pane {
             if (day.exists()&& day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
                     progressBar.setTooltip(null);
+                } else if (classIndex == -4) {
+                    progressBar.setTooltip(tooltip);
+                    tooltip.setText("Passing time" + "\nTime left: \n" + timeLeft() + " min");
+                } else if (classIndex == -5) {
+                    progressBar.setTooltip(tooltip);
+                    tooltip.setText("Break" + "\nTime left: \n" + timeLeft() + " min");
                 } else {
                     progressBar.setTooltip(tooltip);
                     try {
@@ -175,6 +187,12 @@ class Home extends Pane {
             if (day.exists()&& day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
                     progressBar.setTooltip(null);
+                } else if (classIndex == -4) {
+                    progressBar.setTooltip(tooltip);
+                    tooltip.setText("Passing time" + "\nTime left: \n" + timeLeft() + " min");
+                } else if (classIndex == -5) {
+                    progressBar.setTooltip(tooltip);
+                    tooltip.setText("Break" + "\nTime left: \n" + timeLeft() + " min");
                 } else {
                     progressBar.setTooltip(tooltip);
                     try {
@@ -297,6 +315,7 @@ class Home extends Pane {
         String dateS = df.format(date);
         int num = parseDate(dateS);
         double mod;
+        System.out.println(num);
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
             if (num >= 450 && num < 495) {
                 mod = (495 - num);
@@ -335,8 +354,9 @@ class Home extends Pane {
                 mod = 1;
             }
         } else {
-            if (num >= 450 && num < 512) {
-                mod = (512 - num);
+            System.out.println("yes, its a normal day");
+            if (num >= 450 && num < 506) {
+                mod = (506 - num);
             } else if (num >= 512 && num < 579) {
                 mod = (579 - num);
             } else if (num >= 579 && num < 641) {
@@ -351,6 +371,7 @@ class Home extends Pane {
                 mod = 0;
             }
         }
+        System.out.println("minleft: " + mod);
         return (int) mod;
     }
 

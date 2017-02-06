@@ -27,6 +27,8 @@ public class GlobalTime {
     }
     //if class index is -1, that means it's not school hours!
     // -2 is advisory, -3 is class meeting
+    //TODO: -4 is passing time
+    //TODO: -5 is break
     public int getClassIndex() {
         int n = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
         if(n == Calendar.SATURDAY || n == Calendar.SUNDAY) {
@@ -105,9 +107,6 @@ public class GlobalTime {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return result;
     }
-
-
 }
