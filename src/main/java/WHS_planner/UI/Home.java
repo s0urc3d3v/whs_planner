@@ -111,7 +111,10 @@ class Home extends Pane {
             progressBar.setProgress(d);
             int classIndex = globalTime.getClassIndex();
             if(day.exists() && day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
+                System.out.println("class index: "+ classIndex);
+                System.out.println(pc.getDay(today));
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
+                    System.out.println("tooltip is null!");
                     progressBar.setTooltip(null);
                 } else if (classIndex == -4) {
                     progressBar.setTooltip(tooltip);
@@ -119,17 +122,32 @@ class Home extends Pane {
                 } else if (classIndex == -5) {
                     progressBar.setTooltip(tooltip);
                     tooltip.setText("Break" + "\nTime left: \n" + timeLeft() + " min");
-                } else {
+                } else if (classIndex == -2) {
+                    progressBar.setTooltip(tooltip);
+                    tooltip.setText("Advisory" + "\nTime left: \n" + timeLeft() + " min");
+                }
+                else {
                     progressBar.setTooltip(tooltip);
 //                System.out.println(globalTime.getLetterDay());
 //                System.out.println(calendar.getSchedule().getToday(globalTime.getLetterDay()));
+//                    System.out.println("IT DOESNT EVEN GO PAST THIS LINE OF CODE");
                     try {
                         currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
-                    } catch (NullPointerException e) {}
+//                    System.out.println("Letter day: " + globalTime.getLetterDay());
+//                    System.out.println("Class Index: " + classIndex);
+//                    currentClass = calendar.getSchedule().getToday("G")[2].getClassName();
+                        //gets schedule from calendar. gets array of user's blocks using letterday from globaltime. gets class name from current index
+//                        System.out.println(currentClass);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+//                    System.out.println("it got past the line of code...");
                     if(currentClass != null) {
                         tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
+//                        System.out.println("scenario 1, not null");
                     } else {
                         tooltip.setText("Time left: \n" + timeLeft() + " min");
+//                        System.out.println("scnenario 2, null");
                     }
 //                String currentClass = calendar.getSchedule().getToday(today)[classIndex].getClassName();
                 }
@@ -155,11 +173,15 @@ class Home extends Pane {
                 } else if (classIndex == -5) {
                     progressBar.setTooltip(tooltip);
                     tooltip.setText("Break" + "\nTime left: \n" + timeLeft() + " min");
+                } else if (classIndex == -2) {
+                    progressBar.setTooltip(tooltip);
+                    tooltip.setText("Advisory" + "\nTime left: \n" + timeLeft() + " min");
                 } else {
                     progressBar.setTooltip(tooltip);
                     try {
                         currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
-                    } catch (NullPointerException exceptoin) {
+                    } catch (NullPointerException exception) {
+                        exception.printStackTrace();
                     }
                     if (currentClass != null) {
                         tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
@@ -193,11 +215,15 @@ class Home extends Pane {
                 } else if (classIndex == -5) {
                     progressBar.setTooltip(tooltip);
                     tooltip.setText("Break" + "\nTime left: \n" + timeLeft() + " min");
+                } else if (classIndex == -2) {
+                    progressBar.setTooltip(tooltip);
+                    tooltip.setText("Advisory" + "\nTime left: \n" + timeLeft() + " min");
                 } else {
                     progressBar.setTooltip(tooltip);
                     try {
                         currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
-                    } catch (NullPointerException exceptoin) {
+                    } catch (NullPointerException exception) {
+                        exception.printStackTrace();
                     }
                     if (currentClass != null) {
                         tooltip.setText(currentClass + "\nTime left: \n" + timeLeft() + " min");
@@ -247,9 +273,9 @@ class Home extends Pane {
             if (num >= 450 && num < 495) {
                 mod = (495 - num) / 45.0;
             } else if (num >= 495 && num < 535) {
-                mod = (575 - num) / 40.0;
-            } else if (num >= 535 && num <= 620) {
-                mod = (620 - num) / 40.0;
+                mod = (535 - num) / 40.0;
+            } else if (num >= 535 && num < 620) {
+                mod = (620 - num) / 85.0;
             } else if (num >= 575 && num < 620) {
                 mod = (620 - num) / 45.0;
             } else if (num >= 620 && num < 700) {
@@ -320,7 +346,7 @@ class Home extends Pane {
             if (num >= 450 && num < 495) {
                 mod = (495 - num);
             } else if (num >= 495 && num < 535) {
-                mod = (575 - num);
+                mod = (535 - num);
             } else if (num >= 535 && num <= 620) {
                 mod = (620 - num);
             } else if (num >= 575 && num < 620) {

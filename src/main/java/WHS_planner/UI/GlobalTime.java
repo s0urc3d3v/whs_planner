@@ -78,17 +78,21 @@ public class GlobalTime {
             }
 //            return 1;
         } else { //Other days
-            if (num >= 450 && num < 512) {
+            if (num >= 450 && num < 512) { //7:30-8:26
                 mod = 0;
-            } else if (num >= 512 && num < 579) {
+            } else if (num >=512 && num < 579)
+            {
+                mod = -4;
+            }
+            else if (num >= 512 && num < 579) {//8:31-9:28
                 mod = 1;
-            } else if (num >= 579 && num < 641) {
+            } else if (num >= 579 && num < 641) {// 9:38-10:35
                 mod = 2;
-            } else if (num >= 641 && num < 736) {
+            } else if (num >= 641 && num < 736) { //10:40-12:11
                 mod = 3;
-            } else if (num >= 736 && num < 798) {
+            } else if (num >= 736 && num < 798) { //12:16-1:11
                 mod = 4;
-            } else if (num >= 798 && num <= 855) {
+            } else if (num >= 798 && num <= 855) { //1:18-2:15
                 mod = 5;
             } else {
                 mod = -1;
