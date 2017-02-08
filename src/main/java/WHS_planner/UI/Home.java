@@ -271,6 +271,103 @@ class Home extends Pane {
         //wednesday
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
             if (num >= 450 && num < 490) {
+                mod = (490 - num);
+            } else if (num >= 490 && num < 495) {
+                mod = (495-num); //pass time
+            } else if (num >= 495 && num < 535) {
+                mod = (535 - num);
+            }  else if (num >= 535 && num < 545) {
+                mod = (545-num); //pass time
+            } else if (num >= 545 && num < 570) {
+                mod = (570 - num);
+            }  else if (num >= 570 && num < 575) {
+                mod = (575-num); //pass time
+            } else if (num >= 575 && num < 615) {
+                mod = (615 - num);
+            }  else if (num >= 615 && num < 620) {
+                mod = (620 - num); //pass time
+            } else if (num >= 620 && num < 695) {
+                mod = (695 - num);
+            } else if (num >= 695 && num < 700) {
+                mod = (700-num); //pass time
+            } else if (num >= 700 && num < 740) {
+                mod = (745 - num);
+            }  else if (num >= 740 && num < 745) {
+                mod = (745-num); //pass time
+            } else if (num >= 745 && num <= 785) {
+                mod = (785 - num);
+            } else {
+                mod = 0;
+            }
+        }
+        //Bell2
+        else if (checkBox.isSelected()) {
+
+            if (num >= 450 && num < 501) {
+                mod = (501 - num) / 56.0;
+            } else if (num >= 501 && num < 506) {
+                mod = (506 - num) / 5.0; //pass time
+            } else if (num >= 506 && num < 558) {
+                mod = (558 - num) / 62.0;
+            } else if (num >= 558 && num < 568) {
+                mod = (568 - num) / 5.0; //pass time
+            } else if (num >= 568 && num < 593) {
+                mod = (593 - num) / 30.0; //class meeting
+            } else if (num >= 593 && num < 598) {
+                mod = (598 - num) / 5.0; //pass time
+            } else if (num >= 598 && num < 650) {
+                mod = (650 - num) / 57.0;
+            } else if (num >= 650 && num < 655) {
+                mod = (655 - num) / 5.0; //pass time
+            } else if (num >= 655 && num < 741) {
+                mod = (741 - num) / 91.0;
+            } else if (num >= 741 && num < 746) {
+                mod = (746 - num) / 5.0; //pass time
+            } else if (num >= 746 && num < 798) {
+                mod = (798 - num) / 57.0;
+            } else if (num >= 798 && num < 803) {
+                mod = (803 - num) / 5.0; //pass time
+            } else if (num >= 803 && num <= 855) {
+                mod = (855 - num) / 57.0;
+            } else {
+                mod = 0;
+            }
+        }
+        //other days
+        else {
+            if (num >= 450 && num < 512) {
+                mod = (512 - num) / 62.0;
+            } else if (num >= 512 && num < 579) {
+                mod = (579 - num) / 67.0;
+            } else if (num >= 579 && num < 641) {
+                mod = (641 - num) / 62.0;
+            } else if (num >= 641 && num < 736) {
+                mod = (736 - num) / 95.0;
+            } else if (num >= 736 && num < 798) {
+                mod = (798 - num) / 62.0;
+            } else if (num >= 798 && num <= 855) {
+                mod = (855 - num) / 57.0;
+            } else {
+                mod = 0;
+            }
+        }
+        return mod;
+    }
+
+    private int timeLeft() {
+        int n = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        if(n == Calendar.SATURDAY || n == Calendar.SUNDAY)
+        {
+            return 0;
+        }
+        Date date = new Date();
+        DateFormat df = new SimpleDateFormat("HH:mm");
+        String dateS = df.format(date);
+        int num = parseDate(dateS);
+        double mod;
+        System.out.println(num);
+        if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
+            if (num >= 450 && num < 490) {
                 mod = (490 - num) / 45.0;
             } else if (num >= 490 && num < 495) {
                 mod = (495-num) / 5.0; //pass time
@@ -297,102 +394,39 @@ class Home extends Pane {
             } else if (num >= 745 && num <= 785) {
                 mod = (785 - num) / 40.0;
             } else {
-                mod = -1;
-            }
-        }
-        //Bell2
-        else if (checkBox.isSelected()) {
-            if (num >= 450 && num < 501) {
-                mod = (501 - num) / 56.0;
-            } else if (num >= 501 && num < 558) {
-                mod = (558 - num) / 62.0;
-            } else if (num >= 558 && num < 593) {
-                //Class meeting
-                mod = (593 - num) / 30.0;
-            } else if (num >= 593 && num < 650) {
-                mod = (650 - num) / 57.0;
-            } else if (num >= 650 && num < 741) {
-                mod = (741 - num) / 91.0;
-            } else if (num >= 741 && num <= 798) {
-                mod = (798 - num) / 57.0;
-            } else if (num >= 798 && num <= 855) {
-                mod = (855 - num) / 57.0;
-            } else {
-                mod = 1;
-            }
-        }
-        //other days
-        else {
-            if (num >= 450 && num < 512) {
-                mod = (512 - num) / 62.0;
-            } else if (num >= 512 && num < 579) {
-                mod = (579 - num) / 67.0;
-            } else if (num >= 579 && num < 641) {
-                mod = (641 - num) / 62.0;
-            } else if (num >= 641 && num < 736) {
-                mod = (736 - num) / 95.0;
-            } else if (num >= 736 && num < 798) {
-                mod = (798 - num) / 62.0;
-            } else if (num >= 798 && num <= 855) {
-                mod = (855 - num) / 57.0;
-            } else {
-                mod = 1;
-            }
-        }
-        return mod;
-    }
-
-    private int timeLeft() {
-        int n = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        if(n == Calendar.SATURDAY || n == Calendar.SUNDAY)
-        {
-            return 0;
-        }
-        Date date = new Date();
-        DateFormat df = new SimpleDateFormat("HH:mm");
-        String dateS = df.format(date);
-        int num = parseDate(dateS);
-        double mod;
-        System.out.println(num);
-        if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
-            if (num >= 450 && num < 495) {
-                mod = (495 - num);
-            } else if (num >= 495 && num < 535) {
-                mod = (535 - num);
-            } else if (num >= 535 && num <= 620) {
-                mod = (620 - num);
-            } else if (num >= 575 && num < 620) {
-                mod = (620 - num);
-            } else if (num >= 620 && num < 700) {
-                mod = (700 - num);
-            } else if (num >= 700 && num < 745) {
-                mod = (745 - num);
-            } else if (num >= 745 && num <= 785) {
-                mod = (785 - num);
-            } else {
-                mod = 1;
+                mod = 0;
             }
         } else if (checkBox.isSelected()) {
             if (num >= 450 && num < 501) {
                 mod = (501 - num);
-            } else if (num >= 501 && num < 558) {
+            } else if (num >= 501 && num < 506) {
+                mod = (506 - num); //pass time
+            } else if (num >= 506 && num < 558) {
                 mod = (558 - num);
-            } else if (num >= 558 && num < 593) {
-                //Class meeting
-                mod = (593 - num);
-            } else if (num >= 593 && num < 650) {
+            } else if (num >= 558 && num < 568) {
+                mod = (568 - num); //pass time
+            } else if (num >= 568 && num < 593) {
+                mod = (593 - num); //class meeting
+            } else if (num >= 593 && num < 598) {
+                mod = (598 - num); //pass time
+            } else if (num >= 598 && num < 650) {
                 mod = (650 - num);
-            } else if (num >= 650 && num < 741) {
+            } else if (num >= 650 && num < 655) {
+                mod = (655 - num); //pass time
+            } else if (num >= 655 && num < 741) {
                 mod = (741 - num);
-            } else if (num >= 741 && num <= 798) {
+            } else if (num >= 741 && num < 746) {
+                mod = (746 - num); //pass time
+            } else if (num >= 746 && num < 798) {
                 mod = (798 - num);
-            } else if (num >= 798 && num <= 855) {
+            } else if (num >= 798 && num < 803) {
+                mod = (803 - num); //pass time
+            } else if (num >= 803 && num <= 855) {
                 mod = (855 - num);
             } else {
-                mod = 1;
+                mod = 0;
             }
         } else {
-            System.out.println("yes, its a normal day");
             if (num >= 450 && num < 506) {
                 mod = (506 - num);
             } else if (num >= 512 && num < 579) {
