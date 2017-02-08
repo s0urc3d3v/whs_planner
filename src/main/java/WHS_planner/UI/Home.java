@@ -270,22 +270,34 @@ class Home extends Pane {
         double mod;
         //wednesday
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
-            if (num >= 450 && num < 495) {
-                mod = (495 - num) / 45.0;
+            if (num >= 450 && num < 490) {
+                mod = (490 - num) / 45.0;
+            } else if (num >= 490 && num < 495) {
+                mod = (495-num) / 5.0; //pass time
             } else if (num >= 495 && num < 535) {
                 mod = (535 - num) / 40.0;
-            } else if (num >= 535 && num < 620) {
-                mod = (620 - num) / 85.0;
-            } else if (num >= 575 && num < 620) {
-                mod = (620 - num) / 45.0;
-            } else if (num >= 620 && num < 700) {
-                mod = (700 - num) / 80.0;
-            } else if (num >= 700 && num < 745) {
+            }  else if (num >= 535 && num < 545) {
+                mod = (545-num) / 5.0; //pass time
+            } else if (num >= 545 && num < 570) {
+                mod = (570 - num) / 25.0;
+            }  else if (num >= 570 && num < 575) {
+                mod = (575-num) / 5.0; //pass time
+            } else if (num >= 575 && num < 615) {
+                mod = (615 - num) / 45.0;
+            }  else if (num >= 615 && num < 620) {
+                mod = (620 - num) / 5.0; //pass time
+            } else if (num >= 620 && num < 695) {
+                mod = (695 - num) / 75.0;
+            } else if (num >= 695 && num < 700) {
+                mod = (700-num) / 5.0; //pass time
+            } else if (num >= 700 && num < 740) {
                 mod = (745 - num) / 45.0;
+            }  else if (num >= 740 && num < 745) {
+                mod = (745-num) / 5.0; //pass time
             } else if (num >= 745 && num <= 785) {
                 mod = (785 - num) / 40.0;
             } else {
-                mod = 1;
+                mod = -1;
             }
         }
         //Bell2
