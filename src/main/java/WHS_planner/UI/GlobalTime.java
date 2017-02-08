@@ -48,7 +48,7 @@ public class GlobalTime {
             } else if (num >= 495 && num < 535) {
                 mod = 1;
             }  else if (num >= 535 && num < 545) {
-                mod = -4; //pass time
+                mod = -5; //break
             } else if (num >= 545 && num < 570) {
                 mod = -2; //advisory
             }  else if (num >= 570 && num < 575) {
@@ -78,7 +78,7 @@ public class GlobalTime {
             } else if (num >= 506 && num < 558) {
                 mod = 1;
             } else if (num >= 558 && num < 568) {
-                mod = -4; //pass time
+                mod = -5; //break
             } else if (num >= 568 && num < 593) {
                 mod = -3; //Class meeting
             } else if (num >= 593 && num < 598) {
@@ -101,18 +101,26 @@ public class GlobalTime {
                 mod = -1;
             }
         } else { //Other days
-            if (num >= 450 && num < 512) { //7:30-8:26
+            if (num >= 450 && num < 506) { //7:30-8:26
                 mod = 0;
-            } else if (num >=512 && num < 579) {
-                mod = -4;
-            } else if (num >= 512 && num < 579) {//8:31-9:28
+            } else if (num >=506 && num < 512) {
+                mod = -4; //pass time
+            } else if (num >= 512 && num < 568) {//8:31-9:28
                 mod = 1;
-            } else if (num >= 579 && num < 641) {// 9:38-10:35
+            } else if (num >=568 && num < 578) {
+                mod = -5; //pass time
+            } else if (num >= 578 && num < 635) {// 9:38-10:35
                 mod = 2;
-            } else if (num >= 641 && num < 736) { //10:40-12:11
+            } else if (num >=635 && num < 640) {
+                mod = -4; //pass time
+            } else if (num >= 640 && num < 731) { //10:40-12:11
                 mod = 3;
-            } else if (num >= 736 && num < 798) { //12:16-1:11
+            } else if (num >=731 && num < 736) {
+                mod = -4; //pass time
+            } else if (num >= 736 && num < 793) { //12:16-1:13
                 mod = 4;
+            } else if (num >=793 && num < 798) {
+                mod = -4; //pass time
             } else if (num >= 798 && num <= 855) { //1:18-2:15
                 mod = 5;
             } else {

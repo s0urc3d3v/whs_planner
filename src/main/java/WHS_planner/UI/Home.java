@@ -335,21 +335,32 @@ class Home extends Pane {
         }
         //other days
         else {
-            if (num >= 450 && num < 512) {
-                mod = (512 - num) / 62.0;
-            } else if (num >= 512 && num < 579) {
-                mod = (579 - num) / 67.0;
-            } else if (num >= 579 && num < 641) {
-                mod = (641 - num) / 62.0;
-            } else if (num >= 641 && num < 736) {
-                mod = (736 - num) / 95.0;
-            } else if (num >= 736 && num < 798) {
-                mod = (798 - num) / 62.0;
-            } else if (num >= 798 && num <= 855) {
+            if (num >= 450 && num < 506) { //7:30-8:26
+                mod = (506 - num) / 62.0;
+            } else if (num >=506 && num < 512) {
+                mod = (512 - num) / 5.0; //pass time
+            } else if (num >= 512 && num < 568) {//8:31-9:28
+                mod = (568 - num) / 67.0;
+            } else if (num >=568 && num < 578) {
+                mod = (578 - num) / 5.0; //pass time
+            } else if (num >= 578 && num < 635) {// 9:38-10:35
+                mod = (635 - num) / 62.0;
+            } else if (num >=635 && num < 640) {
+                mod = (640 - num) / 5.0; //pass time
+            } else if (num >= 640 && num < 731) { //10:40-12:11
+                mod = (731 - num) / 95.0;
+            } else if (num >=731 && num < 736) {
+                mod = (736 - num) / 5.0; //pass time
+            } else if (num >= 736 && num < 793) { //12:16-1:13
+                mod = (793 - num) / 62.0;
+            } else if (num >=793 && num < 798) {
+                mod = (798 - num) / 5.0; //pass time
+            } else if (num >= 798 && num <= 855) { //1:18-2:15
                 mod = (855 - num) / 57.0;
             } else {
                 mod = 0;
             }
+
         }
         return mod;
     }
@@ -427,17 +438,27 @@ class Home extends Pane {
                 mod = 0;
             }
         } else {
-            if (num >= 450 && num < 506) {
+            if (num >= 450 && num < 506) { //7:30-8:26
                 mod = (506 - num);
-            } else if (num >= 512 && num < 579) {
-                mod = (579 - num);
-            } else if (num >= 579 && num < 641) {
-                mod = (641 - num);
-            } else if (num >= 641 && num < 736) {
-                mod = (736 - num);
-            } else if (num >= 736 && num < 798) {
-                mod = (798 - num);
-            } else if (num >= 798 && num <= 855) {
+            } else if (num >=506 && num < 512) {
+                mod = (512 - num); //pass time
+            } else if (num >= 512 && num < 568) {//8:31-9:28
+                mod = (568 - num);
+            } else if (num >=568 && num < 578) {
+                mod = (578 - num); //pass time
+            } else if (num >= 578 && num < 635) {// 9:38-10:35
+                mod = (635 - num);
+            } else if (num >=635 && num < 640) {
+                mod = (640 - num); //pass time
+            } else if (num >= 640 && num < 731) { //10:40-12:11
+                mod = (731 - num);
+            } else if (num >=731 && num < 736) {
+                mod = (736 - num); //pass time
+            } else if (num >= 736 && num < 793) { //12:16-1:13
+                mod = (793 - num);
+            } else if (num >=793 && num < 798) {
+                mod = (798 - num); //pass time
+            } else if (num >= 798 && num <= 855) { //1:18-2:15
                 mod = (855 - num);
             } else {
                 mod = 0;
