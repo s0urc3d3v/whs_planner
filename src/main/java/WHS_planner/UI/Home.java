@@ -276,38 +276,37 @@ class Home extends Pane {
         //wednesday
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
             if (num >= 450 && num < 490) {
-                mod = (490 - num);
+                mod = (490 - num) / 45.0;
             } else if (num >= 490 && num < 495) {
-                mod = (495-num); //pass time
+                mod = (495 - num) / 5.0; //pass time
             } else if (num >= 495 && num < 535) {
-                mod = (535 - num);
+                mod = (535 - num) / 40.0;
             }  else if (num >= 535 && num < 545) {
-                mod = (545-num); //pass time
+                mod = (545 - num) / 10.0; //pass time
             } else if (num >= 545 && num < 570) {
-                mod = (570 - num);
+                mod = (570 - num) / 25.0;
             }  else if (num >= 570 && num < 575) {
-                mod = (575-num); //pass time
+                mod = (575 - num) / 5.0; //pass time
             } else if (num >= 575 && num < 615) {
-                mod = (615 - num);
+                mod = (615 - num) / 45.0;
             }  else if (num >= 615 && num < 620) {
-                mod = (620 - num); //pass time
+                mod = (620 - num) / 5.0; //pass time
             } else if (num >= 620 && num < 695) {
-                mod = (695 - num);
+                mod = (695 - num) / 75.0;
             } else if (num >= 695 && num < 700) {
-                mod = (700-num); //pass time
+                mod = (700 - num) / 5.0; //pass time
             } else if (num >= 700 && num < 740) {
-                mod = (745 - num);
+                mod = (745 - num) / 45.0;
             }  else if (num >= 740 && num < 745) {
-                mod = (745-num); //pass time
+                mod = (745 - num) / 5.0; //pass time
             } else if (num >= 745 && num <= 785) {
-                mod = (785 - num);
+                mod = (785 - num) / 40.0;
             } else {
                 mod = 0;
             }
         }
         //Bell2
         else if (checkBox.isSelected()) {
-
             if (num >= 450 && num < 501) {
                 mod = (501 - num) / 56.0;
             } else if (num >= 501 && num < 506) {
@@ -315,7 +314,7 @@ class Home extends Pane {
             } else if (num >= 506 && num < 558) {
                 mod = (558 - num) / 62.0;
             } else if (num >= 558 && num < 568) {
-                mod = (568 - num) / 5.0; //pass time
+                mod = (568 - num) / 10.0; //pass time
             } else if (num >= 568 && num < 593) {
                 mod = (593 - num) / 30.0; //class meeting
             } else if (num >= 593 && num < 598) {
@@ -384,31 +383,31 @@ class Home extends Pane {
         double mod;
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
             if (num >= 450 && num < 490) {
-                mod = (490 - num) / 45.0;
+                mod = (490 - num);
             } else if (num >= 490 && num < 495) {
-                mod = (495-num) / 5.0; //pass time
+                mod = (495 - num); //pass time
             } else if (num >= 495 && num < 535) {
-                mod = (535 - num) / 40.0;
+                mod = (535 - num);
             }  else if (num >= 535 && num < 545) {
-                mod = (545-num) / 5.0; //pass time
+                mod = (545 - num); //pass time
             } else if (num >= 545 && num < 570) {
-                mod = (570 - num) / 25.0;
+                mod = (570 - num);
             }  else if (num >= 570 && num < 575) {
-                mod = (575-num) / 5.0; //pass time
+                mod = (575 - num); //pass time
             } else if (num >= 575 && num < 615) {
-                mod = (615 - num) / 45.0;
+                mod = (615 - num);
             }  else if (num >= 615 && num < 620) {
-                mod = (620 - num) / 5.0; //pass time
+                mod = (620 - num); //pass time
             } else if (num >= 620 && num < 695) {
-                mod = (695 - num) / 75.0;
+                mod = (695 - num);
             } else if (num >= 695 && num < 700) {
-                mod = (700-num) / 5.0; //pass time
+                mod = (700 - num); //pass time
             } else if (num >= 700 && num < 740) {
-                mod = (745 - num) / 45.0;
+                mod = (745 - num);
             }  else if (num >= 740 && num < 745) {
-                mod = (745-num) / 5.0; //pass time
+                mod = (745 - num); //pass time
             } else if (num >= 745 && num <= 785) {
-                mod = (785 - num) / 40.0;
+                mod = (785 - num);
             } else {
                 mod = 0;
             }
