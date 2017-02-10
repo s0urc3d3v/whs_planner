@@ -158,12 +158,18 @@ class Home extends Pane {
             checkForSpecialDayTooltip(tooltip);
         });
 
+        final int[] i = new int[1];
         //Timer updates (60 sec)
         progressbarTimer = new Timer(60000, e -> Platform.runLater(() -> {
             String today = (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             int classIndex = globalTime.getClassIndex();
+            if (i[0] == 60) {
+                i[0] = 0;
+                calendar.getThisMonth().hitAllOfTheDabs();
+            }
+            i[0]++;
             if (day.exists()&& day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
                     progressBar.setTooltip(null);
@@ -192,6 +198,8 @@ class Home extends Pane {
             } else {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
+
+            //TODO: Add highlight changing
 
             checkForSpecialDayTooltip(tooltip);
 //            VBox parent = (VBox)progressBar.getParent();

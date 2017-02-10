@@ -188,6 +188,20 @@ public class CalendarBox extends Pane{
             }
         }));
 //        java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
+        hitThatDab();
+//        else {
+//            this.setStyle("-fx-background-color: #FFFFFF");
+//        }
+
+        this.getStyleClass().add("box"); //Set the CSS style class to be box
+        this.getChildren().setAll(mainPane); //Set this pane to contain the mainPane
+        this.setId("calendar-box"); //Set the id of this box to be "calendar-box"
+
+        //Initiate update sequence
+        update();
+    }
+
+    public void hitThatDab() { //dayCircle update
         java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
 
         int day = javaCalendar.get(java.util.Calendar.DAY_OF_MONTH);
@@ -202,16 +216,6 @@ public class CalendarBox extends Pane{
             StackPane sp = dateLabelStackPane;
             StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 4.5));
         }
-//        else {
-//            this.setStyle("-fx-background-color: #FFFFFF");
-//        }
-
-        this.getStyleClass().add("box"); //Set the CSS style class to be box
-        this.getChildren().setAll(mainPane); //Set this pane to contain the mainPane
-        this.setId("calendar-box"); //Set the id of this box to be "calendar-box"
-
-        //Initiate update sequence
-        update();
     }
 
     //Updates the iconContainer

@@ -248,6 +248,14 @@ public class Calendar extends BorderPane {
         fadeIn.playFromStart();
     }
 
+    public void hitAllOfTheDabs() { //Call hit that dab for all of the calendar boxes
+        for (int i = 0; i < calendar.length; i++) {
+            for (int j = 0; j < calendar[i].length; j++) {
+                calendar[i][j].hitThatDab();
+            }
+        }
+    }
+
     private void removeTaskBox(Node taskBoxInstance) {
         FadeTransition fadeOut = new FadeTransition(Duration.millis(1250));
         fadeOut.setNode(taskBoxInstance);
