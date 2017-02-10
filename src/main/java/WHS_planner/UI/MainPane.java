@@ -125,24 +125,18 @@ public class MainPane extends StackPane {
                 info.getChildren().add(getBellSchedulePane());
                 info.getStyleClass().setAll("large-text");
             });
-//            JFXButton button0 = new JFXButton();
-//            button0.setText("      Delete Calendar Data");
-//            button0.setOnMouseClicked(event0 -> {
-//                System.out.println("delete calendar data pressed");
-//                calendar.deleteCalendarData();
-//            });
-            JFXButton button2 = new JFXButton();
-            button2.setText("      Refresh Schedule");
-            button2.setOnMouseClicked(event12 -> {
+            JFXButton button1 = new JFXButton();
+            button1.setText("      Refresh Schedule");
+            button1.setOnMouseClicked(event12 -> {
                 try {
                     schedule.getScheduleControl().logout();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
-            JFXButton refreshNews = new JFXButton();
-            refreshNews.setText("      Refresh News");
-            refreshNews.setOnMouseClicked(eventNews -> {
+            JFXButton button2 = new JFXButton();
+            button2.setText("      Refresh News");
+            button2.setOnMouseClicked(eventNews -> {
                 news.refresh();
                 news.requestFocus();
                 news.requestLayout();
@@ -194,47 +188,30 @@ public class MainPane extends StackPane {
                     licenseText.setWrapText(true);
                     licenseText.getStyleClass().addAll("times");
                     info.getChildren().add(licenseText);
-
-
                 });
-
                 info.getChildren().add(licenses);
                 info.getStyleClass().setAll("large-text");
                 info.setPadding(new Insets(10));
             });
-
-//            HBox button5 = new HBox();
             bell2Check.setCursor(Cursor.HAND);
             bell2Check.setText("Bell 2");
-//            JFXCheckBox bell2Check = new JFXCheckBox();
-//            Label bell2Label = new Label();
-//            bell2Label.setText("Bell 2");
-//            button5.getChildren().addAll(bell2Check/*, bell2Label*/);
-//            button5.setPrefSize(200, 50);
-//            button5.setAlignment(Pos.CENTER_LEFT);
-//            button5.setPadding(new Insets(15, 0, 10, 20)); //top right bottom left
             bell2Check.setTranslateX(10);
-//            bell2Label.setTranslateX(10);
             bell2Check.setAlignment(Pos.CENTER_LEFT);
-
-//            info.getChildren().add(button0);
-
-            info.getChildren().addAll(button0, button2, refreshNews, button3, button4, bell2Check);
-
+            info.getChildren().addAll(button0, button1, button2, button3, button4, bell2Check);
             info.setAlignment(Pos.TOP_LEFT);
             info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
-            button0.setCursor(Cursor.HAND);
-            button2.setCursor(Cursor.HAND);
-            refreshNews.setCursor(Cursor.HAND);
-            button3.setCursor(Cursor.HAND);
-            button4.setCursor(Cursor.HAND);
-//            button5.setCursor(Cursor.HAND);
+
+//            button0.setCursor(Cursor.HAND);
+//            button1.setCursor(Cursor.HAND);
+//            button2.setCursor(Cursor.HAND);
+//            button3.setCursor(Cursor.HAND);
+//            button4.setCursor(Cursor.HAND);
             button0.getStyleClass().setAll("list-button");
+            button1.getStyleClass().setAll("list-button");
             button2.getStyleClass().setAll("list-button");
-            refreshNews.getStyleClass().setAll("list-button");
             button3.getStyleClass().setAll("list-button");
             button4.getStyleClass().setAll("list-button");
-//            button5.getStyleClass().setAll("label-button");
+
             bell2Check.getStyleClass().setAll("label-button");
             bell2Check.setPrefSize(200,50);
             info.setSpacing(0);
@@ -247,8 +224,6 @@ public class MainPane extends StackPane {
               \
              */
         });
-
-
     }
 
     /**

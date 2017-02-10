@@ -5,6 +5,7 @@
     -fx-pref-height: 50;
     -fx-padding: 0;
     -fx-background-radius: 0;
+    -fx-cursor: hand;
 }
 
 .label-button {
