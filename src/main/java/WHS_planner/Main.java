@@ -6,10 +6,8 @@ package WHS_planner;
 import WHS_planner.Calendar.CalendarBox;
 import WHS_planner.UI.MainPane;
 import javafx.application.Application;
-import javafx.scene.CacheHint;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.apache.log4j.PropertyConfigurator;
 
 import java.io.*;
 import java.net.URL;
@@ -21,7 +19,7 @@ import java.util.Random;
 public class
 Main extends Application {
 
-    public static final String  VERSION_NUMBER = "1.1.2";
+    public static final String VERSION_NUMBER = "1.1.2";
 
     //ON first run move jfoenix to a place it can be referenced on a remote system
     private static String readKey = null;

@@ -3,7 +3,6 @@ package WHS_planner.UI;
 import WHS_planner.Calendar.CalendarYear;
 import WHS_planner.Schedule.ParseCalendar;
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXProgressBar;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -111,8 +110,6 @@ class Home extends Pane {
             progressBar.setProgress(d);
             int classIndex = globalTime.getClassIndex();
             if(day.exists() && day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
-                System.out.println("class index: "+ classIndex);
-                System.out.println(pc.getDay(today));
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {
                     System.out.println("tooltip is null!");
                     progressBar.setTooltip(null);
@@ -269,7 +266,7 @@ class Home extends Pane {
     private double progressVal() {
         int n = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
         if(n == Calendar.SATURDAY || n == Calendar.SUNDAY) {
-            return 1;
+            return 0;
         }
         Date date = new Date();
         DateFormat df = new SimpleDateFormat("HH:mm");
@@ -383,7 +380,6 @@ class Home extends Pane {
         String dateS = df.format(date);
         int num = parseDate(dateS);
         double mod;
-        System.out.println(num);
         if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
             if (num >= 450 && num < 490) {
                 mod = (490 - num) / 45.0;
@@ -471,7 +467,6 @@ class Home extends Pane {
                 mod = 0;
             }
         }
-        System.out.println("minleft: " + mod);
         return (int) mod;
     }
 

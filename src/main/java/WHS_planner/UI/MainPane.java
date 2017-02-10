@@ -11,11 +11,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 
 import java.io.File;
 import java.io.IOException;
@@ -107,9 +105,9 @@ public class MainPane extends StackPane {
 
     private void initiateDropDown(Button bigButton) {
         /*
-
-           START Jesus code
-
+        \
+         |   START Jesus code
+          \
          */
         bigButton.setText("\uf142");
         bigButton.setCursor(Cursor.HAND);
@@ -142,7 +140,6 @@ public class MainPane extends StackPane {
                     e.printStackTrace();
                 }
             });
-
             JFXButton refreshNews = new JFXButton();
             refreshNews.setText("      Refresh News");
             refreshNews.setOnMouseClicked(eventNews -> {
@@ -151,7 +148,6 @@ public class MainPane extends StackPane {
                 news.requestLayout();
                 news.layout();
             });
-
             JFXButton button3 = new JFXButton();
             button3.setText("      Send Feedback");
             button3.setOnMouseClicked(event13 -> {
@@ -169,23 +165,21 @@ public class MainPane extends StackPane {
                 versionLabel.setUnderline(true);
                 Label peopleLabel = new Label("Collaborators:");
                 peopleLabel.setUnderline(true);
-
                 info.getChildren().add(new Label("Created in HACS under the guidance of Mr. Hopps!\n "));
-
                 info.getChildren().add(versionLabel);
                 info.getChildren().add(new Label(Main.VERSION_NUMBER+" \n "));
                 info.getChildren().add(peopleLabel);
                 String[] names = new String[]{
-                        "Tzur Almog - Calendar",
-                        "Jack Bachman - Backend, Github",
-                        "Alex Bell - News",
                         "Tyler Brient - UI Master, Bug Squasher",
-                        "John Broderick - Schedule, Bug Creator",
                         "Andrew Eggleston - Yelled at Tyler",
-                        "Matthew Elbing - Backend, Project Lead",
-                        "George Jiang - UX, News, Bug Finder",
-                        "Will Robison - HTML, Piano Tiles 2",
                         "Geoffrey Wang - UI Master, Calendar, T-Rex :)",
+                        "George Jiang - UX, News, Bug Finder",
+                        "Jack Bachman - Backend, Github",
+                        "Matthew Elbing - Backend, Project Lead",
+                        "Will Robison - HTML, Piano Tiles 2",
+                        "John Broderick - Schedule, Bug Creator",
+                        "Tzur Almog - Calendar",
+                        "Alex Bell",
                 };
                 for (String name : names) {
                     info.getChildren().add(new Label(name));
@@ -243,16 +237,14 @@ public class MainPane extends StackPane {
 //            button5.getStyleClass().setAll("label-button");
             bell2Check.getStyleClass().setAll("label-button");
             bell2Check.setPrefSize(200,50);
-//            System.out.println(bell2Check.getLabelPadding());
             info.setSpacing(0);
             info.setMinSize(200, info.getChildren().toArray().length*50);
             JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
             dialog.show();
-
             /*
-
-                 END Jesus code
-
+            \
+             |    END Jesus code
+              \
              */
         });
 
