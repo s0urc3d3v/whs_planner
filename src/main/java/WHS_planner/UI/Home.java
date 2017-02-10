@@ -360,7 +360,6 @@ class Home extends Pane {
             } else {
                 mod = 0;
             }
-
         }
         return mod;
     }

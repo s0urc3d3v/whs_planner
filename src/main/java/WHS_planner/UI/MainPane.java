@@ -42,6 +42,7 @@ public class MainPane extends StackPane {
 //    private VBox cardView = new NewsUI().getCardView();
     private Schedule schedule;
     private CalendarYear calendar;
+    private NewsUI news;
 
 //    private Home homePane;
 
@@ -141,6 +142,16 @@ public class MainPane extends StackPane {
                     e.printStackTrace();
                 }
             });
+
+            JFXButton refreshNews = new JFXButton();
+            refreshNews.setText("      Refresh News");
+            refreshNews.setOnMouseClicked(eventNews -> {
+                news.refresh();
+                news.requestFocus();
+                news.requestLayout();
+                news.layout();
+            });
+
             JFXButton button3 = new JFXButton();
             button3.setText("      Send Feedback");
             button3.setOnMouseClicked(event13 -> {
@@ -214,17 +225,19 @@ public class MainPane extends StackPane {
 
 //            info.getChildren().add(button0);
 
-            info.getChildren().addAll(button0, button2, button3, button4, bell2Check);
+            info.getChildren().addAll(button0, button2, refreshNews, button3, button4, bell2Check);
 
             info.setAlignment(Pos.TOP_LEFT);
             info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
             button0.setCursor(Cursor.HAND);
             button2.setCursor(Cursor.HAND);
+            refreshNews.setCursor(Cursor.HAND);
             button3.setCursor(Cursor.HAND);
             button4.setCursor(Cursor.HAND);
 //            button5.setCursor(Cursor.HAND);
             button0.getStyleClass().setAll("list-button");
             button2.getStyleClass().setAll("list-button");
+            refreshNews.getStyleClass().setAll("list-button");
             button3.getStyleClass().setAll("list-button");
             button4.getStyleClass().setAll("list-button");
 //            button5.getStyleClass().setAll("label-button");
@@ -232,7 +245,7 @@ public class MainPane extends StackPane {
             bell2Check.setPrefSize(200,50);
 //            System.out.println(bell2Check.getLabelPadding());
             info.setSpacing(0);
-            info.setMinSize(200, 250);
+            info.setMinSize(200, info.getChildren().toArray().length*50);
             JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
             dialog.show();
 
@@ -304,7 +317,7 @@ public class MainPane extends StackPane {
 
 //        NewsUI news = null;
 //        try {
-          NewsUI news = new NewsUI();
+        news = new NewsUI();
 //        }catch(Exception e){
 //            e.printStackTrace();
 //        }

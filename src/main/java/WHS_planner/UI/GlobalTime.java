@@ -108,7 +108,7 @@ public class GlobalTime {
             } else if (num >= 512 && num < 568) {//8:31-9:28
                 mod = 1;
             } else if (num >=568 && num < 578) {
-                mod = -5; //pass time
+                mod = -5; //break
             } else if (num >= 578 && num < 635) {// 9:38-10:35
                 mod = 2;
             } else if (num >=635 && num < 640) {
