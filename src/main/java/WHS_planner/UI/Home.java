@@ -339,7 +339,7 @@ class Home extends Pane {
         }
         //other days
         else {
-            System.out.println("num: " + num);
+//            System.out.println("num: " + num);
             if (num >= 450 && num < 506) { //7:30-8:26
                 mod = (506 - num) / 62.0;
             } else if (num >=506 && num < 512) {
@@ -366,7 +366,7 @@ class Home extends Pane {
                 mod = 0;
             }
         }
-        System.out.println("mod " + mod);
+//        System.out.println("mod " + mod);
         return mod;
     }
 

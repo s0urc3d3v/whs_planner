@@ -111,8 +111,7 @@ public class NewsUI extends Pane {
         }
     }
 
-    public void refresh()
-    {
+    public void refresh() {
         feedArray = parser.getNewArticles(onScreenMessages);
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
@@ -173,19 +172,14 @@ public class NewsUI extends Pane {
         description.getStyleClass().add("roboto");
         VBox textVBox;
         VBox vBox;
-
-
         if (image == null) {
             textVBox = new VBox(hyperlink, description);
             textVBox.getStyleClass().setAll("text-padding");
             vBox = new VBox(textVBox);
-//            vBox = new VBox(hyperlink, description);
         } else {
-
             textVBox = new VBox(hyperlink, description);
             textVBox.getStyleClass().setAll("text-padding");
             vBox = new VBox(image,textVBox);
-//            vBox = new VBox(image, hyperlink, description);
         }
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setPrefWidth(BOX_WIDTH);
@@ -210,8 +204,7 @@ public class NewsUI extends Pane {
     }
 
     //This one adds the label first - for offline
-    private void addCard(Hyperlink hyperlink, Label description)
-    {
+    private void addCard(Hyperlink hyperlink, Label description) {
         hyperlink.getStyleClass().add("roboto");
         description.getStyleClass().add("roboto");
         VBox vBox = new VBox(description, hyperlink);
