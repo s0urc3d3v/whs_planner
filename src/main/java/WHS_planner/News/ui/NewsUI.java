@@ -151,12 +151,12 @@ public class NewsUI extends Pane {
 
                     //Add article to list WITH image
                     Platform.runLater(()->{
-                        addCard(description, hpl, img);
+                        addCard(description, hpl, img, true);
                     });
                 } else {
                     //Add article to list WITHOUT image
                     Platform.runLater(()-> {
-                        addCard(description, hpl, null);
+                        addCard(description, hpl, null, true);
                     });
                 }
             } catch (MalformedURLException e) {
@@ -187,6 +187,30 @@ public class NewsUI extends Pane {
         VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
         Platform.runLater(()->{
             cardView.getChildren().add(vBox);
+        });
+    }
+
+    //Normal news article for refresh
+    private void addCard(Label description, Hyperlink hyperlink, ImageView image, boolean isRefresh) {
+        hyperlink.getStyleClass().add("roboto");
+        description.getStyleClass().add("roboto");
+        VBox textVBox;
+        VBox vBox;
+        if (image == null) {
+            textVBox = new VBox(hyperlink, description);
+            textVBox.getStyleClass().setAll("text-padding");
+            vBox = new VBox(textVBox);
+        } else {
+            textVBox = new VBox(hyperlink, description);
+            textVBox.getStyleClass().setAll("text-padding");
+            vBox = new VBox(image, textVBox);
+        }
+        vBox.setAlignment(Pos.TOP_CENTER);
+        vBox.setPrefWidth(BOX_WIDTH);
+        vBox.getStyleClass().setAll("news-card");
+        VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
+        Platform.runLater(() -> {
+            cardView.getChildren().add(1, vBox);
         });
     }
 
