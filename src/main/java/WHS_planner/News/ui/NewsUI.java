@@ -210,7 +210,7 @@ public class NewsUI extends Pane {
         vBox.getStyleClass().setAll("news-card");
         VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
         Platform.runLater(() -> {
-            cardView.getChildren().add(1, vBox);
+            cardView.getChildren().add(0, vBox);
         });
     }
 
