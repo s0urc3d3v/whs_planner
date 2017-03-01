@@ -50,6 +50,8 @@ public class ScheduleController implements Initializable, ActionListener
 
     private Timer timer;
 
+    private Pane oldpane;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -512,16 +514,21 @@ public class ScheduleController implements Initializable, ActionListener
             if(node instanceof Pane)
             {
                 if(grid.getRowIndex(node) == row && grid.getColumnIndex(node) == col) {
+
                     pane = (Pane) node;
+                    if(oldpane != null) {
+                        oldpane.setStyle("-fx-background-color: #ffffff");
+                        oldpane.setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1),
+                                BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderStroke.THIN)));
+                    }
                     break;
                 }
             }
-
         }
-
 
         pane.setStyle("-fx-background-color: #d9d9d9");
         pane.setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1), BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderStroke.THIN)));
+        oldpane = pane;
     }
 
 
