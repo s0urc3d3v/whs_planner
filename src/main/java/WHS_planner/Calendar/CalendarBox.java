@@ -201,12 +201,12 @@ public class CalendarBox extends Pane{
         update();
     }
 
-    public void hitThatDab() { //dayCircle update
+    void hitThatDab() { //dayCircle update
         java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
 
         int day = javaCalendar.get(java.util.Calendar.DAY_OF_MONTH);
         int month = javaCalendar.get(java.util.Calendar.MONTH);
-        if (day == this.getDate()&&month == this.month) {
+        if (day == this.getDate() && month == this.month) {
             dayCircle.setFill(new Color(255/255, 152/255.0, 0, 100/100));
         } else {
             dayCircle.setFill(new Color(255/255, 152/255, 0, 0));
@@ -375,12 +375,7 @@ public class CalendarBox extends Pane{
 
         JFXTextField textBox = new JFXTextField();
         textBox.setPromptText("Enter Task...");
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                textBox.requestFocus();
-            }
-        });
+        Platform.runLater(textBox::requestFocus);
         textBox.setCursor(Cursor.TEXT);
         textBox.getStyleClass().setAll("roboto");
         try {

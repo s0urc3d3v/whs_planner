@@ -196,7 +196,6 @@ class Home extends Pane {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
 
-            //TODO: Add highlight changing
 
             checkForSpecialDayTooltip(tooltip);
 //            VBox parent = (VBox)progressBar.getParent();

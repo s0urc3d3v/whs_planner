@@ -22,7 +22,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 public class ScheduleController implements Initializable, ActionListener
@@ -50,6 +49,7 @@ public class ScheduleController implements Initializable, ActionListener
 
     private Timer timer;
 
+    private Pane oldpane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -300,7 +300,7 @@ public class ScheduleController implements Initializable, ActionListener
                         //you can't do javafx stuff on other threads
                         Platform.runLater(() -> Title3.setText(s));
                         Platform.runLater(() -> spinner.setVisible(false));
-                        Platform.runLater(() -> ipass.delete());
+                        Platform.runLater(ipass::delete);
                     });
                     t.start();
                 }
@@ -427,7 +427,7 @@ public class ScheduleController implements Initializable, ActionListener
         updateSchedule();
     }
 
-    public void updateSchedule() throws Exception
+    private void updateSchedule() throws Exception
     {
 
         File schedule = new File("Documents"+File.separator+"Schedule.json");
@@ -459,15 +459,14 @@ public class ScheduleController implements Initializable, ActionListener
     }
 
 
-    public String parseDate(String input) throws Exception {
+    private String parseDate(String input) throws Exception {
         SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
         Date d1 = sdf1.parse(input);
         DateFormat sdf2 = new SimpleDateFormat("EEEE");
-        String res = sdf2.format(d1);
-        return res;
+        return sdf2.format(d1);
     }
 
-    public void setClass() {
+    private void setClass() {
 
         int row = 4;
         int col = 0;
@@ -499,9 +498,8 @@ public class ScheduleController implements Initializable, ActionListener
                 return;
             }
             row++;
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         Pane pane = null;
@@ -511,8 +509,12 @@ public class ScheduleController implements Initializable, ActionListener
 
             if(node instanceof Pane)
             {
-                if(grid.getRowIndex(node) == row && grid.getColumnIndex(node) == col) {
+                if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col) {
                     pane = (Pane) node;
+                    if (oldpane != null) {
+                        oldpane.setStyle("-fx-background-color: #ffffff");
+                        oldpane.setBorder(new Border(new BorderStroke(Color.rgb(241, 241, 241, 1), BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderStroke.THIN)));
+                    }
                     break;
                 }
             }
@@ -522,6 +524,7 @@ public class ScheduleController implements Initializable, ActionListener
 
         pane.setStyle("-fx-background-color: #d9d9d9");
         pane.setBorder(new Border(new BorderStroke(Color.rgb(241,241,241,1), BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderStroke.THIN)));
+        oldpane = pane;
     }
 
 
@@ -635,27 +638,6 @@ public class ScheduleController implements Initializable, ActionListener
             } else {
                 mod = 0;
             }
-        } else if (false) {
-            if (num >= 450 && num < 501) {
-                mod = 1;
-            } else if (num >= 501 && num < 558) {
-                mod = 2;
-            } else if (num >= 558 && num < 593) {
-                //Class meeting
-                mod = 3;
-            } else if (num >= 593 && num < 650) {
-                mod = 4;
-            } else if (num >= 650 && num < 741) {
-                mod = 5;
-            } else if (num >= 741 && num <= 798) {
-                mod = 6;
-            } else if (num >= 798 && num <= 855) {
-                mod = 7;
-            } else {
-                mod = 0;
-            }
-
-//            return 1;
         } else {
             if (num >= 450 && num < 512) {
                 mod = 1;

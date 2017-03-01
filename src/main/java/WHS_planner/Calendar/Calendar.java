@@ -1,6 +1,5 @@
 package WHS_planner.Calendar;
 
-import WHS_planner.Core.AutoSave;
 import WHS_planner.Core.IO;
 import WHS_planner.Core.JSON;
 import WHS_planner.Main;
@@ -11,7 +10,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
@@ -46,15 +48,6 @@ public class Calendar extends BorderPane {
     private int currentDate = -1;
     private Schedule schedule;
 
-    public Schedule getSchedule()
-    {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule sc)
-    {
-        schedule = sc;
-    }
     public Calendar(int month, JFXButton nextButton, JFXButton prevButton, Schedule sc) {
         this.month = month;
         this.schedule = sc;
@@ -174,6 +167,14 @@ public class Calendar extends BorderPane {
 //        animator.observe(mainPane.getChildren());
     }
 
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedule sc) {
+        schedule = sc;
+    }
+
     void update(int row, int date) {
         int[] rowIDs = new int[]{1,1,1,1,1,1};
         GridPane tempPane = (GridPane) mainPane.getChildren().get(rowIDs[3]);
@@ -248,9 +249,11 @@ public class Calendar extends BorderPane {
     }
 
     public void hitAllOfTheDabs() { //Call hit that dab for all of the calendar boxes
-        for (int i = 0; i < calendar.length; i++) {
-            for (int j = 0; j < calendar[i].length; j++) {
-                calendar[i][j].hitThatDab();
+        for (CalendarBox[] aCalendar : calendar) {
+            for (CalendarBox anACalendar : aCalendar) {
+                if (anACalendar != null) {
+                    anACalendar.hitThatDab();
+                }
             }
         }
     }
