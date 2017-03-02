@@ -5,7 +5,9 @@ import WHS_planner.Main;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.*;
+import com.jfoenix.controls.events.JFXDrawerEvent;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,6 +15,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.io.File;
@@ -41,6 +44,8 @@ public class MainPane extends StackPane {
     private Schedule schedule;
     private CalendarYear calendar;
     private NewsUI news;
+
+    private boolean isHamburgerPressed = false;
 
 //    private Home homePane;
 
@@ -254,6 +259,17 @@ public class MainPane extends StackPane {
         drawer.setMouseTransparent(true);                                                //vertical, higher = lower
         drawer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 5, 0);");
 
+        drawer.setOnDrawerClosing(new EventHandler<JFXDrawerEvent>() {
+            @Override
+            public void handle(JFXDrawerEvent event) {
+                if (!isHamburgerPressed) {
+                    drawer.setMouseTransparent(true);
+                    hamburger.getAnimation().setRate(-1);
+                    hamburger.getAnimation().play();
+                }
+            }
+        });
+
         //Hamburger animation
         hamburger.setAnimation(new HamburgerBackArrowBasicTransition(hamburger));
         hamburger.getAnimation().setRate(-1);
@@ -261,6 +277,7 @@ public class MainPane extends StackPane {
         //Hamburger function to open an close the drawer
         hamburger.setOnMouseClicked(event -> {
             if (drawer.isShown()) {
+                isHamburgerPressed = true;
                 drawer.setMouseTransparent(true);
                 hamburger.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
                 drawer.close();
@@ -270,6 +287,7 @@ public class MainPane extends StackPane {
                 drawer.open();
             }
             hamburger.getAnimation().play(); //Plays the transition
+            isHamburgerPressed = false;
         });
 
         //More functions to open and close the drawer
