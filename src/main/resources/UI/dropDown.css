@@ -43,3 +43,8 @@
 -fx-font-family: "Times New Roman";
 
 }
+
+.continue-button {
+    -fx-font-weight: bold;
+    -fx-text-fill: "009688";
+}

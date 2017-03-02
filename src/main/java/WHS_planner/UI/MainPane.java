@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,6 +68,8 @@ public class MainPane extends StackPane {
         info.setAlignment(Pos.CENTER);
         info.setSpacing(5);
 
+        info.getStylesheets().addAll("/UI/dropDown.css");
+
         Label EULAywjeorge = new Label();
         EULAywjeorge.setText("Would you mind please pretty please not hippa violating me? -Jeorge");
         EULAywjeorge.setMaxWidth(150);
@@ -79,6 +82,10 @@ public class MainPane extends StackPane {
 
         JFXButton continuePlease = new JFXButton();
         continuePlease.setText("Continue!");
+
+        continuePlease.getStyleClass().addAll("continue-button");
+        continuePlease.setRipplerFill(Color.DARKSLATEGRAY);
+
 
         Label pressTheCheckBox = new Label("Please check the checkbox before continuing");
         pressTheCheckBox.setStyle("-fx-text-fill: FF0000");
