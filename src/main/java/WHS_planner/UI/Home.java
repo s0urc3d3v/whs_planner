@@ -1,20 +1,19 @@
 package WHS_planner.UI;
 
 import WHS_planner.Calendar.CalendarYear;
+import WHS_planner.Main;
 import WHS_planner.Schedule.ParseCalendar;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXDialog;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tooltip;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 import javax.swing.*;
@@ -102,6 +101,9 @@ class Home extends Pane {
         progressBar.prefWidthProperty().bind(insidePane.widthProperty());
 //        VBox parent = (VBox)progressBar.getParent();
 //        progressBar.setPrefWidth(parent.getWidth());
+
+
+
         Platform.runLater(() -> {
 //            VBox parent = (VBox)progressBar.getParent();
 //            progressBar.setPrefWidth(parent.getWidth());

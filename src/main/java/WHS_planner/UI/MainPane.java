@@ -61,6 +61,52 @@ public class MainPane extends StackPane {
         mainPane.prefWidthProperty().bind(this.widthProperty());
         mainPane.prefHeightProperty().bind(this.heightProperty());
         this.getChildren().setAll(mainPane); //Set the main pane as the pane generated
+
+        final StackPane outsidePane = this;
+        VBox info = new VBox();
+        info.setAlignment(Pos.CENTER);
+        info.setSpacing(5);
+
+        Label EULAywjeorge = new Label();
+        EULAywjeorge.setText("Would you mind please pretty please not hippa violating me? -Jeorge");
+        EULAywjeorge.setMaxWidth(150);
+        EULAywjeorge.setWrapText(true);
+        EULAywjeorge.setPadding(new Insets(0,0,20,0));
+
+        final JFXCheckBox makeSureTheyReadIt = new JFXCheckBox();
+        makeSureTheyReadIt.setText("I agree!");
+        makeSureTheyReadIt.setPadding(new Insets(20,0,0,0));
+
+        JFXButton continuePlease = new JFXButton();
+        continuePlease.setText("Continue!");
+
+        Label pressTheCheckBox = new Label("Please check the checkbox before continuing");
+        pressTheCheckBox.setStyle("-fx-text-fill: FF0000");
+        pressTheCheckBox.setVisible(false);
+
+        info.getChildren().add(EULAywjeorge);
+        info.getChildren().add(makeSureTheyReadIt);
+        info.getChildren().add(continuePlease);
+        info.getChildren().add(pressTheCheckBox);
+
+        JFXDialog dialog = new JFXDialog(outsidePane, info, JFXDialog.DialogTransition.CENTER, true);
+        dialog.show();
+        dialog.setOverlayClose(false);
+        dialog.setMinWidth(250);
+        dialog.setMinHeight(250);
+        info.setMinWidth(250);
+        info.setMinHeight(250);
+
+        continuePlease.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (makeSureTheyReadIt.isSelected()){
+                    dialog.close();
+                } else {
+                    pressTheCheckBox.setVisible(true);
+                }
+            }
+        });
     }
 
     /**
