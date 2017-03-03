@@ -7,7 +7,6 @@ import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.events.JFXDrawerEvent;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -16,7 +15,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -64,92 +62,53 @@ public class MainPane extends StackPane {
         mainPane.prefHeightProperty().bind(this.heightProperty());
         this.getChildren().setAll(mainPane); //Set the main pane as the pane generated
 
+        
+        //Initialize agreement panel
         final StackPane outsidePane = this;
         VBox info = new VBox();
         info.setAlignment(Pos.CENTER_LEFT);
         info.setSpacing(10);
         info.getStylesheets().addAll("/UI/dropDown.css");
         info.getStyleClass().setAll("roboto");
-
         Label title = new Label("Agreement");
         title.setMaxWidth(335);
-//        title.setTextAlignment();
         title.setWrapText(true);
         title.getStyleClass().setAll("title-text");
-//        title.setStyle("-fx-font-weight: bold;");
         title.setPadding(new Insets(0, 0, 10, 0));
-
-        Label EULAywjeorge = new Label();
-        EULAywjeorge.setText("Would you mind please pretty please not hippa violating me? -Jeorge");
-        EULAywjeorge.setMaxWidth(335);
-        EULAywjeorge.setWrapText(true);
-//        EULAywjeorge.getStyleClass().setAll("roboto");
-//        EULAywjeorge.setPadding(new Insets(0,0,20,0));
-
-        final JFXCheckBox makeSureTheyReadIt = new JFXCheckBox();
-        makeSureTheyReadIt.setText("I agree!");
-//        makeSureTheyReadIt.getStyleClass().
-//        makeSureTheyReadIt.setPadding(new Insets(0,40,0,40));
-
-        JFXButton continuePlease = new JFXButton();
-        continuePlease.setText("Continue");
-        continuePlease.getStyleClass().addAll("continue-button");
-        continuePlease.setRipplerFill(Color.DARKSLATEGRAY);
-        continuePlease.setDisable(true);
-//        continuePlease.getStyleClass().addAll("roboto");
-
-
-//        Label pressTheCheckBox = new Label("Please check the checkbox before continuing");
-//        pressTheCheckBox.getStyleClass().addAll("roboto");
-//        pressTheCheckBox.setStyle("-fx-text-fill: FF0000");
-//        pressTheCheckBox.setVisible(false);
-
-
-        HBox continueContainer = new HBox(continuePlease);
+        Label agreement = new Label();
+        agreement.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        agreement.setMaxWidth(335);
+        agreement.setWrapText(true);
+        final JFXCheckBox agreeCheckbox = new JFXCheckBox();
+        agreeCheckbox.setText("I agree!");
+        JFXButton continueButton = new JFXButton();
+        continueButton.setText("Continue");
+        continueButton.getStyleClass().addAll("continue-button");
+        continueButton.setRipplerFill(Color.DARKSLATEGRAY);
+        continueButton.setDisable(true);
+        HBox continueContainer = new HBox(continueButton);
         continueContainer.setAlignment(Pos.BOTTOM_RIGHT);
-
-
         info.getChildren().add(title);
-        info.getChildren().add(EULAywjeorge);
-        info.getChildren().add(makeSureTheyReadIt);
-//        info.getChildren().add(pressTheCheckBox);
+        info.getChildren().add(agreement);
+        info.getChildren().add(agreeCheckbox);
         info.getChildren().add(continueContainer);
-
         JFXDialog dialog = new JFXDialog(outsidePane, info, JFXDialog.DialogTransition.CENTER, true);
         dialog.show();
         dialog.setOverlayClose(false);
         dialog.setMinWidth(400);
         dialog.setMinHeight(0);
-//        dialog.setPadding(new Insets(10,10,10,10));
-//        VBox.setMargin(info,new Insets(0,25,0,25));
         info.setPadding(new Insets(25, 25, 15, 25));
         info.setMinWidth(0);
         info.setMinHeight(0);
-
-        makeSureTheyReadIt.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (makeSureTheyReadIt.isSelected()) {
-                    continuePlease.setDisable(false);
-                } else {
-                    continuePlease.setDisable(true);
-                }
+        agreeCheckbox.setOnAction(event -> {
+            if (agreeCheckbox.isSelected()) {
+                continueButton.setDisable(false);
+            } else {
+                continueButton.setDisable(true);
             }
         });
-
-        continuePlease.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                dialog.close();
-//                if (makeSureTheyReadIt.isSelected()){
-////                    continuePlease.setDisable(false);
-//                    dialog.close();
-//                } else {
-////                    pressTheCheckBox.setVisible(true);
-////                    continuePlease.setDisable(true);
-//                }
-            }
+        continueButton.setOnMouseClicked(event -> {
+            dialog.close();
         });
     }
 
