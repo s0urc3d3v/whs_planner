@@ -150,14 +150,10 @@ public class NewsUI extends Pane {
                     img.setImage(wr);
 
                     //Add article to list WITH image
-                    Platform.runLater(()->{
-                        addCard(description, hpl, img, true);
-                    });
+                    Platform.runLater(()-> addCard(description, hpl, img, true));
                 } else {
                     //Add article to list WITHOUT image
-                    Platform.runLater(()-> {
-                        addCard(description, hpl, null, true);
-                    });
+                    Platform.runLater(()-> addCard(description, hpl, null, true));
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -165,6 +161,8 @@ public class NewsUI extends Pane {
             onScreenMessages.add(feedArray.get(i));
         }
     }
+
+    //TODO not even sure if we need the runlaters, because it's basically in 3 right now
 
     //Normal news article
     private void addCard(Label description, Hyperlink hyperlink, ImageView image) {
@@ -185,9 +183,7 @@ public class NewsUI extends Pane {
         vBox.setPrefWidth(BOX_WIDTH);
         vBox.getStyleClass().setAll("news-card");
         VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
-        Platform.runLater(()->{
-            cardView.getChildren().add(vBox);
-        });
+        Platform.runLater(()-> cardView.getChildren().add(vBox));
     }
 
     //Normal news article for refresh
@@ -206,14 +202,14 @@ public class NewsUI extends Pane {
             vBox = new VBox(image, textVBox);
         }
         vBox.setAlignment(Pos.TOP_CENTER);
+//        description.setTextAlignment(TextAlignment.JUSTIFY);
         vBox.setPrefWidth(BOX_WIDTH);
         vBox.getStyleClass().setAll("news-card");
         VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
-        Platform.runLater(() -> {
-            cardView.getChildren().add(0, vBox);
-        });
+        Platform.runLater(() -> cardView.getChildren().add(0, vBox));
     }
 
+    //T-Rex :)
     private void addCard(Pane pane) {
         HBox hBox;
         hBox = new HBox(pane);
@@ -222,9 +218,7 @@ public class NewsUI extends Pane {
         hBox.getStyleClass().setAll("news-card");
         VBox.setMargin(hBox, new Insets(10, 10, 10, 10));
 
-        Platform.runLater(()-> {
-            cardView.getChildren().add(hBox);
-        });
+        Platform.runLater(()-> cardView.getChildren().add(hBox));
     }
 
     //This one adds the label first - for offline
@@ -236,9 +230,7 @@ public class NewsUI extends Pane {
         vBox.setPrefWidth(BOX_WIDTH);
         vBox.getStyleClass().setAll("news-card");
         VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
-        Platform.runLater(()-> {
-            cardView.getChildren().add(vBox);
-        });
+        Platform.runLater(()-> cardView.getChildren().add(vBox));
     }
 
     private WritableImage convertImg(BufferedImage bf) {

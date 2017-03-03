@@ -5,9 +5,7 @@ import WHS_planner.Main;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.*;
-import com.jfoenix.controls.events.JFXDrawerEvent;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.TextAlignment;
 
 import java.io.File;
 import java.io.IOException;
@@ -76,13 +76,16 @@ public class MainPane extends StackPane {
         title.getStyleClass().setAll("title-text");
         title.setPadding(new Insets(0, 0, 10, 0));
         Label agreement = new Label();
-        agreement.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        agreement.setText("Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris blandit aliquet iaculis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam pulvinar odio vitae metus blandit, in posuere tortor efficitur. Praesent hendrerit tellus sed odio vehicula, sed pulvinar ipsum convallis. Curabitur a elementum eros. Maecenas sit amet blandit eros. Ut vehicula et lorem ac suscipit. Nulla suscipit ligula pretium felis pulvinar, sit amet imperdiet nulla molestie. Vivamus viverra hendrerit tortor, eget tincidunt libero semper non.");
+        agreement.setTextAlignment(TextAlignment.JUSTIFY);
+        agreement.setPadding(new Insets(0,0,10,0));
         agreement.setMaxWidth(335);
         agreement.setWrapText(true);
-        final JFXCheckBox agreeCheckbox = new JFXCheckBox();
-        agreeCheckbox.setText("I agree!");
-        JFXButton continueButton = new JFXButton();
-        continueButton.setText("Continue");
+        final JFXCheckBox agreeCheckbox = new JFXCheckBox("I agree!");
+//        agreeCheckbox.setText("I agree!");
+        agreeCheckbox.setCheckedColor(Paint.valueOf("#009688"));
+        JFXButton continueButton = new JFXButton("CONTINUE");
+//        continueButton.setText("Continue");
         continueButton.getStyleClass().addAll("continue-button");
         continueButton.setRipplerFill(Color.DARKSLATEGRAY);
         continueButton.setDisable(true);
@@ -107,9 +110,7 @@ public class MainPane extends StackPane {
                 continueButton.setDisable(true);
             }
         });
-        continueButton.setOnMouseClicked(event -> {
-            dialog.close();
-        });
+        continueButton.setOnMouseClicked(event -> dialog.close());
     }
 
     /**
@@ -226,7 +227,7 @@ public class MainPane extends StackPane {
                         "Matthew Elbing - Backend, Project Lead",
                         "Will Robison - HTML, Piano Tiles 2",
                         "John Broderick - Schedule, Bug Creator",
-                        "Tzur Almog - Calendar",
+                        "Tzur Almog - Calendar save",
                         "Alex Bell",
                 };
                 for (String name : names) {
@@ -254,6 +255,7 @@ public class MainPane extends StackPane {
             info.getChildren().addAll(button0, button1, button2, button3, button4, bell2Check);
             info.setAlignment(Pos.TOP_LEFT);
             info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
+            info.setPadding(new Insets(10,0,10,0));
 
 //            button0.setCursor(Cursor.HAND);
 //            button1.setCursor(Cursor.HAND);
@@ -308,14 +310,11 @@ public class MainPane extends StackPane {
         drawer.setMouseTransparent(true);                                                //vertical, higher = lower
         drawer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 5, 0);");
 
-        drawer.setOnDrawerClosing(new EventHandler<JFXDrawerEvent>() {
-            @Override
-            public void handle(JFXDrawerEvent event) {
-                if (!isHamburgerPressed) {
-                    drawer.setMouseTransparent(true);
-                    hamburger.getAnimation().setRate(-1);
-                    hamburger.getAnimation().play();
-                }
+        drawer.setOnDrawerClosing(event -> {
+            if (!isHamburgerPressed) {
+                drawer.setMouseTransparent(true);
+                hamburger.getAnimation().setRate(-1);
+                hamburger.getAnimation().play();
             }
         });
 
