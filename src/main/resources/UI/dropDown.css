@@ -48,3 +48,9 @@
     -fx-font-weight: bold;
     -fx-text-fill: "009688";
 }
+
+.title-text{
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+
+}
