@@ -162,10 +162,13 @@ class Home extends Pane {
             double d = 1.0 - progressVal();
             progressBar.setProgress(d);
             int classIndex = globalTime.getClassIndex();
-            if (i[0] == 60) {
-                i[0] = 0;
-                calendar.getThisMonth().hitAllOfTheDabs();
-            }
+            System.out.println("called");
+            calendar.getThisMonth().hitAllOfTheDabs();
+
+//            if (i[0] == 60) {
+//                i[0] = 0;
+//                calendar.getThisMonth().hitAllOfTheDabs();
+//            }
             i[0]++;
             if (day.exists()&& day.length() > 0 && calendar.getSchedule().isLoggedIn()) {
                 if (classIndex == -1 || pc.getDay(today).length() != 1) {

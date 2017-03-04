@@ -206,7 +206,7 @@ public class CalendarBox extends Pane{
 
         int day = javaCalendar.get(java.util.Calendar.DAY_OF_MONTH);
         int month = javaCalendar.get(java.util.Calendar.MONTH);
-        if (day == this.getDate()&&month == this.month) {
+        if (day == this.getDate() && month == this.month) {
             dayCircle.setFill(new Color(255/255, 152/255.0, 0, 100/100));
         } else {
             dayCircle.setFill(new Color(255/255, 152/255, 0, 0));
