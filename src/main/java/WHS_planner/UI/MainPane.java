@@ -77,7 +77,11 @@ public class MainPane extends StackPane {
             title.getStyleClass().setAll("title-text");
             title.setPadding(new Insets(0, 0, 10, 0));
             Label agreement = new Label();
-            agreement.setText("This application is intended for school use only. Do not use it to store sensitive personal information.");
+            if (System.getenv("HOME").contains("ryan_swanke")) {
+                agreement.setText("Hi Ryan! Your kind! \n\n\nThis application is intended for school use only. Do not use it to store sensitive personal information.");
+            } else {
+                agreement.setText("This application is intended for school use only. Do not use it to store sensitive personal information.");
+            }
 //        agreement.setText("I agree to not store sensitive personal information in this application.");
             agreement.setTextAlignment(TextAlignment.JUSTIFY);
             agreement.setPadding(new Insets(0, 0, 10, 0));
