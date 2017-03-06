@@ -5,7 +5,9 @@ import WHS_planner.Main;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.*;
+import com.jfoenix.controls.events.JFXDrawerEvent;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,6 +15,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -49,7 +52,7 @@ public class MainPane extends StackPane {
 
 //    private Home homePane;
 
-    public MainPane(){
+    public MainPane() {
         navBar = loadNavBar(); //Loads the navBar from the FXML
         navBar.getStyleClass().setAll("navBar");
         navBar.getChildren().get(0).getStyleClass().setAll("jfx-hamburger-icon");
@@ -62,55 +65,57 @@ public class MainPane extends StackPane {
         mainPane.prefHeightProperty().bind(this.heightProperty());
         this.getChildren().setAll(mainPane); //Set the main pane as the pane generated
 
-        
+
         //Initialize agreement panel
-        final StackPane outsidePane = this;
-        VBox info = new VBox();
-        info.setAlignment(Pos.CENTER_LEFT);
-        info.setSpacing(10);
-        info.getStylesheets().addAll("/UI/dropDown.css");
-        info.getStyleClass().setAll("roboto");
-        Label title = new Label("Agreement");
-        title.setMaxWidth(335);
-        title.setWrapText(true);
-        title.getStyleClass().setAll("title-text");
-        title.setPadding(new Insets(0, 0, 10, 0));
-        Label agreement = new Label();
-        agreement.setText("Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris blandit aliquet iaculis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam pulvinar odio vitae metus blandit, in posuere tortor efficitur. Praesent hendrerit tellus sed odio vehicula, sed pulvinar ipsum convallis. Curabitur a elementum eros. Maecenas sit amet blandit eros. Ut vehicula et lorem ac suscipit. Nulla suscipit ligula pretium felis pulvinar, sit amet imperdiet nulla molestie. Vivamus viverra hendrerit tortor, eget tincidunt libero semper non.");
-        agreement.setTextAlignment(TextAlignment.JUSTIFY);
-        agreement.setPadding(new Insets(0,0,10,0));
-        agreement.setMaxWidth(335);
-        agreement.setWrapText(true);
-        final JFXCheckBox agreeCheckbox = new JFXCheckBox("I agree!");
+        if (Main.isFirstStartup) {
+            final StackPane outsidePane = this;
+            VBox info = new VBox();
+            info.setAlignment(Pos.CENTER_LEFT);
+            info.setSpacing(10);
+            info.getStylesheets().addAll("/UI/dropDown.css");
+            info.getStyleClass().setAll("roboto");
+            Label title = new Label("Agreement");
+            title.setMaxWidth(335);
+            title.setWrapText(true);
+            title.getStyleClass().setAll("title-text");
+            title.setPadding(new Insets(0, 0, 10, 0));
+            Label agreement = new Label();
+            agreement.setText("Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris blandit aliquet iaculis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam pulvinar odio vitae metus blandit, in posuere tortor efficitur. Praesent hendrerit tellus sed odio vehicula, sed pulvinar ipsum convallis. Curabitur a elementum eros. Maecenas sit amet blandit eros. Ut vehicula et lorem ac suscipit. Nulla suscipit ligula pretium felis pulvinar, sit amet imperdiet nulla molestie. Vivamus viverra hendrerit tortor, eget tincidunt libero semper non.");
+            agreement.setTextAlignment(TextAlignment.JUSTIFY);
+            agreement.setPadding(new Insets(0, 0, 10, 0));
+            agreement.setMaxWidth(335);
+            agreement.setWrapText(true);
+            final JFXCheckBox agreeCheckbox = new JFXCheckBox("I agree!");
 //        agreeCheckbox.setText("I agree!");
-        agreeCheckbox.setCheckedColor(Paint.valueOf("#009688"));
-        JFXButton continueButton = new JFXButton("CONTINUE");
+            agreeCheckbox.setCheckedColor(Paint.valueOf("#009688"));
+            JFXButton continueButton = new JFXButton("CONTINUE");
 //        continueButton.setText("Continue");
-        continueButton.getStyleClass().addAll("continue-button");
-        continueButton.setRipplerFill(Color.DARKSLATEGRAY);
-        continueButton.setDisable(true);
-        HBox continueContainer = new HBox(continueButton);
-        continueContainer.setAlignment(Pos.BOTTOM_RIGHT);
-        info.getChildren().add(title);
-        info.getChildren().add(agreement);
-        info.getChildren().add(agreeCheckbox);
-        info.getChildren().add(continueContainer);
-        JFXDialog dialog = new JFXDialog(outsidePane, info, JFXDialog.DialogTransition.CENTER, true);
-        dialog.show();
-        dialog.setOverlayClose(false);
-        dialog.setMinWidth(400);
-        dialog.setMinHeight(0);
-        info.setPadding(new Insets(25, 25, 15, 25));
-        info.setMinWidth(0);
-        info.setMinHeight(0);
-        agreeCheckbox.setOnAction(event -> {
-            if (agreeCheckbox.isSelected()) {
-                continueButton.setDisable(false);
-            } else {
-                continueButton.setDisable(true);
-            }
-        });
-        continueButton.setOnMouseClicked(event -> dialog.close());
+            continueButton.getStyleClass().addAll("continue-button");
+            continueButton.setRipplerFill(Color.DARKSLATEGRAY);
+            continueButton.setDisable(true);
+            HBox continueContainer = new HBox(continueButton);
+            continueContainer.setAlignment(Pos.BOTTOM_RIGHT);
+            info.getChildren().add(title);
+            info.getChildren().add(agreement);
+            info.getChildren().add(agreeCheckbox);
+            info.getChildren().add(continueContainer);
+            JFXDialog dialog = new JFXDialog(outsidePane, info, JFXDialog.DialogTransition.CENTER, true);
+            dialog.show();
+            dialog.setOverlayClose(false);
+            dialog.setMinWidth(400);
+            dialog.setMinHeight(0);
+            info.setPadding(new Insets(25, 25, 15, 25));
+            info.setMinWidth(0);
+            info.setMinHeight(0);
+            agreeCheckbox.setOnAction(event -> {
+                if (agreeCheckbox.isSelected()) {
+                    continueButton.setDisable(false);
+                } else {
+                    continueButton.setDisable(true);
+                }
+            });
+            continueButton.setOnMouseClicked(event -> dialog.close());
+        }
     }
 
     /**
@@ -220,14 +225,14 @@ public class MainPane extends StackPane {
                 info.getChildren().add(peopleLabel);
                 String[] names = new String[]{
                         "Tyler Brient - UI Master, Bug Squasher",
-                        "Andrew Eggleston - Yelled at Tyler",
+                        "Andrew Eggleston - Group Motivator",
                         "Geoffrey Wang - UI Master, Calendar, T-Rex :)",
                         "George Jiang - UX, News, Bug Finder",
                         "Jack Bachman - Backend, Github",
                         "Matthew Elbing - Backend, Project Lead",
                         "Will Robison - HTML, Piano Tiles 2",
                         "John Broderick - Schedule, Bug Creator",
-                        "Tzur Almog - Calendar save",
+                        "Tzur Almog - Calendar",
                         "Alex Bell",
                 };
                 for (String name : names) {

@@ -45,6 +45,7 @@ class Home extends Pane {
 
     Home(CalendarYear calendar, Pane newsUI) {
         globalTime = new GlobalTime(calendar.getSchedule().getCheck());
+
         File day = new File("Documents" + File.separator + "DayArray.json");
         if(day.exists()) {
             pc.readData();
