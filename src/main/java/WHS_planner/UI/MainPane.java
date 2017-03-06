@@ -64,56 +64,58 @@ public class MainPane extends StackPane {
 
         
         //Initialize agreement panel
-        final StackPane outsidePane = this;
-        VBox info = new VBox();
-        info.setAlignment(Pos.CENTER_LEFT);
-        info.setSpacing(10);
-        info.getStylesheets().addAll("/UI/dropDown.css");
-        info.getStyleClass().setAll("roboto");
-        Label title = new Label("Agreement");
-        title.setMaxWidth(335);
-        title.setWrapText(true);
-        title.getStyleClass().setAll("title-text");
-        title.setPadding(new Insets(0, 0, 10, 0));
-        Label agreement = new Label();
-        agreement.setText("This application is intended for school use only. Do not use it to store sensitive personal information.");
+        if (Main.isFirstStartup) {
+            final StackPane outsidePane = this;
+            VBox info = new VBox();
+            info.setAlignment(Pos.CENTER_LEFT);
+            info.setSpacing(10);
+            info.getStylesheets().addAll("/UI/dropDown.css");
+            info.getStyleClass().setAll("roboto");
+            Label title = new Label("Agreement");
+            title.setMaxWidth(335);
+            title.setWrapText(true);
+            title.getStyleClass().setAll("title-text");
+            title.setPadding(new Insets(0, 0, 10, 0));
+            Label agreement = new Label();
+            agreement.setText("This application is intended for school use only. Do not use it to store sensitive personal information.");
 //        agreement.setText("I agree to not store sensitive personal information in this application.");
-        agreement.setTextAlignment(TextAlignment.JUSTIFY);
-        agreement.setPadding(new Insets(0,0,10,0));
-        agreement.setMaxWidth(335);
-        agreement.setWrapText(true);
-        final JFXCheckBox agreeCheckbox = new JFXCheckBox("I agree");
-        agreeCheckbox.setCursor(Cursor.HAND);
+            agreement.setTextAlignment(TextAlignment.JUSTIFY);
+            agreement.setPadding(new Insets(0, 0, 10, 0));
+            agreement.setMaxWidth(335);
+            agreement.setWrapText(true);
+            final JFXCheckBox agreeCheckbox = new JFXCheckBox("I agree");
+            agreeCheckbox.setCursor(Cursor.HAND);
 //        agreeCheckbox.setText("I agree!");
             agreeCheckbox.setCheckedColor(Paint.valueOf("#009688"));
             JFXButton continueButton = new JFXButton("CONTINUE");
 //        continueButton.setText("Continue");
-        continueButton.getStyleClass().addAll("continue-button");
-        continueButton.setRipplerFill(Color.DARKSLATEGRAY);
-        continueButton.setCursor(Cursor.HAND);
-        continueButton.setDisable(true);
-        HBox continueContainer = new HBox(continueButton);
-        continueContainer.setAlignment(Pos.BOTTOM_RIGHT);
-        info.getChildren().add(title);
-        info.getChildren().add(agreement);
-        info.getChildren().add(agreeCheckbox);
-        info.getChildren().add(continueContainer);
-        JFXDialog dialog = new JFXDialog(outsidePane, info, JFXDialog.DialogTransition.CENTER, true);
-        dialog.show();
-        dialog.setOverlayClose(false);
-        dialog.setMinWidth(400);
-        dialog.setMinHeight(0);
-        info.setPadding(new Insets(25, 25, 15, 25));
-        info.setMinWidth(0);
-        info.setMinHeight(0);
-        agreeCheckbox.setOnAction(event -> {
-            if (agreeCheckbox.isSelected()) {
-                continueButton.setDisable(false);
-            } else {
-                continueButton.setDisable(true);
-            }
-        });
-        continueButton.setOnMouseClicked(event -> dialog.close());
+            continueButton.getStyleClass().addAll("continue-button");
+            continueButton.setRipplerFill(Color.DARKSLATEGRAY);
+            continueButton.setCursor(Cursor.HAND);
+            continueButton.setDisable(true);
+            HBox continueContainer = new HBox(continueButton);
+            continueContainer.setAlignment(Pos.BOTTOM_RIGHT);
+            info.getChildren().add(title);
+            info.getChildren().add(agreement);
+            info.getChildren().add(agreeCheckbox);
+            info.getChildren().add(continueContainer);
+            JFXDialog dialog = new JFXDialog(outsidePane, info, JFXDialog.DialogTransition.CENTER, true);
+            dialog.show();
+            dialog.setOverlayClose(false);
+            dialog.setMinWidth(400);
+            dialog.setMinHeight(0);
+            info.setPadding(new Insets(25, 25, 15, 25));
+            info.setMinWidth(0);
+            info.setMinHeight(0);
+            agreeCheckbox.setOnAction(event -> {
+                if (agreeCheckbox.isSelected()) {
+                    continueButton.setDisable(false);
+                } else {
+                    continueButton.setDisable(true);
+                }
+            });
+            continueButton.setOnMouseClicked(event -> dialog.close());
+        }
     }
 
     /**
