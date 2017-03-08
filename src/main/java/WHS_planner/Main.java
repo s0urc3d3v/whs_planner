@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class Main extends Application {
 
-    public static final String SAVE_FOLDER = System.getenv("HOME" ) + File.separator + "WHS Planner";
+    public static final String SAVE_FOLDER = System.getenv("HOME" ) + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner";
 
     public static final String VERSION_NUMBER = "1.2.1";
 
