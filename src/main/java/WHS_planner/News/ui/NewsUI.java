@@ -53,7 +53,9 @@ public class NewsUI extends Pane {
 
     private void openLink(int index) {
         try {
-            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", parser.readFeed().getMessages().get(index).getLink()});
+//            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", parser.readFeed().getMessages().get(index).getLink()});
+            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", onScreenMessages.get(index).getLink()});
+
         } catch (IOException e) {
             e.printStackTrace();
         }

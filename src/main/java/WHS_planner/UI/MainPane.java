@@ -16,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.TextAlignment;
 
 import java.io.File;
 import java.io.IOException;
@@ -83,7 +82,7 @@ public class MainPane extends StackPane {
                 agreement.setText("This application is intended for school use only. Do not use it to store sensitive personal information.");
             }
 //        agreement.setText("I agree to not store sensitive personal information in this application.");
-            agreement.setTextAlignment(TextAlignment.JUSTIFY);
+//            agreement.setTextAlignment(TextAlignment.JUSTIFY);
             agreement.setPadding(new Insets(0, 0, 10, 0));
             agreement.setMaxWidth(335);
             agreement.setWrapText(true);
