@@ -1,5 +1,6 @@
 package WHS_planner.Calendar;
 
+import WHS_planner.Main;
 import WHS_planner.Schedule.ParseCalendar;
 import WHS_planner.Schedule.Schedule;
 import WHS_planner.UI.GlobalTime;
@@ -56,7 +57,7 @@ public class CalendarBox extends Pane{
     private Calendar calendar;
 
     private ParseCalendar pc = new ParseCalendar();
-    private File day = new File("Documents" + File.separator + "DayArray.json");
+    private File day = new File(Main.SAVE_FOLDER+ File.separator +"DayArray.json");
 
 
     public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Calendar cal){
