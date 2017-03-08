@@ -17,9 +17,9 @@ import java.util.Set;
  */
 public class JSON {
 
-    private FileWriter fileWriter;
     private JSONObject object = new JSONObject();
     private JSONParser parser;
+    private String filepath;
 
     public JSON() {
         parser = new JSONParser();
@@ -30,20 +30,15 @@ public class JSON {
      * @Param filePath
      */
     public boolean loadFile(String filePath) {
+        this.filepath = filePath;
         try {
             try {
                 object = (JSONObject) parser.parse(new FileReader(filePath));
-                fileWriter = new FileWriter(filePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } catch (ParseException e) {
             object = new JSONObject();
-            try {
-                fileWriter = new FileWriter(filePath);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
             return false;
         }
         parser = new JSONParser();
@@ -57,17 +52,11 @@ public class JSON {
      */
     public void unloadFile() {
         try {
+            FileWriter fileWriter = new FileWriter(filepath);
             fileWriter.write(object.toJSONString());
             fileWriter.close();
         } catch (IOException e) {
             ErrorHandler.HandleIOError(e);
-        }
-    }
-    public void unloadWithoutWrite(){
-        try{
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -152,16 +141,6 @@ public class JSON {
             jsonArray.add(key + i + ": " + data[i]);
         }
         object.put("@" + key, jsonArray);
-    }
-
-    /**
-     * Writes a raw JSONObject allowing for custom file layouts
-     * @param obj JSONObject with custom layout
-     * @throws IOException IOEXception is thrown form FileWriter.write(), and .flush()
-     */
-    public void writeRaw(JSONObject obj) throws IOException {
-        fileWriter.write(obj.toJSONString());
-        fileWriter.flush();
     }
 
     /**
