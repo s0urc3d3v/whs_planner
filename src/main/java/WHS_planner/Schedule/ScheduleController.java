@@ -91,8 +91,8 @@ public class ScheduleController implements Initializable, ActionListener
             panes[i + 63].setStyle("-fx-background-color: #ffffff");
             panes[i + 63].toBack();
         }
-        File ipass = new File("Keys" + File.separator + "ipass.key");
-        File Schedule = new File("Documents/Schedule.json");
+        File ipass = new File(Main.SAVE_FOLDER+"Keys" + File.separator + "ipass.key");
+        File Schedule = new File(Main.SAVE_FOLDER+ File.separator +"Schedule.json");
         if(Schedule.exists() && !ipass.exists()) {
 
             try
@@ -204,14 +204,14 @@ public class ScheduleController implements Initializable, ActionListener
                     Thread t = new Thread(() -> {
                         BufferedReader br;
                         try {
-                            File f = new File("Documents" + File.separator + "DayArray.json");
+                            File f = new File(Main.SAVE_FOLDER+ File.separator +"DayArray.json");
 
                             if (!f.exists())
                             {
                                 f.createNewFile();
                             }
 
-                            br = new BufferedReader(new FileReader("Documents" + File.separator + "DayArray.json"));
+                            br = new BufferedReader(new FileReader(Main.SAVE_FOLDER+ File.separator + "DayArray.json"));
 
                             if (br.readLine() == null)
                             {
@@ -337,7 +337,7 @@ public class ScheduleController implements Initializable, ActionListener
     {
         try
         {
-            File f = new File("Keys"+File.separator+"ipass.key");
+            File f = new File(Main.SAVE_FOLDER+ File.separator +"Keys"+File.separator+"ipass.key");
 
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
@@ -351,7 +351,7 @@ public class ScheduleController implements Initializable, ActionListener
             br.close();
             fr.close();
 
-            File downloadcache = new File("Keys"+File.separator+"DLCache.key");
+            File downloadcache = new File(Main.SAVE_FOLDER+ File.separator +"Keys"+File.separator+"DLCache.key");
 
             BufferedWriter dlcw;
 
@@ -374,7 +374,7 @@ public class ScheduleController implements Initializable, ActionListener
                 {
                     if(val.equals("false"))
                     {
-                        File tmpf = new File("tmp");
+                        File tmpf = new File(Main.SAVE_FOLDER+ File.separator +"tmp");
                         dlcw = new BufferedWriter(new FileWriter(downloadcache));
                         dlcw.write("false");
                         dlcw.close();
@@ -394,7 +394,7 @@ public class ScheduleController implements Initializable, ActionListener
                     }
                 }
             }
-            File tmp = new File("tmp");
+            File tmp = new File(Main.SAVE_FOLDER+ File.separator +"tmp");
             if(write)
             {
                 ParseCalendar pc = new ParseCalendar();
@@ -432,8 +432,8 @@ public class ScheduleController implements Initializable, ActionListener
     public void updateSchedule() throws Exception
     {
 
-        File schedule = new File("Documents"+File.separator+"Schedule.json");
-        File ipasskey = new File("Keys"+File.separator+"ipass.key");
+        File schedule = new File(Main.SAVE_FOLDER+ File.separator +"Schedule.json");
+        File ipasskey = new File(Main.SAVE_FOLDER+ File.separator +"Keys"+File.separator+"ipass.key");
 
         if(schedule.exists())
         {
