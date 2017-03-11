@@ -28,15 +28,14 @@ public class Calendar extends BorderPane {
 
     //Days of the week
     private String[] daysOfTheWeek = new String[]{"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
-    private Background background;
 
     private CalendarBox[][] calendar;
     private int month;
     private int startDay;
     private int numberOfDays;
     private Node taskBox;
-    private AutoSave autoSave;
-//Tzurs code
+
+    //Tzurs code
     private CalendarHelper dayFinder = new CalendarHelper();
     private IO io;
     private JSON json;
@@ -60,7 +59,7 @@ public class Calendar extends BorderPane {
         this.month = month;
         this.schedule = sc;
 
-        File saveFile = new File("Documents" + File.separator + this.month + "CalendarHolder.json");
+        File saveFile = new File(Main.SAVE_FOLDER + File.separator + this.month + "CalendarHolder.json");
         if(!saveFile.exists()){
             try {
                 saveFile.createNewFile();
@@ -69,7 +68,7 @@ public class Calendar extends BorderPane {
             }
         }
 
-        io = new IO("Documents" + File.separator + this.month + "CalendarHolder.json");
+        io = new IO(Main.SAVE_FOLDER + File.separator + this.month + "CalendarHolder.json");
 
         json = io.getJsonApi();
         this.startDay = dayFinder.getWeekdayMonthStarts(month);
@@ -248,6 +247,16 @@ public class Calendar extends BorderPane {
         fadeIn.playFromStart();
     }
 
+    public void hitAllOfTheDabs() { //Call hit that dab for all of the calendar boxes
+        for (int i = 0; i < calendar.length; i++) {
+            for (int j = 0; j < calendar[i].length; j++) {
+                if (calendar[i][j] != null) {
+                    calendar[i][j].hitThatDab();
+                }
+            }
+        }
+    }
+
     private void removeTaskBox(Node taskBoxInstance) {
         FadeTransition fadeOut = new FadeTransition(Duration.millis(1250));
         fadeOut.setNode(taskBoxInstance);
@@ -294,10 +303,10 @@ public class Calendar extends BorderPane {
     // saves calendar array as a json file at calendarHolder
     void saveCalendar() {
         try {
-            File f = new File("Documents" + File.separator + month + "CalendarHolder.json");
+            File f = new File(Main.SAVE_FOLDER + File.separator + month + "CalendarHolder.json");
             f.delete();
             f.createNewFile();
-            io = new IO("Documents" + File.separator + this.month + "CalendarHolder.json");
+            io = new IO(Main.SAVE_FOLDER + File.separator + this.month + "CalendarHolder.json");
 
             json = io.getJsonApi();
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package WHS_planner.Schedule;
 
+import WHS_planner.Main;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -269,7 +270,7 @@ public class GrabDay
         HtmlPage sched = anchor2.click();
 
 
-        File f = new File("output.html");
+        File f = new File(Main.SAVE_FOLDER + File.separator +"output.html");
         sched.save(f);
 
         client.close();

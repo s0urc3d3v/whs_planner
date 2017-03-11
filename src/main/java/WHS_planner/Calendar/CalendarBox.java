@@ -1,5 +1,6 @@
 package WHS_planner.Calendar;
 
+import WHS_planner.Main;
 import WHS_planner.Schedule.ParseCalendar;
 import WHS_planner.Schedule.Schedule;
 import WHS_planner.UI.GlobalTime;
@@ -56,7 +57,7 @@ public class CalendarBox extends Pane{
     private Calendar calendar;
 
     private ParseCalendar pc = new ParseCalendar();
-    private File day = new File("Documents" + File.separator + "DayArray.json");
+    private File day = new File(Main.SAVE_FOLDER+ File.separator +"DayArray.json");
 
 
     public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Calendar cal){
@@ -188,20 +189,7 @@ public class CalendarBox extends Pane{
             }
         }));
 //        java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
-        java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
-
-        int day = javaCalendar.get(java.util.Calendar.DAY_OF_MONTH);
-        int month = javaCalendar.get(java.util.Calendar.MONTH);
-        if (day == this.getDate()&&month == this.month) {
-            dayCircle.setFill(new Color(255/255, 152/255.0, 0, 100/100));
-        } else {
-            dayCircle.setFill(new Color(255/255, 152/255, 0, 0));
-        }
-
-        if (this.getDate() >= 10) {
-            StackPane sp = dateLabelStackPane;
-            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 4.5));
-        }
+        hitThatDab();
 //        else {
 //            this.setStyle("-fx-background-color: #FFFFFF");
 //        }
@@ -212,6 +200,23 @@ public class CalendarBox extends Pane{
 
         //Initiate update sequence
         update();
+    }
+
+    public void hitThatDab() { //dayCircle update
+        java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
+
+        int day = javaCalendar.get(java.util.Calendar.DAY_OF_MONTH);
+        int month = javaCalendar.get(java.util.Calendar.MONTH);
+        if (day == this.getDate() && month == this.month) {
+            dayCircle.setFill(new Color(255/255, 152/255.0, 0, 100/100));
+        } else {
+            dayCircle.setFill(new Color(255/255, 152/255, 0, 0));
+        }
+
+        if (this.getDate() >= 10) {
+            StackPane sp = dateLabelStackPane;
+            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 4.5));
+        }
     }
 
     //Updates the iconContainer

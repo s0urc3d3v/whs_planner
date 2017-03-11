@@ -153,7 +153,7 @@ public class RSSFeedParser {
     }
 
     //Unused Refresh function
-    public List getNewArticles(List<FeedMessage> oldFeed) {
+    public List<FeedMessage> getNewArticles(List<FeedMessage> oldFeed) {
 
         List<FeedMessage> currentFeed = readFeed().getMessages();
 

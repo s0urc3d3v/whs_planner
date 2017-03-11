@@ -4,6 +4,7 @@ import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
 import WHS_planner.Trex.TrexPane;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Hyperlink;
@@ -22,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewsUI extends Pane {
@@ -32,6 +34,7 @@ public class NewsUI extends Pane {
     private RSSFeedParser parser = new RSSFeedParser("https://waylandstudentpress.com/feed/");
     private Feed feed = parser.readFeed();
     private List<FeedMessage> feedArray = feed.getMessages();
+    private List<FeedMessage> onScreenMessages = new ArrayList<>();
     private VBox cardView = new VBox();
 
     public NewsUI() {
@@ -50,7 +53,9 @@ public class NewsUI extends Pane {
 
     private void openLink(int index) {
         try {
-            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", parser.readFeed().getMessages().get(index).getLink()});
+//            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", parser.readFeed().getMessages().get(index).getLink()});
+            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", onScreenMessages.get(index).getLink()});
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,13 +98,6 @@ public class NewsUI extends Pane {
 
                     img.setFitWidth(IMAGE_WIDTH);
                     img.setFitHeight(wr.getHeight() / (wr.getWidth() / (IMAGE_WIDTH)));
-//                    if (wr.getHeight() < wr.getWidth()) {
-//                        img.setFitWidth(IMAGE_WIDTH);
-//                        img.setFitHeight(wr.getHeight() / (wr.getWidth() / (IMAGE_WIDTH)));
-//                    } else {
-//                        img.setFitHeight(IMAGE_HEIGHT);
-//                        img.setFitWidth(wr.getWidth() / (wr.getHeight() / (IMAGE_HEIGHT)));
-//                    }
                     img.setImage(wr);
 
                     //Add article to list WITH image
@@ -111,8 +109,62 @@ public class NewsUI extends Pane {
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
+            onScreenMessages.add(feedArray.get(i));
         }
     }
+
+    public void refresh() {
+        feedArray = parser.getNewArticles(onScreenMessages);
+        //Loop through all articles
+        for (int i = 0; i < feedArray.size(); i++) {
+
+            //Add Title (Hyperlink)
+            final int eye = i;
+            Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
+            hpl.setOnAction((event) -> openLink(eye));
+            hpl.setWrapText(true);
+            hpl.setMaxWidth(BOX_WIDTH);
+            hpl.setPadding(new Insets(0, 0, 0, 4));
+
+            //Add Description (Label)
+            Label description = new Label(escapeHTML(feedArray.get(i).getDescription()));
+            description.setWrapText(true);
+            description.setMaxWidth(BOX_WIDTH);
+            description.setPadding(new Insets(0, 0, 0, 6));
+
+            //Add Image
+            try {
+                String urlString = scanDescription(feedArray.get(i).getDescription());
+                if (urlString != null) {
+                    URL url = new URL(urlString);
+                    BufferedImage bf;
+                    try {
+                        bf = ImageIO.read(url);
+                    } catch (Exception ex) {
+                        addCard(description, hpl, null);
+                        continue;
+                    }
+                    WritableImage wr = convertImg(bf);
+                    ImageView img = new ImageView(wr);
+
+                    img.setFitWidth(IMAGE_WIDTH);
+                    img.setFitHeight(wr.getHeight() / (wr.getWidth() / (IMAGE_WIDTH)));
+                    img.setImage(wr);
+
+                    //Add article to list WITH image
+                    Platform.runLater(()-> addCard(description, hpl, img, true));
+                } else {
+                    //Add article to list WITHOUT image
+                    Platform.runLater(()-> addCard(description, hpl, null, true));
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            onScreenMessages.add(feedArray.get(i));
+        }
+    }
+
+    //TODO not even sure if we need the runlaters, because it's basically in 3 right now
 
     //Normal news article
     private void addCard(Label description, Hyperlink hyperlink, ImageView image) {
@@ -120,28 +172,46 @@ public class NewsUI extends Pane {
         description.getStyleClass().add("roboto");
         VBox textVBox;
         VBox vBox;
-
-
         if (image == null) {
             textVBox = new VBox(hyperlink, description);
             textVBox.getStyleClass().setAll("text-padding");
             vBox = new VBox(textVBox);
-//            vBox = new VBox(hyperlink, description);
         } else {
-
             textVBox = new VBox(hyperlink, description);
             textVBox.getStyleClass().setAll("text-padding");
             vBox = new VBox(image,textVBox);
-//            vBox = new VBox(image, hyperlink, description);
         }
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setPrefWidth(BOX_WIDTH);
         vBox.getStyleClass().setAll("news-card");
         VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
-
-        cardView.getChildren().add(vBox);
+        Platform.runLater(()-> cardView.getChildren().add(vBox));
     }
 
+    //Normal news article for refresh
+    private void addCard(Label description, Hyperlink hyperlink, ImageView image, boolean isRefresh) {
+        hyperlink.getStyleClass().add("roboto");
+        description.getStyleClass().add("roboto");
+        VBox textVBox;
+        VBox vBox;
+        if (image == null) {
+            textVBox = new VBox(hyperlink, description);
+            textVBox.getStyleClass().setAll("text-padding");
+            vBox = new VBox(textVBox);
+        } else {
+            textVBox = new VBox(hyperlink, description);
+            textVBox.getStyleClass().setAll("text-padding");
+            vBox = new VBox(image, textVBox);
+        }
+        vBox.setAlignment(Pos.TOP_CENTER);
+//        description.setTextAlignment(TextAlignment.JUSTIFY);
+        vBox.setPrefWidth(BOX_WIDTH);
+        vBox.getStyleClass().setAll("news-card");
+        VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
+        Platform.runLater(() -> cardView.getChildren().add(0, vBox));
+    }
+
+    //T-Rex :)
     private void addCard(Pane pane) {
         HBox hBox;
         hBox = new HBox(pane);
@@ -150,12 +220,11 @@ public class NewsUI extends Pane {
         hBox.getStyleClass().setAll("news-card");
         VBox.setMargin(hBox, new Insets(10, 10, 10, 10));
 
-        cardView.getChildren().add(hBox);
+        Platform.runLater(()-> cardView.getChildren().add(hBox));
     }
 
     //This one adds the label first - for offline
-    private void addCard(Hyperlink hyperlink, Label description)
-    {
+    private void addCard(Hyperlink hyperlink, Label description) {
         hyperlink.getStyleClass().add("roboto");
         description.getStyleClass().add("roboto");
         VBox vBox = new VBox(description, hyperlink);
@@ -163,8 +232,7 @@ public class NewsUI extends Pane {
         vBox.setPrefWidth(BOX_WIDTH);
         vBox.getStyleClass().setAll("news-card");
         VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
-
-        cardView.getChildren().add(vBox);
+        Platform.runLater(()-> cardView.getChildren().add(vBox));
     }
 
     private WritableImage convertImg(BufferedImage bf) {

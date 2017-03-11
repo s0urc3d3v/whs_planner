@@ -11,10 +11,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +42,9 @@ public class MainPane extends StackPane {
 //    private VBox cardView = new NewsUI().getCardView();
     private Schedule schedule;
     private CalendarYear calendar;
+    private NewsUI news;
+
+    private boolean isHamburgerPressed = false;
 
 //    private Home homePane;
 
@@ -56,6 +60,65 @@ public class MainPane extends StackPane {
         mainPane.prefWidthProperty().bind(this.widthProperty());
         mainPane.prefHeightProperty().bind(this.heightProperty());
         this.getChildren().setAll(mainPane); //Set the main pane as the pane generated
+
+        
+        //Initialize agreement panel
+        if (Main.isFirstStartup) {
+            final StackPane outsidePane = this;
+            VBox info = new VBox();
+            info.setAlignment(Pos.CENTER_LEFT);
+            info.setSpacing(10);
+            info.getStylesheets().addAll("/UI/dropDown.css");
+            info.getStyleClass().setAll("roboto");
+            Label title = new Label("Agreement");
+            title.setMaxWidth(335);
+            title.setWrapText(true);
+            title.getStyleClass().setAll("title-text");
+            title.setPadding(new Insets(0, 0, 10, 0));
+            Label agreement = new Label();
+            if (System.getenv("HOME").contains("ryan_swanke")) {
+                agreement.setText("Hi Ryan! Your kind! \n\n\nThis application is intended for school use only. Do not use it to store sensitive personal information.");
+            } else {
+                agreement.setText("This application is intended for school use only. Do not use it to store sensitive personal information.");
+            }
+//        agreement.setText("I agree to not store sensitive personal information in this application.");
+//            agreement.setTextAlignment(TextAlignment.JUSTIFY);
+            agreement.setPadding(new Insets(0, 0, 10, 0));
+            agreement.setMaxWidth(335);
+            agreement.setWrapText(true);
+            final JFXCheckBox agreeCheckbox = new JFXCheckBox("I agree");
+            agreeCheckbox.setCursor(Cursor.HAND);
+//        agreeCheckbox.setText("I agree!");
+            agreeCheckbox.setCheckedColor(Paint.valueOf("#009688"));
+            JFXButton continueButton = new JFXButton("CONTINUE");
+//        continueButton.setText("Continue");
+            continueButton.getStyleClass().addAll("continue-button");
+            continueButton.setRipplerFill(Color.DARKSLATEGRAY);
+            continueButton.setCursor(Cursor.HAND);
+            continueButton.setDisable(true);
+            HBox continueContainer = new HBox(continueButton);
+            continueContainer.setAlignment(Pos.BOTTOM_RIGHT);
+            info.getChildren().add(title);
+            info.getChildren().add(agreement);
+            info.getChildren().add(agreeCheckbox);
+            info.getChildren().add(continueContainer);
+            JFXDialog dialog = new JFXDialog(outsidePane, info, JFXDialog.DialogTransition.CENTER, true);
+            dialog.show();
+            dialog.setOverlayClose(false);
+            dialog.setMinWidth(400);
+            dialog.setMinHeight(0);
+            info.setPadding(new Insets(25, 25, 15, 25));
+            info.setMinWidth(0);
+            info.setMinHeight(0);
+            agreeCheckbox.setOnAction(event -> {
+                if (agreeCheckbox.isSelected()) {
+                    continueButton.setDisable(false);
+                } else {
+                    continueButton.setDisable(true);
+                }
+            });
+            continueButton.setOnMouseClicked(event -> dialog.close());
+        }
     }
 
     /**
@@ -105,9 +168,9 @@ public class MainPane extends StackPane {
 
     private void initiateDropDown(Button bigButton) {
         /*
-
-           START Jesus code
-
+        \
+         |   START Jesus code
+          \
          */
         bigButton.setText("\uf142");
         bigButton.setCursor(Cursor.HAND);
@@ -125,20 +188,22 @@ public class MainPane extends StackPane {
                 info.getChildren().add(getBellSchedulePane());
                 info.getStyleClass().setAll("large-text");
             });
-//            JFXButton button0 = new JFXButton();
-//            button0.setText("      Delete Calendar Data");
-//            button0.setOnMouseClicked(event0 -> {
-//                System.out.println("delete calendar data pressed");
-//                calendar.deleteCalendarData();
-//            });
-            JFXButton button2 = new JFXButton();
-            button2.setText("      Refresh Schedule");
-            button2.setOnMouseClicked(event12 -> {
+            JFXButton button1 = new JFXButton();
+            button1.setText("      Refresh Schedule");
+            button1.setOnMouseClicked(event12 -> {
                 try {
                     schedule.getScheduleControl().logout();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            });
+            JFXButton button2 = new JFXButton();
+            button2.setText("      Refresh News");
+            button2.setOnMouseClicked(eventNews -> {
+                news.refresh();
+                news.requestFocus();
+                news.requestLayout();
+                news.layout();
             });
             JFXButton button3 = new JFXButton();
             button3.setText("      Send Feedback");
@@ -157,77 +222,72 @@ public class MainPane extends StackPane {
                 versionLabel.setUnderline(true);
                 Label peopleLabel = new Label("Collaborators:");
                 peopleLabel.setUnderline(true);
-
                 info.getChildren().add(new Label("Created in HACS under the guidance of Mr. Hopps!\n "));
-
                 info.getChildren().add(versionLabel);
                 info.getChildren().add(new Label(Main.VERSION_NUMBER+" \n "));
                 info.getChildren().add(peopleLabel);
                 String[] names = new String[]{
-                        "Tzur Almog - Calendar",
-                        "Jack Bachman - Backend, Github",
-                        "Alex Bell - News",
                         "Tyler Brient - UI Master, Bug Squasher",
-                        "John Broderick - Schedule, Bug Creator",
-                        "Andrew Eggleston - Yelled at Tyler",
-                        "Matthew Elbing - Backend, Project Lead",
-                        "George Jiang - UX, News, Bug Finder",
-                        "Will Robison - HTML, Piano Tiles 2",
+                        "Andrew Eggleston - Group Motivator",
                         "Geoffrey Wang - UI Master, Calendar, T-Rex :)",
+                        "George Jiang - UX, News, Bug Finder",
+                        "Jack Bachman - Backend, Github",
+                        "Matthew Elbing - Backend, Project Lead",
+                        "Will Robison - HTML, Piano Tiles 2",
+                        "John Broderick - Schedule, Bug Creator",
+                        "Tzur Almog - Calendar save",
+                        "Alex Bell",
                 };
                 for (String name : names) {
                     info.getChildren().add(new Label(name));
                 }
+                info.getChildren().add(new Label("\n"));
+                JFXButton licenses = new JFXButton("Licenses");
+                licenses.setButtonType(JFXButton.ButtonType.FLAT);
+                licenses.getStyleClass().setAll("gray-button");
+                licenses.setOnMouseClicked(showLicences -> {
+                    info.getChildren().clear();
+                    Label licenseText = new Label("We used the JSOUP library (https://jsoup.org/) which is licensed under the MIT license:\nThe MIT License \nCopyright © 2009 - 2016 Jonathan Hedley (jonathan@hedley.net) \nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: \nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. \nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n\nWe also used federkasten's appbundler library (https://github.com/federkasten/appbundle-maven-plugin), as well as the JFoenix UI library (http://www.jfoenix.com/). \nBoth are avaiable under the Apache License 2.0(https://www.apache.org/licenses/LICENSE-2.0). \nCredit goes to Stack Overflow users: Chui Tey and jewelsea for their work on the Layout Animator class. \nhttps://gist.github.com/jewelsea/5683558 \n\nFont Awesome by Dave Gandy - http://fontawesome.io");
+                    licenseText.setWrapText(true);
+                    licenseText.getStyleClass().addAll("times");
+                    info.getChildren().add(licenseText);
+                });
+                info.getChildren().add(licenses);
                 info.getStyleClass().setAll("large-text");
                 info.setPadding(new Insets(10));
             });
-
-//            HBox button5 = new HBox();
             bell2Check.setCursor(Cursor.HAND);
             bell2Check.setText("Bell 2");
-//            JFXCheckBox bell2Check = new JFXCheckBox();
-//            Label bell2Label = new Label();
-//            bell2Label.setText("Bell 2");
-//            button5.getChildren().addAll(bell2Check/*, bell2Label*/);
-//            button5.setPrefSize(200, 50);
-//            button5.setAlignment(Pos.CENTER_LEFT);
-//            button5.setPadding(new Insets(15, 0, 10, 20)); //top right bottom left
             bell2Check.setTranslateX(10);
-//            bell2Label.setTranslateX(10);
             bell2Check.setAlignment(Pos.CENTER_LEFT);
-
-//            info.getChildren().add(button0);
-
-            info.getChildren().addAll(button0, button2, button3, button4, bell2Check);
-
+            info.getChildren().addAll(button0, button1, button2, button3, button4, bell2Check);
             info.setAlignment(Pos.TOP_LEFT);
             info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
-            button0.setCursor(Cursor.HAND);
-            button2.setCursor(Cursor.HAND);
-            button3.setCursor(Cursor.HAND);
-            button4.setCursor(Cursor.HAND);
-//            button5.setCursor(Cursor.HAND);
+            info.setPadding(new Insets(10,0,10,0));
+
+//            button0.setCursor(Cursor.HAND);
+//            button1.setCursor(Cursor.HAND);
+//            button2.setCursor(Cursor.HAND);
+//            button3.setCursor(Cursor.HAND);
+//            button4.setCursor(Cursor.HAND);
             button0.getStyleClass().setAll("list-button");
+            button1.getStyleClass().setAll("list-button");
             button2.getStyleClass().setAll("list-button");
             button3.getStyleClass().setAll("list-button");
             button4.getStyleClass().setAll("list-button");
-//            button5.getStyleClass().setAll("label-button");
+
             bell2Check.getStyleClass().setAll("label-button");
             bell2Check.setPrefSize(200,50);
-//            System.out.println(bell2Check.getLabelPadding());
             info.setSpacing(0);
-            info.setMinSize(200, 250);
+            info.setMinSize(200, info.getChildren().toArray().length*50);
             JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
             dialog.show();
-
             /*
-
-                 END Jesus code
-
+            \
+             |    END Jesus code
+              \
              */
         });
-
-
     }
 
     /**
@@ -258,6 +318,14 @@ public class MainPane extends StackPane {
         drawer.setMouseTransparent(true);                                                //vertical, higher = lower
         drawer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 5, 0);");
 
+        drawer.setOnDrawerClosing(event -> {
+            if (!isHamburgerPressed) {
+                drawer.setMouseTransparent(true);
+                hamburger.getAnimation().setRate(-1);
+                hamburger.getAnimation().play();
+            }
+        });
+
         //Hamburger animation
         hamburger.setAnimation(new HamburgerBackArrowBasicTransition(hamburger));
         hamburger.getAnimation().setRate(-1);
@@ -265,6 +333,7 @@ public class MainPane extends StackPane {
         //Hamburger function to open an close the drawer
         hamburger.setOnMouseClicked(event -> {
             if (drawer.isShown()) {
+                isHamburgerPressed = true;
                 drawer.setMouseTransparent(true);
                 hamburger.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
                 drawer.close();
@@ -274,6 +343,7 @@ public class MainPane extends StackPane {
                 drawer.open();
             }
             hamburger.getAnimation().play(); //Plays the transition
+            isHamburgerPressed = false;
         });
 
         //More functions to open and close the drawer
@@ -288,7 +358,7 @@ public class MainPane extends StackPane {
 
 //        NewsUI news = null;
 //        try {
-          NewsUI news = new NewsUI();
+        news = new NewsUI();
 //        }catch(Exception e){
 //            e.printStackTrace();
 //        }

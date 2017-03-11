@@ -1,6 +1,7 @@
 package WHS_planner.Schedule;
 
 import WHS_planner.Core.IO;
+import WHS_planner.Main;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Document;
@@ -30,7 +31,7 @@ public class ParseCalendar
 
     public void writeData()
     {
-        IO io = new IO("Documents"+File.separator+"DayArray.json");
+        IO io = new IO(Main.SAVE_FOLDER+ File.separator +"DayArray.json");
         io.writeArray("calendarData", classdays);
         //io.unload();
 
@@ -65,7 +66,7 @@ public class ParseCalendar
         tracker = new HashMap<String, Integer>();
         classdays = new String[365];
 
-        IO io = new IO("Documents"+File.separator+"DayArray.json");
+        IO io = new IO(Main.SAVE_FOLDER+ File.separator +"DayArray.json");
         Object[] objects = io.readArray("@calendarData");
         for (int i = 0; i < objects.length; i++)
         {
@@ -99,7 +100,7 @@ public class ParseCalendar
 
         tracker = new HashMap<String, Integer>();
         
-        File parent = new File("tmp");
+        File parent = new File(Main.SAVE_FOLDER+ File.separator +"tmp");
 
         for(File file : parent.listFiles())
         {

@@ -114,8 +114,8 @@ public class Schedule
             }
         });
 
-        File f = new File("Keys/ipass.key");
-        File g = new File("Documents/Schedule.json");
+        File f = new File(Main.SAVE_FOLDER+ File.separator +"Keys/ipass.key");
+        File g = new File(Main.SAVE_FOLDER+ File.separator +"Schedule.json");
 
         if(!f.exists() && !g.exists())
         {
@@ -240,9 +240,9 @@ public class Schedule
 
     private void parseSchedule()
     {
-        File f = new File("output.html");
+        File f = new File(Main.SAVE_FOLDER+ File.separator +"output.html");
 
-        File input = new File("Keys/ipass.key");
+        File input = new File(Main.SAVE_FOLDER + File.separator +"Keys/ipass.key");
 
         String user = null;
         String pass = null;
@@ -309,7 +309,7 @@ public class Schedule
 
     public ScheduleBlock[] getData()
     {
-        File schedulefile = new File("Documents"+File.separator+"Schedule.json");
+        File schedulefile = new File(Main.SAVE_FOLDER+ File.separator +"Schedule.json");
 
         if(!schedulefile.exists())
         {
@@ -322,7 +322,7 @@ public class Schedule
             parseSchedule();
 
         }
-        IO dotaIo = new IO("Documents"+File.separator+"Schedule.json");
+        IO dotaIo = new IO(Main.SAVE_FOLDER+ File.separator +"Schedule.json");
         ArrayList<ScheduleBlock> array = dotaIo.readScheduleArray();
         dotaIo.unload();
 
@@ -381,8 +381,8 @@ public class Schedule
     }
 
     public boolean isLoggedIn() {
-        File f = new File("Keys/ipass.key");
-        File g = new File("Documents/Schedule.json");
+        File f = new File(Main.SAVE_FOLDER+ File.separator +"Keys/ipass.key");
+        File g = new File(Main.SAVE_FOLDER+ File.separator +"Schedule.json");
 
         return f.exists() || g.exists();
     }

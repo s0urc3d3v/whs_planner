@@ -2,6 +2,7 @@ package WHS_planner.Schedule;
 
 
 import WHS_planner.Core.IO;
+import WHS_planner.Main;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -33,7 +34,7 @@ public class ScheduleParserV2
 
     public void getClasses() throws IOException
     {
-        File html = new File("output.html");
+        File html = new File(Main.SAVE_FOLDER+ File.separator +"output.html");
         BufferedReader br = new BufferedReader(new FileReader(html));
 
         String line;
@@ -168,14 +169,14 @@ public class ScheduleParserV2
 
 
         br.close();
-        File schedf = new File("Documents"+File.separator+"Schedule.json");
+        File schedf = new File(Main.SAVE_FOLDER+ File.separator +"Schedule.json");
 
         if(!schedf.exists())
         {
             schedf.createNewFile();
         }
 
-        IO io = new IO("Documents"+File.separator+"Schedule.json");
+        IO io = new IO(Main.SAVE_FOLDER+ File.separator +"Schedule.json");
         io.writeScheduleArray(blocks);
         io.unload();
 
@@ -186,7 +187,7 @@ public class ScheduleParserV2
         try
         {
             GrabDay gd = new GrabDay(u, p);
-            gd.grabSchedule("output.html");
+            gd.grabSchedule(Main.SAVE_FOLDER+ File.separator +"output.html");
         }
         catch(Exception e)
         {
