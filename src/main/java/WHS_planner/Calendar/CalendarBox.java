@@ -306,7 +306,7 @@ public class CalendarBox extends Pane{
 //                            System.out.println(override.isSelected());
 //                            System.out.println("Class Index: " + classIndex);
                             System.out.println("Logged in: " + schedule.isLoggedIn());
-                            day = new File("Documents" + File.separator + "DayArray.json");
+                            day = new File(Main.SAVE_FOLDER + File.separator + "DayArray.json");
                             if (day.exists() && day.length() > 0 && schedule.isLoggedIn()) { //day exists even when you log out
 //                                pc.readData();
                                 pc.readData();

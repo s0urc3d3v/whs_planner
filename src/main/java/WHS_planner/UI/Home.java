@@ -46,7 +46,7 @@ class Home extends Pane {
     Home(CalendarYear calendar, Pane newsUI) {
         globalTime = new GlobalTime(calendar.getSchedule().getCheck());
 
-        File day = new File("Documents" + File.separator + "DayArray.json");
+        File day = new File(Main.SAVE_FOLDER + File.separator + "DayArray.json");
         if(day.exists()) {
             pc.readData();
         }
@@ -491,7 +491,7 @@ class Home extends Pane {
         Calendar now = Calendar.getInstance();
 
         ArrayList<String> bellTimesFile = new ArrayList<>();
-        try (Stream<String> stream = Files.lines(Paths.get("Documents" + File.separator + "BellTimes.txt"))) {
+        try (Stream<String> stream = Files.lines(Paths.get(Main.SAVE_FOLDER + File.separator + "BellTimes.txt"))) {
             stream.forEachOrdered(bellTimesFile::add);
         }catch (Exception e){
             e.printStackTrace();

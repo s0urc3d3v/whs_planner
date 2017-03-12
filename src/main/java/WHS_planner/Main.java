@@ -66,11 +66,6 @@ public class Main extends Application {
         System.setProperty("http.agent", "Chrome");
 //        PropertyConfigurator.configure("log4j.properties");
 
-        File documents = new File("Documents");
-        if(!documents.exists()) {
-            documents.mkdir();
-        }
-
         File saveFolder = new File(SAVE_FOLDER);
         if(!saveFolder.exists()) {
             saveFolder.mkdir();
@@ -111,7 +106,7 @@ public class Main extends Application {
            }
        }
 
-        File saveFile = new File("Documents" + File.separator + "BellTimes.txt");
+        File saveFile = new File(Main.SAVE_FOLDER + File.separator + "BellTimes.txt");
         try {
             saveFile.createNewFile();
         } catch (IOException e) {
@@ -122,7 +117,7 @@ public class Main extends Application {
             URL website = new URL("https://dl.dropboxusercontent.com/s/a8e3qfwgbfbi0qc/BellTimes.txt?dl=0");
             InputStream in = website.openStream();
             if (!(in == null)) {
-                Files.copy(in, Paths.get("Documents" + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(in, Paths.get(Main.SAVE_FOLDER + File.separator + "BellTimes.txt"), StandardCopyOption.REPLACE_EXISTING);
                 in.close();
             }
         }catch(Exception e){

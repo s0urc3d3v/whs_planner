@@ -463,7 +463,7 @@ public class MainPane extends StackPane {
         }
 
         ArrayList<String> bellTimesFile = new ArrayList<>();
-        try (Stream<String> stream = Files.lines(Paths.get("Documents" + File.separator + "BellTimes.txt"))) {
+        try (Stream<String> stream = Files.lines(Paths.get(Main.SAVE_FOLDER + File.separator + "BellTimes.txt"))) {
             stream.forEachOrdered(bellTimesFile::add);
         }catch (Exception e){
             e.printStackTrace();
