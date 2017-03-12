@@ -91,7 +91,6 @@ public class MainPane extends StackPane {
             info.getChildren().add(continueContainer);
             JFXDialog dialog = new JFXDialog(outsidePane, info, JFXDialog.DialogTransition.CENTER, true);
             dialog.show();
-            dialog.setOverlayClose(false);
             dialog.setMinWidth(400);
             dialog.setMinHeight(0);
             info.setPadding(new Insets(25, 25, 15, 25));
