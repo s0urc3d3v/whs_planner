@@ -91,7 +91,7 @@ public class Task {
                 } else {
                     doesExist = true;
                     deleteButton.setText("Delete");
-                    deleteButton.setStyle("-fx-background-color: #FF9800");
+                    deleteButton.setStyle("-fx-background-color: rgb(56, 118, 237);");
                     label.setStrikethrough(false);
                 }
                 box.update();
