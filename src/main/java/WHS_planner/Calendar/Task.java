@@ -1,10 +1,15 @@
 package WHS_planner.Calendar;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 
@@ -16,6 +21,7 @@ import java.io.File;
 public class Task {
     String Class, Title, Description;
     private Boolean doesExist = true;
+    private Boolean isEditing = false;
 
     public Task(String class1,String title1, String description1){
         Class = class1;
@@ -45,6 +51,7 @@ public class Task {
         Text label;
 
         Text spaces = new Text("  ");
+        Text spaces2 = new Text("  ");
 
         System.out.println("CLASS: " + Class);
         String tester = Class;
@@ -53,10 +60,6 @@ public class Task {
             Description = replaceBeginingSpace(Description);
             label = new Text(Description);
             label.setBoundsType(TextBoundsType.VISUAL);
-
-            pane.getChildren().add(spaces);
-            pane.getChildren().add(label);
-
         }
         else //If there is a class
         {
@@ -64,22 +67,71 @@ public class Task {
             Class = replaceBeginingSpace(Class);
             label = new Text(Class + ": " + Description);
             label.setBoundsType(TextBoundsType.VISUAL);
-
-            pane.getChildren().add(spaces);
-            pane.getChildren().add(label);
         }
+
+        JFXButton editButton = new JFXButton("Edit");
+        isEditing = false;
+        editButton.setPrefWidth(50);
+        editButton.setMinWidth(50);
+        editButton.setOnMouseClicked((event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                isEditing = !isEditing;
+
+                if (isEditing) {
+                    editButton.setText("Cancel");
+                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                    JFXTextField textbox = new JFXTextField();
+                    pane.setHgrow(textbox, Priority.ALWAYS);
+                    textbox.setText(label.getText());
+                    pane.getChildren().add(textbox);
+
+                    textbox.setOnKeyPressed(textBoxEvent -> {
+                        if (textBoxEvent.getCode() == KeyCode.ENTER) {
+                            String textBoxText = textbox.getText();
+                            if (textBoxText.trim().length() > 0) {
+                                isEditing = false;
+                                Description = replaceBeginingSpace(textBoxText);
+                                Class = null;
+                                label.setText(Description);
+                                pane.getChildren().remove(pane.getChildren().size() - 1);
+                                pane.getChildren().add(label);
+                                editButton.setText("Edit");
+                            }
+                        }
+                    });
+                }else{
+                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                    pane.getChildren().add(label);
+                    editButton.setText("Edit");
+                }
+
+            }
+        }));
+
+        editButton.setStyle("-fx-background-color: #FF9800");
+
+        pane.getChildren().add(spaces);
+        pane.getChildren().add(editButton);
+        pane.getChildren().add(spaces2);
+        pane.getChildren().add(label);
 
         pane.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
-                if (doesExist) {
-                    doesExist = false;
-                    label.setStrikethrough(true);
-                }else{
-                    doesExist = true;
-                    label.setStrikethrough(false);
+                if(!isEditing) {
+                    if (doesExist) {
+                        doesExist = false;
+                        pane.getChildren().remove(editButton);
+                        pane.getChildren().remove(spaces2);
+                        label.setStrikethrough(true);
+                    } else {
+                        doesExist = true;
+                        pane.getChildren().add(1, editButton);
+                        pane.getChildren().add(2, spaces2);
+                        label.setStrikethrough(false);
+                    }
                 }
+                box.update();
             }
-            box.update();
         }));
 
 //        pane.setOnMouseEntered((event -> {
@@ -92,6 +144,7 @@ public class Task {
 //                label.setStrikethrough(true);
 //            }
 //        }));
+
 
         return pane;
     }

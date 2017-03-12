@@ -133,7 +133,7 @@ public class CalendarBox extends Pane{
         dateLabel.getStyleClass().setAll("date-label");
 
         dateLabelStackPane.getChildren().add(dateLabel);
-        StackPane.setMargin(dateLabel, new Insets(-1, 0, 0, 4));
+        StackPane.setMargin(dateLabel, new Insets(-1, 0, 0, 6));
 
         iconContainer = new HBox();
         iconContainer.setId("iconContainer");
