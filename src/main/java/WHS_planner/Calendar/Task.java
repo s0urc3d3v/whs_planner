@@ -85,7 +85,7 @@ public class Task {
             if (event.getButton() == MouseButton.PRIMARY) {
                 if (doesExist) {
                     doesExist = false;
-                    deleteButton.setText("Cancel");
+                    deleteButton.setText("Undo");
                     deleteButton.setStyle("-fx-background-color: red");
                     label.setStrikethrough(true);
                 } else {
