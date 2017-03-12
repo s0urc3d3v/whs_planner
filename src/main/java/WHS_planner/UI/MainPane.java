@@ -119,6 +119,8 @@ public class MainPane extends StackPane {
             });
             continueButton.setOnMouseClicked(event -> dialog.close());
         }
+
+
     }
 
     /**

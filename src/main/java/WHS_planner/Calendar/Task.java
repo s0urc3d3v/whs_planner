@@ -69,70 +69,71 @@ public class Task {
             label.setBoundsType(TextBoundsType.VISUAL);
         }
 
-        JFXButton editButton = new JFXButton("Edit");
         isEditing = false;
-        editButton.setPrefWidth(50);
-        editButton.setMinWidth(50);
-        editButton.setOnMouseClicked((event -> {
+
+        JFXButton deleteButton = new JFXButton("Delete");
+        deleteButton.setStyle("-fx-background-color: #FF9800");
+        deleteButton.setPrefWidth(50);
+        deleteButton.setMinWidth(50);
+
+        JFXButton cancelButton = new JFXButton("Cancel");
+        cancelButton.setPrefWidth(50);
+        cancelButton.setMinWidth(50);
+        cancelButton.setStyle("-fx-background-color: rgb(56, 118, 237);");
+
+        deleteButton.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
-                isEditing = !isEditing;
-
-                if (isEditing) {
-                    editButton.setText("Cancel");
-                    pane.getChildren().remove(pane.getChildren().size() - 1);
-                    JFXTextField textbox = new JFXTextField();
-                    pane.setHgrow(textbox, Priority.ALWAYS);
-                    textbox.setText(label.getText());
-                    pane.getChildren().add(textbox);
-
-                    textbox.setOnKeyPressed(textBoxEvent -> {
-                        if (textBoxEvent.getCode() == KeyCode.ENTER) {
-                            String textBoxText = textbox.getText();
-                            if (textBoxText.trim().length() > 0) {
-                                isEditing = false;
-                                Description = replaceBeginingSpace(textBoxText);
-                                Class = null;
-                                label.setText(Description);
-                                pane.getChildren().remove(pane.getChildren().size() - 1);
-                                pane.getChildren().add(label);
-                                editButton.setText("Edit");
-                            }
-                        }
-                    });
-                }else{
-                    pane.getChildren().remove(pane.getChildren().size() - 1);
-                    pane.getChildren().add(label);
-                    editButton.setText("Edit");
-                }
-
-            }
-        }));
-
-        editButton.setStyle("-fx-background-color: #FF9800");
-
-        pane.getChildren().add(spaces);
-        pane.getChildren().add(editButton);
-        pane.getChildren().add(spaces2);
-        pane.getChildren().add(label);
-
-        pane.setOnMouseClicked((event -> {
-            if (event.getButton() == MouseButton.PRIMARY) {
-                if(!isEditing) {
-                    if (doesExist) {
-                        doesExist = false;
-                        pane.getChildren().remove(editButton);
-                        pane.getChildren().remove(spaces2);
-                        label.setStrikethrough(true);
-                    } else {
-                        doesExist = true;
-                        pane.getChildren().add(1, editButton);
-                        pane.getChildren().add(2, spaces2);
-                        label.setStrikethrough(false);
-                    }
+                if (doesExist) {
+                    doesExist = false;
+                    deleteButton.setText("Cancel");
+                    deleteButton.setStyle("-fx-background-color: red");
+                    label.setStrikethrough(true);
+                } else {
+                    doesExist = true;
+                    deleteButton.setText("Delete");
+                    deleteButton.setStyle("-fx-background-color: #FF9800");
+                    label.setStrikethrough(false);
                 }
                 box.update();
             }
         }));
+
+        pane.setOnMouseClicked((event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                if(doesExist) {
+                    if (!isEditing) {
+                        isEditing = true;
+                        JFXTextField textbox = new JFXTextField();
+                        pane.setHgrow(textbox, Priority.ALWAYS);
+                        textbox.setText(label.getText());
+                        pane.getChildren().setAll(spaces, cancelButton, spaces2, textbox);
+
+                        textbox.setOnKeyPressed(textBoxEvent -> {
+                            if (textBoxEvent.getCode() == KeyCode.ENTER) {
+                                String textBoxText = textbox.getText();
+                                if (textBoxText.trim().length() > 0) {
+                                    Description = replaceBeginingSpace(textBoxText);
+                                    Class = null;
+                                    label.setText(Description);
+                                    isEditing = false;
+                                    pane.getChildren().setAll(spaces, deleteButton, spaces2, label);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        }));
+
+        cancelButton.setOnMouseClicked((event -> {
+            if(event.getButton() == MouseButton.PRIMARY){
+                isEditing = false;
+                pane.getChildren().setAll(spaces,deleteButton,spaces2,label);
+            }
+        }));
+
+
+        pane.getChildren().addAll(spaces,deleteButton,spaces2,label);
 
 //        pane.setOnMouseEntered((event -> {
 //            if (event.getButton() == MouseButton.PRIMARY) {

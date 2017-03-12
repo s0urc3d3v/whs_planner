@@ -24,6 +24,7 @@ public class Main extends Application {
     public static final String VERSION_NUMBER = "1.2.3";
 
     public static boolean isFirstStartup = false;
+    public static boolean isFirstTimeOnVersion = false;
 
     //ON first run move jfoenix to a place it can be referenced on a remote system
     private static String readKey = null;
@@ -74,6 +75,17 @@ public class Main extends Application {
         File keys = new File(Main.SAVE_FOLDER+ File.separator +"Keys");
         if(!keys.exists()) {
             keys.mkdir();
+        }
+
+        File runVersionFolder = new File(Main.SAVE_FOLDER+ File.separator + "version");
+        if(!runVersionFolder.exists()) {
+            runVersionFolder.mkdir();
+        }
+
+        File versionFile = new File(Main.SAVE_FOLDER+ File.separator + "version" + File.separator + VERSION_NUMBER);
+        if(!versionFile.exists()){
+            isFirstTimeOnVersion = true;
+//            versionFile.createNewFile();
         }
 
         //Stupid way to do Day Array
