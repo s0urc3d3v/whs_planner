@@ -29,6 +29,11 @@ import java.util.stream.Stream;
 
 public class MainPane extends StackPane {
 
+    final static String ICON_BELL = "\uf0f3";
+    final static String ICON_SCHEDULE = "\uf073";
+    final static String ICON_NEWS = "\uf1ea";
+    final static String ICON_FEEDBACK = "\uf044";
+    final static String ICON_ABOUT = "\uf05a";
 //    private final int HOME = 0;
 //    private final int SCHEDULE = 1;
 //    private final int CALENDAR = 2;
@@ -44,8 +49,8 @@ public class MainPane extends StackPane {
     private Schedule schedule;
     private CalendarYear calendar;
     private NewsUI news;
-
     private boolean isHamburgerPressed = false;
+
 
 //    private Home homePane;
 
@@ -211,6 +216,8 @@ public class MainPane extends StackPane {
          |   START Jesus code
           \
          */
+//        InputStream font = Main.class.getResourceAsStream("/FontAwesome/fontawesome.ttf");
+//        Font.loadFont(font,10);
         bigButton.setText("\uf142");
         bigButton.setCursor(Cursor.HAND);
         bigButton.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 28px; -fx-text-fill: #FFFFFF;");
@@ -219,8 +226,13 @@ public class MainPane extends StackPane {
         final StackPane backmanISGay = this;
         bigButton.setOnMouseClicked(event -> {
             VBox info = new VBox();
+//            info.getStyleClass().addAll("font-awesome");
             JFXButton button0 = new JFXButton();
-            button0.setText("      Show Bell Schedule");
+//            button0.setStyle("-fx-font-family: 'FontAwesome");
+            System.out.println(button0.getStyleClass());
+            button0.setText("     " + ICON_BELL + "  Show Bell Schedule");
+//            button0.setText("     Show Bell Schedule");
+//            button0.setGraphic(new ImageView("\uf0f3"));
             button0.setOnMouseClicked(event1 -> {
                 info.setMinSize(0, 0);
                 info.getChildren().clear();
@@ -228,7 +240,7 @@ public class MainPane extends StackPane {
                 info.getStyleClass().setAll("large-text");
             });
             JFXButton button1 = new JFXButton();
-            button1.setText("      Refresh Schedule");
+            button1.setText("      " + ICON_SCHEDULE + "  Refresh Schedule");
             button1.setOnMouseClicked(event12 -> {
                 try {
                     schedule.getScheduleControl().logout();
@@ -237,7 +249,7 @@ public class MainPane extends StackPane {
                 }
             });
             JFXButton button2 = new JFXButton();
-            button2.setText("      Refresh News");
+            button2.setText("      " + ICON_NEWS + "  Refresh News");
             button2.setOnMouseClicked(eventNews -> {
                 news.refresh();
                 news.requestFocus();
@@ -245,7 +257,7 @@ public class MainPane extends StackPane {
                 news.layout();
             });
             JFXButton button3 = new JFXButton();
-            button3.setText("      Send Feedback");
+            button3.setText("      " + ICON_FEEDBACK + "  Send Feedback");
             button3.setOnMouseClicked(event13 -> {
                 try {
                     Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/KSCFGXldhE4EBytp1"});
@@ -254,7 +266,7 @@ public class MainPane extends StackPane {
                 }
             });
             JFXButton button4 = new JFXButton();
-            button4.setText("      About");
+            button4.setText("      " + ICON_ABOUT + "  About");
             button4.setOnMouseClicked(event14 -> {
                 info.getChildren().clear();
                 Label versionLabel = new Label("Version:");

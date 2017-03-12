@@ -6,6 +6,10 @@
     -fx-padding: 0;
     -fx-background-radius: 0;
     -fx-cursor: hand;
+
+    -fx-font-family: 'FontAwesome Regular';
+
+
 }
 
 .label-button {
@@ -54,3 +58,4 @@
     -fx-font-weight: bold;
 
 }
+
