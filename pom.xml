@@ -3,8 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>WHS_planner</groupId>
-    <artifactId>whs_planner_app</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>WHS_Planner</artifactId>
+    <version>1.2.3</version>
     <packaging>jar</packaging>
 
     <name>WHS Planner</name>
