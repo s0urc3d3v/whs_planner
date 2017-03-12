@@ -61,7 +61,45 @@ public class MainPane extends StackPane {
         mainPane.prefHeightProperty().bind(this.heightProperty());
         this.getChildren().setAll(mainPane); //Set the main pane as the pane generated
 
-        
+        //Initialize update note panel
+        if (Main.isFirstTimeOnVersion) {
+            final StackPane outsidePane = this;
+            VBox info = new VBox();
+            info.setAlignment(Pos.CENTER_LEFT);
+            info.setSpacing(10);
+            info.getStylesheets().addAll("/UI/dropDown.css");
+            info.getStyleClass().setAll("roboto");
+            Label title = new Label("Update Notes for " + Main.VERSION_NUMBER);
+            title.setMaxWidth(335);
+            title.setWrapText(true);
+            title.getStyleClass().setAll("title-text");
+            title.setPadding(new Insets(0, 0, 10, 0));
+            Label agreement = new Label();
+            agreement.setText(Main.UPDATE_NOTES);
+            agreement.setPadding(new Insets(0, 0, 10, 0));
+            agreement.setMaxWidth(335);
+            agreement.setWrapText(true);
+
+            JFXButton continueButton = new JFXButton("CONTINUE");
+            continueButton.getStyleClass().addAll("continue-button");
+            continueButton.setRipplerFill(Color.DARKSLATEGRAY);
+            continueButton.setCursor(Cursor.HAND);
+            HBox continueContainer = new HBox(continueButton);
+            continueContainer.setAlignment(Pos.BOTTOM_RIGHT);
+            info.getChildren().add(title);
+            info.getChildren().add(agreement);
+            info.getChildren().add(continueContainer);
+            JFXDialog dialog = new JFXDialog(outsidePane, info, JFXDialog.DialogTransition.CENTER, true);
+            dialog.show();
+            dialog.setOverlayClose(false);
+            dialog.setMinWidth(400);
+            dialog.setMinHeight(0);
+            info.setPadding(new Insets(25, 25, 15, 25));
+            info.setMinWidth(0);
+            info.setMinHeight(0);
+            continueButton.setOnMouseClicked(event -> dialog.close());
+        }
+
         //Initialize agreement panel
         if (Main.isFirstStartup) {
             final StackPane outsidePane = this;
@@ -119,7 +157,6 @@ public class MainPane extends StackPane {
             });
             continueButton.setOnMouseClicked(event -> dialog.close());
         }
-
 
     }
 

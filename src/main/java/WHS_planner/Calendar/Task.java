@@ -72,14 +72,14 @@ public class Task {
         isEditing = false;
 
         JFXButton deleteButton = new JFXButton("Delete");
-        deleteButton.setStyle("-fx-background-color: #FF9800");
+        deleteButton.setStyle("-fx-background-color: rgb(56, 118, 237);");
         deleteButton.setPrefWidth(50);
         deleteButton.setMinWidth(50);
 
         JFXButton cancelButton = new JFXButton("Cancel");
         cancelButton.setPrefWidth(50);
         cancelButton.setMinWidth(50);
-        cancelButton.setStyle("-fx-background-color: rgb(56, 118, 237);");
+        cancelButton.setStyle("-fx-background-color: red");
 
         deleteButton.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {

@@ -23,6 +23,8 @@ public class Main extends Application {
 
     public static final String VERSION_NUMBER = "1.2.3";
 
+    public static final String UPDATE_NOTES = "iPass login should be fixed!\nAdded Task Editing Support (Suggestion from Vincent Pak)";
+
     public static boolean isFirstStartup = false;
     public static boolean isFirstTimeOnVersion = false;
 
@@ -85,7 +87,7 @@ public class Main extends Application {
         File versionFile = new File(Main.SAVE_FOLDER+ File.separator + "version" + File.separator + VERSION_NUMBER);
         if(!versionFile.exists()){
             isFirstTimeOnVersion = true;
-//            versionFile.createNewFile();
+            versionFile.createNewFile();
         }
 
         //Stupid way to do Day Array
