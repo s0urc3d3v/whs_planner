@@ -71,27 +71,25 @@ public class Task {
 
         isEditing = false;
 
-        JFXButton deleteButton = new JFXButton("Delete");
-        deleteButton.setStyle("-fx-background-color: rgb(56, 118, 237);");
-        deleteButton.setPrefWidth(50);
-        deleteButton.setMinWidth(50);
+        JFXButton deleteButton = new JFXButton();
+        setButtonToDelete(deleteButton);
+        deleteButton.setMinHeight(20);
 
         JFXButton cancelButton = new JFXButton("Cancel");
         cancelButton.setPrefWidth(50);
         cancelButton.setMinWidth(50);
-        cancelButton.setStyle("-fx-background-color: red");
+        cancelButton.setMinHeight(20);
+        cancelButton.setStyle("-fx-background-color: #F26650");
 
         deleteButton.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 if (doesExist) {
                     doesExist = false;
-                    deleteButton.setText("Undo");
-                    deleteButton.setStyle("-fx-background-color: red");
+                    setButtonToUndo(deleteButton);
                     label.setStrikethrough(true);
                 } else {
                     doesExist = true;
-                    deleteButton.setText("Delete");
-                    deleteButton.setStyle("-fx-background-color: rgb(56, 118, 237);");
+                    setButtonToDelete(deleteButton);
                     label.setStrikethrough(false);
                 }
                 box.update();
@@ -163,5 +161,19 @@ public class Task {
 
     Boolean doesExist() {
         return doesExist;
+    }
+
+    public void setButtonToDelete(JFXButton button){
+        button.setText("\uf00d");
+        button.setPrefWidth(20);
+        button.setMinWidth(20);
+        button.setStyle("-fx-background-color: rgb(56, 118, 237); -fx-font-family: 'FontAwesome Regular';");
+    }
+
+    public void setButtonToUndo(JFXButton button){
+        button.setText("Undo");
+        button.setPrefWidth(50);
+        button.setMinWidth(50);
+        button.setStyle("-fx-background-color: #F26650;-fx-font-family: 'Roboto';");
     }
 }
