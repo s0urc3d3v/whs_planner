@@ -230,7 +230,6 @@ public class MainPane extends StackPane {
 //            info.getStyleClass().addAll("font-awesome");
             JFXButton button0 = new JFXButton();
 //            button0.setStyle("-fx-font-family: 'FontAwesome");
-            System.out.println(button0.getStyleClass());
             button0.setText("     " + ICON_BELL + "  Show Bell Schedule");
 //            button0.setText("     Show Bell Schedule");
 //            button0.setGraphic(new ImageView("\uf0f3"));

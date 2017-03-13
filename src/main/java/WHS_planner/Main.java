@@ -175,9 +175,8 @@ public class Main extends Application {
         //WITH HOME
         stage.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT * 5 + 198 + 110); //Set the minimum height of the window
         stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90+280); //Set the minimum width of the window
-
-        System.out.println("width: "+ stage.getMinWidth());
-        System.out.println("height: "+ stage.getMinHeight());
+        //Width: 1140
+        //Height: 708
 
 
         stage.setTitle("WHS Planner"); //Set the title of the window

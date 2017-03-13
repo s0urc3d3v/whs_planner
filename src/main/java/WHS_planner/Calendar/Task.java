@@ -78,7 +78,6 @@ public class Task {
         isEditing = false;
 
         JFXButton deleteButton = new JFXButton();
-//        deleteButton.setPadding(new Insets(0,3,2,0));
         setButtonToDelete(deleteButton);
         deleteButton.setMinHeight(20);
 
@@ -180,14 +179,10 @@ public class Task {
 //        button.setText("\uf00d");
 //        button.setText(ICON_DELETE);
         button.setText(ICON_SQUARE);
-//        button.setAlignment(Pos.BASELINE_CENTER);
-
         button.setPrefWidth(20);
         button.setMinWidth(20);
 //        button.setStyle("-fx-background-color: rgb(56, 118, 237); -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 18px;");
         button.setStyle("-fx-background-color: transparent; -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 20px;");
-
-
     }
 
     public void setButtonToUndo(JFXButton button){
@@ -199,7 +194,6 @@ public class Task {
         button.setPrefWidth(20);
         button.setMinWidth(20);
         button.setStyle("-fx-background-color: transparent; -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 18px;");
-
 //        button.setStyle("-fx-background-color: #F26650;-fx-font-family: 'Roboto'; -fx-font-size: 14px;");
     }
 }
