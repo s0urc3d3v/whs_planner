@@ -22,6 +22,9 @@ public class Task {
     private final static String ICON_UNDO = "\uf0e2";
 
 
+    private final static String ICON_SQUARE = "\uf096";
+    private final static String ICON_CHECK = "\uf046";
+
     String Class, Title, Description;
     private Boolean doesExist = true;
     private Boolean isEditing = false;
@@ -175,7 +178,8 @@ public class Task {
 
     public void setButtonToDelete(JFXButton button){
 //        button.setText("\uf00d");
-        button.setText(ICON_DELETE);
+//        button.setText(ICON_DELETE);
+        button.setText(ICON_SQUARE);
 //        button.setAlignment(Pos.BASELINE_CENTER);
 
         button.setPrefWidth(20);
@@ -188,7 +192,8 @@ public class Task {
 
     public void setButtonToUndo(JFXButton button){
 //        button.setText("Undo");
-        button.setText(ICON_UNDO);
+//        button.setText(ICON_UNDO);
+        button.setText(ICON_CHECK);
 //        button.setPrefWidth(50);
 //        button.setMinWidth(50);
         button.setPrefWidth(20);
