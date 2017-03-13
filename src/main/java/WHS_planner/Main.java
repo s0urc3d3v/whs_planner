@@ -21,9 +21,9 @@ public class Main extends Application {
 
     public static final String SAVE_FOLDER = System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner";
 
-    public static final String VERSION_NUMBER = "1.3.1";
+    public static final String VERSION_NUMBER = "1.3.2";
 
-    public static final String UPDATE_NOTES = "- Added task editing support (Suggestion from Vincent Pak)\n - Added icons to make the app look better\n - iPass login should be fixed";
+    public static final String UPDATE_NOTES = " - Added task editing support (Suggestion from Vincent Pak)\n - Added icons to make the app look better\n - iPass login should be fixed";
 
     public static boolean isFirstStartup = false;
     public static boolean isFirstTimeOnVersion = false;
