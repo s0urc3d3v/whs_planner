@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class Main extends Application {
 
-    public static final String SAVE_FOLDER = System.getenv("HOME" ) + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner";
+    public static final String SAVE_FOLDER = System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner";
 
     public static final String VERSION_NUMBER = "1.3.1";
 
@@ -175,6 +175,9 @@ public class Main extends Application {
         //WITH HOME
         stage.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT * 5 + 198 + 110); //Set the minimum height of the window
         stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90+280); //Set the minimum width of the window
+
+        System.out.println("width: "+ stage.getMinWidth());
+        System.out.println("height: "+ stage.getMinHeight());
 
 
         stage.setTitle("WHS Planner"); //Set the title of the window

@@ -2,9 +2,7 @@ package WHS_planner.Calendar;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
@@ -19,6 +17,11 @@ import java.io.File;
  * Created by geoffrey_wang on 9/20/16.
  */
 public class Task {
+    private final static String ICON_DELETE = "\uf057";
+    private final static String ICON_BACK = "\uf137";
+    private final static String ICON_UNDO = "\uf0e2";
+
+
     String Class, Title, Description;
     private Boolean doesExist = true;
     private Boolean isEditing = false;
@@ -72,14 +75,21 @@ public class Task {
         isEditing = false;
 
         JFXButton deleteButton = new JFXButton();
+//        deleteButton.setPadding(new Insets(0,3,2,0));
         setButtonToDelete(deleteButton);
         deleteButton.setMinHeight(20);
 
-        JFXButton cancelButton = new JFXButton("Cancel");
-        cancelButton.setPrefWidth(50);
-        cancelButton.setMinWidth(50);
+//        JFXButton cancelButton = new JFXButton("Cancel");
+        JFXButton cancelButton = new JFXButton(ICON_BACK);
+
+//        cancelButton.setPrefWidth(50);
+        cancelButton.setPrefWidth(20);
+//        cancelButton.setMinWidth(50);
+        cancelButton.setMinWidth(20);
+
         cancelButton.setMinHeight(20);
-        cancelButton.setStyle("-fx-background-color: #F26650");
+//        cancelButton.setStyle("-fx-background-color: #F26650");
+        cancelButton.setStyle("-fx-background-color: transparent; -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 20px;");
 
         deleteButton.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -102,7 +112,7 @@ public class Task {
                     if (!isEditing) {
                         isEditing = true;
                         JFXTextField textbox = new JFXTextField();
-                        pane.setHgrow(textbox, Priority.ALWAYS);
+                        HBox.setHgrow(textbox, Priority.ALWAYS);
                         textbox.setText(label.getText());
                         pane.getChildren().setAll(spaces, cancelButton, spaces2, textbox);
 
@@ -164,16 +174,27 @@ public class Task {
     }
 
     public void setButtonToDelete(JFXButton button){
-        button.setText("\uf00d");
+//        button.setText("\uf00d");
+        button.setText(ICON_DELETE);
+//        button.setAlignment(Pos.BASELINE_CENTER);
+
         button.setPrefWidth(20);
         button.setMinWidth(20);
-        button.setStyle("-fx-background-color: rgb(56, 118, 237); -fx-font-family: 'FontAwesome Regular';");
+//        button.setStyle("-fx-background-color: rgb(56, 118, 237); -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 18px;");
+        button.setStyle("-fx-background-color: transparent; -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 20px;");
+
+
     }
 
     public void setButtonToUndo(JFXButton button){
-        button.setText("Undo");
-        button.setPrefWidth(50);
-        button.setMinWidth(50);
-        button.setStyle("-fx-background-color: #F26650;-fx-font-family: 'Roboto';");
+//        button.setText("Undo");
+        button.setText(ICON_UNDO);
+//        button.setPrefWidth(50);
+//        button.setMinWidth(50);
+        button.setPrefWidth(20);
+        button.setMinWidth(20);
+        button.setStyle("-fx-background-color: transparent; -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 18px;");
+
+//        button.setStyle("-fx-background-color: #F26650;-fx-font-family: 'Roboto'; -fx-font-size: 14px;");
     }
 }

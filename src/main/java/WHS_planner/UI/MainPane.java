@@ -16,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.TextAlignment;
 
 import java.io.File;
 import java.io.IOException;
@@ -220,6 +219,8 @@ public class MainPane extends StackPane {
 //        Font.loadFont(font,10);
         bigButton.setText("\uf142");
         bigButton.setCursor(Cursor.HAND);
+//        bigButton.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
+//        bigButton.getStyleClass().setAll("big-button");
         bigButton.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 28px; -fx-text-fill: #FFFFFF;");
         Pane parent = (Pane)(bigButton.getParent());
         bigButton.prefHeightProperty().bind(parent.heightProperty());
@@ -241,6 +242,7 @@ public class MainPane extends StackPane {
             });
             JFXButton button1 = new JFXButton();
             button1.setText("      " + ICON_SCHEDULE + "  Refresh Schedule");
+
             button1.setOnMouseClicked(event12 -> {
                 try {
                     schedule.getScheduleControl().logout();
@@ -266,7 +268,7 @@ public class MainPane extends StackPane {
                 }
             });
             JFXButton button4 = new JFXButton();
-            button4.setText("      " + ICON_ABOUT + "  About");
+            button4.setText("      " + ICON_ABOUT + "   About");
             button4.setOnMouseClicked(event14 -> {
                 info.getChildren().clear();
                 Label versionLabel = new Label("Version:");
@@ -297,10 +299,10 @@ public class MainPane extends StackPane {
                 JFXButton licenses = new JFXButton("Licenses");
 //                buttonContainer.getChildren().add(licenses);
 //                buttonContainer.setAlignment(Pos.CENTER);
-                licenses.setButtonType(JFXButton.ButtonType.RAISED);
-                licenses.setTextAlignment(TextAlignment.CENTER);
+                licenses.setButtonType(JFXButton.ButtonType.FLAT);
+                licenses.setAlignment(Pos.CENTER);
                 licenses.getStyleClass().setAll("gray-button");
-                licenses.setPrefSize(175,40);
+                licenses.setPrefSize(75,30);
                 licenses.setOnMouseClicked(showLicences -> {
                     info.getChildren().clear();
                     Label licenseText = new Label("We used the JSOUP library (https://jsoup.org/) which is licensed under the MIT license:\nThe MIT License \nCopyright © 2009 - 2016 Jonathan Hedley (jonathan@hedley.net) \nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: \nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. \nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n\nWe also used federkasten's appbundler library (https://github.com/federkasten/appbundle-maven-plugin), as well as the JFoenix UI library (http://www.jfoenix.com/). \nBoth are avaiable under the Apache License 2.0(https://www.apache.org/licenses/LICENSE-2.0). \nCredit goes to Stack Overflow users: Chui Tey and jewelsea for their work on the Layout Animator class. \nhttps://gist.github.com/jewelsea/5683558 \n\nFont Awesome by Dave Gandy - http://fontawesome.io");
@@ -337,6 +339,11 @@ public class MainPane extends StackPane {
             info.setSpacing(0);
             info.setMinSize(200, info.getChildren().toArray().length*50);
             JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
+
+//            dialog.setTranslateX(470);
+//            dialog.setTranslateY(-135);
+//            JFXDialog dialog2 = new JFXDialog()
+
             dialog.show();
             /*
             \
