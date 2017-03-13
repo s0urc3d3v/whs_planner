@@ -21,7 +21,7 @@ public class Main extends Application {
 
     public static final String SAVE_FOLDER = System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner";
 
-    public static final String VERSION_NUMBER = "1.3.2";
+    public static final String VERSION_NUMBER = "1.3.3";
 
     public static final String UPDATE_NOTES = " - Added task editing support (Suggestion from Vincent Pak)\n - Added icons to make the app look better\n - iPass login should be fixed";
 
@@ -58,7 +58,7 @@ public class Main extends Application {
 
         PrintStream console = System.err;
 
-        File file = new File("err.txt");
+        File file = new File(Main.SAVE_FOLDER + File.separator + "err.txt");
         if(!file.exists()){
             file.createNewFile();
         }
