@@ -6,6 +6,7 @@ import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,6 +14,8 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -407,6 +410,22 @@ public class MainPane extends StackPane {
             }
             hamburger.getAnimation().play(); //Plays the transition
             isHamburgerPressed = false;
+        });
+
+        drawer.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ESCAPE) {
+                    if (drawer.isShown()) {
+                        isHamburgerPressed = true;
+                        drawer.setMouseTransparent(true);
+                        hamburger.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
+                        drawer.close();
+                        hamburger.getAnimation().play(); //Plays the transition
+                        isHamburgerPressed = false;
+                    }
+                }
+            }
         });
 
         //More functions to open and close the drawer
