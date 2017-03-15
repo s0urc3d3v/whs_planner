@@ -412,7 +412,7 @@ public class MainPane extends StackPane {
             isHamburgerPressed = false;
         });
 
-        drawer.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.ESCAPE) {
