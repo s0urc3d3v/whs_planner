@@ -46,10 +46,16 @@ public class NewsUI extends Pane {
 
         //Checks if feed sends back a connection error. If it doesn't, initialize cards as normal.
         if (feed.getTitle().equals("badNet")) {
+            cardView.setAlignment(Pos.CENTER);
             Hyperlink badNetLink = new Hyperlink("https://www.google.com/");
             badNetLink.setText("Test Connection (google.com)");
             JFXButton offlineRefresh = new JFXButton("Refresh");
-
+            offlineRefresh.getStylesheets().addAll("UI" + File.separator + "NewsUI.css");
+            offlineRefresh.getStyleClass().addAll("refresh-button");
+//            offlineRefresh.setPadding(new Insets(10,10,10,10));
+            offlineRefresh.setOnMouseClicked(event -> {
+                cardView.getChildren().clear();
+            });
             cardView.getChildren().add(offlineRefresh);
             addCard(badNetLink, new Label("Error with Connection!"));
             addCard(new TrexPane());
