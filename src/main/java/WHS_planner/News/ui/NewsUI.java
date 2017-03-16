@@ -51,10 +51,10 @@ public class NewsUI extends Pane {
             cardView.setAlignment(Pos.CENTER);
             Hyperlink badNetLink = new Hyperlink("https://www.google.com/");
             badNetLink.setText("Test Connection (google.com)");
+            //Refresh button to test connection after offline app launch
             JFXButton offlineRefresh = new JFXButton("Refresh");
             offlineRefresh.getStylesheets().addAll("UI" + File.separator + "NewsUI.css");
             offlineRefresh.getStyleClass().addAll("refresh-button");
-//            offlineRefresh.setPadding(new Insets(10,0,0,0));
             VBox refreshContainer = new VBox(offlineRefresh);
             VBox.setMargin(refreshContainer, new Insets(10,0,10,0));
             refreshContainer.setAlignment(Pos.CENTER);
@@ -64,22 +64,16 @@ public class NewsUI extends Pane {
             offlineRefresh.setOnMouseClicked(event -> {
                 feed = parser.readFeed();
                 if (feed.getTitle().equals("badNet")) {
-//                    refreshError.setText("Failed to refresh News.");
                     if(!(cardView.getChildren().get(1) == refreshError)){
                         cardView.getChildren().add(1,refreshError);
                     } else {
                         fontSize[0]++;
                         refreshError.setStyle("-fx-font-size: " + fontSize[0]+ "px;");
                     }
-
                 } else {
                     cardView.getChildren().clear();
                     init();
-
                 }
-
-
-
             });
             cardView.getChildren().add(refreshContainer);
             addCard(badNetLink, new Label("Error with Connection!"));
@@ -89,6 +83,7 @@ public class NewsUI extends Pane {
         }
     }
 
+    //OLD hyperlink method - uses Chrome only
 //    private void openLink(int index) {
 //        try {
 ////            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", parser.readFeed().getMessages().get(index).getLink()});
@@ -118,9 +113,7 @@ public class NewsUI extends Pane {
     private void init() {
         cardView.getChildren().clear();
 
-
         feedArray = feed.getMessages();
-
 
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
@@ -221,8 +214,6 @@ public class NewsUI extends Pane {
             onScreenMessages.add(feedArray.get(i));
         }
     }
-
-    //TODO not even sure if we need the runlaters, because it's basically in 3 right now
 
     //Normal news article
     private void addCard(Label description, Hyperlink hyperlink, ImageView image) {

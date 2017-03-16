@@ -31,11 +31,11 @@ import java.util.stream.Stream;
 
 public class MainPane extends StackPane {
 
-    final static String ICON_BELL = "\uf0f3";
-    final static String ICON_SCHEDULE = "\uf073";
-    final static String ICON_NEWS = "\uf1ea";
-    final static String ICON_FEEDBACK = "\uf044";
-    final static String ICON_ABOUT = "\uf05a";
+    private final static String ICON_BELL = "\uf0f3";
+    private final static String ICON_SCHEDULE = "\uf073";
+    private final static String ICON_NEWS = "\uf1ea";
+    private final static String ICON_FEEDBACK = "\uf044";
+    private final static String ICON_ABOUT = "\uf05a";
 //    private final int HOME = 0;
 //    private final int SCHEDULE = 1;
 //    private final int CALENDAR = 2;
@@ -266,9 +266,7 @@ public class MainPane extends StackPane {
                 if(Desktop.isDesktopSupported()) {
                     try {
                         Desktop.getDesktop().browse(new URI("https://goo.gl/forms/KSCFGXldhE4EBytp1"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (URISyntaxException e) {
+                    } catch (IOException | URISyntaxException e) {
                         e.printStackTrace();
                     }
                 }
@@ -529,7 +527,7 @@ public class MainPane extends StackPane {
             blocks = new String[]{"Block 1: ","Block 2: ","Advisory: ","Block 3: ","1st Lunch: ","2nd Lunch: ","3rd Lunch: ","Block 5: ","Block 6: "};
 
         } else if (bell2Check.isSelected()) {
-            times = new String[]{"7:30-8:21", "8:26-9:18", "9:58-10:50", "10:55-11:25", "11:22-11:52", "11:51-12:21", "12:26-1:18", "1:23-2:15"};
+            times = new String[]{"7:30-8:21", "8:26-9:18", "9:28-9:15", "9:58-10:50", "10:55-11:25", "11:22-11:52", "11:51-12:21", "12:26-1:18", "1:23-2:15"};
             blocks = new String[]{"Block 1: ", "Block 2: ", "Class Meeting: ", "Block 3: ", "1st Lunch: ", "2nd Lunch: ", "3rd Lunch: ", "Block 5: ", "Block 6: "};
         } else {
             times = new String[]{"7:30-8:26","8:31-9:28","9:38-10:35","10:40-11:10","11:10-11:40","11:41-12:11","12:16-1:13","1:18-2:15"};
