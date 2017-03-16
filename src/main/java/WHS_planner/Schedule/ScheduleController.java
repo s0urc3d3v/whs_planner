@@ -91,7 +91,7 @@ public class ScheduleController implements Initializable, ActionListener
             panes[i + 63].setStyle("-fx-background-color: #ffffff");
             panes[i + 63].toBack();
         }
-        File ipass = new File(Main.SAVE_FOLDER+"Keys" + File.separator + "ipass.key");
+        File ipass = new File(Main.SAVE_FOLDER+ File.separator+"Keys" + File.separator + "ipass.key");
         File Schedule = new File(Main.SAVE_FOLDER+ File.separator +"Schedule.json");
         if(Schedule.exists() && !ipass.exists()) {
 
