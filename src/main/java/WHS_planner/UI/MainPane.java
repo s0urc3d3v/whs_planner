@@ -17,8 +17,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -230,7 +233,7 @@ public class MainPane extends StackPane {
 //            info.getStyleClass().addAll("font-awesome");
             JFXButton button0 = new JFXButton();
 //            button0.setStyle("-fx-font-family: 'FontAwesome");
-            button0.setText("     " + ICON_BELL + "  Show Bell Schedule");
+            button0.setText("      " + ICON_BELL + "  Show Bell Schedule");
 //            button0.setText("     Show Bell Schedule");
 //            button0.setGraphic(new ImageView("\uf0f3"));
             button0.setOnMouseClicked(event1 -> {
@@ -260,11 +263,20 @@ public class MainPane extends StackPane {
             JFXButton button3 = new JFXButton();
             button3.setText("      " + ICON_FEEDBACK + "  Send Feedback");
             button3.setOnMouseClicked(event13 -> {
-                try {
-                    Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/KSCFGXldhE4EBytp1"});
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if(Desktop.isDesktopSupported()) {
+                    try {
+                        Desktop.getDesktop().browse(new URI("https://goo.gl/forms/KSCFGXldhE4EBytp1"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
                 }
+//                try {
+//                    Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/KSCFGXldhE4EBytp1"});
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
             });
             JFXButton button4 = new JFXButton();
             button4.setText("      " + ICON_ABOUT + "   About");

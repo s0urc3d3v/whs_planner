@@ -4,6 +4,7 @@ import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
 import WHS_planner.Trex.TrexPane;
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,10 +19,13 @@ import javafx.scene.layout.VBox;
 import org.jsoup.Jsoup;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,9 @@ public class NewsUI extends Pane {
         if (feed.getTitle().equals("badNet")) {
             Hyperlink badNetLink = new Hyperlink("https://www.google.com/");
             badNetLink.setText("Test Connection (google.com)");
+            JFXButton offlineRefresh = new JFXButton("Refresh");
+
+            cardView.getChildren().add(offlineRefresh);
             addCard(badNetLink, new Label("Error with Connection!"));
             addCard(new TrexPane());
         } else {
@@ -51,12 +58,28 @@ public class NewsUI extends Pane {
         }
     }
 
+//    private void openLink(int index) {
+//        try {
+////            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", parser.readFeed().getMessages().get(index).getLink()});
+//            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", onScreenMessages.get(index).getLink()});
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     private void openLink(int index) {
         try {
-//            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", parser.readFeed().getMessages().get(index).getLink()});
-            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", onScreenMessages.get(index).getLink()});
-
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().browse(new URI(onScreenMessages.get(index).getLink()));
+            }
+        } catch (URISyntaxException e) {
+            System.out.println("URI Syntax Exception!");
+            System.out.println("----------------------");
+            e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("I/O Exception!");
+            System.out.println("----------------------");
             e.printStackTrace();
         }
     }
