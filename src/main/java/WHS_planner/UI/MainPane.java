@@ -546,7 +546,6 @@ public class MainPane extends StackPane {
             blocks = new String[]{"Block 1: ","Block 2: ","Advisory: ","Block 3: ","1st Lunch: ","2nd Lunch: ","3rd Lunch: ","Block 5: ","Block 6: "};
 
         } else if (bell2Check.isSelected()) {
-            times = new String[]{"7:30-8:21", "8:26-9:18", "9:28-9:15", "9:58-10:50", "10:55-11:25", "11:22-11:52", "11:51-12:21", "12:26-1:18", "1:23-2:15"};
             times = new String[]{"7:30-8:21", "8:26-9:18", "9:28-9:53", "9:58-10:50", "10:55-11:25", "11:22-11:52", "11:51-12:21", "12:26-1:18", "1:23-2:15"};
             blocks = new String[]{"Block 1: ", "Block 2: ", "Class Meeting: ", "Block 3: ", "1st Lunch: ", "2nd Lunch: ", "3rd Lunch: ", "Block 5: ", "Block 6: "};
         } else {
