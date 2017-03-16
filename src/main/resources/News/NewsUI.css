@@ -56,6 +56,14 @@
     /*-fx-padding: 10;*/
 }
 
+.offline-news-card
+{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);
+    -fx-background-color: white;
+    -fx-font-size: 14px;
+    /*-fx-padding: 10;*/
+}
+
 .text-padding
 {
     -fx-padding: 10;
@@ -66,6 +74,7 @@
     -fx-font-size: 14px;
     -fx-button-type: RAISED;
     -fx-background-color: rgb(77,102,204);
-    -fx-pref-width: 230;
+    -fx-pref-width: 260;
+    -fx-pref-height: 40;
     -fx-text-fill: WHITE;
 }

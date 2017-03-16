@@ -16,6 +16,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import org.jsoup.Jsoup;
 
 import javax.imageio.ImageIO;
@@ -29,6 +30,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class NewsUI extends Pane {
 
@@ -52,11 +54,34 @@ public class NewsUI extends Pane {
             JFXButton offlineRefresh = new JFXButton("Refresh");
             offlineRefresh.getStylesheets().addAll("UI" + File.separator + "NewsUI.css");
             offlineRefresh.getStyleClass().addAll("refresh-button");
-//            offlineRefresh.setPadding(new Insets(10,10,10,10));
+//            offlineRefresh.setPadding(new Insets(10,0,0,0));
+            VBox refreshContainer = new VBox(offlineRefresh);
+            VBox.setMargin(refreshContainer, new Insets(10,0,10,0));
+            refreshContainer.setAlignment(Pos.CENTER);
+            Label refreshError = new Label("Failed to refresh News.");
+            refreshError.setTextFill(Color.RED);
+            int[] fontSize = {14};
             offlineRefresh.setOnMouseClicked(event -> {
-                cardView.getChildren().clear();
+                feed = parser.readFeed();
+                if (feed.getTitle().equals("badNet")) {
+//                    refreshError.setText("Failed to refresh News.");
+                    if(!(cardView.getChildren().get(1) == refreshError)){
+                        cardView.getChildren().add(1,refreshError);
+                    } else {
+                        fontSize[0]++;
+                        refreshError.setStyle("-fx-font-size: " + fontSize[0]+ "px;");
+                    }
+
+                } else {
+                    cardView.getChildren().clear();
+                    init();
+
+                }
+
+
+
             });
-            cardView.getChildren().add(offlineRefresh);
+            cardView.getChildren().add(refreshContainer);
             addCard(badNetLink, new Label("Error with Connection!"));
             addCard(new TrexPane());
         } else {
@@ -92,6 +117,10 @@ public class NewsUI extends Pane {
 
     private void init() {
         cardView.getChildren().clear();
+
+
+        feedArray = feed.getMessages();
+
 
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
@@ -200,21 +229,22 @@ public class NewsUI extends Pane {
         hyperlink.getStyleClass().add("roboto");
         description.getStyleClass().add("roboto");
         VBox textVBox;
-        VBox vBox;
+        VBox newsCard;
         if (image == null) {
             textVBox = new VBox(hyperlink, description);
             textVBox.getStyleClass().setAll("text-padding");
-            vBox = new VBox(textVBox);
+            newsCard = new VBox(textVBox);
         } else {
             textVBox = new VBox(hyperlink, description);
             textVBox.getStyleClass().setAll("text-padding");
-            vBox = new VBox(image,textVBox);
+            newsCard = new VBox(image,textVBox);
         }
-        vBox.setAlignment(Pos.TOP_CENTER);
-        vBox.setPrefWidth(BOX_WIDTH);
-        vBox.getStyleClass().setAll("news-card");
-        VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
-        Platform.runLater(()-> cardView.getChildren().add(vBox));
+        newsCard.setAlignment(Pos.TOP_CENTER);
+        newsCard.setPrefWidth(BOX_WIDTH);
+        newsCard.getStyleClass().setAll("news-card");
+        VBox.setMargin(newsCard, new Insets(10, 10, 10, 10));
+//        Platform.runLater(()-> cardView.getChildren().add(newsCard));
+        cardView.getChildren().add(newsCard);
     }
 
     //Normal news article for refresh
@@ -222,22 +252,23 @@ public class NewsUI extends Pane {
         hyperlink.getStyleClass().add("roboto");
         description.getStyleClass().add("roboto");
         VBox textVBox;
-        VBox vBox;
+        VBox newsCard;
         if (image == null) {
             textVBox = new VBox(hyperlink, description);
             textVBox.getStyleClass().setAll("text-padding");
-            vBox = new VBox(textVBox);
+            newsCard = new VBox(textVBox);
         } else {
             textVBox = new VBox(hyperlink, description);
             textVBox.getStyleClass().setAll("text-padding");
-            vBox = new VBox(image, textVBox);
+            newsCard = new VBox(image, textVBox);
         }
-        vBox.setAlignment(Pos.TOP_CENTER);
+        newsCard.setAlignment(Pos.TOP_CENTER);
 //        description.setTextAlignment(TextAlignment.JUSTIFY);
-        vBox.setPrefWidth(BOX_WIDTH);
-        vBox.getStyleClass().setAll("news-card");
-        VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
-        Platform.runLater(() -> cardView.getChildren().add(0, vBox));
+        newsCard.setPrefWidth(BOX_WIDTH);
+        newsCard.getStyleClass().setAll("news-card");
+        VBox.setMargin(newsCard, new Insets(10, 10, 10, 10));
+        Platform.runLater(() -> cardView.getChildren().add(0, newsCard));
+//        cardView.getChildren().add(0,newsCard);
     }
 
     //T-Rex :)
@@ -248,20 +279,24 @@ public class NewsUI extends Pane {
         hBox.setPrefWidth(BOX_WIDTH);
         hBox.getStyleClass().setAll("news-card");
         VBox.setMargin(hBox, new Insets(10, 10, 10, 10));
-
-        Platform.runLater(()-> cardView.getChildren().add(hBox));
+//        Platform.runLater(()-> cardView.getChildren().add(hBox));
+        cardView.getChildren().add(hBox);
     }
 
     //This one adds the label first - for offline
     private void addCard(Hyperlink hyperlink, Label description) {
         hyperlink.getStyleClass().add("roboto");
         description.getStyleClass().add("roboto");
+
         VBox vBox = new VBox(description, hyperlink);
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setPrefWidth(BOX_WIDTH);
-        vBox.getStyleClass().setAll("news-card");
+        vBox.getStyleClass().setAll("offline-news-card");
+
         VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
-        Platform.runLater(()-> cardView.getChildren().add(vBox));
+        vBox.setPadding(new Insets(10));
+//        Platform.runLater(()-> cardView.getChildren().add(vBox));
+        cardView.getChildren().add(vBox);
     }
 
     private WritableImage convertImg(BufferedImage bf) {
