@@ -373,7 +373,7 @@ public class CalendarBox extends Pane{
         dropDown.getSelectionModel().selectFirst();
 //        dropDown.setTranslateY(200);
         dropDown.getStylesheets().setAll("UI" + File.separator + "comboBox.css");
-//        dropDown.getStyleClass().addAll("combo-box-popup");
+        dropDown.getStyleClass().addAll("combo-box-popup");
 
 
         override = new JFXCheckBox();

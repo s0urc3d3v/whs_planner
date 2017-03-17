@@ -5,7 +5,7 @@
 }
 
 .combo-box-popup .list-view .jfx-list-cell{
-	-fx-background-insets: 24 ;
+	-fx-background-insets: -1;
 	-fx-text-fill: black;
 }
 
@@ -27,8 +27,14 @@
     /*-fx-border-width: 1;*/ /*Border Width is already 1 by default */
 }
 
-/*.combo-box-popup {
+.combo-box-popup {
     -fx-background-color: rgba(204,204,204,1);
-    -fx-background-radius: 5;
+    -fx-background-radius: 5,5;
     -fx-border-radius: 5;
-}*/
+      /*-fx-background-radius: 5, 5;*/
+      /*-fx-background-insets: -1.4, 0;*/
+      -fx-border-radius: 5,5;
+      /*-fx-border-width: 2;*/
+}
+
+
