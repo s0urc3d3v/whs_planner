@@ -1,0 +1,24 @@
+.combo-box-popup .list-view .jfx-list-cell:selected {
+	/*-fx-background-color: rgba(238,238,238,1);*/
+	-fx-background-color: rgb(255,255,255);
+	-fx-text-fill: black;
+}
+
+.combo-box-popup .list-view .jfx-list-cell {
+	-fx-background-insets: 0.0 ;
+	-fx-text-fill: black;
+}
+
+.combo-box-popup .list-view .jfx-list-cell:hover {
+	-fx-text-fill: black;
+	-fx-background-color: rgba(238,238,238,1);
+}
+
+.combo-box-popup .list-view .jfx-list-cell .jfx-rippler {
+	-fx-rippler-fill: rgba(204,204,204,1);
+}
+
+.combo-box-popup .list-view {
+    -fx-text-fill: black;
+    -fx-translate-y: -50;
+}

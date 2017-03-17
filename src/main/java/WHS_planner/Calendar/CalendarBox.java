@@ -4,12 +4,11 @@ import WHS_planner.Main;
 import WHS_planner.Schedule.ParseCalendar;
 import WHS_planner.Schedule.Schedule;
 import WHS_planner.UI.GlobalTime;
-import com.jfoenix.controls.JFXBadge;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -367,9 +366,21 @@ public class CalendarBox extends Pane{
         HBox hungryBox = new HBox();
         VBox taskVBox = new VBox(hungryBox);
 
+//        dropDown.setVisibleRowCount();
+//        dropDown.getItems().addAll("Current Class", "None");
+        ObservableList<String> menuItems = FXCollections.observableArrayList("Current Class", "None", "option 1", "xDDDDD", "rip a FAT VAPE");
+        JFXComboBox dropDown = new JFXComboBox(menuItems);
+        dropDown.getSelectionModel().selectFirst();
+//        dropDown.setTranslateY(200);
+        dropDown.getStylesheets().addAll("UI" + File.separator + "comboBox.css");
+
+
         override = new JFXCheckBox();
         override.setText("Use Current Class");
         hungryBox.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
+
+
+//        dropDown.getStyleClass().set()
         override.getStyleClass().setAll("label-button");
         override.setCheckedColor(Paint.valueOf("#0066FF"));
         override.setSelected(true);
@@ -378,12 +389,7 @@ public class CalendarBox extends Pane{
 
         JFXTextField textBox = new JFXTextField();
         textBox.setPromptText("Enter Task...");
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                textBox.requestFocus();
-            }
-        });
+        Platform.runLater(textBox::requestFocus);
         textBox.setCursor(Cursor.TEXT);
         textBox.getStyleClass().setAll("roboto");
         try {
@@ -397,7 +403,7 @@ public class CalendarBox extends Pane{
         }
 
 //        hungryBox.getChildren().addAll(override,textBox);
-        hungryBox.getChildren().addAll(textBox,override);
+        hungryBox.getChildren().addAll(textBox,override,dropDown);
 
 
         return taskVBox;
