@@ -366,14 +366,25 @@ public class CalendarBox extends Pane{
         HBox hungryBox = new HBox();
         VBox taskVBox = new VBox(hungryBox);
 
-//        dropDown.setVisibleRowCount();
 //        dropDown.getItems().addAll("Current Class", "None");
-        ObservableList<String> menuItems = FXCollections.observableArrayList("Current Class", "None", "option 1", "xDDDDD", "rip a FAT VAPE");
+        ObservableList<String> menuItems = FXCollections.observableArrayList("Current Class", "None", "option 1", "xDDDDD", "rip a FAT VAPE", "6", "7", "eight", "9", "10");
+//        ComboBox dropDown = new ComboBox(menuItems);
         JFXComboBox dropDown = new JFXComboBox(menuItems);
+        dropDown.setVisibleRowCount(10);
+
         dropDown.getSelectionModel().selectFirst();
 //        dropDown.setTranslateY(200);
-        dropDown.getStylesheets().setAll("UI" + File.separator + "comboBox.css");
-        dropDown.getStyleClass().addAll("combo-box-popup");
+        dropDown.getStylesheets().setAll("UI" + File.separator + "comboBox2.css");
+        dropDown.getStyleClass().setAll("combo-box-popup");
+
+
+        dropDown.setOnMouseClicked(event -> {
+            final Node listView = dropDown.lookup(".list-view");
+            System.out.println(dropDown.lookup(".list-view"));
+            Platform.runLater(()-> {
+                listView.setStyle("-fx-translate-y: -"+ (dropDown.getSelectionModel().getSelectedIndex() +1)*25 + ";");
+            });
+        });
 
 
         override = new JFXCheckBox();

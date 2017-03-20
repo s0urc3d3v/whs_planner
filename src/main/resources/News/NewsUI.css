@@ -21,7 +21,7 @@
 
 .scroll-bar .increment-arrow,
 .scroll-bar .decrement-arrow,
- {
+{
 	-fx-padding:0;
 }
 
@@ -33,14 +33,12 @@
 	-fx-background-radius: 2em;
 }
 
-.clear-select
-{
+.clear-select {
     -fx-accent: transparent;
     -fx-focus-color: transparent;
 }
 
-.roboto
-{
+.roboto {
     -fx-font-family: "Roboto";
 }
 
@@ -52,6 +50,7 @@
 .news-card
 {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);
+
     -fx-background-color: white;
     /*-fx-padding: 10;*/
 }

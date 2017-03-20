@@ -1,0 +1,123 @@
+.combo-box-popup .list-view .jfx-list-cell{
+	-fx-background-insets: -1;
+	-fx-text-fill: black;
+}
+
+.combo-box-popup > .list-view .jfx-list-cell:hover/*, .jfx-list-cell:filled:hover */ {
+	-fx-text-fill: black;
+	-fx-background-color: rgb(238,238,238);
+}
+
+.combo-box-popup .list-view .jfx-list-cell .jfx-rippler {
+	-fx-rippler-fill: rgb(204,204,204);
+}
+
+.combo-box-popup .list-view {
+    -fx-text-fill: black;
+    -fx-translate-y: -25;
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto";
+    -fx-border-color: white;
+
+    /*-fx-border-width: 1;*/ /*Border Width is already 1 by default */
+}
+
+
+.combo-box-popup {
+    -fx-background-color: rgba(204,204,204,1);
+    -fx-background-radius: 5,5;
+    -fx-border-radius: 5;
+      /*-fx-background-radius: 5, 5;*/
+      /*-fx-background-insets: -1.4, 0;*/
+      -fx-border-radius: 5,5;
+      /*-fx-border-width: 2;*/
+}
+
+.list-cell {
+    -fx-padding: 0.25em 0.583em 0.25em 0.583em; /* 3 7 3 7 */
+}
+
+/*
+.list-cell:odd {
+    -fx-background: -fx-control-inner-background-alt;
+}*/
+
+.combo-box-popup > .list-view {
+    -fx-background-color: white;
+    -fx-background-insets: 0, 0;
+    /*-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 12, 0.0 , 0 , 8 );*/
+
+}
+
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    /*-fx-padding: 4 0 4 5;*/
+
+    -fx-padding: 15, 0, 15, 5;
+    /* No alternate highlighting */
+    -fx-background: white;
+
+
+}
+
+/*The currently selected item*/
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected {
+        -fx-background: white;
+        -fx-background-color: white;
+}
+
+/*The currently hovered item*/
+.combo-box-popup  > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:hover,
+.combo-box-popup  > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected:hover {
+    -fx-background: rgb(238,238,238);
+    -fx-background-color: rgb(238,238,238);
+}
+
+/*List view items?*/
+.combo-box-popup > .list-view > .placeholder > .label {
+    -fx-text-fill: black;
+}
+
+
+
+
+
+
+
+/* The main scrollbar **track** CSS class  */
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+	-fx-background-color:transparent;
+	-fx-border-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-border-radius:2em;
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+
+    -fx-background-color: transparent;
+
+	-fx-background-radius: 0em;
+	-fx-padding:0 10 0 0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow,
+{
+	-fx-padding:0;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+	-fx-background-insets: 2, 0, 0;
+	-fx-background-radius: 2em;
+}
+
+
+
