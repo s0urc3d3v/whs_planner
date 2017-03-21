@@ -13,41 +13,34 @@ import javafx.scene.text.TextBoundsType;
 
 import java.io.File;
 
-/**
- * Created by geoffrey_wang on 9/20/16.
- */
 public class Task {
     private final static String ICON_DELETE = "\uf057";
-    private final static String ICON_BACK = "\uf137";
     private final static String ICON_UNDO = "\uf0e2";
-
-
+    private final static String ICON_BACK = "\uf137";
     private final static String ICON_SQUARE = "\uf096";
     private final static String ICON_CHECK = "\uf046";
 
-    String Class, Title, Description;
+    private String className = "", description = "";
     private Boolean doesExist = true;
     private Boolean isEditing = false;
 
-    public Task(String class1,String title1, String description1){
-        Class = class1;
-        Title = title1;
-        Description = description1;
+    public Task(String className, String description){
+        this.className = className;
+        this.description = description;
     }
 
-    public void changeClass(String class1){
-        Class = class1;
-    }
-    public void changeTitle(String title1){
-        Title = title1;
-    }
-    public void changeDescription(String description1){
-        Description = description1;
+    public Task(String className, String description, String hiddenData){
+        this.className = className;
+        this.description = description;
+
+        //Checks if task is deleted
+        if(hiddenData.substring(0,1).equalsIgnoreCase("d")){
+            doesExist = false;
+        }
     }
 
     public Pane getPane(CalendarBox box){
         HBox pane = new HBox();
-//        StackPane pane = new StackPane();
 
         pane.setMinHeight(30);
         pane.getStylesheets().add("Calendar" + File.separator + "MainUI.css");
@@ -59,19 +52,16 @@ public class Task {
         Text spaces = new Text("  ");
         Text spaces2 = new Text("  ");
 
-        System.out.println("CLASS: " + Class);
-        String tester = Class;
-        if (Class == null||Class.isEmpty()||tester.replaceAll(" ", "").length() == 0||Class.equals("")) //If there is no class
-        {
-            Description = replaceBeginingSpace(Description);
-            label = new Text(Description);
+        String tester = className;
+
+        if (className == null|| className.isEmpty()||tester.replaceAll(" ", "").length() == 0|| className.equals("")) { //If there is no class
+            description = replaceBeginningSpace(description);
+            label = new Text(description);
             label.setBoundsType(TextBoundsType.VISUAL);
-        }
-        else //If there is a class
-        {
-            Description = replaceBeginingSpace(Description);
-            Class = replaceBeginingSpace(Class);
-            label = new Text(Class + ": " + Description);
+        } else { //If there is a class
+            description = replaceBeginningSpace(description);
+            className = replaceBeginningSpace(className);
+            label = new Text(className + ": " + description);
             label.setBoundsType(TextBoundsType.VISUAL);
         }
 
@@ -81,17 +71,21 @@ public class Task {
         setButtonToDelete(deleteButton);
         deleteButton.setMinHeight(20);
 
-//        JFXButton cancelButton = new JFXButton("Cancel");
         JFXButton cancelButton = new JFXButton(ICON_BACK);
 
-//        cancelButton.setPrefWidth(50);
         cancelButton.setPrefWidth(20);
-//        cancelButton.setMinWidth(50);
         cancelButton.setMinWidth(20);
 
         cancelButton.setMinHeight(20);
-//        cancelButton.setStyle("-fx-background-color: #F26650");
         cancelButton.setStyle("-fx-background-color: transparent; -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 20px;");
+
+        if (!doesExist) {
+            setButtonToUndo(deleteButton);
+            label.setStrikethrough(true);
+        } else {
+            setButtonToDelete(deleteButton);
+            label.setStrikethrough(false);
+        }
 
         deleteButton.setOnMouseClicked((event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -122,9 +116,9 @@ public class Task {
                             if (textBoxEvent.getCode() == KeyCode.ENTER) {
                                 String textBoxText = textbox.getText();
                                 if (textBoxText.trim().length() > 0) {
-                                    Description = replaceBeginingSpace(textBoxText);
-                                    Class = null;
-                                    label.setText(Description);
+                                    description = replaceBeginningSpace(textBoxText);
+                                    className = null;
+                                    label.setText(description);
                                     isEditing = false;
                                     pane.getChildren().setAll(spaces, deleteButton, spaces2, label);
                                 }
@@ -142,25 +136,12 @@ public class Task {
             }
         }));
 
-
         pane.getChildren().addAll(spaces,deleteButton,spaces2,label);
-
-//        pane.setOnMouseEntered((event -> {
-//            if (event.getButton() == MouseButton.PRIMARY) {
-//                label.setStrikethrough(true);
-//            }
-//        }));
-//        pane.setOnMouseExited((event -> {
-//            if (event.getButton() == MouseButton.PRIMARY) {
-//                label.setStrikethrough(true);
-//            }
-//        }));
-
 
         return pane;
     }
 
-    public String replaceBeginingSpace(String string){
+    public String replaceBeginningSpace(String string){
         for (int i = 0; i < string.length(); i++) {
             if (string.substring(0,1).equals(" ")) {
                 string = string.substring(1, string.length());
@@ -176,24 +157,30 @@ public class Task {
     }
 
     public void setButtonToDelete(JFXButton button){
-//        button.setText("\uf00d");
-//        button.setText(ICON_DELETE);
         button.setText(ICON_SQUARE);
-        button.setPrefWidth(20);
-        button.setMinWidth(20);
-//        button.setStyle("-fx-background-color: rgb(56, 118, 237); -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 18px;");
         button.setStyle("-fx-background-color: transparent; -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 20px;");
     }
 
     public void setButtonToUndo(JFXButton button){
-//        button.setText("Undo");
-//        button.setText(ICON_UNDO);
         button.setText(ICON_CHECK);
-//        button.setPrefWidth(50);
-//        button.setMinWidth(50);
-        button.setPrefWidth(20);
-        button.setMinWidth(20);
         button.setStyle("-fx-background-color: transparent; -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 18px;");
-//        button.setStyle("-fx-background-color: #F26650;-fx-font-family: 'Roboto'; -fx-font-size: 14px;");
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String generateHiddenData(){
+        String hiddenData = "";
+        if(doesExist){
+            hiddenData += "e";
+        }else{
+            hiddenData += "d";
+        }
+        return hiddenData;
     }
 }

@@ -72,7 +72,8 @@ public class CalendarYear extends Pane {
 
     public void saveCalendar(){
         for(Calendar month: months){
-            month.saveCalendar();
+//            month.saveCalendar();
+            month.save();
         }
     }
 

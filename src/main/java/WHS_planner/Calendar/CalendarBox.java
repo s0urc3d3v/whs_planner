@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class CalendarBox extends Pane{
     public static final int CALENDAR_BOX_MIN_HEIGHT = 80, CALENDAR_BOX_MIN_WIDTH = 110; //Constant that defines the min size of a CalendarBox
     private static final int HOMEWORK = 0; //List IDs (Default)
-    private static final String[] ICONS_UNICODE = new String[]{"\uf0f6","\uf21b"}; //File Icon, Check Icon (Font UNICODE)
+    public static final String[] ICONS_UNICODE = new String[]{"\uf0f6","\uf141"}; //File Icon, Check Icon (Font UNICODE)
 
     private int date; //The date of the box
     private int week; //The week this box is in
@@ -59,8 +59,7 @@ public class CalendarBox extends Pane{
     private ParseCalendar pc = new ParseCalendar();
     private File day = new File(Main.SAVE_FOLDER+ File.separator +"DayArray.json");
 
-
-    public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Calendar cal){
+    public CalendarBox(int date, int week, boolean active, ArrayList<ArrayList<Task>> tasks, int month, Calendar cal){
 
         if(day.exists() && day.length() > 0) { //and if it isnt blank
             pc.readData();
@@ -77,18 +76,7 @@ public class CalendarBox extends Pane{
         this.month = month;
         this.globalTime = new GlobalTime(bell2);
 
-        if(tasks == null){
-            this.tasks = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
-
-            //Creates and fills in tasks with correct amount of lists according to NUMBER_OF_TASKLISTS
-            for (String aICONS_UNICODE : ICONS_UNICODE) {
-                this.tasks.add(new ArrayList<>()); //Create a new list
-            }
-        }else{
-            this.tasks = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
-
-            this.tasks.add(tasks);
-        }
+        this.tasks = tasks;
 
         //Creates the entire pane
         mainPane = new StackPane();
@@ -168,6 +156,23 @@ public class CalendarBox extends Pane{
 
     /*-----METHODS-----*/
 
+    public static ArrayList<ArrayList<Task>> generateTaskLists(ArrayList<Task> tasks){
+        ArrayList<ArrayList<Task>> temp;
+        if(tasks == null){
+            temp = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
+
+            //Creates and fills in tasks with correct amount of lists according to NUMBER_OF_TASKLISTS
+            for (String aICONS_UNICODE : ICONS_UNICODE) {
+                temp.add(new ArrayList<>()); //Create a new list
+            }
+        }else{
+            temp = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
+
+            temp.add(tasks);
+        }
+        return temp;
+    }
+
     //Initializes this box
     private void initFXMLBox() {
         String dateString = date + ""; //Creates a string version of the date value
@@ -230,18 +235,16 @@ public class CalendarBox extends Pane{
                 Label icon = new Label();
                 icon.getStyleClass().add("icon");
                 icon.setId("icon");
+                if(listID >= ICONS_UNICODE.length){
+                    listID = ICONS_UNICODE.length-1;
+                }
                 icon.setText(ICONS_UNICODE[listID]);
 
-                if(!ICONS_UNICODE[listID].equals("\uf21b")) {
-                    //Create the badge on the Label
-                    JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
-                    badge.getStyleClass().add("icon-badge");
-//                badge.getChildren().get(0).getStyleClass().setAll("testsefd");
-                    badge.setText("" + getTaskCount(listID)); //Set the badge number
-                    icons.add(badge);
-                }else{
-                    icons.add(icon);
-                }
+                //Create the badge on the Label
+                JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
+                badge.getStyleClass().add("icon-badge");
+                badge.setText("" + getTaskCount(listID)); //Set the badge number
+                icons.add(badge);
             }
         }
 
@@ -319,11 +322,11 @@ public class CalendarBox extends Pane{
 
 
                                     if (classIndex == -2) { //wednesday advisory
-                                        addTask(HOMEWORK, new Task("Advisory", "", textBoxText));
+                                        addTask(HOMEWORK, new Task("Advisory", textBoxText));
                                         update();
                                         updateTaskBox();
                                     } else if (classIndex == -3) { // bell 2 class meeting
-                                        addTask(HOMEWORK, new Task("Class Meeting", "", textBoxText));
+                                        addTask(HOMEWORK, new Task("Class Meeting", textBoxText));
                                         update();
                                         updateTaskBox();
                                     } else { //normal block
@@ -334,18 +337,18 @@ public class CalendarBox extends Pane{
                                         schedule = calendar.getSchedule();
                                             currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
 
-                                        addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                        addTask(HOMEWORK, new Task(currentClass, textBoxText));
                                         update();
                                         updateTaskBox();
                                     }
                                 } else //add it without class!
                                 {
-                                    addTask(HOMEWORK, new Task(null , "", textBoxText));
+                                    addTask(HOMEWORK, new Task("" , textBoxText));
                                     update();
                                     updateTaskBox();
                                 }
                             } else {
-                                addTask(HOMEWORK, new Task(null, "", textBoxText));
+                                addTask(HOMEWORK, new Task("", textBoxText));
                                 update();
                                 updateTaskBox();
                             }
@@ -410,7 +413,7 @@ public class CalendarBox extends Pane{
         vbox.getChildren().clear();
         int height = 0;
         for (int i = 0; i < tasks.get(0).size(); i++) {
-            if (tasks.get(0).get(i).doesExist()){
+//            if (tasks.get(0).get(i).doesExist()){
                 Pane tempPane = tasks.get(0).get(i).getPane(this);
                 vbox.getChildren().add(0, tempPane);
 
@@ -428,7 +431,7 @@ public class CalendarBox extends Pane{
                 if (height < 90) {
                     height+= 30;
                 }
-            }
+//            }
         }
         tasksPane.setMinHeight(height);
         tasksPane.setMaxHeight(height);

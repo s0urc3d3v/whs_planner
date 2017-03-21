@@ -1,6 +1,5 @@
 package WHS_planner.Calendar;
 
-import WHS_planner.Core.AutoSave;
 import WHS_planner.Core.IO;
 import WHS_planner.Core.JSON;
 import WHS_planner.Main;
@@ -20,11 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-
-/**
- * Created by geoffrey_wang on 9/21/16.
- */
 public class Calendar extends BorderPane {
+    private String filePath;
 
     //Days of the week
     private String[] daysOfTheWeek = new String[]{"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
@@ -57,6 +53,7 @@ public class Calendar extends BorderPane {
     }
     public Calendar(int month, JFXButton nextButton, JFXButton prevButton, Schedule sc) {
         this.month = month;
+        filePath = Main.SAVE_FOLDER + File.separator + "Calendar" + File.separator + "Calendar-" + (this.month+1) + ".json";
         this.schedule = sc;
 
         File saveFile = new File(Main.SAVE_FOLDER + File.separator + this.month + "CalendarHolder.json");
@@ -68,9 +65,6 @@ public class Calendar extends BorderPane {
             }
         }
 
-        io = new IO(Main.SAVE_FOLDER + File.separator + this.month + "CalendarHolder.json");
-
-        json = io.getJsonApi();
         this.startDay = dayFinder.getWeekdayMonthStarts(month);
         this.numberOfDays = dayFinder.getDaysInMonth(month);
 
@@ -116,11 +110,31 @@ public class Calendar extends BorderPane {
 
         mainPane.getChildren().add(topRow);
 
-        try {
-            calendar = util.CalendarLoad(startDay, numberOfDays, json, this.month);
-        } catch (Exception e) {
+        try{
+            load();
+        }catch (OldSaveVersionException e){
+            try {
+                io = new IO(Main.SAVE_FOLDER + File.separator + this.month + "CalendarHolder.json");
+                json = io.getJsonApi();
+                calendar = util.CalendarLoad(startDay, numberOfDays, json, this.month);
+                System.out.println("USED OLD SAVE FILES");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }catch(Exception e){
             e.printStackTrace();
+        }finally {
+            json.unloadFile();
         }
+
+//        try {
+//            calendar = util.CalendarLoad(startDay, numberOfDays, json, this.month);
+//            json.unloadFile();
+//            System.out.println("USED OLD SAVE FILES");
+//        } catch (IOException e1) {
+//            e1.printStackTrace();
+//        }
+
 
         //Add the week days and first row to the calendar
         GridPane firstRow = new GridPane();
@@ -149,7 +163,7 @@ public class Calendar extends BorderPane {
                 if (aCalendar[c] != null) {
                     tempCalendarBox = aCalendar[c];
                 } else {
-                    tempCalendarBox = new CalendarBox(0, 0, false, null, 0, this);
+                    tempCalendarBox = new CalendarBox(0, 0, false, CalendarBox.generateTaskLists(null), 0, this);
                 }
                 tempCalendarBox.prefHeightProperty().bind(row.heightProperty());
                 row.add(tempCalendarBox, c, 0);
@@ -339,15 +353,14 @@ public class Calendar extends BorderPane {
 
                         if (currentTask.doesExist()) {
                             System.out.println("Does save!");
-                            String currentTaskTitle = currentTask.Title;
-                            String currentTaskClass = currentTask.Class;
+                            String currentTaskClass = currentTask.getClassName();
 
 
                             // checks if class = null
                             if (currentTaskClass == null) {
                                 currentTaskClass = " ";
                             }
-                            String currentTaskDescription = currentTask.Description;
+                            String currentTaskDescription = currentTask.getDescription();
 
                             // checks if taskDescription = null
                             if (currentTaskDescription == null) {
@@ -376,5 +389,135 @@ public class Calendar extends BorderPane {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Saves the month as a json file
+     */
+    public void save() {
+        try {
+            File file = new File(filePath);
+            if(file.exists()) { //Delete the save file if it exists
+                file.delete();
+            }
+            file.createNewFile(); //Create a save file
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Init json file
+        try{
+            io = new IO(filePath);
+            json = io.getJsonApi();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //Actual Save Function
+        try {
+            json.writePair("Version",Main.VERSION_NUMBER); //Record version number for future reference
+
+            for (int dayIndex = 1; dayIndex <= numberOfDays; dayIndex++) { //Counter to hit every day of the month (Ex. 1-31)
+                int gridIndex = dayIndex + startDay - 2; //Which number box in the calendar grid (Ex. 0 means 1st box)
+                CalendarBox current = calendar[gridIndex / 7][gridIndex % 7]; //Get the CalendarBox of the corresponding date
+
+                ArrayList<ArrayList<Task>> taskLists = current.getTasks(); //List of all the different lists of tasks (Ex. Homework, test, project, etc.)
+                for (int taskListIndex = 0; taskListIndex < taskLists.size(); taskListIndex++) { //Loops through those lists
+                    ArrayList<Task> taskList = taskLists.get(taskListIndex); //List of all the tasks (Ex. Task1, task2, task3, etc.)
+                    for (int taskIndex = 0; taskIndex < taskList.size(); taskIndex++) { //Loops through those tasks
+                        Task task = taskList.get(taskIndex); //Grabs corresponding task
+
+                        //----SAVE METHOD----
+                        //Data is stored as: CLASS, DESCRIPTION, HIDDEN DATA
+                        //Tags are labeled as: M (month), D (date), L (List ID), T (Task ID), I (Data ID/)
+                        String[] taskAsString = {task.getClassName(), task.getDescription(), task.generateHiddenData()};
+                        json.writeArray("M" + (this.month + 1) + "-D" + current.getDate() + "-L" + taskListIndex + "-T" + taskIndex + "-I", taskAsString);
+                    }
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            json.unloadFile();
+        }
+    }
+
+
+    public void load() throws OldSaveVersionException{
+        try {
+            File file = new File(filePath);
+            if(!file.exists()) {
+                throw new OldSaveVersionException();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Init json file
+        try{
+            io = new IO(filePath);
+            json = io.getJsonApi();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            String rawVersion = json.readPair("Version").toString();
+        }catch (Exception e){
+            throw new OldSaveVersionException();
+        }
+
+        calendar = new CalendarBox[6][7];
+
+        for (int dayIndex = 1; dayIndex <= numberOfDays; dayIndex++) { //Counter to hit every day of the month (Ex. 1-31)
+            int gridIndex = dayIndex + startDay - 2; //Which number box in the calendar grid (Ex. 0 means 1st box)
+
+            //Creation of CalendarBox
+            ArrayList<ArrayList<Task>> taskLists = new ArrayList<>();
+
+            boolean finishedTaskLists = false;
+            int taskListIndex = 0;
+
+            while (!finishedTaskLists) {
+
+                boolean finishedTaskList = false;
+                int taskIndex = 0;
+                ArrayList<Task> taskList = new ArrayList<>();
+
+                while (!finishedTaskList) {
+                    try {
+                        String key = "@M" + (this.month + 1) + "-D" + dayIndex + "-L" + taskListIndex + "-T" + taskIndex + "-I";
+                        Object[] rawTask = json.readArray(key).toArray();
+                        String[] taskAsString = new String[rawTask.length];
+                        for (int i = 0; i < rawTask.length; i++) {
+                            String raw = (String) (rawTask[i]);
+                            raw = raw.substring((key+i+": ").length()-1); //-1 because the array keys don't have an "@"
+                            if(raw.equals("null")){
+                                raw = "";
+                            }
+                            taskAsString[i] = raw;
+                        }
+                        Task task = new Task(taskAsString[0],taskAsString[1],taskAsString[2]);
+                        System.out.println("Class:" + task.getClassName()+" Description:"+task.getDescription()+" Hidden Data:"+task.generateHiddenData());
+                        taskList.add(task);
+//                        String[] taskAsString = {task.getClassName(), task.getDescription(), task.generateHiddenData()};
+//                        json.writeArray("M" + (this.month + 1) + "-D" + current.getDate() + "-L" + taskListIndex + "-T" + taskIndex + "-I", taskAsString);
+
+                    } catch (Exception e) {
+                        finishedTaskList = true;
+                        if (taskList.size() == 0) {
+                            finishedTaskLists = true;
+                        }
+                    }
+                    taskIndex++;
+                }
+
+                taskLists.add(taskList);
+                taskListIndex++;
+            }
+
+            CalendarBox box = new CalendarBox(dayIndex,gridIndex % 7,true,taskLists,this.month,this);
+            calendar[gridIndex / 7][gridIndex % 7] = box; //Get the CalendarBox of the corresponding date
+        }
     }
 }
