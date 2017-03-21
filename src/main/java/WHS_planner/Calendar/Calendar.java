@@ -516,7 +516,7 @@ public class Calendar extends BorderPane {
                 taskListIndex++;
             }
 
-            CalendarBox box = new CalendarBox(dayIndex,gridIndex % 7,true,taskLists,this.month,this);
+            CalendarBox box = new CalendarBox(dayIndex,gridIndex / 7,true,taskLists,this.month,this);
             calendar[gridIndex / 7][gridIndex % 7] = box; //Get the CalendarBox of the corresponding date
         }
     }
