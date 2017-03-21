@@ -3,6 +3,7 @@ package WHS_planner.Calendar;
 import WHS_planner.Main;
 import WHS_planner.Schedule.ParseCalendar;
 import WHS_planner.Schedule.Schedule;
+import WHS_planner.Schedule.ScheduleBlock;
 import WHS_planner.UI.GlobalTime;
 import com.jfoenix.controls.*;
 import javafx.application.Platform;
@@ -201,7 +202,7 @@ public class CalendarBox extends Pane{
         update();
     }
 
-    public void hitThatDab() { //dayCircle update
+    void hitThatDab() { //dayCircle update
         java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
 
         int day = javaCalendar.get(java.util.Calendar.DAY_OF_MONTH);
@@ -367,9 +368,11 @@ public class CalendarBox extends Pane{
         VBox taskVBox = new VBox(hungryBox);
 
 //        dropDown.getItems().addAll("Current Class", "None");
-        ObservableList<String> menuItems = FXCollections.observableArrayList("Current Class", "None", "option 1", "xDDDDD", "rip a FAT VAPE", "6", "7", "eight", "9", "10");
+        ObservableList<String> menuItems = FXCollections.observableArrayList("None");
 //        ComboBox dropDown = new ComboBox(menuItems);
         JFXComboBox dropDown = new JFXComboBox(menuItems);
+        dropDown.setMaxWidth(200);
+        dropDown.setPrefHeight(480);
         dropDown.setVisibleRowCount(10);
 
         dropDown.getSelectionModel().selectFirst();
@@ -381,9 +384,21 @@ public class CalendarBox extends Pane{
         dropDown.setOnMouseClicked(event -> {
             final Node listView = dropDown.lookup(".list-view");
             System.out.println(dropDown.lookup(".list-view"));
-            Platform.runLater(()-> {
-                listView.setStyle("-fx-translate-y: -"+ (dropDown.getSelectionModel().getSelectedIndex() +1)*25 + ";");
-            });
+//            String[] s = pc.getClassArray();
+            String today = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
+            schedule = calendar.getSchedule();
+            ScheduleBlock[] s = schedule.getToday(pc.getDay(today));
+
+            menuItems.clear();
+            menuItems.add("Current Class");
+            menuItems.add("None");
+            for (ScheduleBlock value : s) {
+                System.out.println(value.getClassName());
+                menuItems.add(value.getClassName());
+            }
+            dropDown.getSelectionModel().selectFirst();
+
+            Platform.runLater(()-> listView.setStyle("-fx-translate-y: -"+ (dropDown.getSelectionModel().getSelectedIndex() +1)*25 + ";"));
         });
 
 

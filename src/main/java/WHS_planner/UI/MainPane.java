@@ -4,6 +4,7 @@ import WHS_planner.Calendar.CalendarYear;
 import WHS_planner.Main;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
+import WHS_planner.Util.UserLoggedIn;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.event.EventHandler;
@@ -82,7 +83,7 @@ public class MainPane extends StackPane {
             info.setSpacing(10);
             info.getStylesheets().addAll("/UI/dropDown.css");
             info.getStyleClass().setAll("roboto");
-            Label title = new Label("Update Notes for " + Main.VERSION_NUMBER);
+            Label title = new Label("What's new in " + Main.VERSION_NUMBER);
             title.setMaxWidth(335);
             title.setWrapText(true);
             title.getStyleClass().setAll("title-text");
@@ -253,6 +254,7 @@ public class MainPane extends StackPane {
             button1.setOnMouseClicked(event12 -> {
                 try {
                     schedule.getScheduleControl().logout();
+                    UserLoggedIn.logOut();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

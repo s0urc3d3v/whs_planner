@@ -24,12 +24,12 @@ public class ParseCalendar
         
     }
     
-    public void setData() throws Exception
+    void setData() throws Exception
     {
         classdays = parseData();
     }
 
-    public void writeData()
+    void writeData()
     {
         IO io = new IO(Main.SAVE_FOLDER+ File.separator +"DayArray.json");
         io.writeArray("calendarData", classdays);
@@ -63,7 +63,7 @@ public class ParseCalendar
     //Might need to be updated along with something in the JSON files but the bug has refused to rear its ugly head
     public void readData()
     {
-        tracker = new HashMap<String, Integer>();
+        tracker = new HashMap<>();
         classdays = new String[365];
 
         IO io = new IO(Main.SAVE_FOLDER+ File.separator +"DayArray.json");
@@ -98,7 +98,7 @@ public class ParseCalendar
     {
         String[] days = new String[365];
 
-        tracker = new HashMap<String, Integer>();
+        tracker = new HashMap<>();
         
         File parent = new File(Main.SAVE_FOLDER+ File.separator +"tmp");
 
@@ -205,7 +205,7 @@ public class ParseCalendar
         return days;
     }
     
-    public String[] getArray()
+    public String[] getClassArray()
     {
         return classdays;
     }

@@ -53,7 +53,7 @@
 .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
     /*-fx-padding: 4 0 4 5;*/
 
-    -fx-padding: 15, 0, 15, 5;
+    -fx-padding: 15, 0, 15, 0;
     /* No alternate highlighting */
     -fx-background: white;
 
@@ -87,7 +87,9 @@
 /* The main scrollbar **track** CSS class  */
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track{
-	-fx-background-color:transparent;
+	/*-fx-background-color:transparent;*/
+	-fx-background-color: white;
+
 	-fx-border-color:transparent;
 	-fx-background-radius: 0em;
 	-fx-border-radius:2em;
