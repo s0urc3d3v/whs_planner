@@ -20,7 +20,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 import java.io.File;
@@ -51,7 +50,8 @@ public class CalendarBox extends Pane{
     private int month;
 
     private JFXCheckBox bell2;
-    private JFXCheckBox override;
+//    private JFXCheckBox override;
+    private JFXComboBox dropSelect;
     private GlobalTime globalTime;
     private Schedule schedule;
     private Calendar calendar;
@@ -289,7 +289,8 @@ public class CalendarBox extends Pane{
                 HBox.setHgrow(textBox, Priority.ALWAYS);
 
                 //Code for the Checkbox
-                override = (JFXCheckBox) hBox.getChildren().get(1);
+//                override = (JFXCheckBox) hBox.getChildren().get(1);
+                dropSelect = (JFXComboBox) hBox.getChildren().get(1);
 
 
                 //Set pressing enter to clear the box text
@@ -311,8 +312,11 @@ public class CalendarBox extends Pane{
 //                                pc.readData();
                                 pc.readData();
                                 System.out.println("day length: " + day.length());
-                                //There is school              checkbox selected        during school hours (unreliable when there's no school)
-                                if ((pc.getDay(today).length() == 1 && override.isSelected() && classIndex != -1)) {
+                                //There is school              dropdown isnt none        during school hours (unreliable when there's no school)
+//                                if ((pc.getDay(today).length() == 1 && override.isSelected() && classIndex != -1)) {
+                                System.out.println(dropSelect.getValue().toString());
+                                if ((pc.getDay(today).length() == 1 && ((dropSelect.getValue().toString() != "None"))  && classIndex != -1)) {
+
 //                                    System.out.println(pc.getDay(today));
 //                                    System.out.println(override.isSelected());
 //                                    System.out.println(classIndex);
@@ -326,17 +330,30 @@ public class CalendarBox extends Pane{
                                         addTask(HOMEWORK, new Task("Class Meeting", "", textBoxText));
                                         update();
                                         updateTaskBox();
-                                    } else { //normal block
-//                                    String currentClass = schedule.getData()[classIndex].getClassName();
-//                                    String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
+                                    } else if (dropSelect.getValue().toString().equals("Current Class")) { //Current class
+                                        System.out.println(dropSelect.getValue().toString());
+
                                         String currentClass = "";
 
                                         schedule = calendar.getSchedule();
-                                            currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
+                                        currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
 
                                         addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
                                         update();
                                         updateTaskBox();
+                                    }
+                                    else { //Add from dropdown manual fuck
+                                        String currentClass = dropSelect.getValue().toString();
+
+//                                        schedule = calendar.getSchedule();
+//                                        currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
+
+                                        addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                        update();
+                                        updateTaskBox();
+//                                    String currentClass = schedule.getData()[classIndex].getClassName();
+//                                    String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
+
                                     }
                                 } else //add it without class!
                                 {
@@ -371,7 +388,8 @@ public class CalendarBox extends Pane{
         ObservableList<String> menuItems = FXCollections.observableArrayList("None");
 //        ComboBox dropDown = new ComboBox(menuItems);
         JFXComboBox dropDown = new JFXComboBox(menuItems);
-        dropDown.setMaxWidth(200);
+//        dropDown.setMaxWidth(200);
+        dropDown.setMinWidth(250);
         dropDown.setPrefHeight(480);
         dropDown.setVisibleRowCount(10);
 
@@ -393,7 +411,7 @@ public class CalendarBox extends Pane{
             menuItems.add("Current Class");
             menuItems.add("None");
             for (ScheduleBlock value : s) {
-                System.out.println(value.getClassName());
+//                System.out.println(value.getClassName());
                 menuItems.add(value.getClassName());
             }
             dropDown.getSelectionModel().selectFirst();
@@ -402,17 +420,17 @@ public class CalendarBox extends Pane{
         });
 
 
-        override = new JFXCheckBox();
-        override.setText("Use Current Class");
+//        override = new JFXCheckBox();
+//        override.setText("Use Current Class");
         hungryBox.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
 
 
 //        dropDown.getStyleClass().set()
-        override.getStyleClass().setAll("label-button");
-        override.setCheckedColor(Paint.valueOf("#0066FF"));
-        override.setSelected(true);
-        override.setCursor(Cursor.HAND);
-        override.setPrefSize(155,24);
+//        override.getStyleClass().setAll("label-button");
+//        override.setCheckedColor(Paint.valueOf("#0066FF"));
+//        override.setSelected(true);
+//        override.setCursor(Cursor.HAND);
+//        override.setPrefSize(155,24);
 
         JFXTextField textBox = new JFXTextField();
         textBox.setPromptText("Enter Task...");
@@ -430,7 +448,7 @@ public class CalendarBox extends Pane{
         }
 
 //        hungryBox.getChildren().addAll(override,textBox);
-        hungryBox.getChildren().addAll(textBox,override,dropDown);
+        hungryBox.getChildren().addAll(textBox,/*override,*/dropDown);
 
 
         return taskVBox;
