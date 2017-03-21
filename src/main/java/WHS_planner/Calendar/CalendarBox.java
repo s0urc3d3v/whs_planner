@@ -413,7 +413,7 @@ public class CalendarBox extends Pane{
         vbox.getChildren().clear();
         int height = 0;
         for (int i = 0; i < tasks.get(0).size(); i++) {
-//            if (tasks.get(0).get(i).doesExist()){
+            if (tasks.get(0).get(i).doesExist()){
                 Pane tempPane = tasks.get(0).get(i).getPane(this);
                 vbox.getChildren().add(0, tempPane);
 
@@ -428,10 +428,14 @@ public class CalendarBox extends Pane{
 //                    fadeIn.playFromStart();
 //                }
 
-                if (height < 90) {
-                    height+= 30;
-                }
-//            }
+
+            }else{
+                Pane tempPane = tasks.get(0).get(i).getPane(this);
+                vbox.getChildren().add(tempPane);
+            }
+            if (height < 90) {
+                height+= 30;
+            }
         }
         tasksPane.setMinHeight(height);
         tasksPane.setMaxHeight(height);
