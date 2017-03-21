@@ -412,7 +412,8 @@ public class CalendarBox extends Pane{
             menuItems.add("None");
             for (ScheduleBlock value : s) {
 //                System.out.println(value.getClassName());
-                menuItems.add(value.getClassName());
+                //removes the random space before every class
+                menuItems.add(value.getClassName().substring(1,value.getClassName().length()));
             }
             dropDown.getSelectionModel().selectFirst();
 
