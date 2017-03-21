@@ -21,9 +21,11 @@ public class Main extends Application {
 
     public static final String SAVE_FOLDER = System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner";
 
-    public static final String VERSION_NUMBER = "1.3.4";
+    public static final String VERSION_NUMBER = "1.4.0";
 
-    public static final String UPDATE_NOTES = " - Added task editing support (Suggestion from Vincent Pak)\n - Added icons to make the app look better\n - iPass login should be fixed";
+
+    //Update bullet template:   - Change (Suggestion from)\n
+    public static final String UPDATE_NOTES = " - Replaced Use Current Class? checkbox with a dropdown menu for all your classes (iPass login required). Suggestion from Michael German \n - News links now open in default browser (suggestion from Steven Russo)\n - News can now refresh if user started the application offline (Bug found by Ella Johnson)\n - esc key goes to previous page in the About section (Suggestion from Steven Russo).\n - Minor bell 2 error corrected (Bug found by Thomas Daley) \n - Added task editing support (Suggestion from Vincent Pak)\n - Added icons to make the app look better";
 
     public static boolean isFirstStartup = false;
     public static boolean isFirstTimeOnVersion = false;

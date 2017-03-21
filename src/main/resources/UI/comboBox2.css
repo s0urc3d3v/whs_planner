@@ -37,10 +37,6 @@
     -fx-padding: 0.25em 0.583em 0.25em 0.583em; /* 3 7 3 7 */
 }
 
-/*
-.list-cell:odd {
-    -fx-background: -fx-control-inner-background-alt;
-}*/
 
 .combo-box-popup > .list-view {
     -fx-background-color: white;
@@ -80,8 +76,7 @@
 
 
 
-
-
+/*-----------------v-v-v---Scroll-bar-stuff---v-v-v---------------------------*/
 
 
 /* The main scrollbar **track** CSS class  */
