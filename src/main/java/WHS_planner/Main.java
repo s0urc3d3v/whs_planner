@@ -90,6 +90,11 @@ public class Main extends Application {
             keys.mkdir();
         }
 
+        File CalendarFolder = new File(Main.SAVE_FOLDER + File.separator + "Calendar");
+        if(!CalendarFolder.exists()) {
+            CalendarFolder.mkdir();
+        }
+
         File runVersionFolder = new File(Main.SAVE_FOLDER+ File.separator + "version");
         if(!runVersionFolder.exists()) {
             runVersionFolder.mkdir();

@@ -21,6 +21,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import java.util.Arrays;
 public class CalendarBox extends Pane {
     public static final int CALENDAR_BOX_MIN_HEIGHT = 80, CALENDAR_BOX_MIN_WIDTH = 110; //Constant that defines the min size of a CalendarBox
     private static final int HOMEWORK = 0; //List IDs (Default)
-    private static final String[] ICONS_UNICODE = new String[]{"\uf0f6","\uf21b"}; //File Icon, Check Icon (Font UNICODE)
+    public static final String[] ICONS_UNICODE = new String[]{"\uf0f6","\uf141"}; //File Icon, Check Icon (Font UNICODE)
 
     private static final String LOGIN_PROMPT_STRING = "Log in to add Classes!";
 
@@ -48,9 +49,11 @@ public class CalendarBox extends Pane {
     private VBox vBox;
     private StackPane dateLabelStackPane;
     private Circle dayCircle;
-    private Label dateLabel;
+    private Text dateLabel;
+    private Text letterDayLabel;
     private HBox iconContainer;
     private int month;
+    private String letterDay = "";
 
     private JFXCheckBox bell2;
 //    private JFXCheckBox override;
@@ -62,8 +65,7 @@ public class CalendarBox extends Pane {
     private ParseCalendar pc = new ParseCalendar();
     private File day = new File(Main.SAVE_FOLDER+ File.separator +"DayArray.json");
 
-
-    public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Calendar cal){
+    public CalendarBox(int date, int week, boolean active, ArrayList<ArrayList<Task>> tasks, int month, Calendar cal){
 
         if(day.exists() && day.length() > 0) { //and if it isnt blank
             pc.readData();
@@ -80,17 +82,19 @@ public class CalendarBox extends Pane {
         this.month = month;
         this.globalTime = new GlobalTime(bell2);
 
-        if(tasks == null){
-            this.tasks = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
+        this.tasks = tasks;
 
-            //Creates and fills in tasks with correct amount of lists according to NUMBER_OF_TASKLISTS
-            for (String aICONS_UNICODE : ICONS_UNICODE) {
-                this.tasks.add(new ArrayList<>()); //Create a new list
+        ParseCalendar pc = new ParseCalendar();
+        try {
+            pc.readData();
+            if(date != -1) {
+                letterDay = pc.getDay((month + 1) + "/" + date);
+                if (letterDay.length() > 1) {
+                    letterDay = "";
+                }
             }
-        }else{
-            this.tasks = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
-
-            this.tasks.add(tasks);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //Creates the entire pane
@@ -130,13 +134,29 @@ public class CalendarBox extends Pane {
 
         dateLabelStackPane.getChildren().add(dayCircle);
 
-        dateLabel = new Label();
+        dateLabel = new Text();
         dateLabel.setId("dateLabel");
         dateLabel.setMouseTransparent(true);
         dateLabel.getStyleClass().setAll("date-label");
 
         dateLabelStackPane.getChildren().add(dateLabel);
-        StackPane.setMargin(dateLabel, new Insets(-1, 0, 0, 6));
+        StackPane.setMargin(dateLabel, new Insets(1.25, 0, 0, 6));
+
+        letterDayLabel = new Text();
+        letterDayLabel.setText("");
+        showLetterDay();
+        letterDayLabel.setMouseTransparent(true);
+        letterDayLabel.getStyleClass().setAll("date-label");
+        letterDayLabel.setFill(Color.valueOf("#CFCED0"));
+        StackPane.setMargin(letterDayLabel, new Insets(0, 5, 4, 0));
+        StackPane letterDayLabelStackPane = new StackPane();
+        letterDayLabelStackPane.setAlignment(Pos.BOTTOM_RIGHT);
+        letterDayLabelStackPane.setMouseTransparent(true);
+        letterDayLabelStackPane.getChildren().add(letterDayLabel);
+        letterDayLabelStackPane.prefWidthProperty().bind(mainPane.widthProperty());
+        letterDayLabelStackPane.prefHeightProperty().bind(mainPane.heightProperty());
+        mainPane.getChildren().add(letterDayLabelStackPane);
+
 
         iconContainer = new HBox();
         iconContainer.setId("iconContainer");
@@ -171,9 +191,31 @@ public class CalendarBox extends Pane {
 
     /*-----METHODS-----*/
 
+    public static ArrayList<ArrayList<Task>> generateTaskLists(ArrayList<Task> tasks){
+        ArrayList<ArrayList<Task>> temp;
+        if(tasks == null){
+            temp = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
+
+            //Creates and fills in tasks with correct amount of lists according to NUMBER_OF_TASKLISTS
+            for (String aICONS_UNICODE : ICONS_UNICODE) {
+                temp.add(new ArrayList<>()); //Create a new list
+            }
+        }else{
+            temp = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
+
+            temp.add(tasks);
+        }
+        return temp;
+    }
+
     //Initializes this box
     private void initFXMLBox() {
-        String dateString = date + ""; //Creates a string version of the date value
+//        String dateString = date + ""; //Creates a string version of the date value
+//        if(dateString.length() == 1){
+//            dateString += "  ";
+//        }
+//        dateString += "                  " + letterDay;
+        String dateString = date + "";
         dateLabel.setText(dateString); //Set the dateLabel text = to the date
 
         //Set the buttonClicked action
@@ -188,7 +230,6 @@ public class CalendarBox extends Pane {
                 Calendar calendar = (Calendar)this.getParent().getParent().getParent();
                 calendar.update(week,date);
                 updateTaskBox();
-
             }
         }));
 //        java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
@@ -205,7 +246,7 @@ public class CalendarBox extends Pane {
         update();
     }
 
-    void hitThatDab() { //dayCircle update
+    public void hitThatDab() { //dayCircle update
         java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
 
         int day = javaCalendar.get(java.util.Calendar.DAY_OF_MONTH);
@@ -216,9 +257,10 @@ public class CalendarBox extends Pane {
             dayCircle.setFill(new Color(255/255, 152/255, 0, 0));
         }
 
-        if (this.getDate() >= 10) {
-            StackPane sp = dateLabelStackPane;
-            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 4.5));
+        if (this.getDate() == 11 || this.getDate() == 17) {
+            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 3.25));
+        }else if(this.getDate() >= 10) {
+            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 3.5));
         }
     }
 
@@ -233,18 +275,16 @@ public class CalendarBox extends Pane {
                 Label icon = new Label();
                 icon.getStyleClass().add("icon");
                 icon.setId("icon");
+                if(listID >= ICONS_UNICODE.length){
+                    listID = ICONS_UNICODE.length-1;
+                }
                 icon.setText(ICONS_UNICODE[listID]);
 
-                if(!ICONS_UNICODE[listID].equals("\uf21b")) {
-                    //Create the badge on the Label
-                    JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
-                    badge.getStyleClass().add("icon-badge");
-//                badge.getChildren().get(0).getStyleClass().setAll("testsefd");
-                    badge.setText("" + getTaskCount(listID)); //Set the badge number
-                    icons.add(badge);
-                }else{
-                    icons.add(icon);
-                }
+                //Create the badge on the Label
+                JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
+                badge.getStyleClass().add("icon-badge");
+                badge.setText("" + getTaskCount(listID)); //Set the badge number
+                icons.add(badge);
             }
         }
 
@@ -377,12 +417,12 @@ public class CalendarBox extends Pane {
                                     updateTaskBox();
                                 }
                             }
-
                         }
                         textBox.clear();
                     } else if (event.getCode() == KeyCode.ESCAPE) {
                         textBox.clear();
                     }
+                    calendar.save();
                 });
             } catch (Exception e) {
                 e.printStackTrace();
@@ -549,9 +589,13 @@ public class CalendarBox extends Pane {
 //                    fadeIn.playFromStart();
 //                }
 
-                if (height < 90) {
-                    height+= 30;
-                }
+
+            }else{
+                Pane tempPane = tasks.get(0).get(i).getPane(this);
+                vbox.getChildren().add(tempPane);
+            }
+            if (height < 90) {
+                height+= 30;
             }
         }
         tasksPane.setMinHeight(height);
@@ -598,7 +642,7 @@ public class CalendarBox extends Pane {
     }
 
     //Get the date Label
-    public Label getDateLabel(){
+    public Text getDateLabel(){
         return dateLabel;
     }
 
@@ -608,5 +652,13 @@ public class CalendarBox extends Pane {
 
     ArrayList<ArrayList<Task>> getTasks() {
         return tasks;
+    }
+
+    public void hideLetterDay(){
+        letterDayLabel.setText("");
+    }
+
+    public void showLetterDay(){
+        letterDayLabel.setText(letterDay);
     }
 }
