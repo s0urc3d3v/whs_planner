@@ -3,17 +3,19 @@ package WHS_planner.UI;
 import WHS_planner.Calendar.CalendarYear;
 import WHS_planner.Main;
 import WHS_planner.Schedule.ParseCalendar;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXDialog;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import javax.swing.*;
@@ -84,6 +86,10 @@ class Home extends Pane {
         //Add Nodes to H/VBoxes
         insidePane.getChildren().addAll(calendar, progressBar);
         outsidePane.getChildren().addAll(insidePane,newsScroll);
+
+        //Need to remove News to blackmail WSPN? uncomment this line
+        outsidePane.getChildren().setAll(insidePane/*,newsScroll*/);
+
 
         //Resizing stuff
         calendar.prefHeightProperty().bind(insidePane.heightProperty());

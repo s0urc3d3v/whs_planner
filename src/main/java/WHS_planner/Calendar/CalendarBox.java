@@ -24,6 +24,7 @@ import javafx.scene.shape.Circle;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by geoffrey_wang on 12/30/16.
@@ -293,7 +294,7 @@ public class CalendarBox extends Pane{
                 //Code for the Checkbox
 //                override = (JFXCheckBox) hBox.getChildren().get(1);
                 dropSelect = (JFXComboBox) hBox.getChildren().get(1);
-
+                System.out.println(dropSelect);
 
                 //Set pressing enter to clear the box text
                 textBox.setOnKeyPressed(event -> {
@@ -308,9 +309,15 @@ public class CalendarBox extends Pane{
 //                            System.out.println("length" + pc.getDay(today).length());
 //                            System.out.println(override.isSelected());
 //                            System.out.println("Class Index: " + classIndex);
-                            System.out.println("Logged in: " + schedule.isLoggedIn());
+//                            System.out.println("Logged in: " + schedule.isLoggedIn());
                             day = new File(Main.SAVE_FOLDER + File.separator + "DayArray.json");
-                            if( ((dropSelect.getValue().toString() != "None") || (dropSelect.getValue().toString() != LOGIN_PROMPT_STRING))) {
+                            System.out.println("dropSelect value: "+ dropSelect.getValue());
+//                            if(!dropSelect.getValue().equals("None") || !dropSelect.getValue().equals(LOGIN_PROMPT_STRING)|| !dropSelect.getValue().equals("Current Class")) {
+                            System.out.println("INDEX: " + dropSelect.getSelectionModel().getSelectedIndex());
+//                            if(!(dropSelect.getSelectionModel().getSelectedIndex() == 0 )|| !(dropSelect.getSelectionModel().getSelectedIndex() == 1)) {
+                            if(dropSelect.getSelectionModel().getSelectedIndex() > 1) {
+                                System.out.println("CASE 1");
+
                                 String currentClass = dropSelect.getValue().toString();
 //                                schedule = calendar.getSchedule();
 //                                currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
@@ -328,7 +335,7 @@ public class CalendarBox extends Pane{
                                     //There is school              dropdown isnt none        during school hours (unreliable when there's no school)
 //                                    if ((pc.getDay(today).length() == 1 && override.isSelected() && classIndex != -1)) {
                                     System.out.println(dropSelect.getValue().toString());
-                                    if ((pc.getDay(today).length() == 1 && ((dropSelect.getValue().toString() != "None") || (dropSelect.getValue().toString() != "Login to add Classes!"))  && classIndex != -1)) {
+                                    if (classIndex != -1 && pc.getDay(today).length() == 1 && (!dropSelect.getValue().equals("None") && !dropSelect.getValue().equals("Login to add Classes!"))) {
 
 //                                        System.out.println(pc.getDay(today));
 //                                        System.out.println(override.isSelected());
@@ -343,8 +350,10 @@ public class CalendarBox extends Pane{
                                             addTask(HOMEWORK, new Task("Class Meeting", "", textBoxText));
                                             update();
                                             updateTaskBox();
-                                        } else if (dropSelect.getValue().toString().equals("Current Class")) { //Current class
+                                        } else if (dropSelect.getValue().equals("Current Class")) { //Current class
                                             System.out.println(dropSelect.getValue().toString());
+                                            System.out.println("CASE 2: CURRENT CLASS");
+
                                             String currentClass = "";
                                             schedule = calendar.getSchedule();
                                             currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
@@ -354,11 +363,15 @@ public class CalendarBox extends Pane{
                                         }
                                     } else //add it without class!
                                     {
+                                        System.out.println("CASE 3: no class 1");
+
                                         addTask(HOMEWORK, new Task(null , "", textBoxText));
                                         update();
                                         updateTaskBox();
                                     }
                                 } else {
+                                    System.out.println("CASE 4: no class 2");
+
                                     addTask(HOMEWORK, new Task(null, "", textBoxText));
                                     update();
                                     updateTaskBox();
@@ -400,13 +413,21 @@ public class CalendarBox extends Pane{
         String today0 = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
         schedule = calendar.getSchedule();
         if(day.exists() && day.length() > 0 && schedule.isLoggedIn()){
-            ScheduleBlock[] sb = schedule.getToday(pc.getDay(today0));
+//            ScheduleBlock[] sb = schedule.getToday(pc.getDay(today0));
+            ScheduleBlock[] fullSchedule = schedule.getData();
+            String[] sb = new String[fullSchedule.length];
+            for (int i = 0; i < fullSchedule.length; i++) {
+                sb[i] = fullSchedule[i].getClassName();
+            }
+            String[] allClasses = Arrays.stream(sb).distinct().toArray(String[]::new);
+//            List<String> allClasses = Arrays.asList(Arrays.stream(sb).distinct().toArray(String[]::new));
+//            allClasses.remove(" Free");
             menuItems.clear();
             menuItems.add("Current Class");
             menuItems.add("None");
-            for (ScheduleBlock value : sb) {
+            for (String value : allClasses) {
                 //removes the random space before every class
-                menuItems.add(value.getClassName().substring(1,value.getClassName().length()));
+                menuItems.add(value.substring(1,value.length()));
             }
         } else {
             menuItems.clear();
@@ -428,17 +449,25 @@ public class CalendarBox extends Pane{
             String today = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
             schedule = calendar.getSchedule();
 
-            if(day.exists() && day.length() > 0 && schedule.isLoggedIn())
-            {
-                ScheduleBlock[] s = schedule.getToday(pc.getDay(today));
+            if(day.exists() && day.length() > 0 && schedule.isLoggedIn()) {
+//                ScheduleBlock[] s = schedule.getToday(pc.getDay(today));
+//                ScheduleBlock[] s = schedule.getData();
+                ScheduleBlock[] fullSchedule = schedule.getData();
+                String[] sb = new String[fullSchedule.length];
+                for (int i = 0; i < fullSchedule.length; i++) {
+                    sb[i] = fullSchedule[i].getClassName();
+                }
+
+                String[] allClasses = Arrays.stream(sb).distinct().toArray(String[]::new);
+//                List<String> allClasses = Arrays.asList(Arrays.stream(sb).distinct().toArray(String[]::new));
+//                allClasses.remove(" Free");
 
                 menuItems.clear();
                 menuItems.add("Current Class");
                 menuItems.add("None");
-                for (ScheduleBlock value : s) {
-//                System.out.println(value.getClassName());
+                for (String value : allClasses) {
                     //removes the random space before every class
-                    menuItems.add(value.getClassName().substring(1,value.getClassName().length()));
+                    menuItems.add(value.substring(1,value.length()));
                 }
                 dropDown.setVisibleRowCount(8);
 

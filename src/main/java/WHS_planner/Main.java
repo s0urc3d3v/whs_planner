@@ -69,15 +69,15 @@ public class Main extends Application {
             }
         }, "Shutdown-thread"));
 
-        PrintStream console = System.err;
-
-        File file = new File(Main.SAVE_FOLDER + File.separator + "err.txt");
-        if(!file.exists()){
-            file.createNewFile();
-        }
-        FileOutputStream fos = new FileOutputStream(file);
-        PrintStream ps = new PrintStream(fos);
-        System.setErr(ps);
+//        PrintStream console = System.err;
+//
+//        File file = new File(Main.SAVE_FOLDER + File.separator + "err.txt");
+//        if(!file.exists()){
+//            file.createNewFile();
+//        }
+//        FileOutputStream fos = new FileOutputStream(file);
+//        PrintStream ps = new PrintStream(fos);
+//        System.setErr(ps);
 
         System.setProperty("http.agent", "Chrome");
 //        PropertyConfigurator.configure("log4j.properties");
@@ -184,7 +184,7 @@ public class Main extends Application {
 
         //WITH HOME
         stage.setMinHeight(CalendarBox.CALENDAR_BOX_MIN_HEIGHT * 5 + 198 + 110); //Set the minimum height of the window
-        stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90+280); //Set the minimum width of the window
+        stage.setMinWidth(CalendarBox.CALENDAR_BOX_MIN_WIDTH*7+90+280-280); //Set the minimum width of the window
         //Width: 1140
         //Height: 708
 

@@ -24,13 +24,13 @@ import java.util.Map;
 public class Schedule
 {
 
+    public static Scene schedule;
     private final String[] start = {"7:30", "8:32", "9:39", "10:41", "12:16", "1:18", "0:00"};
     private final String[] end = {"8:27", "9:29", "10:36", "12:11", "1:13", "2:15", "0:00"};
     private final String[] wens = {"7:30", "8:15", "9:35", "10:20", "11:40", "12:25", "0:00"};
     private final String[] wene = {"8:10", "8:55", "10:15", "11:35", "12:20", "1:05", "0:00"};
     private final String[] bells = {"7:30", "8:26", "9:58", "10:55", "12:26", "1:23", "0:00"};
     private final String[] belle = {"8:21", "9:18", "10:50", "12:21", "1:18", "2:15", "0:00"};
-    public static Scene schedule;
     @FXML
     private Pane rootLayout;
     @FXML
@@ -340,6 +340,7 @@ public class Schedule
     {
         return schedule.getRoot();
     }
+
 
 
     public ScheduleBlock[] getToday(String letter)
