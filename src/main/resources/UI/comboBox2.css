@@ -1,4 +1,36 @@
-.combo-box-popup .list-view .jfx-list-cell{
+
+/* The main scrollbar **track** CSS class  */
+.scroll-bar:horizontal .track, .scroll-bar:vertical .track {
+	/*-fx-background-color:transparent;*/
+	-fx-background-color: white;
+	-fx-border-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-border-radius:2em;
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+	-fx-background-radius: 0em;
+	-fx-padding:0 10 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow, {
+	-fx-padding:0;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+	-fx-background-insets: 2, 0, 0;
+	-fx-background-radius: 2em;
+}
+
+/*-----------------^-^-^---Scroll-bar-stuff---^-^-^-----------------*/
+
+
+.combo-box-popup .list-view .jfx-list-cell {
 	-fx-background-insets: -1;
 	-fx-text-fill: black;
 }
@@ -18,7 +50,6 @@
     -fx-font-size: 14px;
     -fx-font-family: "Roboto";
     -fx-border-color: white;
-
     /*-fx-border-width: 1;*/ /*Border Width is already 1 by default */
 }
 
@@ -26,12 +57,7 @@
     /*top right bottom left */
     /*-fx-padding: 5,5,7,5;
     -fx-shape: "M0 370 L300 370 L150 670 L150 670 Z";*/
-
 }
-
-
-
-
 
 /*.combo-box-base:hover > .arrow-button,
 .combo-box-base:showing > .arrow-button,
@@ -62,15 +88,11 @@
 
 }
 
-
 .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
     /*-fx-padding: 4 0 4 5;*/
-
     -fx-padding: 15, 0, 15, 0;
     /* No alternate highlighting */
     -fx-background: white;
-
-
 }
 
 /*The currently selected item*/
@@ -94,45 +116,7 @@
 
 
 
-/*-----------------v-v-v---Scroll-bar-stuff---v-v-v---------------------------*/
 
-
-/* The main scrollbar **track** CSS class  */
-.scroll-bar:horizontal .track,
-.scroll-bar:vertical .track{
-	/*-fx-background-color:transparent;*/
-	-fx-background-color: white;
-
-	-fx-border-color:transparent;
-	-fx-background-radius: 0em;
-	-fx-border-radius:2em;
-}
-
-/* The increment and decrement button CSS class of scrollbar */
-
-.scroll-bar:vertical .increment-button ,
-.scroll-bar:vertical .decrement-button {
-
-    -fx-background-color: transparent;
-
-	-fx-background-radius: 0em;
-	-fx-padding:0 10 0 0;
-
-}
-
-.scroll-bar .increment-arrow,
-.scroll-bar .decrement-arrow,
-{
-	-fx-padding:0;
-}
-
-/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
-.scroll-bar:horizontal .thumb,
-.scroll-bar:vertical .thumb {
-    -fx-background-color:derive(black,90%);
-	-fx-background-insets: 2, 0, 0;
-	-fx-background-radius: 2em;
-}
 
 
 

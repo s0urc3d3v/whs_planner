@@ -33,6 +33,8 @@ public class CalendarBox extends Pane{
     private static final int HOMEWORK = 0; //List IDs (Default)
     private static final String[] ICONS_UNICODE = new String[]{"\uf0f6","\uf21b"}; //File Icon, Check Icon (Font UNICODE)
 
+    private static final String LOGIN_PROMPT_STRING = "Log in to add Classes!";
+
     private int date; //The date of the box
     private int week; //The week this box is in
 
@@ -308,7 +310,7 @@ public class CalendarBox extends Pane{
 //                            System.out.println("Class Index: " + classIndex);
                             System.out.println("Logged in: " + schedule.isLoggedIn());
                             day = new File(Main.SAVE_FOLDER + File.separator + "DayArray.json");
-                            if( ((dropSelect.getValue().toString() != "None") || (dropSelect.getValue().toString() != "Log in to add Classes!"))) {
+                            if( ((dropSelect.getValue().toString() != "None") || (dropSelect.getValue().toString() != LOGIN_PROMPT_STRING))) {
                                 String currentClass = dropSelect.getValue().toString();
 //                                schedule = calendar.getSchedule();
 //                                currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
@@ -382,13 +384,13 @@ public class CalendarBox extends Pane{
         VBox taskVBox = new VBox(hungryBox);
 
 //        dropDown.getItems().addAll("Current Class", "None");
-        ObservableList<String> menuItems = FXCollections.observableArrayList("Log in to add Classes!");
+        ObservableList<String> menuItems = FXCollections.observableArrayList(LOGIN_PROMPT_STRING);
 //        ComboBox dropDown = new ComboBox(menuItems);
         JFXComboBox dropDown = new JFXComboBox(menuItems);
 //        dropDown.setMaxWidth(200);
         dropDown.setMinWidth(250);
 //        dropDown.setPrefHeight(480);
-        dropDown.setVisibleRowCount(10);
+        dropDown.setVisibleRowCount(8);
 
 //            String[] s = pc.getClassArray();
 
@@ -397,22 +399,22 @@ public class CalendarBox extends Pane{
 
         String today0 = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
         schedule = calendar.getSchedule();
-        ScheduleBlock[] sb = schedule.getToday(pc.getDay(today0));
-        menuItems.clear();
-        menuItems.add("Current Class");
-        menuItems.add("None");
-        for (ScheduleBlock value : sb) {
-//                System.out.println(value.getClassName());
-            //removes the random space before every class
-            menuItems.add(value.getClassName().substring(1,value.getClassName().length()));
+        if(day.exists() && day.length() > 0 && schedule.isLoggedIn()){
+            ScheduleBlock[] sb = schedule.getToday(pc.getDay(today0));
+            menuItems.clear();
+            menuItems.add("Current Class");
+            menuItems.add("None");
+            for (ScheduleBlock value : sb) {
+                //removes the random space before every class
+                menuItems.add(value.getClassName().substring(1,value.getClassName().length()));
+            }
+        } else {
+            menuItems.clear();
+            menuItems.add(LOGIN_PROMPT_STRING);
         }
+
         dropDown.getSelectionModel().selectFirst();
 
-
-
-
-
-//        dropDown.setTranslateY(200);
         dropDown.getStylesheets().setAll("UI" + File.separator + "comboBox2.css");
         dropDown.getStyleClass().setAll("combo-box-popup");
 //        dropDown.getStyleClass().addAll("combo-box-base");
@@ -422,22 +424,32 @@ public class CalendarBox extends Pane{
 
 
 
-
-
 //            String[] s = pc.getClassArray();
             String today = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
             schedule = calendar.getSchedule();
-            ScheduleBlock[] s = schedule.getToday(pc.getDay(today));
 
-            menuItems.clear();
-            menuItems.add("Current Class");
-            menuItems.add("None");
-            for (ScheduleBlock value : s) {
+            if(day.exists() && day.length() > 0 && schedule.isLoggedIn())
+            {
+                ScheduleBlock[] s = schedule.getToday(pc.getDay(today));
+
+                menuItems.clear();
+                menuItems.add("Current Class");
+                menuItems.add("None");
+                for (ScheduleBlock value : s) {
 //                System.out.println(value.getClassName());
-                //removes the random space before every class
-                menuItems.add(value.getClassName().substring(1,value.getClassName().length()));
+                    //removes the random space before every class
+                    menuItems.add(value.getClassName().substring(1,value.getClassName().length()));
+                }
+                dropDown.setVisibleRowCount(8);
+
+            } else {
+                menuItems.clear();
+                menuItems.add(LOGIN_PROMPT_STRING);
             }
+
+
             dropDown.getSelectionModel().selectFirst();
+
 
             //Cool code that doesn't work :(
 //            final Node listView = dropDown.lookup(".list-view");

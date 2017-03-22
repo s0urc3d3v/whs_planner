@@ -23,9 +23,15 @@ public class Main extends Application {
 
     public static final String VERSION_NUMBER = "1.4.0";
 
-
-    //Update bullet template:   - Change (Suggestion from)\n
-    public static final String UPDATE_NOTES = " - Replaced Use Current Class? checkbox with a dropdown menu for all your classes (iPass login required). Suggestion from Michael German \n - News links now open in default browser (suggestion from Steven Russo)\n - News can now refresh if user started the application offline (Bug found by Ella Johnson)\n - esc key goes to previous page in the About section (Suggestion from Steven Russo).\n - Minor bell 2 error corrected (Bug found by Thomas Daley) \n - Added task editing support (Suggestion from Vincent Pak)\n - Added icons to make the app look better";
+    public static final String UPDATE_NOTES =
+            "- Implemented dropdown menu for applying any of your classes to a homework task (iPass login required). Suggestion from Michael German \n " +
+            "- News links now open in default browser (suggestion from Steven Russo)\n " +
+            "- News can now refresh if user started the application offline (Ella Johnson)\n " +
+            "- esc now closes Schedule drawer (Suggestion from Steven Russo).\n " +
+            "- Minor bell 2 error corrected (Bug found by Thomas Daley) \n " +
+            "- Added task editing support (Suggestion from Vincent Pak)\n " +
+            "- New calendar saving method. NOTE: 1.4 will automatically port your saves from older versions, however older versions will not be able to read 1.4 saves. \n " +
+            "- Added icons to make the app look better";
 
     public static boolean isFirstStartup = false;
     public static boolean isFirstTimeOnVersion = false;
