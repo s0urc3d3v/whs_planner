@@ -49,6 +49,7 @@ public class CalendarBox extends Pane{
     private Label dateLabel;
     private HBox iconContainer;
     private int month;
+    private String letterDay = "";
 
     private JFXCheckBox bell2;
     private JFXCheckBox override;
@@ -77,6 +78,19 @@ public class CalendarBox extends Pane{
         this.globalTime = new GlobalTime(bell2);
 
         this.tasks = tasks;
+
+        ParseCalendar pc = new ParseCalendar();
+        try {
+            pc.readData();
+            if(date != -1) {
+                letterDay = pc.getDay((month + 1) + "/" + date);
+                if (letterDay.length() > 1) {
+                    letterDay = "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //Creates the entire pane
         mainPane = new StackPane();
@@ -176,6 +190,10 @@ public class CalendarBox extends Pane{
     //Initializes this box
     private void initFXMLBox() {
         String dateString = date + ""; //Creates a string version of the date value
+        if(dateString.length() == 1){
+            dateString += "  ";
+        }
+        dateString += "                  " + letterDay;
         dateLabel.setText(dateString); //Set the dateLabel text = to the date
 
         //Set the buttonClicked action
