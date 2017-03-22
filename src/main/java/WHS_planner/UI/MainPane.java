@@ -63,7 +63,6 @@ public class MainPane extends StackPane {
     private NewsUI news;
     private boolean isHamburgerPressed = false;
 
-
 //    private Home homePane;
 
     public MainPane(){
@@ -341,13 +340,17 @@ public class MainPane extends StackPane {
                 });
                 copyError.setOnMouseClicked(addToClipboard -> {
                     StringSelection selection = null;
+                    JFXSnackbar snackbar = new JFXSnackbar(mainPane);
                     try {
                         selection = new StringSelection(new String(Files.readAllBytes(Paths.get(System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner" + File.separator + "err.txt"))/*,"UTF-8"*/));
+                        snackbar.show("Err.txt copied!",2000);
                     } catch (IOException e) {
+                        snackbar.show("Error when copying!",2000);
                         e.printStackTrace();
                     }
                     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     clipboard.setContents(selection, selection);
+
                 });
                 info.getChildren().add(buttonContainer);
                 info.getStyleClass().setAll("large-text");

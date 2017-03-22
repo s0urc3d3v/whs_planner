@@ -472,7 +472,7 @@ public class CalendarBox extends Pane {
                     menuItems.add(value.substring(1,value.length()));
                 }
             }
-            System.out.println(menuItems);
+//            System.out.println(menuItems);
         } else {
             menuItems.clear();
             menuItems.add(LOGIN_PROMPT_STRING);
