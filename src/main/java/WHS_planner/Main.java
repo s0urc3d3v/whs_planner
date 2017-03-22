@@ -27,10 +27,10 @@ public class Main extends Application {
             "- Implemented dropdown menu for applying any of your classes to a homework task (iPass login required). Suggestion from Michael German \n " +
             "- News links now open in default browser (suggestion from Steven Russo)\n " +
             "- News can now refresh if user started the application offline (Ella Johnson)\n " +
-            "- esc now closes Schedule drawer (Suggestion from Steven Russo).\n " +
-            "- Minor bell 2 error corrected (Bug found by Thomas Daley) \n " +
+            "- Escape key now closes Schedule drawer (Suggestion from Steven Russo).\n " +
+            "- Minor bell 2 error fixed (Bug found by Thomas Daley) \n " +
             "- Added task editing support (Suggestion from Vincent Pak)\n " +
-            "- New calendar saving method. NOTE: 1.4 will automatically port your saves from older versions, however older versions will not be able to read 1.4 saves. \n " +
+            "- New calendar saving method. NOTE: 1.4 will automatically port your saves from older versions. However older versions will not be able to read 1.4 saves. \n " +
             "- Added icons to make the app look better";
 
     public static boolean isFirstStartup = false;
