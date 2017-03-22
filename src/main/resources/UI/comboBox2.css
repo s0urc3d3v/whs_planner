@@ -22,14 +22,31 @@
     /*-fx-border-width: 1;*/ /*Border Width is already 1 by default */
 }
 
+.combo-box-popup .arrow, .combo-box .arrow-button {
+    /*top right bottom left */
+    /*-fx-padding: 5,5,7,5;
+    -fx-shape: "M0 370 L300 370 L150 670 L150 670 Z";*/
+
+}
+
+
+
+
+
+/*.combo-box-base:hover > .arrow-button,
+.combo-box-base:showing > .arrow-button,
+.date-picker:showing > .arrow-button {
+    -fx-color: -fx-pressed-base;
+}*/
 
 .combo-box-popup {
-    -fx-background-color: rgba(204,204,204,1);
+    /*-fx-background-color: rgba(204,204,204,1);
     -fx-background-radius: 5,5;
-    -fx-border-radius: 5;
+    -fx-border-radius: 5;*/
+
       /*-fx-background-radius: 5, 5;*/
       /*-fx-background-insets: -1.4, 0;*/
-      -fx-border-radius: 5,5;
+      /*-fx-border-radius: 5,5;*/
       /*-fx-border-width: 2;*/
 }
 
@@ -73,6 +90,7 @@
 .combo-box-popup > .list-view > .placeholder > .label {
     -fx-text-fill: black;
 }
+
 
 
 

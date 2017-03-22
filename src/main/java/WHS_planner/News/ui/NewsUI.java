@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -59,6 +60,9 @@ public class NewsUI extends Pane {
             VBox.setMargin(refreshContainer, new Insets(10,0,10,0));
             refreshContainer.setAlignment(Pos.CENTER);
             Label refreshError = new Label("Failed to refresh News.");
+//            refreshError.setTextOverrun(OverrunStyle);
+            refreshError.setTextOverrun(OverrunStyle.CLIP);
+
             refreshError.setTextFill(Color.RED);
             int[] fontSize = {14};
             offlineRefresh.setOnMouseClicked(event -> {

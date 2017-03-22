@@ -38,4 +38,14 @@
 }
 
 
+.combo-box-base > .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0, 1, 2;
+        -fx-background-insets: 0, 0, 0;
+    -fx-background-radius: 0 5 5 0, 0 4 4 0, 0 3 3 0;
+    -fx-padding: 0 0.667em 0 0.667em; /* 6 8 6 8 /
+    /-fx-padding: 0; // 6 8 6 8 */
+}
+
+
 

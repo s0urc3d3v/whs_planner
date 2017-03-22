@@ -308,64 +308,61 @@ public class CalendarBox extends Pane{
 //                            System.out.println("Class Index: " + classIndex);
                             System.out.println("Logged in: " + schedule.isLoggedIn());
                             day = new File(Main.SAVE_FOLDER + File.separator + "DayArray.json");
-                            if (day.exists() && day.length() > 0 && schedule.isLoggedIn()) { //day exists even when you log out
-//                                pc.readData();
-                                pc.readData();
-                                System.out.println("day length: " + day.length());
-                                //There is school              dropdown isnt none        during school hours (unreliable when there's no school)
-//                                if ((pc.getDay(today).length() == 1 && override.isSelected() && classIndex != -1)) {
-                                System.out.println(dropSelect.getValue().toString());
-                                if ((pc.getDay(today).length() == 1 && ((dropSelect.getValue().toString() != "None"))  && classIndex != -1)) {
+                            if( ((dropSelect.getValue().toString() != "None") || (dropSelect.getValue().toString() != "Log in to add Classes!"))) {
+                                String currentClass = dropSelect.getValue().toString();
+//                                schedule = calendar.getSchedule();
+//                                currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
+                                addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                update();
+                                updateTaskBox();
+//                                String currentClass = schedule.getData()[classIndex].getClassName();
+//                                String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
-//                                    System.out.println(pc.getDay(today));
-//                                    System.out.println(override.isSelected());
-//                                    System.out.println(classIndex);
+                            } else {
+                                if (day.exists() && day.length() > 0 && schedule.isLoggedIn()) { //day exists even when you log out
+//                                     pc.readData();
+                                    pc.readData();
+                                    System.out.println("day length: " + day.length());
+                                    //There is school              dropdown isnt none        during school hours (unreliable when there's no school)
+//                                    if ((pc.getDay(today).length() == 1 && override.isSelected() && classIndex != -1)) {
+                                    System.out.println(dropSelect.getValue().toString());
+                                    if ((pc.getDay(today).length() == 1 && ((dropSelect.getValue().toString() != "None") || (dropSelect.getValue().toString() != "Login to add Classes!"))  && classIndex != -1)) {
+
+//                                        System.out.println(pc.getDay(today));
+//                                        System.out.println(override.isSelected());
+//                                        System.out.println(classIndex);
 
 
-                                    if (classIndex == -2) { //wednesday advisory
-                                        addTask(HOMEWORK, new Task("Advisory", "", textBoxText));
-                                        update();
-                                        updateTaskBox();
-                                    } else if (classIndex == -3) { // bell 2 class meeting
-                                        addTask(HOMEWORK, new Task("Class Meeting", "", textBoxText));
-                                        update();
-                                        updateTaskBox();
-                                    } else if (dropSelect.getValue().toString().equals("Current Class")) { //Current class
-                                        System.out.println(dropSelect.getValue().toString());
-
-                                        String currentClass = "";
-
-                                        schedule = calendar.getSchedule();
-                                        currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
-
-                                        addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                        if (classIndex == -2) { //wednesday advisory
+                                            addTask(HOMEWORK, new Task("Advisory", "", textBoxText));
+                                            update();
+                                            updateTaskBox();
+                                        } else if (classIndex == -3) { // bell 2 class meeting
+                                            addTask(HOMEWORK, new Task("Class Meeting", "", textBoxText));
+                                            update();
+                                            updateTaskBox();
+                                        } else if (dropSelect.getValue().toString().equals("Current Class")) { //Current class
+                                            System.out.println(dropSelect.getValue().toString());
+                                            String currentClass = "";
+                                            schedule = calendar.getSchedule();
+                                            currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
+                                            addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                            update();
+                                            updateTaskBox();
+                                        }
+                                    } else //add it without class!
+                                    {
+                                        addTask(HOMEWORK, new Task(null , "", textBoxText));
                                         update();
                                         updateTaskBox();
                                     }
-                                    else { //Add from dropdown manual fuck
-                                        String currentClass = dropSelect.getValue().toString();
-
-//                                        schedule = calendar.getSchedule();
-//                                        currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
-
-                                        addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
-                                        update();
-                                        updateTaskBox();
-//                                    String currentClass = schedule.getData()[classIndex].getClassName();
-//                                    String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
-
-                                    }
-                                } else //add it without class!
-                                {
-                                    addTask(HOMEWORK, new Task(null , "", textBoxText));
+                                } else {
+                                    addTask(HOMEWORK, new Task(null, "", textBoxText));
                                     update();
                                     updateTaskBox();
                                 }
-                            } else {
-                                addTask(HOMEWORK, new Task(null, "", textBoxText));
-                                update();
-                                updateTaskBox();
                             }
+
                         }
                         textBox.clear();
                     } else if (event.getCode() == KeyCode.ESCAPE) {
@@ -385,23 +382,48 @@ public class CalendarBox extends Pane{
         VBox taskVBox = new VBox(hungryBox);
 
 //        dropDown.getItems().addAll("Current Class", "None");
-        ObservableList<String> menuItems = FXCollections.observableArrayList("None");
+        ObservableList<String> menuItems = FXCollections.observableArrayList("Log in to add Classes!");
 //        ComboBox dropDown = new ComboBox(menuItems);
         JFXComboBox dropDown = new JFXComboBox(menuItems);
 //        dropDown.setMaxWidth(200);
         dropDown.setMinWidth(250);
-        dropDown.setPrefHeight(480);
+//        dropDown.setPrefHeight(480);
         dropDown.setVisibleRowCount(10);
 
+//            String[] s = pc.getClassArray();
+
+
+
+
+        String today0 = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
+        schedule = calendar.getSchedule();
+        ScheduleBlock[] sb = schedule.getToday(pc.getDay(today0));
+        menuItems.clear();
+        menuItems.add("Current Class");
+        menuItems.add("None");
+        for (ScheduleBlock value : sb) {
+//                System.out.println(value.getClassName());
+            //removes the random space before every class
+            menuItems.add(value.getClassName().substring(1,value.getClassName().length()));
+        }
         dropDown.getSelectionModel().selectFirst();
+
+
+
+
+
 //        dropDown.setTranslateY(200);
         dropDown.getStylesheets().setAll("UI" + File.separator + "comboBox2.css");
         dropDown.getStyleClass().setAll("combo-box-popup");
-
+//        dropDown.getStyleClass().addAll("combo-box-base");
 
         dropDown.setOnMouseClicked(event -> {
-            final Node listView = dropDown.lookup(".list-view");
-            System.out.println(dropDown.lookup(".list-view"));
+
+
+
+
+
+
 //            String[] s = pc.getClassArray();
             String today = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
             schedule = calendar.getSchedule();
@@ -417,7 +439,10 @@ public class CalendarBox extends Pane{
             }
             dropDown.getSelectionModel().selectFirst();
 
-            Platform.runLater(()-> listView.setStyle("-fx-translate-y: -"+ (dropDown.getSelectionModel().getSelectedIndex() +1)*25 + ";"));
+            //Cool code that doesn't work :(
+//            final Node listView = dropDown.lookup(".list-view");
+//            System.out.println(dropDown.lookup(".list-view"));
+//            Platform.runLater(()-> listView.setStyle("-fx-translate-y: -"+ (dropDown.getSelectionModel().getSelectedIndex() +1)*25 + ";"));
         });
 
 

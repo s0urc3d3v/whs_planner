@@ -76,4 +76,6 @@
     -fx-pref-width: 260;
     -fx-pref-height: 40;
     -fx-text-fill: WHITE;
+    -fx-cursor: hand;
+
 }
