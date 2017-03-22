@@ -15,6 +15,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -238,24 +239,18 @@ public class MainPane extends StackPane {
          |   START Jesus code
           \
          */
-//        InputStream font = Main.class.getResourceAsStream("/FontAwesome/fontawesome.ttf");
-//        Font.loadFont(font,10);
         bigButton.setText("\uf142");
-        bigButton.setCursor(Cursor.HAND);
-//        bigButton.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
-//        bigButton.getStyleClass().setAll("big-button");
-        bigButton.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 28px; -fx-text-fill: #FFFFFF;");
+//        bigButton.setPrefSize(50,50);
+        bigButton.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
+        bigButton.getStyleClass().addAll("big-button");
+//        bigButton.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 28px; -fx-text-fill: #FFFFFF;");
         Pane parent = (Pane)(bigButton.getParent());
         bigButton.prefHeightProperty().bind(parent.heightProperty());
         final StackPane backmanISGay = this;
         bigButton.setOnMouseClicked(event -> {
             VBox info = new VBox();
-//            info.getStyleClass().addAll("font-awesome");
             JFXButton button0 = new JFXButton();
-//            button0.setStyle("-fx-font-family: 'FontAwesome");
             button0.setText("      " + ICON_BELL + "  Show Bell Schedule");
-//            button0.setText("     Show Bell Schedule");
-//            button0.setGraphic(new ImageView("\uf0f3"));
             button0.setOnMouseClicked(event1 -> {
                 info.setMinSize(0, 0);
                 info.getChildren().clear();
@@ -264,7 +259,6 @@ public class MainPane extends StackPane {
             });
             JFXButton button1 = new JFXButton();
             button1.setText("      " + ICON_SCHEDULE + "  Refresh Schedule");
-
             button1.setOnMouseClicked(event12 -> {
                 try {
                     schedule.getScheduleControl().logout();
@@ -291,11 +285,6 @@ public class MainPane extends StackPane {
                         e.printStackTrace();
                     }
                 }
-//                try {
-//                    Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/KSCFGXldhE4EBytp1"});
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
             });
             JFXButton button4 = new JFXButton();
             button4.setText("      " + ICON_ABOUT + "   About");
@@ -318,7 +307,7 @@ public class MainPane extends StackPane {
                         "Matthew Elbing - Backend, Project Lead",
                         "Will Robison - HTML, Piano Tiles 2",
                         "John Broderick - Schedule, Bug Creator",
-                        "Tzur Almog - Calendar save",
+                        "Tzur Almog",
                         "Alex Bell",
                 };
                 for (String name : names) {
@@ -327,8 +316,6 @@ public class MainPane extends StackPane {
                 info.getChildren().add(new Label("\n"));
                 HBox buttonContainer = new HBox();
                 buttonContainer.setSpacing(40);
-//                buttonContainer.getStyleClass().setAll("gray-button");
-
                 JFXButton licenses = new JFXButton("Licenses");
                 JFXButton copyError = new JFXButton("Copy Err.txt");
 
@@ -375,11 +362,6 @@ public class MainPane extends StackPane {
             info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
             info.setPadding(new Insets(10,0,10,0));
 
-//            button0.setCursor(Cursor.HAND);
-//            button1.setCursor(Cursor.HAND);
-//            button2.setCursor(Cursor.HAND);
-//            button3.setCursor(Cursor.HAND);
-//            button4.setCursor(Cursor.HAND);
             button0.getStyleClass().setAll("list-button");
             button1.getStyleClass().setAll("list-button");
             button2.getStyleClass().setAll("list-button");
@@ -389,12 +371,8 @@ public class MainPane extends StackPane {
             bell2Check.getStyleClass().setAll("label-button");
             bell2Check.setPrefSize(200,50);
             info.setSpacing(0);
-            info.setMinSize(200, info.getChildren().toArray().length*50);
+            info.setMinSize(200, info.getChildren().toArray().length*50); //Sets the height of the window assuming each button is 50px tall
             JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
-
-//            dialog.setTranslateX(470);
-//            dialog.setTranslateY(-135);
-//            JFXDialog dialog2 = new JFXDialog()
 
             dialog.show();
             /*
@@ -407,18 +385,14 @@ public class MainPane extends StackPane {
 
 
     private JFXDrawer createNewsDrawer(Button button){
-
-
-
         Pane parent = (Pane)(button.getParent());
-
         button.prefHeightProperty().bind(parent.heightProperty());
-
         button.setText(ICON_NEWS);
         button.setCursor(Cursor.HAND);
-//        bigButton.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
-//        bigButton.getStyleClass().setAll("big-button");
-        button.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 24px; -fx-text-fill: #FFFFFF;");
+//        button.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
+//        button.getStyleClass().addAll("big-button");
+        button.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 24; -fx-text-fill: #FFFFFF;");
+        button.setTextOverrun(OverrunStyle.CLIP);
 
         javafx.scene.control.ScrollPane newsScroll = new javafx.scene.control.ScrollPane();
         newsScroll.setContent(news.getCardView());

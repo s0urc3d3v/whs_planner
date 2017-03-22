@@ -29,7 +29,7 @@ import java.util.Arrays;
 /**
  * Created by geoffrey_wang on 12/30/16.
  */
-public class CalendarBox extends Pane{
+public class CalendarBox extends Pane {
     public static final int CALENDAR_BOX_MIN_HEIGHT = 80, CALENDAR_BOX_MIN_WIDTH = 110; //Constant that defines the min size of a CalendarBox
     private static final int HOMEWORK = 0; //List IDs (Default)
     private static final String[] ICONS_UNICODE = new String[]{"\uf0f6","\uf21b"}; //File Icon, Check Icon (Font UNICODE)
