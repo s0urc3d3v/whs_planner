@@ -361,7 +361,7 @@ public class CalendarBox extends Pane {
                                 String currentClass = dropSelect.getValue().toString();
 //                                schedule = calendar.getSchedule();
 //                                currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
-                                addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                addTask(HOMEWORK, new Task(currentClass, textBoxText));
                                 update();
                                 updateTaskBox();
 //                                String currentClass = schedule.getData()[classIndex].getClassName();
@@ -383,11 +383,11 @@ public class CalendarBox extends Pane {
 
 
                                         if (classIndex == -2) { //wednesday advisory
-                                            addTask(HOMEWORK, new Task("Advisory", "", textBoxText));
+                                            addTask(HOMEWORK, new Task("Advisory", textBoxText));
                                             update();
                                             updateTaskBox();
                                         } else if (classIndex == -3) { // bell 2 class meeting
-                                            addTask(HOMEWORK, new Task("Class Meeting", "", textBoxText));
+                                            addTask(HOMEWORK, new Task("Class Meeting", textBoxText));
                                             update();
                                             updateTaskBox();
                                         } else if (dropSelect.getValue().equals("Current Class")) { //Current class
@@ -397,7 +397,7 @@ public class CalendarBox extends Pane {
                                             String currentClass = "";
                                             schedule = calendar.getSchedule();
                                             currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
-                                            addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                            addTask(HOMEWORK, new Task(currentClass, textBoxText));
                                             update();
                                             updateTaskBox();
                                         }
@@ -405,14 +405,14 @@ public class CalendarBox extends Pane {
                                     {
 //                                        System.out.println("CASE 3: no class 1");
 
-                                        addTask(HOMEWORK, new Task(null , "", textBoxText));
+                                        addTask(HOMEWORK, new Task(null , textBoxText));
                                         update();
                                         updateTaskBox();
                                     }
                                 } else {
 //                                    System.out.println("CASE 4: no class 2");
 
-                                    addTask(HOMEWORK, new Task(null, "", textBoxText));
+                                    addTask(HOMEWORK, new Task(null, textBoxText));
                                     update();
                                     updateTaskBox();
                                 }
