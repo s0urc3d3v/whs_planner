@@ -294,7 +294,7 @@ public class CalendarBox extends Pane{
                 //Code for the Checkbox
 //                override = (JFXCheckBox) hBox.getChildren().get(1);
                 dropSelect = (JFXComboBox) hBox.getChildren().get(1);
-                System.out.println(dropSelect);
+//                System.out.println(dropSelect);
 
                 //Set pressing enter to clear the box text
                 textBox.setOnKeyPressed(event -> {
@@ -313,10 +313,10 @@ public class CalendarBox extends Pane{
                             day = new File(Main.SAVE_FOLDER + File.separator + "DayArray.json");
                             System.out.println("dropSelect value: "+ dropSelect.getValue());
 //                            if(!dropSelect.getValue().equals("None") || !dropSelect.getValue().equals(LOGIN_PROMPT_STRING)|| !dropSelect.getValue().equals("Current Class")) {
-                            System.out.println("INDEX: " + dropSelect.getSelectionModel().getSelectedIndex());
+//                            System.out.println("INDEX: " + dropSelect.getSelectionModel().getSelectedIndex());
 //                            if(!(dropSelect.getSelectionModel().getSelectedIndex() == 0 )|| !(dropSelect.getSelectionModel().getSelectedIndex() == 1)) {
                             if(dropSelect.getSelectionModel().getSelectedIndex() > 1) {
-                                System.out.println("CASE 1");
+//                                System.out.println("CASE 1");
 
                                 String currentClass = dropSelect.getValue().toString();
 //                                schedule = calendar.getSchedule();
@@ -352,7 +352,7 @@ public class CalendarBox extends Pane{
                                             updateTaskBox();
                                         } else if (dropSelect.getValue().equals("Current Class")) { //Current class
                                             System.out.println(dropSelect.getValue().toString());
-                                            System.out.println("CASE 2: CURRENT CLASS");
+//                                            System.out.println("CASE 2: CURRENT CLASS");
 
                                             String currentClass = "";
                                             schedule = calendar.getSchedule();
@@ -363,14 +363,14 @@ public class CalendarBox extends Pane{
                                         }
                                     } else //add it without class!
                                     {
-                                        System.out.println("CASE 3: no class 1");
+//                                        System.out.println("CASE 3: no class 1");
 
                                         addTask(HOMEWORK, new Task(null , "", textBoxText));
                                         update();
                                         updateTaskBox();
                                     }
                                 } else {
-                                    System.out.println("CASE 4: no class 2");
+//                                    System.out.println("CASE 4: no class 2");
 
                                     addTask(HOMEWORK, new Task(null, "", textBoxText));
                                     update();
