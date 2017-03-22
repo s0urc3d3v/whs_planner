@@ -357,6 +357,7 @@ public class CalendarBox extends Pane{
                     } else if (event.getCode() == KeyCode.ESCAPE) {
                         textBox.clear();
                     }
+                    calendar.save();
                 });
             } catch (Exception e) {
                 e.printStackTrace();
