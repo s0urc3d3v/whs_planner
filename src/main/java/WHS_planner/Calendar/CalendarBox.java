@@ -398,6 +398,7 @@ public class CalendarBox extends Pane {
 
 //        dropDown.getItems().addAll("Current Class", "None");
         ObservableList<String> menuItems = FXCollections.observableArrayList(LOGIN_PROMPT_STRING);
+
 //        ComboBox dropDown = new ComboBox(menuItems);
         JFXComboBox dropDown = new JFXComboBox(menuItems);
 //        dropDown.setMaxWidth(200);
@@ -427,8 +428,11 @@ public class CalendarBox extends Pane {
             menuItems.add("None");
             for (String value : allClasses) {
                 //removes the random space before every class
-                menuItems.add(value.substring(1,value.length()));
+                if(!value.substring(1,value.length()).equalsIgnoreCase("free")){
+                    menuItems.add(value.substring(1,value.length()));
+                }
             }
+            System.out.println(menuItems);
         } else {
             menuItems.clear();
             menuItems.add(LOGIN_PROMPT_STRING);
@@ -467,7 +471,9 @@ public class CalendarBox extends Pane {
                 menuItems.add("None");
                 for (String value : allClasses) {
                     //removes the random space before every class
-                    menuItems.add(value.substring(1,value.length()));
+                    if(!value.substring(1,value.length()).equalsIgnoreCase("free")) {
+                        menuItems.add(value.substring(1, value.length()));
+                    }
                 }
                 dropDown.setVisibleRowCount(8);
 
