@@ -144,10 +144,12 @@ public class CalendarBox extends Pane {
 
         letterDayLabel = new Text();
         letterDayLabel.setText("");
-        showLetterDay();
+//        showLetterDay();
         letterDayLabel.setMouseTransparent(true);
-        letterDayLabel.getStyleClass().setAll("date-label");
-        letterDayLabel.setFill(Color.valueOf("#CFCED0"));
+        letterDayLabel.getStyleClass().setAll("letter-date-label");
+//        letterDayLabel.setFill(Color.valueOf("#CFCED0"));
+//        letterDayLabel.setFill(Color.valueOf("#0066FF"));
+
         StackPane.setMargin(letterDayLabel, new Insets(0, 5, 4, 0));
         StackPane letterDayLabelStackPane = new StackPane();
         letterDayLabelStackPane.setAlignment(Pos.BOTTOM_RIGHT);
@@ -659,6 +661,6 @@ public class CalendarBox extends Pane {
     }
 
     public void showLetterDay(){
-        letterDayLabel.setText(letterDay);
+        letterDayLabel.setText(letterDay/* + " Day"*/);
     }
 }

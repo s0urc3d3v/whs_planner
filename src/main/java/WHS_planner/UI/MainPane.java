@@ -450,6 +450,15 @@ public class MainPane extends StackPane {
 
         });
 
+        this.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                if (newsDrawer.isShown()) {
+                    newsDrawer.setMouseTransparent(true);
+                    newsDrawer.close();
+                }
+            }
+        });
+
         return newsDrawer;
     }
 
