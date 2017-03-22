@@ -52,6 +52,9 @@ public class MainPane extends StackPane {
     private Pane content;
     private ArrayList<Pane> contentPanes;
     private JFXDrawer drawer;
+    private JFXDrawer newsDrawer = new JFXDrawer();
+
+
     private VBox mainPane;
 //    private VBox cardView = new NewsUI().getCardView();
     private Schedule schedule;
@@ -201,10 +204,21 @@ public class MainPane extends StackPane {
     private VBox createPane() {
         VBox vBox = new VBox(); //Create a vBox for the base pane
 
-        //Make a stack pane with the drawer and content in it
-        StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48));
+//        JFXButton fab = new JFXButton("NEWS");
+//        fab.setButtonType(JFXButton.ButtonType.RAISED);
 
-        initiateDropDown((Button)navBar.getChildren().get(1));
+
+
+        //Make a stack pane with the drawer and content in it
+        StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48), createNewsDrawer((Button)navBar.getChildren().get(1)));
+//        StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48));
+
+
+//        StackPane stackPane = new StackPane(content,fab,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48), createNewsDrawer(fab));
+
+
+//        createNewsDrawer((Button)navBar.getChildren().get(1));
+        initiateDropDown((Button)navBar.getChildren().get(2));
 
         //Set the content the base pane to have the nav bar on top and content under it
         vBox.getChildren().setAll(navBar,stackPane);
@@ -389,6 +403,65 @@ public class MainPane extends StackPane {
               \
              */
         });
+    }
+
+
+    private JFXDrawer createNewsDrawer(Button button){
+
+
+
+        Pane parent = (Pane)(button.getParent());
+
+        button.prefHeightProperty().bind(parent.heightProperty());
+
+        button.setText(ICON_NEWS);
+        button.setCursor(Cursor.HAND);
+//        bigButton.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
+//        bigButton.getStyleClass().setAll("big-button");
+        button.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 24px; -fx-text-fill: #FFFFFF;");
+
+        javafx.scene.control.ScrollPane newsScroll = new javafx.scene.control.ScrollPane();
+        newsScroll.setContent(news.getCardView());
+        newsScroll.setVbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        newsScroll.setHbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER);
+        //NEWS Style
+        newsScroll.setStyle("-fx-background-color: transparent;");
+        newsScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
+        newsScroll.getStyleClass().setAll("scroll-bar");
+        //NEWS Scaling
+        newsScroll.setFitToWidth(true);
+        newsScroll.setMinWidth(280);
+        newsScroll.setMaxWidth(280);
+        newsScroll.setPrefHeight(this.getPrefHeight());
+
+        newsDrawer = new JFXDrawer();
+        newsDrawer.setDirection(JFXDrawer.DrawerDirection.RIGHT);
+        newsDrawer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 5, 0);");
+        newsDrawer.setDefaultDrawerSize(280);
+        newsDrawer.setSidePane(newsScroll);
+        newsDrawer.setPickOnBounds(false);
+        newsDrawer.setMouseTransparent(true);
+
+
+        button.setOnMouseClicked(event -> {
+            if (newsDrawer.isShown()) {
+                newsDrawer.setMouseTransparent(true);
+
+                newsDrawer.close();
+            } else {
+                newsDrawer.setMouseTransparent(false);
+//                newsDrawer.setMouseTransparent(true);
+
+                newsDrawer.open();
+            }
+        });
+
+        newsDrawer.setOnDrawerClosing(event -> {
+            newsDrawer.setMouseTransparent(true);
+
+        });
+
+        return newsDrawer;
     }
 
     /**

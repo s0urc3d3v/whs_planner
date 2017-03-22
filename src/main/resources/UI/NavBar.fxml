@@ -3,9 +3,10 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.scene.layout.*?>
-<AnchorPane fx:id="navBar" maxHeight="48.0" minHeight="48.0" minWidth="100.0" prefHeight="48.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="navBar" maxHeight="48.0" minHeight="48.0" minWidth="256.0" prefHeight="48.0" xmlns="http://javafx.com/javafx/8.0.65">
    <children>
       <JFXHamburger alignment="CENTER" layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-      <JFXButton alignment="CENTER" mnemonicParsing="false" text=" " layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="0.0"/>
+      <JFXButton alignment="CENTER" layoutX="153.0" mnemonicParsing="false" text="NEWS" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="46.0" AnchorPane.topAnchor="0.0" />
+      <JFXButton alignment="CENTER" layoutX="47.0" mnemonicParsing="false" text="3DOT" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>
