@@ -433,6 +433,18 @@ public class MainPane extends StackPane {
             }
         });
 
+        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ESCAPE) {
+                    if (newsDrawer.isShown()) {
+                        newsDrawer.setMouseTransparent(true);
+                        newsDrawer.close();
+                    }
+                }
+            }
+        });
+
         newsDrawer.setOnDrawerClosing(event -> {
             newsDrawer.setMouseTransparent(true);
 
