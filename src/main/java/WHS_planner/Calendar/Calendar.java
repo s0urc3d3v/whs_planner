@@ -195,28 +195,34 @@ public class Calendar extends BorderPane {
         if(currentDate != -1){
             if(date == currentDate) {
                 changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);
+//                getCalendarBox(currentDate).hideLetterDay();
                 removeTaskBox(taskBox);
                 currentTextBoxRow = -1;
                 currentDate = -1;
             }else if(currentTextBoxRow == rowIDs[row]){
                 changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);
+//                getCalendarBox(currentDate).hideLetterDay();
                 changeButtonColor(getCalendarBox(date).getButtonNode(),true);
+//                getCalendarBox(date).showLetterDay();
                 removeTaskBox(taskBox);
                 addTaskBox(currentTextBoxRow, getCalendarBox(date).getTaskBox(tempPane.widthProperty()));
                 currentDate = date;
             }else{
                 changeButtonColor(getCalendarBox(currentDate).getButtonNode(), false);
+//                getCalendarBox(currentDate).hideLetterDay();
                 removeTaskBox(taskBox);
                 currentTextBoxRow = rowIDs[row];
                 currentDate = date;
                 addTaskBox(currentTextBoxRow, getCalendarBox(date).getTaskBox(tempPane.widthProperty()));
                 changeButtonColor(getCalendarBox(date).getButtonNode(),true);
+//                getCalendarBox(date).showLetterDay();
             }
         }else{
             currentTextBoxRow = rowIDs[row];
             currentDate = date;
             addTaskBox(currentTextBoxRow, getCalendarBox(date).getTaskBox(tempPane.widthProperty()));
             changeButtonColor(getCalendarBox(date).getButtonNode(),true);
+//            getCalendarBox(date).showLetterDay();
         }
         taskBox = getCalendarBox(date).getTaskBox(tempPane.widthProperty());
 //        saveCalendar();

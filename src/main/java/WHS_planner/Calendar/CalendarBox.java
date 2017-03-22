@@ -22,6 +22,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,7 +47,8 @@ public class CalendarBox extends Pane{
     private VBox vBox;
     private StackPane dateLabelStackPane;
     private Circle dayCircle;
-    private Label dateLabel;
+    private Text dateLabel;
+    private Text letterDayLabel;
     private HBox iconContainer;
     private int month;
     private String letterDay = "";
@@ -129,13 +131,29 @@ public class CalendarBox extends Pane{
 
         dateLabelStackPane.getChildren().add(dayCircle);
 
-        dateLabel = new Label();
+        dateLabel = new Text();
         dateLabel.setId("dateLabel");
         dateLabel.setMouseTransparent(true);
         dateLabel.getStyleClass().setAll("date-label");
 
         dateLabelStackPane.getChildren().add(dateLabel);
-        StackPane.setMargin(dateLabel, new Insets(-1, 0, 0, 6));
+        StackPane.setMargin(dateLabel, new Insets(1.25, 0, 0, 6));
+
+        letterDayLabel = new Text();
+        letterDayLabel.setText("");
+        showLetterDay();
+        letterDayLabel.setMouseTransparent(true);
+        letterDayLabel.getStyleClass().setAll("date-label");
+        letterDayLabel.setFill(Color.valueOf("#CFCED0"));
+        StackPane.setMargin(letterDayLabel, new Insets(0, 5, 4, 0));
+        StackPane letterDayLabelStackPane = new StackPane();
+        letterDayLabelStackPane.setAlignment(Pos.BOTTOM_RIGHT);
+        letterDayLabelStackPane.setMouseTransparent(true);
+        letterDayLabelStackPane.getChildren().add(letterDayLabel);
+        letterDayLabelStackPane.prefWidthProperty().bind(mainPane.widthProperty());
+        letterDayLabelStackPane.prefHeightProperty().bind(mainPane.heightProperty());
+        mainPane.getChildren().add(letterDayLabelStackPane);
+
 
         iconContainer = new HBox();
         iconContainer.setId("iconContainer");
@@ -189,11 +207,12 @@ public class CalendarBox extends Pane{
 
     //Initializes this box
     private void initFXMLBox() {
-        String dateString = date + ""; //Creates a string version of the date value
-        if(dateString.length() == 1){
-            dateString += "  ";
-        }
-        dateString += "                  " + letterDay;
+//        String dateString = date + ""; //Creates a string version of the date value
+//        if(dateString.length() == 1){
+//            dateString += "  ";
+//        }
+//        dateString += "                  " + letterDay;
+        String dateString = date + "";
         dateLabel.setText(dateString); //Set the dateLabel text = to the date
 
         //Set the buttonClicked action
@@ -208,7 +227,6 @@ public class CalendarBox extends Pane{
                 Calendar calendar = (Calendar)this.getParent().getParent().getParent();
                 calendar.update(week,date);
                 updateTaskBox();
-
             }
         }));
 //        java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
@@ -236,9 +254,10 @@ public class CalendarBox extends Pane{
             dayCircle.setFill(new Color(255/255, 152/255, 0, 0));
         }
 
-        if (this.getDate() >= 10) {
-            StackPane sp = dateLabelStackPane;
-            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 4.5));
+        if (this.getDate() == 11 || this.getDate() == 17) {
+            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 3.25));
+        }else if(this.getDate() >= 10) {
+            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 3.5));
         }
     }
 
@@ -500,7 +519,7 @@ public class CalendarBox extends Pane{
     }
 
     //Get the date Label
-    public Label getDateLabel(){
+    public Text getDateLabel(){
         return dateLabel;
     }
 
@@ -510,5 +529,13 @@ public class CalendarBox extends Pane{
 
     ArrayList<ArrayList<Task>> getTasks() {
         return tasks;
+    }
+
+    public void hideLetterDay(){
+        letterDayLabel.setText("");
+    }
+
+    public void showLetterDay(){
+        letterDayLabel.setText(letterDay);
     }
 }
