@@ -24,15 +24,24 @@ public class Main extends Application {
     public static final String VERSION_NUMBER = "1.4.0";
 
     public static final String UPDATE_NOTES =
+            "===== CHANGES =====\n " +
             "- Moved News column to a slide out drawer to reduce clutter and app window footprint. \n" +
-            "- Implemented dropdown menu for applying any of your classes to a homework task (iPass login required). Suggestion from Michael German \n " +
-            "- News links now open in default browser (suggestion from Steven Russo)\n " +
-            "- News can now refresh if user started the application offline (Ella Johnson)\n " +
-            "- Escape key now closes Schedule drawer (Suggestion from Steven Russo).\n " +
-            "- Minor bell 2 error fixed (Bug found by Thomas Daley) \n " +
-            "- Added task editing support (Suggestion from Vincent Pak)\n " +
             "- New calendar saving method. NOTE: 1.4 will automatically port your saves from older versions. However, older versions will not be able to read 1.4 saves. \n " +
-            "- Added icons to make the app look better";
+            "- Added icons to make the app look better\n " +
+            "- Added a button to copy Err.txt\n " +
+            "- Added animations\n " +
+            "===== Implemented Suggestions =====\n " +
+            "- Implemented dropdown menu for applying any of your classes to a homework task (iPass login required). (Michael German) \n " +
+            "- News links now open in the default browser (Steven Russo)\n " +
+            "- Added a refresh button to News if the user started the application offline (Ella Johnson)\n " +
+            "- Escape key now closes the Schedule drawer (Steven Russo).\n " +
+            "- Added task editing support (Vincent Pak)\n " +
+            "- Saves deleted tasks (Uma Paithankar)\n " +
+            "- Show letter days on the calendar (Vincent Pak/Kevin Wang/Talia Leong)\n " +
+            "===== BUG FIXES =====\n " +
+            "- Minor bell 2 error fixed (Found by Thomas Daley) \n " +
+            "- Fixed tasks not saving upon shutdown (Found by Kevin Wang)"
+            ;
 
     public static boolean isFirstStartup = false;
     public static boolean isFirstTimeOnVersion = false;
