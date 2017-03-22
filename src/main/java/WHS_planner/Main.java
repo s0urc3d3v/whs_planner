@@ -29,7 +29,6 @@ public class Main extends Application {
             "- New calendar saving method. NOTE: 1.4 will automatically port your saves from older versions. However, older versions will not be able to read 1.4 saves. \n " +
             "- Added icons to make the app look better\n " +
             "- Added a button to copy Err.txt\n " +
-            "- Added animations\n " +
             "===== Implemented Suggestions =====\n " +
             "- Implemented dropdown menu for applying any of your classes to a homework task (iPass login required). (Michael German) \n " +
             "- News links now open in the default browser (Steven Russo)\n " +
