@@ -80,7 +80,7 @@ class Home extends Pane {
 //        newsScroll.setMaxWidth(280);
 //        newsScroll.setPrefHeight(this.getPrefHeight());
 
-        insidePane.setPadding(new Insets(0, 0, 5, 5)); //top, right, bottom, left
+        insidePane.setPadding(new Insets(0, 5, 5, 5)); //top, right, bottom, left
 
         //Add Nodes to H/VBoxes
         insidePane.getChildren().addAll(calendar, progressBar);
