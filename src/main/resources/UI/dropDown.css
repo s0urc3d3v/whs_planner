@@ -6,8 +6,16 @@
     -fx-padding: 0;
     -fx-background-radius: 0;
     -fx-cursor: hand;
-
     -fx-font-family: 'FontAwesome Regular';
+}
+
+.list-button-no-fontawesome {
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto";
+    -fx-pref-width: 200;
+    -fx-pref-height: 50;
+    -fx-padding: 0;
+    -fx-background-radius: 0;
 }
 
 

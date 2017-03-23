@@ -43,6 +43,7 @@ public class MainPane extends StackPane {
     private final static String ICON_NEWS = "\uf1ea";
     private final static String ICON_FEEDBACK = "\uf044";
     private final static String ICON_ABOUT = "\uf05a";
+    private final static String ICON_SETTINGS = "\uf013";
 //    private final int HOME = 0;
 //    private final int SCHEDULE = 1;
 //    private final int CALENDAR = 2;
@@ -316,7 +317,7 @@ public class MainPane extends StackPane {
                 HBox buttonContainer = new HBox();
                 buttonContainer.setSpacing(40);
                 JFXButton licenses = new JFXButton("Licenses");
-                JFXButton copyError = new JFXButton("Copy Err.txt");
+                JFXButton copyError = new JFXButton("Copy Error Log");
 
                 copyError.getStyleClass().setAll("gray-button");
                 copyError.setButtonType(JFXButton.ButtonType.FLAT);
@@ -343,9 +344,9 @@ public class MainPane extends StackPane {
                     JFXSnackbar snackbar = new JFXSnackbar(mainPane);
                     try {
                         selection = new StringSelection(new String(Files.readAllBytes(Paths.get(System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner" + File.separator + "err.txt"))/*,"UTF-8"*/));
-                        snackbar.show("Err.txt copied!",2000);
+                        snackbar.show("Error Log Copied!",2000);
                     } catch (IOException e) {
-                        snackbar.show("Error when copying!",2000);
+                        snackbar.show("Error while copying!",2000);
                         e.printStackTrace();
                     }
                     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -356,6 +357,33 @@ public class MainPane extends StackPane {
                 info.getStyleClass().setAll("large-text");
                 info.setPadding(new Insets(10));
             });
+
+//            JFXButton button5 = new JFXButton();
+//            button5.setText("      " + ICON_SETTINGS + "  Settings");
+//            button5.setOnMouseClicked(eventNews -> {
+//                info.getChildren().clear();
+//
+//                info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
+//                info.setPadding(new Insets(10,0,10,0));
+//                info.setSpacing(0);
+//
+//                HBox letterDaySetting = new HBox(new Label("Always show letter day"));
+//                letterDaySetting.getStyleClass().setAll("list-button-no-fontawesome");
+//                JFXToggleButton letterDaySwitch = new JFXToggleButton();
+////                letterDayToggle.setSelected();
+//                letterDaySwitch.setOnAction(eventLetterDaySwitch -> {
+//                    if(letterDaySwitch.isSelected()) {
+//
+//                    } else {
+//
+//                    }
+//                });
+//                letterDaySetting.getChildren().addAll(letterDaySwitch);
+//
+//
+//
+//            });
+
             bell2Check.setCursor(Cursor.HAND);
             bell2Check.setText("Bell 2");
             bell2Check.setTranslateX(10);
