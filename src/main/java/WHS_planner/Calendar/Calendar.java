@@ -184,8 +184,8 @@ public class Calendar extends BorderPane {
 
         this.setCenter(mainPane);
 
-        LayoutAnimator animator = new LayoutAnimator();
-        animator.observe(mainPane.getChildren());
+//        LayoutAnimator animator = new LayoutAnimator();
+//        animator.observe(mainPane.getChildren());
     }
 
     void update(int row, int date) {
