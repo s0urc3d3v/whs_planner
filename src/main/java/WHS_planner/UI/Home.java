@@ -10,6 +10,7 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -66,19 +67,19 @@ class Home extends Pane {
 //                    String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
         //Initialize NEWS
-//        ScrollPane newsScroll = new ScrollPane();
-//        newsScroll.setContent(newsUI);
-//        newsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-//        newsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-//        //NEWS Style
-//        newsScroll.setStyle("-fx-background-color: transparent;");
-//        newsScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
-//        newsScroll.getStyleClass().setAll("scroll-bar");
-//        //NEWS Scaling
-//        newsScroll.setFitToWidth(true);
-//        newsScroll.setMinWidth(280);
-//        newsScroll.setMaxWidth(280);
-//        newsScroll.setPrefHeight(this.getPrefHeight());
+        ScrollPane newsScroll = new ScrollPane();
+        newsScroll.setContent(newsUI);
+        newsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        newsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        //NEWS Style
+        newsScroll.setStyle("-fx-background-color: transparent;");
+        newsScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
+        newsScroll.getStyleClass().setAll("scroll-bar");
+        //NEWS Scaling
+        newsScroll.setFitToWidth(true);
+        newsScroll.setMinWidth(280);
+        newsScroll.setMaxWidth(280);
+        newsScroll.setPrefHeight(this.getPrefHeight());
 
         insidePane.setPadding(new Insets(0, 5, 5, 5)); //top, right, bottom, left
 
@@ -87,7 +88,7 @@ class Home extends Pane {
 //        outsidePane.getChildren().addAll(insidePane,newsScroll);
 
         //Need to remove News to blackmail WSPN? uncomment this line
-        outsidePane.getChildren().setAll(insidePane/*,newsScroll*/);
+        outsidePane.getChildren().setAll(insidePane,newsScroll);
 
 
         //Resizing stuff
@@ -97,9 +98,9 @@ class Home extends Pane {
         VBox.setVgrow(progressBar, Priority.NEVER);
         insidePane.prefHeightProperty().bind(outsidePane.heightProperty());
         insidePane.prefWidthProperty().bind(outsidePane.widthProperty());
-//        newsScroll.prefHeightProperty().bind(outsidePane.heightProperty());
-//        newsScroll.prefWidthProperty().bind(outsidePane.widthProperty());
-//        HBox.setHgrow(newsScroll, Priority.NEVER);
+        newsScroll.prefHeightProperty().bind(outsidePane.heightProperty());
+        newsScroll.prefWidthProperty().bind(outsidePane.widthProperty());
+        HBox.setHgrow(newsScroll, Priority.NEVER);
         HBox.setHgrow(insidePane, Priority.ALWAYS);
         outsidePane.prefHeightProperty().bind(this.heightProperty());
         outsidePane.prefWidthProperty().bind(this.widthProperty());
