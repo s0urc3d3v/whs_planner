@@ -21,11 +21,10 @@ public class Main extends Application {
 
     public static final String SAVE_FOLDER = System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner";
 
-    public static final String VERSION_NUMBER = "1.4.0";
+    public static final String VERSION_NUMBER = "1.4.1";
 
     public static final String UPDATE_NOTES =
             "===== CHANGES =====\n " +
-            "- Moved News column to a slide out drawer to reduce clutter and app window footprint. \n" +
             "- New calendar saving method. NOTE: 1.4 will automatically port your saves from older versions. However, older versions will not be able to read 1.4 saves. \n " +
             "- Added icons to make the app look better\n " +
             "- Added a button to copy Err.txt\n " +
