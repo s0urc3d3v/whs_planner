@@ -345,18 +345,20 @@ public class MainPane extends StackPane {
                         String errorLog = new String(Files.readAllBytes(Paths.get(System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner" + File.separator + "err.txt"))/*,"UTF-8"*/);
                         selection = new StringSelection(errorLog);
 
-                        if(errorLog == null || errorLog.isEmpty()){
+                        if(errorLog.isEmpty()){
                             snackbar.show("Error Log Empty!", 2000);
+                            //Don't override user's existing clipboard if err.txt is empty
                         } else {
                             snackbar.show("Error Log Copied!",2000);
+                            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                            clipboard.setContents(selection, selection);
                         }
 
                     } catch (IOException e) {
                         snackbar.show("Error when copying!",2000);
                         e.printStackTrace();
                     }
-                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                    clipboard.setContents(selection, selection);
+
 
                 });
                 info.getChildren().add(buttonContainer);
