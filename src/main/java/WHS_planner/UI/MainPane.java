@@ -257,7 +257,7 @@ public class MainPane extends StackPane {
                 info.getStyleClass().setAll("large-text");
             });
             JFXButton button1 = new JFXButton();
-            button1.setText("      " + ICON_SCHEDULE + "  Refresh Schedule");
+            button1.setText("      " + ICON_SCHEDULE + "  Reload Schedule");
             button1.setOnMouseClicked(event12 -> {
                 try {
                     schedule.getScheduleControl().logout();
