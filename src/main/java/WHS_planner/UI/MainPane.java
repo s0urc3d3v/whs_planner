@@ -316,7 +316,7 @@ public class MainPane extends StackPane {
                 HBox buttonContainer = new HBox();
                 buttonContainer.setSpacing(40);
                 JFXButton licenses = new JFXButton("Licenses");
-                JFXButton copyError = new JFXButton("Copy Err.txt");
+                JFXButton copyError = new JFXButton("Copy Error Log");
 
                 copyError.getStyleClass().setAll("gray-button");
                 copyError.setButtonType(JFXButton.ButtonType.FLAT);
@@ -342,8 +342,15 @@ public class MainPane extends StackPane {
                     StringSelection selection = null;
                     JFXSnackbar snackbar = new JFXSnackbar(mainPane);
                     try {
-                        selection = new StringSelection(new String(Files.readAllBytes(Paths.get(System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner" + File.separator + "err.txt"))/*,"UTF-8"*/));
-                        snackbar.show("Err.txt copied!",2000);
+                        String errorLog = new String(Files.readAllBytes(Paths.get(System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner" + File.separator + "err.txt"))/*,"UTF-8"*/);
+                        selection = new StringSelection(errorLog);
+
+                        if(errorLog == null || errorLog.isEmpty()){
+                            snackbar.show("Error Log Empty!", 2000);
+                        } else {
+                            snackbar.show("Error Log Copied!",2000);
+                        }
+
                     } catch (IOException e) {
                         snackbar.show("Error when copying!",2000);
                         e.printStackTrace();
