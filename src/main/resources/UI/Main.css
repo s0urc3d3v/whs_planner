@@ -44,13 +44,13 @@
 }
 
 .floating-action-button {
-    -fx-background-radius: 50px;
-    -fx-min-height: 50px;
-    -fx-min-width: 50px;
+    -fx-background-radius: 56px;
+    -fx-min-height: 56px;
+    -fx-min-width: 56px;
     -fx-background-color: rgb(77,102,204);
     -fx-font-family: 'FontAwesome Regular';
     -fx-text-fill: white;
-    -fx-font-size: 20px;
+    -fx-font-size: 24px;
 
 
 }

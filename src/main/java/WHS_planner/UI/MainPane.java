@@ -71,6 +71,7 @@ public class MainPane extends StackPane {
     private Schedule schedule;
     private CalendarYear calendar;
     private NewsUI news;
+    private Home homePane;
     private boolean isHamburgerPressed = false;
 
     private boolean isNewsPane = true;
@@ -238,15 +239,17 @@ public class MainPane extends StackPane {
         FAB.getStyleClass().addAll("floating-action-button");
         anchor.prefWidthProperty().bind(stackPane.prefWidthProperty());
         anchor.prefHeightProperty().bind(stackPane.prefHeightProperty());
+        anchor.setPickOnBounds(false);
 
-        //-25.0 for the radius of the circle button
-        anchor.setBottomAnchor(FAB,140.0-25.0);
-        anchor.setRightAnchor(FAB,140.0-25.0);
+        //-28.0 for the radius of the circle button
+        anchor.setBottomAnchor(FAB,140.0-28.0);
+        anchor.setRightAnchor(FAB,140.0-28.0);
 
         FAB.prefWidthProperty().bind(anchor.prefWidthProperty());
         FAB.prefHeightProperty().bind(anchor.prefHeightProperty());
 
         FAB.setOnMouseClicked(event->{
+            homePane.switchPanes();
             Timeline timeline = new Timeline();
             timeline.setCycleCount(2);
             timeline.setAutoReverse(true);
@@ -259,22 +262,22 @@ public class MainPane extends StackPane {
             Duration duration = Duration.millis(125);
             //Method called when keyframe reached
             EventHandler onFinished = (EventHandler<ActionEvent>) event1 -> {
-                FAB.setDisable(false);
+//                FAB.setDisable(false);
                 if(isNewsPane) {
-                    FAB.setText(ICON_DAYVIEW);
-                    isNewsPane = !isNewsPane;
-                } else {
                     FAB.setText(ICON_NEWS);
-                    isNewsPane = !isNewsPane;
+                } else {
+                    FAB.setText(ICON_DAYVIEW);
                 }
+                isNewsPane = !isNewsPane;
+
+//                content.requestFocus();
+
             };
 
             KeyFrame keyFrame = new KeyFrame(duration, onFinished , keyValueX, keyValueY);
             timeline.getKeyFrames().add(keyFrame);
             timeline.play();
         });
-
-
 
 
 //        StackPane stackPane = new StackPane(content,fab,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48), createNewsDrawer(fab));
@@ -614,7 +617,7 @@ public class MainPane extends StackPane {
 //            e.printStackTrace();
 //        }
         //Pane meeting = new MeetingPane();
-        Home homePane = new Home(calendar, news.getCardView());
+        homePane = new Home(calendar, news.getCardView());
         addPane(homePane);
         addPane((Pane) schedule.getPane());
         //addPane(meeting);

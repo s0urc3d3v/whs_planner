@@ -9,6 +9,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
@@ -45,6 +46,9 @@ class Home extends Pane {
     private java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
     private String currentClass;
 
+    private ScrollPane newsScroll;
+    private VBox dayView = new VBox(new Label("Placeholder!\nHello!"));
+
     Home(CalendarYear calendar, Pane newsUI) {
         globalTime = new GlobalTime(calendar.getSchedule().getCheck());
 
@@ -67,7 +71,7 @@ class Home extends Pane {
 //                    String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
         //Initialize NEWS
-        ScrollPane newsScroll = new ScrollPane();
+        newsScroll = new ScrollPane();
         newsScroll.setContent(newsUI);
         newsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         newsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -80,6 +84,12 @@ class Home extends Pane {
         newsScroll.setMinWidth(280);
         newsScroll.setMaxWidth(280);
         newsScroll.setPrefHeight(this.getPrefHeight());
+
+
+
+        dayView.setMinWidth(280);
+        dayView.setMaxWidth(280);
+        dayView.setPrefHeight(this.getPrefHeight());
 
         insidePane.setPadding(new Insets(0, 5, 5, 5)); //top, right, bottom, left
 
@@ -100,7 +110,10 @@ class Home extends Pane {
         insidePane.prefWidthProperty().bind(outsidePane.widthProperty());
         newsScroll.prefHeightProperty().bind(outsidePane.heightProperty());
         newsScroll.prefWidthProperty().bind(outsidePane.widthProperty());
+        dayView.prefHeightProperty().bind(outsidePane.heightProperty());
+        dayView.prefWidthProperty().bind(outsidePane.widthProperty());
         HBox.setHgrow(newsScroll, Priority.NEVER);
+        HBox.setHgrow(dayView, Priority.NEVER);
         HBox.setHgrow(insidePane, Priority.ALWAYS);
         outsidePane.prefHeightProperty().bind(this.heightProperty());
         outsidePane.prefWidthProperty().bind(this.widthProperty());
@@ -258,6 +271,19 @@ class Home extends Pane {
 //            progressBar.setPrefWidth(parent.getWidth());
         }));
         this.getChildren().setAll(outsidePane);
+    }
+
+    public void switchPanes(){
+        if(outsidePane.getChildren().get(1) == newsScroll)
+        {
+            outsidePane.getChildren().remove(newsScroll);
+            outsidePane.getChildren().add(dayView);
+
+        } else {
+            outsidePane.getChildren().remove(dayView);
+            outsidePane.getChildren().add(newsScroll);
+
+        }
     }
 
     private static void hackTooltipStartTiming(Tooltip tooltip) {
