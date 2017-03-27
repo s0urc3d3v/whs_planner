@@ -7,6 +7,8 @@ import WHS_planner.Schedule.Schedule;
 import WHS_planner.Util.UserLoggedIn;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import javafx.animation.*;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -21,6 +23,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
+import sun.plugin.javascript.navig.Anchor;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -43,6 +48,11 @@ public class MainPane extends StackPane {
     private final static String ICON_NEWS = "\uf1ea";
     private final static String ICON_FEEDBACK = "\uf044";
     private final static String ICON_ABOUT = "\uf05a";
+
+    private final static String ICON_DAYVIEW = "\uf0ca";
+
+
+
 //    private final int HOME = 0;
 //    private final int SCHEDULE = 1;
 //    private final int CALENDAR = 2;
@@ -62,6 +72,8 @@ public class MainPane extends StackPane {
     private CalendarYear calendar;
     private NewsUI news;
     private boolean isHamburgerPressed = false;
+
+    private boolean isNewsPane = true;
 
 //    private Home homePane;
 
@@ -197,6 +209,13 @@ public class MainPane extends StackPane {
         return null; //Return nothing if it errors out
     }
 
+
+//    private JFXButton createFAB() {
+
+
+//        return FAB;
+//    }
+
     /**
      * Generates the Pane from all the data given
      * @return vBox
@@ -204,14 +223,58 @@ public class MainPane extends StackPane {
     private VBox createPane() {
         VBox vBox = new VBox(); //Create a vBox for the base pane
 
-//        JFXButton fab = new JFXButton("NEWS");
-//        fab.setButtonType(JFXButton.ButtonType.RAISED);
-
-
+        JFXButton FAB = new JFXButton(ICON_DAYVIEW);
+        AnchorPane anchor = new AnchorPane(FAB);
 
         //Make a stack pane with the drawer and content in it
 //        StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48), createNewsDrawer((Button)navBar.getChildren().get(1)));
-        StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48));
+        StackPane stackPane = new StackPane(content, anchor, createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48));
+
+
+
+
+        FAB.setButtonType(JFXButton.ButtonType.RAISED);
+        FAB.getStylesheets().addAll("UI" + File.separator + "Main.css");
+        FAB.getStyleClass().addAll("floating-action-button");
+        anchor.prefWidthProperty().bind(stackPane.prefWidthProperty());
+        anchor.prefHeightProperty().bind(stackPane.prefHeightProperty());
+
+        //-25.0 for the radius of the circle button
+        anchor.setBottomAnchor(FAB,140.0-25.0);
+        anchor.setRightAnchor(FAB,140.0-25.0);
+
+        FAB.prefWidthProperty().bind(anchor.prefWidthProperty());
+        FAB.prefHeightProperty().bind(anchor.prefHeightProperty());
+
+        FAB.setOnMouseClicked(event->{
+            Timeline timeline = new Timeline();
+            timeline.setCycleCount(2);
+            timeline.setAutoReverse(true);
+
+            //create a keyValue with factory: scaling the button to 0
+            KeyValue keyValueX = new KeyValue(FAB.scaleXProperty(), 0);
+            KeyValue keyValueY = new KeyValue(FAB.scaleYProperty(), 0);
+
+            //create a keyFrame, the keyValue is reached at time 125ms
+            Duration duration = Duration.millis(125);
+            //Method called when keyframe reached
+            EventHandler onFinished = (EventHandler<ActionEvent>) event1 -> {
+                FAB.setDisable(false);
+                if(isNewsPane) {
+                    FAB.setText(ICON_DAYVIEW);
+                    isNewsPane = !isNewsPane;
+                } else {
+                    FAB.setText(ICON_NEWS);
+                    isNewsPane = !isNewsPane;
+                }
+            };
+
+            KeyFrame keyFrame = new KeyFrame(duration, onFinished , keyValueX, keyValueY);
+            timeline.getKeyFrames().add(keyFrame);
+            timeline.play();
+        });
+
+
 
 
 //        StackPane stackPane = new StackPane(content,fab,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48), createNewsDrawer(fab));

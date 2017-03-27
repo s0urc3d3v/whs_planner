@@ -42,3 +42,15 @@
 .jfx-snackbar-action {
     -fx-text-fill: #ff4081;
 }
+
+.floating-action-button {
+    -fx-background-radius: 50px;
+    -fx-min-height: 50px;
+    -fx-min-width: 50px;
+    -fx-background-color: rgb(77,102,204);
+    -fx-font-family: 'FontAwesome Regular';
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+
+
+}
