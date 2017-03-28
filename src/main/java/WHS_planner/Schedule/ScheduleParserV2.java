@@ -144,8 +144,16 @@ public class ScheduleParserV2
                     }
                     else if(iterator == 4)
                     {
-                        blocks[blocknumber] = new ScheduleBlock(name, teacher, room, period);
-                        blocknumber++;
+                        try
+                        {
+                            blocks[blocknumber] = new ScheduleBlock(name, teacher, room, period);
+                            blocknumber++;
+                        }
+                        catch(Exception e) {
+                            //John broderick only punts errors
+                            //TODO: check if this works
+                        }
+
                         iterator = -1;
                     }
                     iterator++;
