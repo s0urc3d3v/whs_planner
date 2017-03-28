@@ -249,6 +249,7 @@ public class MainPane extends StackPane {
         FAB.prefHeightProperty().bind(anchor.prefHeightProperty());
 
         FAB.setOnMouseClicked(event->{
+            FAB.setDisable(true);
             homePane.switchPanes();
             Timeline timeline = new Timeline();
             timeline.setCycleCount(2);
@@ -271,6 +272,8 @@ public class MainPane extends StackPane {
                 isNewsPane = !isNewsPane;
 
 //                content.requestFocus();
+                FAB.setDisable(false);
+
 
             };
 
@@ -584,18 +587,15 @@ public class MainPane extends StackPane {
             isHamburgerPressed = false;
         });
 
-        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.ESCAPE) {
-                    if (drawer.isShown()) {
-                        isHamburgerPressed = true;
-                        drawer.setMouseTransparent(true);
-                        hamburger.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
-                        drawer.close();
-                        hamburger.getAnimation().play(); //Plays the transition
-                        isHamburgerPressed = false;
-                    }
+        this.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                if (drawer.isShown()) {
+                    isHamburgerPressed = true;
+                    drawer.setMouseTransparent(true);
+                    hamburger.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
+                    drawer.close();
+                    hamburger.getAnimation().play(); //Plays the transition
+                    isHamburgerPressed = false;
                 }
             }
         });

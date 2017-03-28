@@ -47,7 +47,8 @@ class Home extends Pane {
     private String currentClass;
 
     private ScrollPane newsScroll;
-    private VBox dayView = new VBox(new Label("Placeholder!\nHello!"));
+    private ScrollPane dayScroll;
+    private VBox dayView = new VBox(new Label("\n\n\n\n    Placeholder!\n    Hello! \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test xD 1231231231231231231231231qwqwqwwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqw overfloooooooooow"));
 
     Home(CalendarYear calendar, Pane newsUI) {
         globalTime = new GlobalTime(calendar.getSchedule().getCheck());
@@ -85,11 +86,18 @@ class Home extends Pane {
         newsScroll.setMaxWidth(280);
         newsScroll.setPrefHeight(this.getPrefHeight());
 
+        dayScroll = new ScrollPane();
+        dayScroll.setContent(dayView);
+        dayScroll.setFitToWidth(true);
+        dayScroll.setMinWidth(280);
+        dayScroll.setMaxWidth(280);
+        dayScroll.setPrefHeight(this.getPrefHeight());
+        dayScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
+        dayScroll.getStyleClass().setAll("scroll-bar");
 
 
         dayView.setMinWidth(280);
         dayView.setMaxWidth(280);
-        dayView.setPrefHeight(this.getPrefHeight());
 
         insidePane.setPadding(new Insets(0, 5, 5, 5)); //top, right, bottom, left
 
@@ -110,10 +118,10 @@ class Home extends Pane {
         insidePane.prefWidthProperty().bind(outsidePane.widthProperty());
         newsScroll.prefHeightProperty().bind(outsidePane.heightProperty());
         newsScroll.prefWidthProperty().bind(outsidePane.widthProperty());
-        dayView.prefHeightProperty().bind(outsidePane.heightProperty());
-        dayView.prefWidthProperty().bind(outsidePane.widthProperty());
+        dayScroll.prefHeightProperty().bind(outsidePane.heightProperty());
+        dayScroll.prefWidthProperty().bind(outsidePane.widthProperty());
         HBox.setHgrow(newsScroll, Priority.NEVER);
-        HBox.setHgrow(dayView, Priority.NEVER);
+        HBox.setHgrow(dayScroll, Priority.NEVER);
         HBox.setHgrow(insidePane, Priority.ALWAYS);
         outsidePane.prefHeightProperty().bind(this.heightProperty());
         outsidePane.prefWidthProperty().bind(this.widthProperty());
@@ -121,7 +129,6 @@ class Home extends Pane {
         progressBar.prefWidthProperty().bind(insidePane.widthProperty());
 //        VBox parent = (VBox)progressBar.getParent();
 //        progressBar.setPrefWidth(parent.getWidth());
-
 
 
         Platform.runLater(() -> {
@@ -186,7 +193,6 @@ class Home extends Pane {
             int classIndex = globalTime.getClassIndex();
 //            System.out.println("called");
 //            calendar.getThisMonth().hitAllOfTheDabs();
-
             if (i[0] == 60) {
                 i[0] = 0;
                 calendar.getThisMonth().hitAllOfTheDabs();
@@ -220,8 +226,6 @@ class Home extends Pane {
             } else {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
-
-            //TODO: Add highlight changing
 
             checkForSpecialDayTooltip(tooltip);
 //            VBox parent = (VBox)progressBar.getParent();
@@ -264,9 +268,7 @@ class Home extends Pane {
             } else {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
-
             checkForSpecialDayTooltip(tooltip);
-
 //            VBox parent = (VBox)progressBar.getParent();
 //            progressBar.setPrefWidth(parent.getWidth());
         }));
@@ -274,15 +276,12 @@ class Home extends Pane {
     }
 
     public void switchPanes(){
-        if(outsidePane.getChildren().get(1) == newsScroll)
-        {
+        if(outsidePane.getChildren().get(1) == newsScroll) {
             outsidePane.getChildren().remove(newsScroll);
-            outsidePane.getChildren().add(dayView);
-
+            outsidePane.getChildren().add(dayScroll);
         } else {
-            outsidePane.getChildren().remove(dayView);
+            outsidePane.getChildren().remove(dayScroll);
             outsidePane.getChildren().add(newsScroll);
-
         }
     }
 
