@@ -163,10 +163,8 @@ public class Main extends Application {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } catch (Exception e) {
-
         }
-    }
+
 
     public static Object getMainPane() {
         return mainPane;
