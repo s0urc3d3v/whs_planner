@@ -3,6 +3,7 @@ package WHS_planner.Schedule;
 import WHS_planner.Main;
 import WHS_planner.UI.MainPane;
 import WHS_planner.Util.XorTool;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -40,6 +41,9 @@ public class ScheduleController implements Initializable, ActionListener
     @FXML
     private JFXSpinner spinner;
 
+//    @FXML
+//    private JFXButton refreshButton;
+
 
     private VBox[] panes;
 
@@ -51,6 +55,9 @@ public class ScheduleController implements Initializable, ActionListener
     private Timer timer;
 
     private Pane oldpane;
+
+
+
 
 
     @Override

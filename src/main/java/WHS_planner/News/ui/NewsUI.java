@@ -171,9 +171,8 @@ public class NewsUI extends Pane {
     public void refresh() {
         feedArray.clear();
         feedArray = parser.getNewArticles(onScreenMessages);
-        for (int i = 0; i < feedArray.size(); i++) {
 
-        }
+
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
 
@@ -219,7 +218,7 @@ public class NewsUI extends Pane {
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-            onScreenMessages.add(feedArray.get(i));
+            onScreenMessages.add(0,feedArray.get(i));
         }
     }
 
