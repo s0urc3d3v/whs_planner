@@ -346,7 +346,6 @@ public class MainPane extends StackPane {
                         selection = new StringSelection(errorLog);
 
                         if(errorLog == null || errorLog.isEmpty()){
-){
                             snackbar.show("Error Log Empty!", 2000);
                             //Don't override user's existing clipboard if err.txt is empty
                         } else {
