@@ -77,15 +77,15 @@ public class Main extends Application {
             }
         }, "Shutdown-thread"));
 
-        PrintStream console = System.err;
-
-        File file = new File(Main.SAVE_FOLDER + File.separator + "err.txt");
-        if(!file.exists()){
-            file.createNewFile();
-        }
-        FileOutputStream fos = new FileOutputStream(file);
-        PrintStream ps = new PrintStream(fos);
-        System.setErr(ps);
+//        PrintStream console = System.err;
+//
+//        File file = new File(Main.SAVE_FOLDER + File.separator + "err.txt");
+//        if(!file.exists()){
+//            file.createNewFile();
+//        }
+//        FileOutputStream fos = new FileOutputStream(file);
+//        PrintStream ps = new PrintStream(fos);
+//        System.setErr(ps);
 
         System.setProperty("http.agent", "Chrome");
 //        PropertyConfigurator.configure("log4j.properties");

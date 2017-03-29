@@ -1,6 +1,8 @@
 package WHS_planner.UI;
 
+import WHS_planner.Calendar.CalendarBox;
 import WHS_planner.Calendar.CalendarYear;
+import WHS_planner.Calendar.Task;
 import WHS_planner.Main;
 import WHS_planner.Schedule.ParseCalendar;
 import com.jfoenix.controls.JFXCheckBox;
@@ -46,11 +48,14 @@ class Home extends Pane {
     private java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
     private String currentClass;
 
+    private CalendarYear calYear;
+
     private ScrollPane newsScroll;
     private ScrollPane dayScroll;
     private VBox dayView = new VBox(new Label("\n\n\n\n    Placeholder!\n    Hello! \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test xD 1231231231231231231231231qwqwqwwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqw overfloooooooooow"));
 
     Home(CalendarYear calendar, Pane newsUI) {
+        calYear = calendar;
         globalTime = new GlobalTime(calendar.getSchedule().getCheck());
 
         File day = new File(Main.SAVE_FOLDER + File.separator + "DayArray.json");
@@ -107,6 +112,13 @@ class Home extends Pane {
 
         //Need to remove News to blackmail WSPN? uncomment this line
         outsidePane.getChildren().setAll(insidePane,newsScroll);
+
+
+
+
+//        for (int i = 0; i < tasks.size(); i++) {
+//            System.out.println(tasks.get(i).getDescription());
+//        }
 
 
         //Resizing stuff
@@ -536,6 +548,25 @@ class Home extends Pane {
                 int numberOfRows = Integer.parseInt(bellTimesFile.get(3));
                 for (int i = 0; i < numberOfRows*2+4; i++) {
                     bellTimesFile.remove(0);
+                }
+            }
+        }
+    }
+
+    public void getTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        for (int i = 0; i < calYear.getYear().length; i++) {
+            CalendarBox[][] calBoxes = calYear.getYear()[i].getBoxes();
+            for (int j = 0; j < calBoxes.length; j++) {
+                for (int k = 0; k < calBoxes[0].length; k++) {
+                    if(calBoxes[j][k]!=null){
+                        for (int l = 0; l < calBoxes[j][k].getTasks().size(); l++) {
+                            for (int m = 0; m < calBoxes[j][k].getTasks().get(l).size(); m++) {
+                                tasks.add(calBoxes[j][k].getTasks().get(l).get(m));
+                            }
+                        }
+                    }
                 }
             }
         }

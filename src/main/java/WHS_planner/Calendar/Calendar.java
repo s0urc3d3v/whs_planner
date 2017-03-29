@@ -42,6 +42,9 @@ public class Calendar extends BorderPane {
     private int currentDate = -1;
     private Schedule schedule;
 
+    public CalendarBox[][] getBoxes() {
+        return calendar;
+    }
     public Schedule getSchedule()
     {
         return schedule;

@@ -251,6 +251,7 @@ public class MainPane extends StackPane {
         FAB.setOnMouseClicked(event->{
             FAB.setDisable(true);
             homePane.switchPanes();
+            homePane.getTasks();
             Timeline timeline = new Timeline();
             timeline.setCycleCount(2);
             timeline.setAutoReverse(true);

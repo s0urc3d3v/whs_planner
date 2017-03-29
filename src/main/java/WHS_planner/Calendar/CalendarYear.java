@@ -25,6 +25,11 @@ public class CalendarYear extends Pane {
         return months[month];
     }
 
+    public Calendar[] getYear() {
+
+        return months;
+    }
+
     public CalendarYear(Schedule schedule){
         this.sc = schedule;
         for (int i = 0; i < 12; i++) {
