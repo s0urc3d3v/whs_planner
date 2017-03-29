@@ -25,20 +25,21 @@ public class Main extends Application {
 
     public static final String UPDATE_NOTES =
             "===== CHANGES =====\n " +
-                    "- New calendar saving method. NOTE: 1.4 will automatically port your saves from older versions. However, older versions will not be able to read 1.4 saves. \n " +
-                    "- Added icons to make the app look better\n " +
-                    "- Added a button to copy Err.txt\n " +
-                    "===== Implemented Suggestions =====\n " +
-                    "- Implemented dropdown menu for applying any of your classes to a homework task (iPass login required). (Michael German) \n " +
-                    "- News links now open in the default browser (Steven Russo)\n " +
-                    "- Added a refresh button to News if the user started the application offline (Ella Johnson)\n " +
-                    "- Escape key now closes the Schedule drawer (Steven Russo).\n " +
-                    "- Added task editing support (Vincent Pak)\n " +
-                    "- Saves deleted tasks (Uma Paithankar)\n " +
-                    "- Show letter days on the calendar (Vincent Pak/Kevin Wang/Talia Leong)\n " +
-                    "===== BUG FIXES =====\n " +
-                    "- Minor bell 2 error fixed (Found by Thomas Daley) \n " +
-                    "- Fixed tasks not saving upon shutdown (Found by Kevin Wang)";
+            "- New calendar saving method. NOTE: 1.4 will automatically port your saves from older versions. However, older versions will not be able to read 1.4 saves. \n " +
+            "- Added icons to make the app look better\n " +
+            "- Added a button to copy Err.txt\n " +
+            "===== Implemented Suggestions =====\n " +
+            "- Implemented dropdown menu for applying any of your classes to a homework task (iPass login required). (Michael German) \n " +
+            "- News links now open in the default browser (Steven Russo)\n " +
+            "- Added a refresh button to News if the user started the application offline (Ella Johnson)\n " +
+            "- Escape key now closes the Schedule drawer (Steven Russo).\n " +
+            "- Added task editing support (Vincent Pak)\n " +
+            "- Saves deleted tasks (Uma Paithankar)\n " +
+            "- Show letter days on the calendar (Vincent Pak/Kevin Wang/Talia Leong)\n " +
+            "===== BUG FIXES =====\n " +
+            "- Minor bell 2 error fixed (Found by Thomas Daley) \n " +
+            "- Fixed tasks not saving upon shutdown (Found by Kevin Wang)"
+            ;
 
     public static boolean isFirstStartup = false;
     public static boolean isFirstTimeOnVersion = false;
@@ -58,14 +59,11 @@ public class Main extends Application {
      * The main method of the program.
      * It initializes and runs the application!
      */
-
-    public static void main(String[] args) {
-        try {
-
-            File saveFolder = new File(SAVE_FOLDER);
-            if (!saveFolder.exists()) {
-                saveFolder.mkdir();
-            }
+    public static void main(String[] args) throws Exception {
+        File saveFolder = new File(SAVE_FOLDER);
+        if(!saveFolder.exists()) {
+            saveFolder.mkdir();
+        }
 
             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
                 public void run() {
@@ -78,17 +76,17 @@ public class Main extends Application {
                 }
             }, "Shutdown-thread"));
 
-            PrintStream console = System.err;
+//        PrintStream console = System.err;
+//
+//        File file = new File(Main.SAVE_FOLDER + File.separator + "err.txt");
+//        if(!file.exists()){
+//            file.createNewFile();
+//        }
+//        FileOutputStream fos = new FileOutputStream(file);
+//        PrintStream ps = new PrintStream(fos);
+//        System.setErr(ps);
 
-            File file = new File(Main.SAVE_FOLDER + File.separator + "err.txt");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileOutputStream fos = new FileOutputStream(file);
-            PrintStream ps = new PrintStream(fos);
-            System.setErr(ps);
-
-            System.setProperty("http.agent", "Chrome");
+        System.setProperty("http.agent", "Chrome");
 //        PropertyConfigurator.configure("log4j.properties");
 
 

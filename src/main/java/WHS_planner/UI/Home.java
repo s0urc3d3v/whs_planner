@@ -1,6 +1,8 @@
 package WHS_planner.UI;
 
+import WHS_planner.Calendar.CalendarBox;
 import WHS_planner.Calendar.CalendarYear;
+import WHS_planner.Calendar.Task;
 import WHS_planner.Main;
 import WHS_planner.Schedule.ParseCalendar;
 import com.jfoenix.controls.JFXCheckBox;
@@ -9,6 +11,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
@@ -45,7 +48,14 @@ class Home extends Pane {
     private java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
     private String currentClass;
 
+    private CalendarYear calYear;
+
+    private ScrollPane newsScroll;
+    private ScrollPane dayScroll;
+    private VBox dayView = new VBox(new Label("\n\n\n\n    Placeholder!\n    Hello! \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test xD 1231231231231231231231231qwqwqwwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqw overfloooooooooow"));
+
     Home(CalendarYear calendar, Pane newsUI) {
+        calYear = calendar;
         globalTime = new GlobalTime(calendar.getSchedule().getCheck());
 
         File day = new File(Main.SAVE_FOLDER + File.separator + "DayArray.json");
@@ -67,7 +77,7 @@ class Home extends Pane {
 //                    String currentClass = calendar.getSchedule().getToday(globalTime.getLetterDay())[classIndex].getClassName();
 
         //Initialize NEWS
-        ScrollPane newsScroll = new ScrollPane();
+        newsScroll = new ScrollPane();
         newsScroll.setContent(newsUI);
         newsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         newsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -81,6 +91,19 @@ class Home extends Pane {
         newsScroll.setMaxWidth(280);
         newsScroll.setPrefHeight(this.getPrefHeight());
 
+        dayScroll = new ScrollPane();
+        dayScroll.setContent(dayView);
+        dayScroll.setFitToWidth(true);
+        dayScroll.setMinWidth(280);
+        dayScroll.setMaxWidth(280);
+        dayScroll.setPrefHeight(this.getPrefHeight());
+        dayScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
+        dayScroll.getStyleClass().setAll("scroll-bar");
+
+
+        dayView.setMinWidth(280);
+        dayView.setMaxWidth(280);
+
         insidePane.setPadding(new Insets(0, 5, 5, 5)); //top, right, bottom, left
 
         //Add Nodes to H/VBoxes
@@ -89,6 +112,13 @@ class Home extends Pane {
 
         //Need to remove News to blackmail WSPN? uncomment this line
         outsidePane.getChildren().setAll(insidePane,newsScroll);
+
+
+
+
+//        for (int i = 0; i < tasks.size(); i++) {
+//            System.out.println(tasks.get(i).getDescription());
+//        }
 
 
         //Resizing stuff
@@ -100,7 +130,10 @@ class Home extends Pane {
         insidePane.prefWidthProperty().bind(outsidePane.widthProperty());
         newsScroll.prefHeightProperty().bind(outsidePane.heightProperty());
         newsScroll.prefWidthProperty().bind(outsidePane.widthProperty());
+        dayScroll.prefHeightProperty().bind(outsidePane.heightProperty());
+        dayScroll.prefWidthProperty().bind(outsidePane.widthProperty());
         HBox.setHgrow(newsScroll, Priority.NEVER);
+        HBox.setHgrow(dayScroll, Priority.NEVER);
         HBox.setHgrow(insidePane, Priority.ALWAYS);
         outsidePane.prefHeightProperty().bind(this.heightProperty());
         outsidePane.prefWidthProperty().bind(this.widthProperty());
@@ -108,7 +141,6 @@ class Home extends Pane {
         progressBar.prefWidthProperty().bind(insidePane.widthProperty());
 //        VBox parent = (VBox)progressBar.getParent();
 //        progressBar.setPrefWidth(parent.getWidth());
-
 
 
         Platform.runLater(() -> {
@@ -173,7 +205,6 @@ class Home extends Pane {
             int classIndex = globalTime.getClassIndex();
 //            System.out.println("called");
 //            calendar.getThisMonth().hitAllOfTheDabs();
-
             if (i[0] == 60) {
                 i[0] = 0;
                 calendar.getThisMonth().hitAllOfTheDabs();
@@ -207,8 +238,6 @@ class Home extends Pane {
             } else {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
-
-            //TODO: Add highlight changing
 
             checkForSpecialDayTooltip(tooltip);
 //            VBox parent = (VBox)progressBar.getParent();
@@ -251,13 +280,21 @@ class Home extends Pane {
             } else {
                 tooltip.setText("Time left: \n" + timeLeft() + " min");
             }
-
             checkForSpecialDayTooltip(tooltip);
-
 //            VBox parent = (VBox)progressBar.getParent();
 //            progressBar.setPrefWidth(parent.getWidth());
         }));
         this.getChildren().setAll(outsidePane);
+    }
+
+    public void switchPanes(){
+        if(outsidePane.getChildren().get(1) == newsScroll) {
+            outsidePane.getChildren().remove(newsScroll);
+            outsidePane.getChildren().add(dayScroll);
+        } else {
+            outsidePane.getChildren().remove(dayScroll);
+            outsidePane.getChildren().add(newsScroll);
+        }
     }
 
     private static void hackTooltipStartTiming(Tooltip tooltip) {
@@ -511,6 +548,25 @@ class Home extends Pane {
                 int numberOfRows = Integer.parseInt(bellTimesFile.get(3));
                 for (int i = 0; i < numberOfRows*2+4; i++) {
                     bellTimesFile.remove(0);
+                }
+            }
+        }
+    }
+
+    public void getTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        for (int i = 0; i < calYear.getYear().length; i++) {
+            CalendarBox[][] calBoxes = calYear.getYear()[i].getBoxes();
+            for (int j = 0; j < calBoxes.length; j++) {
+                for (int k = 0; k < calBoxes[0].length; k++) {
+                    if(calBoxes[j][k]!=null){
+                        for (int l = 0; l < calBoxes[j][k].getTasks().size(); l++) {
+                            for (int m = 0; m < calBoxes[j][k].getTasks().get(l).size(); m++) {
+                                tasks.add(calBoxes[j][k].getTasks().get(l).get(m));
+                            }
+                        }
+                    }
                 }
             }
         }

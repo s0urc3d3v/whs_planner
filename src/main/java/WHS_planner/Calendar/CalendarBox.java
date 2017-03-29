@@ -40,7 +40,7 @@ public class CalendarBox extends Pane {
     private int date; //The date of the box
     private int week; //The week this box is in
 
-    private ArrayList<ArrayList<Task>> tasks; //List of the lists of tasks
+    private ArrayList<ArrayList<Task>> tasks = new ArrayList<>(); //List of the lists of tasks I WANT TO DIE
     private StackPane mainPane;
     private VBox taskBar;
     private ScrollPane tasksPane;
@@ -652,7 +652,7 @@ public class CalendarBox extends Pane {
     // Tzurs Code
     // Restart related
 
-    ArrayList<ArrayList<Task>> getTasks() {
+    public ArrayList<ArrayList<Task>> getTasks() {
         return tasks;
     }
 
