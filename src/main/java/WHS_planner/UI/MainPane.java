@@ -345,7 +345,8 @@ public class MainPane extends StackPane {
                         String errorLog = new String(Files.readAllBytes(Paths.get(System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner" + File.separator + "err.txt"))/*,"UTF-8"*/);
                         selection = new StringSelection(errorLog);
 
-                        if(errorLog.isEmpty()){
+                        if(errorLog == null || errorLog.isEmpty()){
+){
                             snackbar.show("Error Log Empty!", 2000);
                             //Don't override user's existing clipboard if err.txt is empty
                         } else {
