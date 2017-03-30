@@ -103,6 +103,7 @@ class Home extends Pane {
 
         dayView.setMinWidth(280);
         dayView.setMaxWidth(280);
+        getTasks();
 
         insidePane.setPadding(new Insets(0, 5, 5, 5)); //top, right, bottom, left
 
@@ -287,7 +288,7 @@ class Home extends Pane {
         this.getChildren().setAll(outsidePane);
     }
 
-    public void switchPanes(){
+    void switchPanes(){
         if(outsidePane.getChildren().get(1) == newsScroll) {
             outsidePane.getChildren().remove(newsScroll);
             outsidePane.getChildren().add(dayScroll);
@@ -323,7 +324,7 @@ class Home extends Pane {
         int num = parseDate(dateS);
         double mod;
         //wednesday
-        if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
+        if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
             if (num >= 450 && num < 490) {
                 mod = (490 - num) / 45.0;
             } else if (num >= 490 && num < 495) {
@@ -430,7 +431,7 @@ class Home extends Pane {
         String dateS = df.format(date);
         int num = parseDate(dateS);
         double mod;
-        if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == 4) {
+        if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
             if (num >= 450 && num < 490) {
                 mod = (490 - num);
             } else if (num >= 490 && num < 495) {
@@ -553,7 +554,7 @@ class Home extends Pane {
         }
     }
 
-    public void getTasks() {
+    void getTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
 
         for (int i = 0; i < calYear.getYear().length; i++) {
@@ -562,13 +563,18 @@ class Home extends Pane {
                 for (int k = 0; k < calBoxes[0].length; k++) {
                     if(calBoxes[j][k]!=null){
                         for (int l = 0; l < calBoxes[j][k].getTasks().size(); l++) {
-                            for (int m = 0; m < calBoxes[j][k].getTasks().get(l).size(); m++) {
-                                tasks.add(calBoxes[j][k].getTasks().get(l).get(m));
-                            }
+                            tasks.addAll(calBoxes[j][k].getTasks().get(l));
                         }
                     }
                 }
             }
         }
+        for (Task task : tasks) {
+            dayView.getChildren().addAll(task.getPane());
+
+        }
+
     }
+    
+    
 }
