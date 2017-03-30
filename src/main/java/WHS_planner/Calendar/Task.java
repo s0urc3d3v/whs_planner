@@ -252,7 +252,7 @@ public class Task {
         return string;
     }
 
-    Boolean doesExist() {
+    public Boolean doesExist() {
         return doesExist;
     }
 

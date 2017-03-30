@@ -54,3 +54,11 @@
 
 
 }
+
+.no-tasks-label {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 18;
+    /*-fx-text-fill: ;*/
+    -fx-text-fill: derive(black,90%);
+
+}

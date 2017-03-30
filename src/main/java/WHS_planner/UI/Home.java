@@ -10,15 +10,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 import javax.swing.*;
@@ -52,7 +51,7 @@ class Home extends Pane {
 
     private ScrollPane newsScroll;
     private ScrollPane dayScroll;
-    private VBox dayView = new VBox(new Label("\n\n\n\n    Placeholder!\n    Hello! \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test \n test xD 1231231231231231231231231qwqwqwwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqwqw overfloooooooooow"));
+    private VBox dayView = new VBox();
 
     Home(CalendarYear calendar, Pane newsUI) {
         calYear = calendar;
@@ -99,8 +98,11 @@ class Home extends Pane {
         dayScroll.setPrefHeight(this.getPrefHeight());
         dayScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
         dayScroll.getStyleClass().setAll("scroll-bar");
+        dayScroll.setStyle("-fx-background-color: transparent;");
 
 
+        dayView.prefWidthProperty().bind(dayScroll.widthProperty());
+        dayView.prefHeightProperty().bind(dayScroll.heightProperty());
         dayView.setMinWidth(280);
         dayView.setMaxWidth(280);
         getTasks();
@@ -563,15 +565,48 @@ class Home extends Pane {
                 for (int k = 0; k < calBoxes[0].length; k++) {
                     if(calBoxes[j][k]!=null){
                         for (int l = 0; l < calBoxes[j][k].getTasks().size(); l++) {
-                            tasks.addAll(calBoxes[j][k].getTasks().get(l));
+                            for (int m = 0; m < calBoxes[j][k].getTasks().get(l).size(); m++) {
+                                if(calBoxes[j][k].getTasks().get(l).get(m).doesExist()) {
+                                    tasks.add(calBoxes[j][k].getTasks().get(l).get(m));
+
+                                }
+                            }
+//                            tasks.addAll(calBoxes[j][k].getTasks().get(l));
                         }
                     }
                 }
             }
         }
-        for (Task task : tasks) {
-            dayView.getChildren().addAll(task.getPane());
+        dayView.getChildren().clear();
+        if(tasks.isEmpty()) {
+            Label cleared = new Label("All caught up!");
+//            BorderPane noTasksPane = new BorderPane();
+            //top, right, bottom, left
+//            cleared.setPadding(new Insets(350,0,140,0));
+//            cleared.setTranslateX(140);
+//            cleared.setTranslateY(350);
+//            cleared.setPrefWidth(dayView.getPrefWidth());
+//            cleared.setPrefHeight(dayView.getPrefHeight());
 
+            cleared.prefWidthProperty().bind(dayView.widthProperty());
+            cleared.prefHeightProperty().bind(dayView.heightProperty());
+            cleared.setAlignment(Pos.CENTER);
+            cleared.setTextAlignment(TextAlignment.CENTER);
+
+            System.out.println("dv width: " + dayView.getPrefWidth());
+            System.out.println("dv height: " + dayView.getPrefHeight());
+            cleared.getStylesheets().add("UI" + File.separator + "Main.css");
+            cleared.getStyleClass().addAll("no-tasks-label");
+
+
+//            noTasksPane.setCenter(cleared);
+//            dayView.getChildren().addAll(noTasksPane);
+            dayView.getChildren().addAll(cleared);
+        } else {
+            for (Task task : tasks) {
+
+                dayView.getChildren().addAll(task.getPane());
+            }
         }
 
     }
