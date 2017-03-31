@@ -47,12 +47,13 @@ public class ScheduleParserV3 {
                         teacher = tds.get((j*5)+1).text().trim();
                         room = tds.get((j*5)+2).text().trim();
                         block = tds.get((j*5)+3).text().trim();
+                        block = block.replace("Block: ", "").trim();
                     }
                     else {
                         name += " or " + tds.get((j*5)).text().trim();
                         teacher += " or " + tds.get((j*5)+1).text().trim();
                         room += " or " + tds.get((j*5)+2).text().trim();
-                        block += " or " + tds.get((j*5)+3).text().trim();
+                        block += " or " + tds.get((j*5)+3).text().replace("Block: ", "").trim();
                     }
 
                 }
