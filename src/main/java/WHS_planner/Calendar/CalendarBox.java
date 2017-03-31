@@ -3,13 +3,13 @@ package WHS_planner.Calendar;
 import WHS_planner.Main;
 import WHS_planner.Schedule.ParseCalendar;
 import WHS_planner.Schedule.Schedule;
+import WHS_planner.Schedule.ScheduleBlock;
 import WHS_planner.UI.GlobalTime;
-import com.jfoenix.controls.JFXBadge;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -20,19 +20,22 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by geoffrey_wang on 12/30/16.
  */
-public class CalendarBox extends Pane{
+public class CalendarBox extends Pane {
     public static final int CALENDAR_BOX_MIN_HEIGHT = 80, CALENDAR_BOX_MIN_WIDTH = 110; //Constant that defines the min size of a CalendarBox
     private static final int HOMEWORK = 0; //List IDs (Default)
-    private static final String[] ICONS_UNICODE = new String[]{"\uf0f6","\uf21b"}; //File Icon, Check Icon (Font UNICODE)
+    public static final String[] ICONS_UNICODE = new String[]{"\uf0f6","\uf141"}; //File Icon, Check Icon (Font UNICODE)
+
+    private static final String LOGIN_PROMPT_STRING = "Log in to add Classes!";
 
     private int date; //The date of the box
     private int week; //The week this box is in
@@ -46,12 +49,15 @@ public class CalendarBox extends Pane{
     private VBox vBox;
     private StackPane dateLabelStackPane;
     private Circle dayCircle;
-    private Label dateLabel;
+    private Text dateLabel;
+    private Text letterDayLabel;
     private HBox iconContainer;
     private int month;
+    private String letterDay = "";
 
     private JFXCheckBox bell2;
-    private JFXCheckBox override;
+//    private JFXCheckBox override;
+    private JFXComboBox dropSelect;
     private GlobalTime globalTime;
     private Schedule schedule;
     private Calendar calendar;
@@ -59,8 +65,7 @@ public class CalendarBox extends Pane{
     private ParseCalendar pc = new ParseCalendar();
     private File day = new File(Main.SAVE_FOLDER+ File.separator +"DayArray.json");
 
-
-    public CalendarBox(int date, int week, boolean active, ArrayList<Task> tasks, int month, Calendar cal){
+    public CalendarBox(int date, int week, boolean active, ArrayList<ArrayList<Task>> tasks, int month, Calendar cal){
 
         if(day.exists() && day.length() > 0) { //and if it isnt blank
             pc.readData();
@@ -77,17 +82,19 @@ public class CalendarBox extends Pane{
         this.month = month;
         this.globalTime = new GlobalTime(bell2);
 
-        if(tasks == null){
-            this.tasks = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
+        this.tasks = tasks;
 
-            //Creates and fills in tasks with correct amount of lists according to NUMBER_OF_TASKLISTS
-            for (String aICONS_UNICODE : ICONS_UNICODE) {
-                this.tasks.add(new ArrayList<>()); //Create a new list
+        ParseCalendar pc = new ParseCalendar();
+        try {
+            pc.readData();
+            if(date != -1) {
+                letterDay = pc.getDay((month + 1) + "/" + date);
+                if (letterDay.length() > 1) {
+                    letterDay = "";
+                }
             }
-        }else{
-            this.tasks = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
-
-            this.tasks.add(tasks);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //Creates the entire pane
@@ -127,13 +134,29 @@ public class CalendarBox extends Pane{
 
         dateLabelStackPane.getChildren().add(dayCircle);
 
-        dateLabel = new Label();
+        dateLabel = new Text();
         dateLabel.setId("dateLabel");
         dateLabel.setMouseTransparent(true);
         dateLabel.getStyleClass().setAll("date-label");
 
         dateLabelStackPane.getChildren().add(dateLabel);
-        StackPane.setMargin(dateLabel, new Insets(-1, 0, 0, 6));
+        StackPane.setMargin(dateLabel, new Insets(1.25, 0, 0, 6));
+
+        letterDayLabel = new Text();
+        letterDayLabel.setText("");
+        showLetterDay();
+        letterDayLabel.setMouseTransparent(true);
+        letterDayLabel.getStyleClass().setAll("date-label");
+        letterDayLabel.setFill(Color.valueOf("#CFCED0"));
+        StackPane.setMargin(letterDayLabel, new Insets(0, 5, 4, 0));
+        StackPane letterDayLabelStackPane = new StackPane();
+        letterDayLabelStackPane.setAlignment(Pos.BOTTOM_RIGHT);
+        letterDayLabelStackPane.setMouseTransparent(true);
+        letterDayLabelStackPane.getChildren().add(letterDayLabel);
+        letterDayLabelStackPane.prefWidthProperty().bind(mainPane.widthProperty());
+        letterDayLabelStackPane.prefHeightProperty().bind(mainPane.heightProperty());
+        mainPane.getChildren().add(letterDayLabelStackPane);
+
 
         iconContainer = new HBox();
         iconContainer.setId("iconContainer");
@@ -168,9 +191,31 @@ public class CalendarBox extends Pane{
 
     /*-----METHODS-----*/
 
+    public static ArrayList<ArrayList<Task>> generateTaskLists(ArrayList<Task> tasks){
+        ArrayList<ArrayList<Task>> temp;
+        if(tasks == null){
+            temp = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
+
+            //Creates and fills in tasks with correct amount of lists according to NUMBER_OF_TASKLISTS
+            for (String aICONS_UNICODE : ICONS_UNICODE) {
+                temp.add(new ArrayList<>()); //Create a new list
+            }
+        }else{
+            temp = new ArrayList<>(); //Used to hold lists of tasks (Ex. List of homeworks, list of tests, etc)
+
+            temp.add(tasks);
+        }
+        return temp;
+    }
+
     //Initializes this box
     private void initFXMLBox() {
-        String dateString = date + ""; //Creates a string version of the date value
+//        String dateString = date + ""; //Creates a string version of the date value
+//        if(dateString.length() == 1){
+//            dateString += "  ";
+//        }
+//        dateString += "                  " + letterDay;
+        String dateString = date + "";
         dateLabel.setText(dateString); //Set the dateLabel text = to the date
 
         //Set the buttonClicked action
@@ -185,7 +230,6 @@ public class CalendarBox extends Pane{
                 Calendar calendar = (Calendar)this.getParent().getParent().getParent();
                 calendar.update(week,date);
                 updateTaskBox();
-
             }
         }));
 //        java.util.Calendar javaCalendar = java.util.Calendar.getInstance();
@@ -213,9 +257,10 @@ public class CalendarBox extends Pane{
             dayCircle.setFill(new Color(255/255, 152/255, 0, 0));
         }
 
-        if (this.getDate() >= 10) {
-            StackPane sp = dateLabelStackPane;
-            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 4.5));
+        if (this.getDate() == 11 || this.getDate() == 17) {
+            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 3.25));
+        }else if(this.getDate() >= 10) {
+            StackPane.setMargin(dayCircle, new Insets(0, 0, 0, 3.5));
         }
     }
 
@@ -230,18 +275,16 @@ public class CalendarBox extends Pane{
                 Label icon = new Label();
                 icon.getStyleClass().add("icon");
                 icon.setId("icon");
+                if(listID >= ICONS_UNICODE.length){
+                    listID = ICONS_UNICODE.length-1;
+                }
                 icon.setText(ICONS_UNICODE[listID]);
 
-                if(!ICONS_UNICODE[listID].equals("\uf21b")) {
-                    //Create the badge on the Label
-                    JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
-                    badge.getStyleClass().add("icon-badge");
-//                badge.getChildren().get(0).getStyleClass().setAll("testsefd");
-                    badge.setText("" + getTaskCount(listID)); //Set the badge number
-                    icons.add(badge);
-                }else{
-                    icons.add(icon);
-                }
+                //Create the badge on the Label
+                JFXBadge badge = new JFXBadge(icon, Pos.TOP_RIGHT);
+                badge.getStyleClass().add("icon-badge");
+                badge.setText("" + getTaskCount(listID)); //Set the badge number
+                icons.add(badge);
             }
         }
 
@@ -289,8 +332,9 @@ public class CalendarBox extends Pane{
                 HBox.setHgrow(textBox, Priority.ALWAYS);
 
                 //Code for the Checkbox
-                override = (JFXCheckBox) hBox.getChildren().get(1);
-
+//                override = (JFXCheckBox) hBox.getChildren().get(1);
+                dropSelect = (JFXComboBox) hBox.getChildren().get(1);
+//                System.out.println(dropSelect);
 
                 //Set pressing enter to clear the box text
                 textBox.setOnKeyPressed(event -> {
@@ -305,53 +349,80 @@ public class CalendarBox extends Pane{
 //                            System.out.println("length" + pc.getDay(today).length());
 //                            System.out.println(override.isSelected());
 //                            System.out.println("Class Index: " + classIndex);
-                            System.out.println("Logged in: " + schedule.isLoggedIn());
+//                            System.out.println("Logged in: " + schedule.isLoggedIn());
                             day = new File(Main.SAVE_FOLDER + File.separator + "DayArray.json");
-                            if (day.exists() && day.length() > 0 && schedule.isLoggedIn()) { //day exists even when you log out
-//                                pc.readData();
-                                pc.readData();
-                                System.out.println("day length: " + day.length());
-                                //There is school              checkbox selected        during school hours (unreliable when there's no school)
-                                if ((pc.getDay(today).length() == 1 && override.isSelected() && classIndex != -1)) {
-//                                    System.out.println(pc.getDay(today));
-//                                    System.out.println(override.isSelected());
-//                                    System.out.println(classIndex);
+                            System.out.println("dropSelect value: "+ dropSelect.getValue());
+//                            if(!dropSelect.getValue().equals("None") || !dropSelect.getValue().equals(LOGIN_PROMPT_STRING)|| !dropSelect.getValue().equals("Current Class")) {
+//                            System.out.println("INDEX: " + dropSelect.getSelectionModel().getSelectedIndex());
+//                            if(!(dropSelect.getSelectionModel().getSelectedIndex() == 0 )|| !(dropSelect.getSelectionModel().getSelectedIndex() == 1)) {
+                            if(dropSelect.getSelectionModel().getSelectedIndex() > 1) {
+//                                System.out.println("CASE 1");
+
+                                String currentClass = dropSelect.getValue().toString();
+//                                schedule = calendar.getSchedule();
+//                                currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
+                                addTask(HOMEWORK, new Task(currentClass, textBoxText));
+                                update();
+                                updateTaskBox();
+//                                String currentClass = schedule.getData()[classIndex].getClassName();
+//                                String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
+
+                            } else {
+                                if (day.exists() && day.length() > 0 && schedule.isLoggedIn()) { //day exists even when you log out
+//                                     pc.readData();
+                                    pc.readData();
+                                    System.out.println("day length: " + day.length());
+                                    //There is school              dropdown isnt none        during school hours (unreliable when there's no school)
+//                                    if ((pc.getDay(today).length() == 1 && override.isSelected() && classIndex != -1)) {
+                                    System.out.println(dropSelect.getValue().toString());
+                                    if (classIndex != -1 && pc.getDay(today).length() == 1 && (!dropSelect.getValue().equals("None") && !dropSelect.getValue().equals("Login to add Classes!"))) {
+
+//                                        System.out.println(pc.getDay(today));
+//                                        System.out.println(override.isSelected());
+//                                        System.out.println(classIndex);
 
 
-                                    if (classIndex == -2) { //wednesday advisory
-                                        addTask(HOMEWORK, new Task("Advisory", "", textBoxText));
-                                        update();
-                                        updateTaskBox();
-                                    } else if (classIndex == -3) { // bell 2 class meeting
-                                        addTask(HOMEWORK, new Task("Class Meeting", "", textBoxText));
-                                        update();
-                                        updateTaskBox();
-                                    } else { //normal block
-//                                    String currentClass = schedule.getData()[classIndex].getClassName();
-//                                    String currentClass = schedule.getToday(globalTime.getLetterDay())[classIndex].getClassName();
-                                        String currentClass = "";
+                                        if (classIndex == -2) { //wednesday advisory
+                                            addTask(HOMEWORK, new Task("Advisory", textBoxText));
+                                            update();
+                                            updateTaskBox();
+                                        } else if (classIndex == -3) { // bell 2 class meeting
+                                            addTask(HOMEWORK, new Task("Class Meeting", textBoxText));
+                                            update();
+                                            updateTaskBox();
+                                        } else if (dropSelect.getValue().equals("Current Class")) { //Current class
+                                            System.out.println(dropSelect.getValue().toString());
+//                                            System.out.println("CASE 2: CURRENT CLASS");
 
-                                        schedule = calendar.getSchedule();
+                                            String currentClass = "";
+                                            schedule = calendar.getSchedule();
                                             currentClass = schedule.getToday(pc.getDay(today))[classIndex].getClassName();
+                                            addTask(HOMEWORK, new Task(currentClass, textBoxText));
+                                            update();
+                                            updateTaskBox();
+                                        }
+                                    } else //add it without class!
+                                    {
+//                                        System.out.println("CASE 3: no class 1");
 
-                                        addTask(HOMEWORK, new Task(currentClass, "", textBoxText));
+                                        addTask(HOMEWORK, new Task(null , textBoxText));
                                         update();
                                         updateTaskBox();
                                     }
-                                } else //add it without class!
-                                {
-                                    addTask(HOMEWORK, new Task(null , "", textBoxText));
+                                } else {
+//                                    System.out.println("CASE 4: no class 2");
+
+                                    addTask(HOMEWORK, new Task(null, textBoxText));
                                     update();
                                     updateTaskBox();
                                 }
-                            } else {
-                                addTask(HOMEWORK, new Task(null, "", textBoxText));
-                                update();
-                                updateTaskBox();
                             }
                         }
                         textBox.clear();
+                    } else if (event.getCode() == KeyCode.ESCAPE) {
+                        textBox.clear();
                     }
+                    calendar.save();
                 });
             } catch (Exception e) {
                 e.printStackTrace();
@@ -365,23 +436,118 @@ public class CalendarBox extends Pane{
         HBox hungryBox = new HBox();
         VBox taskVBox = new VBox(hungryBox);
 
-        override = new JFXCheckBox();
-        override.setText("Use Current Class");
+//        dropDown.getItems().addAll("Current Class", "None");
+        ObservableList<String> menuItems = FXCollections.observableArrayList(LOGIN_PROMPT_STRING);
+
+//        ComboBox dropDown = new ComboBox(menuItems);
+        JFXComboBox dropDown = new JFXComboBox(menuItems);
+//        dropDown.setMaxWidth(200);
+        dropDown.setMinWidth(250);
+//        dropDown.setPrefHeight(480);
+        dropDown.setVisibleRowCount(8);
+
+//            String[] s = pc.getClassArray();
+
+
+
+
+        String today0 = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
+        schedule = calendar.getSchedule();
+        if(day.exists() && day.length() > 0 && schedule.isLoggedIn()){
+//            ScheduleBlock[] sb = schedule.getToday(pc.getDay(today0));
+            ScheduleBlock[] fullSchedule = schedule.getData();
+            String[] sb = new String[fullSchedule.length];
+            for (int i = 0; i < fullSchedule.length; i++) {
+                sb[i] = fullSchedule[i].getClassName();
+            }
+            String[] allClasses = Arrays.stream(sb).distinct().toArray(String[]::new);
+//            List<String> allClasses = Arrays.asList(Arrays.stream(sb).distinct().toArray(String[]::new));
+//            allClasses.remove(" Free");
+            menuItems.clear();
+            menuItems.add("Current Class");
+            menuItems.add("None");
+            for (String value : allClasses) {
+                //removes the random space before every class
+                if(!value.substring(1,value.length()).equalsIgnoreCase("free")){
+                    menuItems.add(value.substring(1,value.length()));
+                }
+            }
+//            System.out.println(menuItems);
+        } else {
+            menuItems.clear();
+            menuItems.add(LOGIN_PROMPT_STRING);
+        }
+
+        dropDown.getSelectionModel().selectFirst();
+
+        dropDown.getStylesheets().setAll("UI" + File.separator + "comboBox2.css");
+        dropDown.getStyleClass().setAll("combo-box-popup");
+//        dropDown.getStyleClass().addAll("combo-box-base");
+
+        dropDown.setOnMouseClicked(event -> {
+
+
+
+
+//            String[] s = pc.getClassArray();
+            String today = (java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1) + "/" + java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
+            schedule = calendar.getSchedule();
+
+            if(day.exists() && day.length() > 0 && schedule.isLoggedIn()) {
+//                ScheduleBlock[] s = schedule.getToday(pc.getDay(today));
+//                ScheduleBlock[] s = schedule.getData();
+                ScheduleBlock[] fullSchedule = schedule.getData();
+                String[] sb = new String[fullSchedule.length];
+                for (int i = 0; i < fullSchedule.length; i++) {
+                    sb[i] = fullSchedule[i].getClassName();
+                }
+
+                String[] allClasses = Arrays.stream(sb).distinct().toArray(String[]::new);
+//                List<String> allClasses = Arrays.asList(Arrays.stream(sb).distinct().toArray(String[]::new));
+//                allClasses.remove(" Free");
+
+                menuItems.clear();
+                menuItems.add("Current Class");
+                menuItems.add("None");
+                for (String value : allClasses) {
+                    //removes the random space before every class
+                    if(!value.substring(1,value.length()).equalsIgnoreCase("free")) {
+                        menuItems.add(value.substring(1, value.length()));
+                    }
+                }
+                dropDown.setVisibleRowCount(8);
+
+            } else {
+                menuItems.clear();
+                menuItems.add(LOGIN_PROMPT_STRING);
+            }
+
+
+            dropDown.getSelectionModel().selectFirst();
+
+
+            //Cool code that doesn't work :(
+//            final Node listView = dropDown.lookup(".list-view");
+//            System.out.println(dropDown.lookup(".list-view"));
+//            Platform.runLater(()-> listView.setStyle("-fx-translate-y: -"+ (dropDown.getSelectionModel().getSelectedIndex() +1)*25 + ";"));
+        });
+
+
+//        override = new JFXCheckBox();
+//        override.setText("Use Current Class");
         hungryBox.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
-        override.getStyleClass().setAll("label-button");
-        override.setCheckedColor(Paint.valueOf("#0066FF"));
-        override.setSelected(true);
-        override.setCursor(Cursor.HAND);
-        override.setPrefSize(155,24);
+
+
+//        dropDown.getStyleClass().set()
+//        override.getStyleClass().setAll("label-button");
+//        override.setCheckedColor(Paint.valueOf("#0066FF"));
+//        override.setSelected(true);
+//        override.setCursor(Cursor.HAND);
+//        override.setPrefSize(155,24);
 
         JFXTextField textBox = new JFXTextField();
         textBox.setPromptText("Enter Task...");
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                textBox.requestFocus();
-            }
-        });
+        Platform.runLater(textBox::requestFocus);
         textBox.setCursor(Cursor.TEXT);
         textBox.getStyleClass().setAll("roboto");
         try {
@@ -395,7 +561,7 @@ public class CalendarBox extends Pane{
         }
 
 //        hungryBox.getChildren().addAll(override,textBox);
-        hungryBox.getChildren().addAll(textBox,override);
+        hungryBox.getChildren().addAll(textBox,/*override,*/dropDown);
 
 
         return taskVBox;
@@ -423,9 +589,13 @@ public class CalendarBox extends Pane{
 //                    fadeIn.playFromStart();
 //                }
 
-                if (height < 90) {
-                    height+= 30;
-                }
+
+            }else{
+                Pane tempPane = tasks.get(0).get(i).getPane(this);
+                vbox.getChildren().add(tempPane);
+            }
+            if (height < 90) {
+                height+= 30;
             }
         }
         tasksPane.setMinHeight(height);
@@ -472,7 +642,7 @@ public class CalendarBox extends Pane{
     }
 
     //Get the date Label
-    public Label getDateLabel(){
+    public Text getDateLabel(){
         return dateLabel;
     }
 
@@ -482,5 +652,13 @@ public class CalendarBox extends Pane{
 
     ArrayList<ArrayList<Task>> getTasks() {
         return tasks;
+    }
+
+    public void hideLetterDay(){
+        letterDayLabel.setText("");
+    }
+
+    public void showLetterDay(){
+        letterDayLabel.setText(letterDay);
     }
 }

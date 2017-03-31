@@ -4,27 +4,34 @@ import WHS_planner.News.model.Feed;
 import WHS_planner.News.model.FeedMessage;
 import WHS_planner.News.read.RSSFeedParser;
 import WHS_planner.Trex.TrexPane;
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import org.jsoup.Jsoup;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class NewsUI extends Pane {
 
@@ -42,8 +49,37 @@ public class NewsUI extends Pane {
 
         //Checks if feed sends back a connection error. If it doesn't, initialize cards as normal.
         if (feed.getTitle().equals("badNet")) {
+            cardView.setAlignment(Pos.CENTER);
             Hyperlink badNetLink = new Hyperlink("https://www.google.com/");
             badNetLink.setText("Test Connection (google.com)");
+            //Refresh button to test connection after offline app launch
+            JFXButton offlineRefresh = new JFXButton("Refresh");
+            offlineRefresh.getStylesheets().addAll("UI" + File.separator + "NewsUI.css");
+            offlineRefresh.getStyleClass().addAll("refresh-button");
+            VBox refreshContainer = new VBox(offlineRefresh);
+            VBox.setMargin(refreshContainer, new Insets(10,0,10,0));
+            refreshContainer.setAlignment(Pos.CENTER);
+            Label refreshError = new Label("Failed to refresh News.");
+//            refreshError.setTextOverrun(OverrunStyle);
+            refreshError.setTextOverrun(OverrunStyle.CLIP);
+
+            refreshError.setTextFill(Color.RED);
+            int[] fontSize = {14};
+            offlineRefresh.setOnMouseClicked(event -> {
+                feed = parser.readFeed();
+                if (feed.getTitle().equals("badNet")) {
+                    if(!(cardView.getChildren().get(1) == refreshError)){
+                        cardView.getChildren().add(1,refreshError);
+                    } else {
+                        fontSize[0]++;
+                        refreshError.setStyle("-fx-font-size: " + fontSize[0]+ "px;");
+                    }
+                } else {
+                    cardView.getChildren().clear();
+                    init();
+                }
+            });
+            cardView.getChildren().add(refreshContainer);
             addCard(badNetLink, new Label("Error with Connection!"));
             addCard(new TrexPane());
         } else {
@@ -51,18 +87,37 @@ public class NewsUI extends Pane {
         }
     }
 
+    //OLD hyperlink method - uses Chrome only
+//    private void openLink(int index) {
+//        try {
+////            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", parser.readFeed().getMessages().get(index).getLink()});
+//            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", onScreenMessages.get(index).getLink()});
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     private void openLink(int index) {
         try {
-//            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", parser.readFeed().getMessages().get(index).getLink()});
-            Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", onScreenMessages.get(index).getLink()});
-
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().browse(new URI(onScreenMessages.get(index).getLink()));
+            }
+        } catch (URISyntaxException e) {
+            System.out.println("URI Syntax Exception!");
+            System.out.println("----------------------");
+            e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("I/O Exception!");
+            System.out.println("----------------------");
             e.printStackTrace();
         }
     }
 
     private void init() {
         cardView.getChildren().clear();
+
+        feedArray = feed.getMessages();
 
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
@@ -114,7 +169,10 @@ public class NewsUI extends Pane {
     }
 
     public void refresh() {
+        feedArray.clear();
         feedArray = parser.getNewArticles(onScreenMessages);
+
+
         //Loop through all articles
         for (int i = 0; i < feedArray.size(); i++) {
 
@@ -160,32 +218,31 @@ public class NewsUI extends Pane {
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-            onScreenMessages.add(feedArray.get(i));
+            onScreenMessages.add(0,feedArray.get(i));
         }
     }
-
-    //TODO not even sure if we need the runlaters, because it's basically in 3 right now
 
     //Normal news article
     private void addCard(Label description, Hyperlink hyperlink, ImageView image) {
         hyperlink.getStyleClass().add("roboto");
         description.getStyleClass().add("roboto");
         VBox textVBox;
-        VBox vBox;
+        VBox newsCard;
         if (image == null) {
             textVBox = new VBox(hyperlink, description);
             textVBox.getStyleClass().setAll("text-padding");
-            vBox = new VBox(textVBox);
+            newsCard = new VBox(textVBox);
         } else {
             textVBox = new VBox(hyperlink, description);
             textVBox.getStyleClass().setAll("text-padding");
-            vBox = new VBox(image,textVBox);
+            newsCard = new VBox(image,textVBox);
         }
-        vBox.setAlignment(Pos.TOP_CENTER);
-        vBox.setPrefWidth(BOX_WIDTH);
-        vBox.getStyleClass().setAll("news-card");
-        VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
-        Platform.runLater(()-> cardView.getChildren().add(vBox));
+        newsCard.setAlignment(Pos.TOP_CENTER);
+        newsCard.setPrefWidth(BOX_WIDTH);
+        newsCard.getStyleClass().setAll("news-card");
+        VBox.setMargin(newsCard, new Insets(10, 10, 10, 10));
+//        Platform.runLater(()-> cardView.getChildren().add(newsCard));
+        cardView.getChildren().add(newsCard);
     }
 
     //Normal news article for refresh
@@ -193,22 +250,23 @@ public class NewsUI extends Pane {
         hyperlink.getStyleClass().add("roboto");
         description.getStyleClass().add("roboto");
         VBox textVBox;
-        VBox vBox;
+        VBox newsCard;
         if (image == null) {
             textVBox = new VBox(hyperlink, description);
             textVBox.getStyleClass().setAll("text-padding");
-            vBox = new VBox(textVBox);
+            newsCard = new VBox(textVBox);
         } else {
             textVBox = new VBox(hyperlink, description);
             textVBox.getStyleClass().setAll("text-padding");
-            vBox = new VBox(image, textVBox);
+            newsCard = new VBox(image, textVBox);
         }
-        vBox.setAlignment(Pos.TOP_CENTER);
+        newsCard.setAlignment(Pos.TOP_CENTER);
 //        description.setTextAlignment(TextAlignment.JUSTIFY);
-        vBox.setPrefWidth(BOX_WIDTH);
-        vBox.getStyleClass().setAll("news-card");
-        VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
-        Platform.runLater(() -> cardView.getChildren().add(0, vBox));
+        newsCard.setPrefWidth(BOX_WIDTH);
+        newsCard.getStyleClass().setAll("news-card");
+        VBox.setMargin(newsCard, new Insets(10, 10, 10, 10));
+        Platform.runLater(() -> cardView.getChildren().add(0, newsCard));
+//        cardView.getChildren().add(0,newsCard);
     }
 
     //T-Rex :)
@@ -219,20 +277,24 @@ public class NewsUI extends Pane {
         hBox.setPrefWidth(BOX_WIDTH);
         hBox.getStyleClass().setAll("news-card");
         VBox.setMargin(hBox, new Insets(10, 10, 10, 10));
-
-        Platform.runLater(()-> cardView.getChildren().add(hBox));
+//        Platform.runLater(()-> cardView.getChildren().add(hBox));
+        cardView.getChildren().add(hBox);
     }
 
     //This one adds the label first - for offline
     private void addCard(Hyperlink hyperlink, Label description) {
         hyperlink.getStyleClass().add("roboto");
         description.getStyleClass().add("roboto");
+
         VBox vBox = new VBox(description, hyperlink);
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setPrefWidth(BOX_WIDTH);
-        vBox.getStyleClass().setAll("news-card");
+        vBox.getStyleClass().setAll("offline-news-card");
+
         VBox.setMargin(vBox, new Insets(10, 10, 10, 10));
-        Platform.runLater(()-> cardView.getChildren().add(vBox));
+        vBox.setPadding(new Insets(10));
+//        Platform.runLater(()-> cardView.getChildren().add(vBox));
+        cardView.getChildren().add(vBox);
     }
 
     private WritableImage convertImg(BufferedImage bf) {

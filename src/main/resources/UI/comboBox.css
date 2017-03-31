@@ -1,0 +1,51 @@
+.combo-box-popup .list-view .jfx-list-cell:filled:selected {
+	/*-fx-background-color: rgba(238,238,238,1);*/
+	-fx-background-color: rgb(255,255,255);
+	-fx-text-fill: black;
+}
+
+.combo-box-popup .list-view .jfx-list-cell{
+	-fx-background-insets: -1;
+	-fx-text-fill: black;
+}
+
+.combo-box-popup > .list-view .jfx-list-cell:hover/*, .jfx-list-cell:filled:hover */ {
+	-fx-text-fill: black;
+	-fx-background-color: rgb(238,238,238);
+}
+
+.combo-box-popup .list-view .jfx-list-cell .jfx-rippler {
+	-fx-rippler-fill: rgb(204,204,204);
+}
+
+.combo-box-popup .list-view {
+    -fx-text-fill: black;
+    -fx-translate-y: -25;
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto";
+    -fx-border-color: white;
+    /*-fx-border-width: 1;*/ /*Border Width is already 1 by default */
+}
+
+.combo-box-popup {
+    -fx-background-color: rgba(204,204,204,1);
+    -fx-background-radius: 5,5;
+    -fx-border-radius: 5;
+      /*-fx-background-radius: 5, 5;*/
+      /*-fx-background-insets: -1.4, 0;*/
+      -fx-border-radius: 5,5;
+      /*-fx-border-width: 2;*/
+}
+
+
+.combo-box-base > .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0, 1, 2;
+        -fx-background-insets: 0, 0, 0;
+    -fx-background-radius: 0 5 5 0, 0 4 4 0, 0 3 3 0;
+    -fx-padding: 0 0.667em 0 0.667em; /* 6 8 6 8 /
+    /-fx-padding: 0; // 6 8 6 8 */
+}
+
+
+

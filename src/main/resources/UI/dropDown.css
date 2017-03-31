@@ -61,5 +61,6 @@
     -fx-font-family: 'FontAwesome Regular';
     -fx-font-size: 28px;
     -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
 }
 

@@ -2,13 +2,11 @@ package WHS_planner.Schedule;
 
 import WHS_planner.Main;
 import WHS_planner.UI.MainPane;
+import WHS_planner.Util.UserLoggedIn;
 import WHS_planner.Util.XorTool;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -94,6 +92,7 @@ public class loginController implements Initializable
                             try {
                                 MainPane mp = (MainPane) Main.getMainPane();
                                 mp.resetSchedule();
+                                UserLoggedIn.logIn();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

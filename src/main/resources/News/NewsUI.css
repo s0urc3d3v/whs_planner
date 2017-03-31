@@ -1,7 +1,8 @@
 /* The main scrollbar **track** CSS class  */
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track{
-	-fx-background-color:transparent;
+	/*-fx-background-color:transparent;*/
+	-fx-background-color: white;
 	-fx-border-color:transparent;
 	-fx-background-radius: 0em;
 	-fx-border-radius:2em;
@@ -21,7 +22,7 @@
 
 .scroll-bar .increment-arrow,
 .scroll-bar .decrement-arrow,
- {
+{
 	-fx-padding:0;
 }
 
@@ -33,14 +34,12 @@
 	-fx-background-radius: 2em;
 }
 
-.clear-select
-{
+.clear-select {
     -fx-accent: transparent;
     -fx-focus-color: transparent;
 }
 
-.roboto
-{
+.roboto {
     -fx-font-family: "Roboto";
 }
 
@@ -52,11 +51,32 @@
 .news-card
 {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);
+
     -fx-background-color: white;
+    /*-fx-padding: 10;*/
+}
+
+.offline-news-card
+{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 2, 0);
+    -fx-background-color: white;
+    -fx-font-size: 14px;
     /*-fx-padding: 10;*/
 }
 
 .text-padding
 {
     -fx-padding: 10;
+}
+
+.refresh-button{
+    /*-fx-padding: 0.7em 0.57em;*/
+    -fx-font-size: 14px;
+    -fx-button-type: RAISED;
+    -fx-background-color: rgb(77,102,204);
+    -fx-pref-width: 260;
+    -fx-pref-height: 40;
+    -fx-text-fill: WHITE;
+    -fx-cursor: hand;
+
 }

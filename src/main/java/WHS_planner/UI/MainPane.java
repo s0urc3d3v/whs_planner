@@ -4,8 +4,10 @@ import WHS_planner.Calendar.CalendarYear;
 import WHS_planner.Main;
 import WHS_planner.News.ui.NewsUI;
 import WHS_planner.Schedule.Schedule;
+import WHS_planner.Util.UserLoggedIn;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,12 +15,20 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -28,11 +38,11 @@ import java.util.stream.Stream;
 
 public class MainPane extends StackPane {
 
-    final static String ICON_BELL = "\uf0f3";
-    final static String ICON_SCHEDULE = "\uf073";
-    final static String ICON_NEWS = "\uf1ea";
-    final static String ICON_FEEDBACK = "\uf044";
-    final static String ICON_ABOUT = "\uf05a";
+    private final static String ICON_BELL = "\uf0f3";
+    private final static String ICON_SCHEDULE = "\uf073";
+    private final static String ICON_NEWS = "\uf1ea";
+    private final static String ICON_FEEDBACK = "\uf044";
+    private final static String ICON_ABOUT = "\uf05a";
 //    private final int HOME = 0;
 //    private final int SCHEDULE = 1;
 //    private final int CALENDAR = 2;
@@ -43,13 +53,15 @@ public class MainPane extends StackPane {
     private Pane content;
     private ArrayList<Pane> contentPanes;
     private JFXDrawer drawer;
+    private JFXDrawer newsDrawer = new JFXDrawer();
+
+
     private VBox mainPane;
 //    private VBox cardView = new NewsUI().getCardView();
     private Schedule schedule;
     private CalendarYear calendar;
     private NewsUI news;
     private boolean isHamburgerPressed = false;
-
 
 //    private Home homePane;
 
@@ -74,7 +86,7 @@ public class MainPane extends StackPane {
             info.setSpacing(10);
             info.getStylesheets().addAll("/UI/dropDown.css");
             info.getStyleClass().setAll("roboto");
-            Label title = new Label("Update Notes for " + Main.VERSION_NUMBER);
+            Label title = new Label("What's new in " + Main.VERSION_NUMBER);
             title.setMaxWidth(335);
             title.setWrapText(true);
             title.getStyleClass().setAll("title-text");
@@ -192,9 +204,20 @@ public class MainPane extends StackPane {
     private VBox createPane() {
         VBox vBox = new VBox(); //Create a vBox for the base pane
 
+//        JFXButton fab = new JFXButton("NEWS");
+//        fab.setButtonType(JFXButton.ButtonType.RAISED);
+
+
+
         //Make a stack pane with the drawer and content in it
+//        StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48), createNewsDrawer((Button)navBar.getChildren().get(1)));
         StackPane stackPane = new StackPane(content,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48));
 
+
+//        StackPane stackPane = new StackPane(content,fab,createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48), createNewsDrawer(fab));
+
+
+//        createNewsDrawer((Button)navBar.getChildren().get(1));
         initiateDropDown((Button)navBar.getChildren().get(1));
 
         //Set the content the base pane to have the nav bar on top and content under it
@@ -215,25 +238,18 @@ public class MainPane extends StackPane {
          |   START Jesus code
           \
          */
-//        InputStream font = Main.class.getResourceAsStream("/FontAwesome/fontawesome.ttf");
-//        Font.loadFont(font,10);
         bigButton.setText("\uf142");
-        bigButton.setCursor(Cursor.HAND);
-//        bigButton.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
-//        bigButton.getStyleClass().setAll("big-button");
-        bigButton.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 28px; -fx-text-fill: #FFFFFF;");
+//        bigButton.setPrefSize(50,50);
+        bigButton.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
+        bigButton.getStyleClass().addAll("big-button");
+//        bigButton.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 28px; -fx-text-fill: #FFFFFF;");
         Pane parent = (Pane)(bigButton.getParent());
         bigButton.prefHeightProperty().bind(parent.heightProperty());
         final StackPane backmanISGay = this;
         bigButton.setOnMouseClicked(event -> {
             VBox info = new VBox();
-//            info.getStyleClass().addAll("font-awesome");
             JFXButton button0 = new JFXButton();
-//            button0.setStyle("-fx-font-family: 'FontAwesome");
-            System.out.println(button0.getStyleClass());
-            button0.setText("     " + ICON_BELL + "  Show Bell Schedule");
-//            button0.setText("     Show Bell Schedule");
-//            button0.setGraphic(new ImageView("\uf0f3"));
+            button0.setText("      " + ICON_BELL + "  Show Bell Schedule");
             button0.setOnMouseClicked(event1 -> {
                 info.setMinSize(0, 0);
                 info.getChildren().clear();
@@ -241,11 +257,11 @@ public class MainPane extends StackPane {
                 info.getStyleClass().setAll("large-text");
             });
             JFXButton button1 = new JFXButton();
-            button1.setText("      " + ICON_SCHEDULE + "  Refresh Schedule");
-
+            button1.setText("      " + ICON_SCHEDULE + "  Reload Schedule");
             button1.setOnMouseClicked(event12 -> {
                 try {
                     schedule.getScheduleControl().logout();
+                    UserLoggedIn.logOut();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -261,10 +277,12 @@ public class MainPane extends StackPane {
             JFXButton button3 = new JFXButton();
             button3.setText("      " + ICON_FEEDBACK + "  Send Feedback");
             button3.setOnMouseClicked(event13 -> {
-                try {
-                    Runtime.getRuntime().exec(new String[]{"open", "-a", "Google Chrome", "https://goo.gl/forms/KSCFGXldhE4EBytp1"});
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if(Desktop.isDesktopSupported()) {
+                    try {
+                        Desktop.getDesktop().browse(new URI("https://goo.gl/forms/KSCFGXldhE4EBytp1"));
+                    } catch (IOException | URISyntaxException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             JFXButton button4 = new JFXButton();
@@ -288,21 +306,31 @@ public class MainPane extends StackPane {
                         "Matthew Elbing - Backend, Project Lead",
                         "Will Robison - HTML, Piano Tiles 2",
                         "John Broderick - Schedule, Bug Creator",
-                        "Tzur Almog - Calendar save",
+                        "Tzur Almog",
                         "Alex Bell",
                 };
                 for (String name : names) {
                     info.getChildren().add(new Label(name));
                 }
                 info.getChildren().add(new Label("\n"));
-//                HBox buttonContainer = new HBox();
+                HBox buttonContainer = new HBox();
+                buttonContainer.setSpacing(40);
                 JFXButton licenses = new JFXButton("Licenses");
-//                buttonContainer.getChildren().add(licenses);
-//                buttonContainer.setAlignment(Pos.CENTER);
+                JFXButton copyError = new JFXButton("Copy Error Log");
+
+                copyError.getStyleClass().setAll("gray-button");
+                copyError.setButtonType(JFXButton.ButtonType.FLAT);
+                copyError.setAlignment(Pos.CENTER);
+                copyError.setPrefSize(120,30);
+
+                licenses.getStyleClass().setAll("gray-button");
                 licenses.setButtonType(JFXButton.ButtonType.FLAT);
                 licenses.setAlignment(Pos.CENTER);
-                licenses.getStyleClass().setAll("gray-button");
-                licenses.setPrefSize(75,30);
+                licenses.setPrefSize(120,30);
+
+                buttonContainer.getChildren().addAll(licenses,copyError);
+                buttonContainer.setAlignment(Pos.CENTER);
+
                 licenses.setOnMouseClicked(showLicences -> {
                     info.getChildren().clear();
                     Label licenseText = new Label("We used the JSOUP library (https://jsoup.org/) which is licensed under the MIT license:\nThe MIT License \nCopyright © 2009 - 2016 Jonathan Hedley (jonathan@hedley.net) \nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: \nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. \nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n\nWe also used federkasten's appbundler library (https://github.com/federkasten/appbundle-maven-plugin), as well as the JFoenix UI library (http://www.jfoenix.com/). \nBoth are avaiable under the Apache License 2.0(https://www.apache.org/licenses/LICENSE-2.0). \nCredit goes to Stack Overflow users: Chui Tey and jewelsea for their work on the Layout Animator class. \nhttps://gist.github.com/jewelsea/5683558 \n\nFont Awesome by Dave Gandy - http://fontawesome.io");
@@ -310,7 +338,30 @@ public class MainPane extends StackPane {
                     licenseText.getStyleClass().addAll("times");
                     info.getChildren().add(licenseText);
                 });
-                info.getChildren().add(licenses);
+                copyError.setOnMouseClicked(addToClipboard -> {
+                    StringSelection selection = null;
+                    JFXSnackbar snackbar = new JFXSnackbar(mainPane);
+                    try {
+                        String errorLog = new String(Files.readAllBytes(Paths.get(System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner" + File.separator + "err.txt"))/*,"UTF-8"*/);
+                        selection = new StringSelection(errorLog);
+
+                        if(errorLog == null || errorLog.isEmpty()){
+                            snackbar.show("Error Log Empty!", 2000);
+                            //Don't override user's existing clipboard if err.txt is empty
+                        } else {
+                            snackbar.show("Error Log Copied!",2000);
+                            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                            clipboard.setContents(selection, selection);
+                        }
+
+                    } catch (IOException e) {
+                        snackbar.show("Error when copying!",2000);
+                        e.printStackTrace();
+                    }
+
+
+                });
+                info.getChildren().add(buttonContainer);
                 info.getStyleClass().setAll("large-text");
                 info.setPadding(new Insets(10));
             });
@@ -323,11 +374,6 @@ public class MainPane extends StackPane {
             info.getStylesheets().addAll("UI" + File.separator + "dropDown.css");
             info.setPadding(new Insets(10,0,10,0));
 
-//            button0.setCursor(Cursor.HAND);
-//            button1.setCursor(Cursor.HAND);
-//            button2.setCursor(Cursor.HAND);
-//            button3.setCursor(Cursor.HAND);
-//            button4.setCursor(Cursor.HAND);
             button0.getStyleClass().setAll("list-button");
             button1.getStyleClass().setAll("list-button");
             button2.getStyleClass().setAll("list-button");
@@ -337,12 +383,8 @@ public class MainPane extends StackPane {
             bell2Check.getStyleClass().setAll("label-button");
             bell2Check.setPrefSize(200,50);
             info.setSpacing(0);
-            info.setMinSize(200, info.getChildren().toArray().length*50);
+            info.setMinSize(200, info.getChildren().toArray().length*50); //Sets the height of the window assuming each button is 50px tall
             JFXDialog dialog = new JFXDialog(backmanISGay, info, JFXDialog.DialogTransition.CENTER, true);
-
-//            dialog.setTranslateX(470);
-//            dialog.setTranslateY(-135);
-//            JFXDialog dialog2 = new JFXDialog()
 
             dialog.show();
             /*
@@ -352,6 +394,73 @@ public class MainPane extends StackPane {
              */
         });
     }
+
+
+//    private JFXDrawer createNewsDrawer(Button button){
+//        Pane parent = (Pane)(button.getParent());
+//        button.prefHeightProperty().bind(parent.heightProperty());
+//        button.setText(ICON_NEWS);
+//        button.setCursor(Cursor.HAND);
+////        button.getStylesheets().setAll("UI" + File.separator + "dropDown.css");
+////        button.getStyleClass().addAll("big-button");
+//        button.setStyle("-fx-font-family: 'FontAwesome Regular'; -fx-font-size: 24; -fx-text-fill: #FFFFFF;");
+//        button.setTextOverrun(OverrunStyle.CLIP);
+//
+//        javafx.scene.control.ScrollPane newsScroll = new javafx.scene.control.ScrollPane();
+//        newsScroll.setContent(news.getCardView());
+//        newsScroll.setVbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED);
+//        newsScroll.setHbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER);
+//        //NEWS Style
+//        newsScroll.setStyle("-fx-background-color: transparent;");
+//        newsScroll.getStylesheets().add("News" + File.separator + "NewsUI.css");
+//        newsScroll.getStyleClass().setAll("scroll-bar");
+//        //NEWS Scaling
+//        newsScroll.setFitToWidth(true);
+//        newsScroll.setMinWidth(280);
+//        newsScroll.setMaxWidth(280);
+//        newsScroll.setPrefHeight(this.getPrefHeight());
+//
+//        newsDrawer = new JFXDrawer();
+//        newsDrawer.setDirection(JFXDrawer.DrawerDirection.RIGHT);
+//        newsDrawer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0, 1, 5, 0);");
+//        newsDrawer.setDefaultDrawerSize(280);
+//        newsDrawer.setSidePane(newsScroll);
+//        newsDrawer.setPickOnBounds(false);
+//        newsDrawer.setMouseTransparent(true);
+//
+//
+//        button.setOnMouseClicked(event -> {
+//            if (newsDrawer.isShown()) {
+//                newsDrawer.setMouseTransparent(true);
+//
+//                newsDrawer.close();
+//            } else {
+//                newsDrawer.setMouseTransparent(false);
+////                newsDrawer.setMouseTransparent(true);
+//
+//                newsDrawer.open();
+//            }
+//        });
+//
+//        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent event) {
+//                if (event.getCode() == KeyCode.ESCAPE) {
+//                    if (newsDrawer.isShown()) {
+//                        newsDrawer.setMouseTransparent(true);
+//                        newsDrawer.close();
+//                    }
+//                }
+//            }
+//        });
+//
+//        newsDrawer.setOnDrawerClosing(event -> {
+//            newsDrawer.setMouseTransparent(true);
+//
+//        });
+//
+//        return newsDrawer;
+//    }
 
     /**
      * Generates a drawer initiated by the hamburger, defined by the width and height
@@ -407,6 +516,22 @@ public class MainPane extends StackPane {
             }
             hamburger.getAnimation().play(); //Plays the transition
             isHamburgerPressed = false;
+        });
+
+        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ESCAPE) {
+                    if (drawer.isShown()) {
+                        isHamburgerPressed = true;
+                        drawer.setMouseTransparent(true);
+                        hamburger.getAnimation().setRate(-1); //Switches the transition between forward and backwards.
+                        drawer.close();
+                        hamburger.getAnimation().play(); //Plays the transition
+                        isHamburgerPressed = false;
+                    }
+                }
+            }
         });
 
         //More functions to open and close the drawer
@@ -518,7 +643,7 @@ public class MainPane extends StackPane {
             blocks = new String[]{"Block 1: ","Block 2: ","Advisory: ","Block 3: ","1st Lunch: ","2nd Lunch: ","3rd Lunch: ","Block 5: ","Block 6: "};
 
         } else if (bell2Check.isSelected()) {
-            times = new String[]{"7:30-8:21", "8:26-9:18", "9:58-10:50", "10:55-11:25", "11:22-11:52", "11:51-12:21", "12:26-1:18", "1:23-2:15"};
+            times = new String[]{"7:30-8:21", "8:26-9:18", "9:28-9:53", "9:58-10:50", "10:55-11:25", "11:22-11:52", "11:51-12:21", "12:26-1:18", "1:23-2:15"};
             blocks = new String[]{"Block 1: ", "Block 2: ", "Class Meeting: ", "Block 3: ", "1st Lunch: ", "2nd Lunch: ", "3rd Lunch: ", "Block 5: ", "Block 6: "};
         } else {
             times = new String[]{"7:30-8:26","8:31-9:28","9:38-10:35","10:40-11:10","11:10-11:40","11:41-12:11","12:16-1:13","1:18-2:15"};

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class CalendarUtility {
     private JFXCheckBox checkBox;
     private Schedule schedule;
-    private  Calendar whsCalendar;
+    private Calendar whsCalendar;
 
     public CalendarUtility(Calendar cal)
     {
@@ -44,7 +44,7 @@ public class CalendarUtility {
                     System.out.println(rawTask[0].toString());
                     System.out.println(rawTask[1].toString());
 
-                    Task task = new Task(rawTask[0].toString().substring(21), "", rawTask[1].toString().substring(21));
+                    Task task = new Task(rawTask[0].toString().substring(21), rawTask[1].toString().substring(21));
 
                     tasks.add(task);
                     taskIndex ++;
@@ -66,7 +66,7 @@ public class CalendarUtility {
                     break;
                 }
 
-                CalendarBox box = new CalendarBox(dayInMonth,row,true,listOfTasks.get(dayInMonth-1),month, whsCalendar);
+                CalendarBox box = new CalendarBox(dayInMonth,row,true,CalendarBox.generateTaskLists(listOfTasks.get(dayInMonth-1)),month, whsCalendar);
                 calendar[row][col] = box;
                 dayInMonth++;
             }
