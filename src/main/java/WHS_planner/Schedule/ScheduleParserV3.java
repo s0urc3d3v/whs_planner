@@ -113,10 +113,10 @@ public class ScheduleParserV3 {
 
     public void grabwebpage(String u, String p)
     {
-        try
-        {
-            GrabDay gd = new GrabDay(u, p);
-            gd.grabSchedule(Main.SAVE_FOLDER+ File.separator +"output.html");
+        try {
+            //GrabDay gd = new GrabDay(u, p);
+            GrabDayV2 gd = new GrabDayV2(u, p);
+            gd.getSchedule();
         }
         catch(Exception e)
         {

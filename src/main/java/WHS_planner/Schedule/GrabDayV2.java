@@ -1,14 +1,13 @@
 package WHS_planner.Schedule;
 
+import WHS_planner.Main;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +30,32 @@ public class GrabDayV2 {
     public GrabDayV2(String user, String password) {
         this.user = user;
         this.password = password;
+
     }
 
+
+    public boolean testConn() throws Exception
+    {
+
+        String url = "https://ipass.wayland.k12.ma.us/school/ipass/syslogin.html";
+
+
+        CookieHandler.setDefault(new CookieManager());
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+
+
+        Grabber grab = new Grabber();
+
+        String page = grab.getPageContent(url);
+        String params = grab.getForm(page, user, password);
+
+        grab.send(url, params);
+
+        connection.disconnect();
+
+        return !error.contains("Invalid");
+    }
 
     public void getSchedule() throws Exception{
         CookieHandler.setDefault(new CookieManager());
@@ -43,11 +66,23 @@ public class GrabDayV2 {
 
         String html = g.getPageContent(url);
         String params = g.getForm(html, user, password);
-        g.send(html, params);
+        g.send(url, params);
 
         String s1 = g.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/samschedule.html");
         Document d = Jsoup.parse(s1);
+        Element e = d.getElementsByTag("a").get(1);
+        String anchor = e.toString();
 
+        anchor = anchor.substring(anchor.indexOf("sam"), anchor.indexOf("')"));
+        String fin = g.getPageContent("https://ipass.wayland.k12.ma.us/school/ipass/"+anchor);
+
+
+        File f = new File(Main.SAVE_FOLDER + File.separator +"output.html");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+        bw.write(fin);
+        bw.close();
+
+        connection.disconnect();
 
     }
 
@@ -74,14 +109,15 @@ public class GrabDayV2 {
             {
                 for (String cookie : cookies)
                 {
-                    connection.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
+                    //System.out.println(cookie);
+                    connection.setRequestProperty("Cookie", cookie.split(";", 2)[1]);
                 }
             }
 
             int resp = connection.getResponseCode();
 
-//            System.out.println("\nSending GET request to " + url);
-//            System.out.println("Response code is: "+resp);
+            //System.out.println("\nSending GET request to " + url);
+            //System.out.println("Response code is: "+resp);
 
             InputStreamReader ir = new InputStreamReader(connection.getInputStream());
             BufferedReader br = new BufferedReader(ir);
@@ -104,7 +140,7 @@ public class GrabDayV2 {
 
         private String getForm(String html, String user, String pass) throws Exception
         {
-            System.out.println("Getting form data...");
+            //System.out.println("Getting form data...");
 
             Document doc = Jsoup.parse(html);
 
@@ -150,7 +186,7 @@ public class GrabDayV2 {
 
         private void send(String url, String params) throws Exception
         {
-            System.out.println("Attempting to send data");
+            //System.out.println("Attempting to send data");
 
             URL obj = new URL(url);
 
@@ -162,6 +198,11 @@ public class GrabDayV2 {
             connection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
             connection.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch, br");
 
+            if(cookies != null) {
+                for (String cookie : cookies) {
+                    connection.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
+                }
+            }
 
 
             connection.setDoOutput(true);
@@ -177,9 +218,9 @@ public class GrabDayV2 {
 
             int response = connection.getResponseCode();
 
-            System.out.println("\nSending POST request to "+url);
-//            System.out.println("Parameters : " + params); //Unsafe
-            System.out.println("Response code:" + response);
+            //System.out.println("\nSending POST request to "+url);
+           // System.out.println("Parameters : " + params); //Unsafe
+           // System.out.println("Response code:" + response);
 
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String input;
@@ -194,7 +235,6 @@ public class GrabDayV2 {
             setCookies(connection.getHeaderFields().get("Set-Cookie"));
             error = stringbuffer.toString();
             br.close();
-
         }
 
         private List<String> getCookies()

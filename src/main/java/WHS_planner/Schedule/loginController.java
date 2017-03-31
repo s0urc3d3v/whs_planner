@@ -56,7 +56,7 @@ public class loginController implements Initializable
             error.setText("Please enter your iPass information");
         } else {
             try {
-                GrabDay gd = new GrabDay(username, pass);
+                GrabDayV2 gd = new GrabDayV2(username, pass);
                 if(gd.testConn()) {
                     error.setTextFill(Color.GREEN);
                     error.setText("Logging in, please wait...");
