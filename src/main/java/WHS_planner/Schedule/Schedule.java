@@ -272,7 +272,7 @@ public class Schedule
         }
 
 
-        ScheduleParserV2 parse = new ScheduleParserV2();
+        ScheduleParserV3 parse = new ScheduleParserV3();
 
         if(!f.exists() && user != null && pass != null )
         {
