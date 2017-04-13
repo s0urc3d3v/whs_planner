@@ -21,7 +21,7 @@ public class Main extends Application {
 
     public static final String SAVE_FOLDER = System.getenv("HOME") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner";
 
-    public static final String VERSION_NUMBER = "1.4.2";
+    public static final String VERSION_NUMBER = "1.4.3";
 
     public static final String UPDATE_NOTES =
             "===== CHANGES =====\n " +
@@ -40,6 +40,7 @@ public class Main extends Application {
                     "- Minor bell 2 error fixed (Found by Thomas Daley) \n " +
                     "- Fixed iPass login for some users \n " +
                     "- Fixed error log \n " +
+                    "- Fixed app not opening with corrupted files \n " +
                     "- Fixed tasks not saving upon shutdown (Found by Kevin Wang)";
 
     public static boolean isFirstStartup = false;
