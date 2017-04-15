@@ -16,14 +16,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
+
 
 import javax.swing.*;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -52,6 +56,7 @@ class Home extends Pane {
     private ScrollPane newsScroll;
     private ScrollPane dayScroll;
     private VBox dayView = new VBox();
+
 
     Home(CalendarYear calendar, Pane newsUI) {
         calYear = calendar;
@@ -557,8 +562,8 @@ class Home extends Pane {
     }
 
     void getTasks() {
+        // xD code to fish for every task in the year below
         ArrayList<Task> tasks = new ArrayList<>();
-
         for (int i = 0; i < calYear.getYear().length; i++) {
             CalendarBox[][] calBoxes = calYear.getYear()[i].getBoxes();
             for (int j = 0; j < calBoxes.length; j++) {
@@ -568,45 +573,52 @@ class Home extends Pane {
                             for (int m = 0; m < calBoxes[j][k].getTasks().get(l).size(); m++) {
                                 if(calBoxes[j][k].getTasks().get(l).get(m).doesExist()) {
                                     tasks.add(calBoxes[j][k].getTasks().get(l).get(m));
-
                                 }
                             }
-//                            tasks.addAll(calBoxes[j][k].getTasks().get(l));
                         }
                     }
                 }
             }
         }
         dayView.getChildren().clear();
-        if(tasks.isEmpty()) {
-            Label cleared = new Label("All caught up!");
-//            BorderPane noTasksPane = new BorderPane();
-            //top, right, bottom, left
-//            cleared.setPadding(new Insets(350,0,140,0));
-//            cleared.setTranslateX(140);
-//            cleared.setTranslateY(350);
-//            cleared.setPrefWidth(dayView.getPrefWidth());
-//            cleared.setPrefHeight(dayView.getPrefHeight());
+        if(!tasks.isEmpty()) {
 
+            for (Task task : tasks) {
+                dayView.getChildren().addAll(task.getPane());
+            }
+        } else {
+//            Timer timer = new Timer();
+//            timer.schedule(new TimerTask() {
+//                @Override
+//                public void run() {
+//                    // Your database code here
+//                }
+//            }, 2*60*1000);
+            //Random hard coded scaling for when user has no tasks. Doesn't matter because dayView/News width never changes
+            Label cleared = new Label("All caught up!");
             cleared.prefWidthProperty().bind(dayView.widthProperty());
             cleared.prefHeightProperty().bind(dayView.heightProperty());
             cleared.setAlignment(Pos.CENTER);
             cleared.setTextAlignment(TextAlignment.CENTER);
-
-            System.out.println("dv width: " + dayView.getPrefWidth());
-            System.out.println("dv height: " + dayView.getPrefHeight());
             cleared.getStylesheets().add("UI" + File.separator + "Main.css");
             cleared.getStyleClass().addAll("no-tasks-label");
+            Image frame0 = new Image(("UI" + File.separator+ "BellAnimation" + File.separator + "mr-jingle0.png"));
+//            Image frame0 = new Image(("UI" + File.separator+ "google-plus-jingle.gif"));
 
 
-//            noTasksPane.setCenter(cleared);
-//            dayView.getChildren().addAll(noTasksPane);
-            dayView.getChildren().addAll(cleared);
-        } else {
-            for (Task task : tasks) {
 
-                dayView.getChildren().addAll(task.getPane());
-            }
+            ImageView bell;
+            bell = new ImageView(frame0);
+            bell.setScaleY(.25);
+            bell.setScaleX(.25);
+
+            bell.setOnMouseClicked((event)->{
+
+            });
+            HBox bellContainer = new HBox(bell);
+            bellContainer.setAlignment(Pos.CENTER);
+            bellContainer.setTranslateY(240);
+            dayView.getChildren().addAll(bellContainer, cleared);
         }
 
     }

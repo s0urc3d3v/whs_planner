@@ -125,7 +125,7 @@ public class NewsUI extends Pane {
             //Add Title (Hyperlink)
             final int eye = i;
             Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
-            hpl.setOnAction((event) -> openLink(eye));
+//            hpl.setOnAction((event) -> openLink(eye));
             hpl.setWrapText(true);
             hpl.setMaxWidth(BOX_WIDTH);
             hpl.setPadding(new Insets(0, 0, 0, 4));
@@ -145,7 +145,7 @@ public class NewsUI extends Pane {
                     try {
                         bf = ImageIO.read(url);
                     } catch (Exception ex) {
-                        addCard(description, hpl, null);
+                        addCard(description, hpl, null,feedArray.get(i).getLink());
                         continue;
                     }
                     WritableImage wr = convertImg(bf);
@@ -156,10 +156,10 @@ public class NewsUI extends Pane {
                     img.setImage(wr);
 
                     //Add article to list WITH image
-                    addCard(description, hpl, img);
+                    addCard(description, hpl, img,feedArray.get(i).getLink());
                 } else {
                     //Add article to list WITHOUT image
-                    addCard(description, hpl, null);
+                    addCard(description, hpl, null,feedArray.get(i).getLink());
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -179,7 +179,7 @@ public class NewsUI extends Pane {
             //Add Title (Hyperlink)
             final int eye = i;
             Hyperlink hpl = new Hyperlink(escapeHTML(feedArray.get(i).getTitle()));
-            hpl.setOnAction((event) -> openLink(eye));
+//            hpl.setOnAction((event) -> openLink(eye));
             hpl.setWrapText(true);
             hpl.setMaxWidth(BOX_WIDTH);
             hpl.setPadding(new Insets(0, 0, 0, 4));
@@ -199,7 +199,7 @@ public class NewsUI extends Pane {
                     try {
                         bf = ImageIO.read(url);
                     } catch (Exception ex) {
-                        addCard(description, hpl, null);
+                        addCard(description, hpl, null,feedArray.get(i).getLink());
                         continue;
                     }
                     WritableImage wr = convertImg(bf);
@@ -210,10 +210,10 @@ public class NewsUI extends Pane {
                     img.setImage(wr);
 
                     //Add article to list WITH image
-                    Platform.runLater(()-> addCard(description, hpl, img, true));
+                    Platform.runLater(()-> addCard(description, hpl, img,feedArray.get(eye).getLink()));
                 } else {
                     //Add article to list WITHOUT image
-                    Platform.runLater(()-> addCard(description, hpl, null, true));
+                    Platform.runLater(()-> addCard(description, hpl, null,feedArray.get(eye).getLink()));
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -223,9 +223,24 @@ public class NewsUI extends Pane {
     }
 
     //Normal news article
-    private void addCard(Label description, Hyperlink hyperlink, ImageView image) {
+    private void addCard(Label description, Hyperlink hyperlink, ImageView image, String link) {
         hyperlink.getStyleClass().add("roboto");
         description.getStyleClass().add("roboto");
+        hyperlink.setOnAction((event)->{
+            try {
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().browse(new URI(link));
+                }
+            } catch (URISyntaxException e) {
+                System.out.println("URI Syntax Exception!");
+                System.out.println("----------------------");
+                e.printStackTrace();
+            } catch (IOException e) {
+                System.out.println("I/O Exception!");
+                System.out.println("----------------------");
+                e.printStackTrace();
+            }
+        });
         VBox textVBox;
         VBox newsCard;
         if (image == null) {
@@ -243,30 +258,6 @@ public class NewsUI extends Pane {
         VBox.setMargin(newsCard, new Insets(10, 10, 10, 10));
 //        Platform.runLater(()-> cardView.getChildren().add(newsCard));
         cardView.getChildren().add(newsCard);
-    }
-
-    //Normal news article for refresh
-    private void addCard(Label description, Hyperlink hyperlink, ImageView image, boolean isRefresh) {
-        hyperlink.getStyleClass().add("roboto");
-        description.getStyleClass().add("roboto");
-        VBox textVBox;
-        VBox newsCard;
-        if (image == null) {
-            textVBox = new VBox(hyperlink, description);
-            textVBox.getStyleClass().setAll("text-padding");
-            newsCard = new VBox(textVBox);
-        } else {
-            textVBox = new VBox(hyperlink, description);
-            textVBox.getStyleClass().setAll("text-padding");
-            newsCard = new VBox(image, textVBox);
-        }
-        newsCard.setAlignment(Pos.TOP_CENTER);
-//        description.setTextAlignment(TextAlignment.JUSTIFY);
-        newsCard.setPrefWidth(BOX_WIDTH);
-        newsCard.getStyleClass().setAll("news-card");
-        VBox.setMargin(newsCard, new Insets(10, 10, 10, 10));
-        Platform.runLater(() -> cardView.getChildren().add(0, newsCard));
-//        cardView.getChildren().add(0,newsCard);
     }
 
     //T-Rex :)

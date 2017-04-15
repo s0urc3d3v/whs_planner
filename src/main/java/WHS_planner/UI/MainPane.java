@@ -232,6 +232,7 @@ public class MainPane extends StackPane {
         StackPane stackPane = new StackPane(content, anchor, createDrawer((JFXHamburger)navBar.getChildren().get(0),1440,48));
 
 
+//        content.setOnKeyPressed();
 
 
         FAB.setButtonType(JFXButton.ButtonType.RAISED);

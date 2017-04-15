@@ -344,6 +344,7 @@ public class CalendarBox extends Pane {
                     if (event.getCode() == KeyCode.ENTER) {
 
 
+
                         String textBoxText = textBox.getText();
                         if (textBoxText.trim().length() > 0){
                             int classIndex = globalTime.getClassIndex();

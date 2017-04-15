@@ -2,6 +2,7 @@ package WHS_planner.Calendar;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
@@ -140,8 +141,16 @@ public class Task {
         return pane;
     }
 
+
+//    public Pane getPane(){
+//        return getPane(null);
+//    }
+
     public Pane getPane(){
+
         HBox pane = new HBox();
+        //top right bottom left
+//        pane.setPadding(new Insets(0, 25,0,25));
 
         pane.setMinHeight(30);
         pane.getStylesheets().add("Calendar" + File.separator + "MainUI.css");
@@ -166,78 +175,70 @@ public class Task {
             label.setBoundsType(TextBoundsType.VISUAL);
         }
 
-        isEditing = false;
-
-        JFXButton deleteButton = new JFXButton();
-        setButtonToDelete(deleteButton);
-        deleteButton.setMinHeight(20);
-
-        JFXButton cancelButton = new JFXButton(ICON_BACK);
-
-        cancelButton.setPrefWidth(20);
-        cancelButton.setMinWidth(20);
-
-        cancelButton.setMinHeight(20);
-        cancelButton.setStyle("-fx-background-color: transparent; -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 20px;");
-
-        if (!doesExist) {
-            setButtonToUndo(deleteButton);
-            label.setStrikethrough(true);
-        } else {
-            setButtonToDelete(deleteButton);
-            label.setStrikethrough(false);
-        }
-
-        deleteButton.setOnMouseClicked((event -> {
-            if (event.getButton() == MouseButton.PRIMARY) {
-                if (doesExist) {
-                    doesExist = false;
-                    setButtonToUndo(deleteButton);
-                    label.setStrikethrough(true);
-                } else {
-                    doesExist = true;
-                    setButtonToDelete(deleteButton);
-                    label.setStrikethrough(false);
-                }
-            }
-        }));
-
-        pane.setOnMouseClicked((event -> {
-            if (event.getButton() == MouseButton.PRIMARY) {
-                if(doesExist) {
-                    if (!isEditing) {
-                        isEditing = true;
-                        JFXTextField textbox = new JFXTextField();
-                        HBox.setHgrow(textbox, Priority.ALWAYS);
-                        textbox.setText(label.getText());
-                        pane.getChildren().setAll(spaces, cancelButton, spaces2, textbox);
-
-                        textbox.setOnKeyPressed(textBoxEvent -> {
-                            if (textBoxEvent.getCode() == KeyCode.ENTER) {
-                                String textBoxText = textbox.getText();
-                                if (textBoxText.trim().length() > 0) {
-                                    description = replaceBeginningSpace(textBoxText);
-                                    className = null;
-                                    label.setText(description);
-                                    isEditing = false;
-                                    pane.getChildren().setAll(spaces, deleteButton, spaces2, label);
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-        }));
-
-        cancelButton.setOnMouseClicked((event -> {
-            if(event.getButton() == MouseButton.PRIMARY){
-                isEditing = false;
-                pane.getChildren().setAll(spaces,deleteButton,spaces2,label);
-            }
-        }));
-
-        pane.getChildren().addAll(spaces,deleteButton,spaces2,label);
-
+//        isEditing = false;
+//        JFXButton deleteButton = new JFXButton();
+//        setButtonToDelete(deleteButton);
+//        deleteButton.setMinHeight(20);
+//        JFXButton cancelButton = new JFXButton(ICON_BACK);
+//        cancelButton.setPrefWidth(20);
+//        cancelButton.setMinWidth(20);
+//        cancelButton.setMinHeight(20);
+//        cancelButton.setStyle("-fx-background-color: transparent; -fx-font-family: 'FontAwesome Regular'; -fx-font-size: 20px;");
+//        if (!doesExist) {
+//            setButtonToUndo(deleteButton);
+//            label.setStrikethrough(true);
+//        } else {
+//            setButtonToDelete(deleteButton);
+//            label.setStrikethrough(false);
+//
+//        }
+//        deleteButton.setOnMouseClicked((event -> {
+//            if (event.getButton() == MouseButton.PRIMARY) {
+//                if (doesExist) {
+//                    doesExist = false;
+//                    setButtonToUndo(deleteButton);
+//                    label.setStrikethrough(true);
+//                } else {
+//                    doesExist = true;
+//                    setButtonToDelete(deleteButton);
+//                    label.setStrikethrough(false);
+//                }
+//            }
+//        }));
+//        pane.setOnMouseClicked((event -> {
+//            if (event.getButton() == MouseButton.PRIMARY) {
+//                if(doesExist) {
+//                    if (!isEditing) {
+//                        isEditing = true;
+//                        JFXTextField textbox = new JFXTextField();
+//                        HBox.setHgrow(textbox, Priority.ALWAYS);
+//                        textbox.setText(label.getText());
+//                        pane.getChildren().setAll(spaces, cancelButton, spaces2, textbox);
+//                        textbox.setOnKeyPressed(textBoxEvent -> {
+//                            if (textBoxEvent.getCode() == KeyCode.ENTER) {
+//                                String textBoxText = textbox.getText();
+//                                if (textBoxText.trim().length() > 0) {
+//                                    description = replaceBeginningSpace(textBoxText);
+//                                    className = null;
+//                                    label.setText(description);
+//                                    isEditing = false;
+//                                    pane.getChildren().setAll(spaces, deleteButton, spaces2, label);
+//                                }
+//                            }
+//                        });
+//                    }
+//                }
+//            }
+//        }));
+//        cancelButton.setOnMouseClicked((event -> {
+//            if(event.getButton() == MouseButton.PRIMARY){
+//                isEditing = false;
+//                pane.getChildren().setAll(spaces,deleteButton,spaces2,label);
+//            }
+//        }));
+//        pane.getChildren().addAll(spaces,deleteButton,spaces2,label);
+        pane.getChildren().addAll(spaces,label);
+//
         return pane;
     }
 
