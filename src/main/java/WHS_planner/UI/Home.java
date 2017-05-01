@@ -58,6 +58,8 @@ class Home extends Pane {
     private VBox dayView = new VBox();
 
 
+    private ArrayList<Task> tasks = new ArrayList<>();
+
     Home(CalendarYear calendar, Pane newsUI) {
         calYear = calendar;
         globalTime = new GlobalTime(calendar.getSchedule().getCheck());
@@ -67,6 +69,7 @@ class Home extends Pane {
             pc.readData();
         }
         //pc.readData();
+
 
 //        progressBar.prefWidthProperty().bind(insidePane.widthProperty());
         progressBar.setCursor(Cursor.HAND);
@@ -561,9 +564,9 @@ class Home extends Pane {
         }
     }
 
-    void getTasks() {
+    private void buildTaskList() {
         // xD code to fish for every task in the year below
-        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.clear();
         for (int i = 0; i < calYear.getYear().length; i++) {
             CalendarBox[][] calBoxes = calYear.getYear()[i].getBoxes();
             for (int j = 0; j < calBoxes.length; j++) {
@@ -580,6 +583,12 @@ class Home extends Pane {
                 }
             }
         }
+    }
+
+    void getTasks() {
+
+        buildTaskList();
+
         dayView.getChildren().clear();
         if(!tasks.isEmpty()) {
 
