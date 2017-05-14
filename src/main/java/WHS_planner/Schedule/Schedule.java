@@ -123,8 +123,19 @@ public class Schedule
         }
         else
         {
-            generateSchedule(loader);
-            schedule = new Scene(rootLayout);
+            try {
+                generateSchedule(loader);
+                schedule = new Scene(rootLayout);
+            }
+            catch(Exception e) {
+                //System.out.println("Error loading schedule");
+                File sch = new File(Main.SAVE_FOLDER+ File.separator +"Schedule.json");
+                if(sch.exists()) {
+                    sch.delete();
+                }
+                schedule = new Scene(login);
+            }
+
         }
     }
 
