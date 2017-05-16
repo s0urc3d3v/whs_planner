@@ -8,14 +8,14 @@ import WHS_planner.UI.MainPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.apache.commons.io.FileUtils;
 
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Main extends Application {
 
@@ -45,6 +45,7 @@ public class Main extends Application {
 
     public static boolean isFirstStartup = false;
     public static boolean isFirstTimeOnVersion = false;
+    private static File saveFolder;
 
     //ON first run move jfoenix to a place it can be referenced on a remote system
     private static String readKey = null;
@@ -63,11 +64,16 @@ public class Main extends Application {
      */
 
     public static void main(String[] args) {
-        try {
 
-            File saveFolder = new File(SAVE_FOLDER);
+        try {
+            saveFolder = new File(SAVE_FOLDER);
             if (!saveFolder.exists()) {
                 saveFolder.mkdir();
+
+            }
+            long saveFileSize = getFileSizeInKb(new File(System.getProperty("user.home") + File.separator + "Library" + File.separator + "Application Support" + File.separator + "WHS Planner"));
+            if (saveFileSize > 20000000){
+                System.out.println("delete old saves that have been completed");
             }
 
             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -119,13 +125,13 @@ public class Main extends Application {
             boolean needToPasteDayArray = false;
             //Stupid way to do Day Array
             File dayArrayFile = new File(Main.SAVE_FOLDER + File.separator + "DayArray.json");
-            if(dayArrayFile.exists()){
+            if (dayArrayFile.exists()) {
                 BufferedReader br = new BufferedReader(new FileReader(dayArrayFile));
                 if (br.readLine() == null) {
                     needToPasteDayArray = true;
                     dayArrayFile.delete();
                 }
-            }else{
+            } else {
                 needToPasteDayArray = true;
             }
             if (needToPasteDayArray) {
@@ -235,5 +241,9 @@ public class Main extends Application {
 //        new File(Main.SAVE_FOLDER+ File.separator +"Keys/ipass.key").delete();
 
         System.exit(0);
+    }
+
+    public static long getFileSizeInKb(File file) {
+        return FileUtils.sizeOf(file) / 1000;
     }
 }
