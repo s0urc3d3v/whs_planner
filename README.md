@@ -1,7 +1,7 @@
 # whs_planner
 A schedule, calendar, local news feed, and more for WHS students.
 
-![travis status](https://travis-ci.org/s0urc3d3v3l0pm3nt/whs_planner.svg?branch=packages)
+[![Build Status](https://travis-ci.org/s0urc3d3v3l0pm3nt/whs_planner.svg?branch=master)](https://travis-ci.org/s0urc3d3v3l0pm3nt/whs_planner)
 
 ALWAYS ACCEPT THE PACKAGES .TRAVIS.YML FILE
 
