@@ -1,10 +1,11 @@
 sudo: required
 language: java
-jdk: oraclejdk8
-before-install: 
-  - sudo apt-add-repository ppa:webupd8team/java
-  - sudo apt-get update
-  - sudo apt-get install oracle-java8-installer
+jdk: openjdk8
+addons:
+  apt:
+    packages:
+      - openjdk-8-jdk
+dist: xenial
 script: mvn clean validate; mvn test
 after_success:
   ./on_success.sh
